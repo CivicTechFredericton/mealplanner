@@ -1,0 +1,104 @@
+{
+  "authorize": {
+    "userEmail": "Email",
+    "username": "Username",
+    "password": "Password",
+    "login": "Login",
+    "logout": "Log Out",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "confirmPassword": "Confirm Password",
+    "confirmCode": "Confirm Code",
+    "btnCreate": "Create",
+    "registerUser": "Don't have an account?  Click here to register.",
+    "lblConfirmCode": "Please enter the confirmation code sent to your email to proceed",
+    "btnConfirmCode": "Confirm"
+  },
+  "dialogs": {
+    "createUser": "Create User",
+    "createEvent": "Create Event",
+    "registerOrganization": "Register Organization"
+  },
+  "common": {
+    "required": "Required",
+    "submit": "Submit"
+  },
+  "error": {
+    "invalidEmail": "Invalid email address",
+    "errorLogin": "Incorrect username password combination",
+    "passwordsDoNotMatch": "Password does not match"
+  },
+  "home": {
+    "filterTitle": "Event Category"
+  },
+  "header": {
+    "title": "Caring Calendar"
+  },
+  "filter": {
+    "meals": "Meals",
+    "laundry": "Laundry",
+    "social": "Social",
+    "showers": "Showers",
+    "education": "Education",
+    "health": "Health",
+    "hairCuts": "Hair Cuts",
+    "taxes": "Taxes",
+    "faith": "Faith"
+  },
+  "recurrenceOptions": {
+    "none": "None",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "biWeekly": "Bi-Weekly",
+    "monthly": "Monthly"
+  },
+  "register": {
+    "register": "Register",
+    "validate": "Validate",
+    "validation": "Validation",
+    "registration": "Registration",
+    "orgName": "Organization Name",
+    "organization": "Organization",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "address": "Address",
+    "city": "City",
+    "province": "Province",
+    "postalCode": "Postal Code",
+    "administrator": "Administrator",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "btnCreate": "Create"
+  },
+  "event": {
+    "categories": "Categories",
+    "name": "Name",
+    "description": "Description",
+    "contactEmail": "Contact Email",
+    "location": "Location",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "recurrence": "Recurrence",
+    "endAfter": "End After",
+    "occurrences": "occurrences",
+    "dayOfWeek": "Day",
+    "weekOfMonth": "Week"
+  },
+  "eventDetails": {
+    "lblOrganization": "Organization: ",
+    "lblLocation": "Location: ",
+    "lblStartDate": "Start Date: ",
+    "lblStartTime": "Start Time: ",
+    "lblEndTime": "End Time: ",
+    "lblEndDate": "End Date: ",
+    "lblDescription": "Description: ",
+    "lblContact": "Contact: ",
+    "btnCancelEvent": "Cancel Event",
+    "lblConfirmCancel": "Confirm Cancel",
+    "lblCancelMessage": "Are you sure you want to cancel the event?",
+    "btnYes": "Yes",
+    "btnNo": "No"
+  }
+}
