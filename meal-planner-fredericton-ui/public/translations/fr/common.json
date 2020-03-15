@@ -1,0 +1,35 @@
+{
+  "authorize": {
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "login": "Ouvrir une session",
+    "logout": "Se déconnecter"
+  },
+  "common": {
+    "required": "Requis",
+    "submit": "Soumettre"
+  },
+  "error": {
+    "invalidEmail": "Adresse courriel inexacte"
+  },
+  "header": {
+    "title": "Caring Calendar"
+  },
+  "register": {
+    "register": "Registre",
+    "validate": "Valider",
+    "validation": "Validation",
+    "registration": "Enregistrement",
+    "orgName": "Nom d'organisation",
+    "organization": "Organization",
+    "email": "Couriel",
+    "phoneNumber": "Numéro de téléphone",
+    "address": "Adresse",
+    "city": "Ville",
+    "province": "Province",
+    "postalCode": "Code Postale",
+    "administrator": "Administrateur",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille"
+  }
+}
