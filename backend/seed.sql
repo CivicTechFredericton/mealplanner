@@ -49,7 +49,7 @@ begin;
     You can grind the coconut chunks to a poweder and store it in an airtight container.',
     2, 'tbsp', 1) returning * into meal1;
 
-    INSERT INTO app.ingredient(unit, quantity, product_id, meal_id)
+    INSERT INTO app.measure(unit, quantity, product_id, meal_id)
     VALUES ('tbsp', 2, product1.id, meal1.id);
 
     INSERT INTO app.nutrition(
