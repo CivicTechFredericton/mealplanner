@@ -1,20 +1,36 @@
 begin;
   do language plpgsql $$
     declare
-      app_graphile_exists boolean;
+      role_exists boolean;
     begin
-      select true into app_graphile_exists from pg_roles where rolname='app_graphile';
+      select true into role_exists from pg_roles where rolname='app_graphile';
 
-      if app_graphile_exists is null then
+      if role_exists is null then
         create role app_graphile login password '$PGPASSWORD';
         grant connect on database $DBNAME to app_graphile;
+      end if;
 
+      select true into role_exists from pg_roles where rolname='app_anonymous';
+      if role_exists is null then
         create role app_anonymous;
         grant app_anonymous to app_graphile;
+      end if;
 
+
+      select true into role_exists from pg_roles where rolname='app_user';
+      if role_exists is null then
         create role app_user;
         grant app_user to app_graphile;
+      end if;
 
+      select true into role_exists from pg_roles where rolname='app_meal_designer';
+      if role_exists is null then
+        create role app_meal_designer;
+        grant app_meal_designer to app_graphile;
+      end if;
+
+      select true into role_exists from pg_roles where rolname='app_admin';
+      if role_exists is null then
         create role app_admin;
         grant app_admin to app_graphile;
       end if;

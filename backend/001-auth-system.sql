@@ -1,5 +1,5 @@
 begin;
-  create type app.role_type as  enum ('app_user', 'app_admin');
+  create type app.role_type as  enum ('app_user', 'app_meal_designer', 'app_admin');
 
   create table if not exists app.person (
     id bigserial primary key,
@@ -87,14 +87,14 @@ begin;
     where id = nullif(current_setting('jwt.claims.person_id', true), '')::bigint
   $$ language sql stable;
 
-  grant usage on schema app to app_anonymous, app_user, app_admin;
+  grant usage on schema app to app_anonymous, app_meal_designer, app_user, app_admin;
 
-  grant select, insert on table app.person to app_anonymous, app_user, app_admin;
-  grant update, delete on table app.person to app_user, app_admin;
-  grant usage, select on sequence app.person_id_seq to app_anonymous, app_user, app_admin;
+  grant select, insert on table app.person to app_anonymous, app_user, app_meal_designer, app_admin;
+  grant update, delete on table app.person to app_user, app_meal_designer, app_admin;
+  grant usage, select on sequence app.person_id_seq to app_anonymous, app_user, app_meal_designer, app_admin;
 
-  grant execute on function app.authenticate(text, text) to app_anonymous, app_user, app_admin;
-  grant execute on function app.current_person() to app_anonymous, app_user, app_admin;
+  grant execute on function app.authenticate(text, text) to app_anonymous;
+  grant execute on function app.current_person() to app_anonymous, app_user, app_meal_designer, app_admin;
   grant execute on function app.register_person(text, text, text) to app_anonymous, app_admin;
 
   alter table app.person enable row level security;
@@ -112,6 +112,12 @@ begin;
     on app.person 
     for update
     to app_user 
+    using (id = nullif(current_setting('jwt.claims.person_id', true), '')::bigint);
+
+  create policy update_person_meal_designer
+    on app.person 
+    for update
+    to app_meal_designer
     using (id = nullif(current_setting('jwt.claims.person_id', true), '')::bigint);
 
 commit;
