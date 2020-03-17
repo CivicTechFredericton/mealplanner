@@ -11,7 +11,7 @@ services:
     build:
       context: backend
     ports:
-      - "4000:3000"
+      - "4000:4000"
     volumes:
       - ./backend:/app
       - /app/node_modules

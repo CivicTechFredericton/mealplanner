@@ -43,4 +43,4 @@ You can then start the GraphQL server with the following command.
 $ docker-compose up graphql
 ```
 
-You can now visit the graphiql interface at [http://localhost:3000](http://localhost:3000).
+You can now visit the graphiql interface at [http://localhost:4000](http://localhost:4000).
