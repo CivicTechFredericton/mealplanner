@@ -1,3 +1,5 @@
+begin;
+
 create table if not exists app.nutrition (
     id bigserial primary key,
     servings_per_container numeric,
@@ -53,12 +55,8 @@ create trigger tg_nutrition_set_updated_at before update
 on app.nutrition
 for each row execute procedure app.set_updated_at();
 
-create or replace function app.product_nutrition(p app.product) returns setof app.nutrition as $$
-  select * from app.nutrition n where n.nutritionable_id=p.id and n.nutritionable_type='product';
-$$ language sql stable;
-
 grant select on table app.nutrition to app_anonymous, app_user, app_meal_designer, app_admin;
 grant usage on sequence app.nutrition_id_seq to app_meal_designer, app_admin;
 grant insert, update, delete on table app.nutrition to app_meal_designer, app_admin;
 
-grant execute on function app.product_nutrition(app.product) to app_anonymous, app_user, app_meal_designer, app_admin;
+commit;

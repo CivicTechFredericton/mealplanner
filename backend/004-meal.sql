@@ -16,6 +16,7 @@ create table if not exists app.meal (
     serving_cost numeric,
     tips text,
     servings_size numeric,
+    servings_size_unit text,
     serves numeric,
     created_at timestamp default now() not null,
     updated_at timestamp default now() not null
@@ -25,10 +26,9 @@ comment on table app.meal is 'Table to store meal details';
 create trigger tg_meal_set_updated_at before update
 on app.meal 
 for each row execute procedure app.set_updated_at();
-COMMIT;
 
-create or replace function app.meal_nutrition(m app.meal) returns setof app.nutrition as $$
-  select * from app.nutrition n where n.nutritionable_id=m.id and n.nutritionable_type='meal';
+create or replace function app.meal_nutrition(m app.meal) returns app.nutrition as $$
+  select * from app.nutrition n where n.nutritionable_id=m.id and n.nutritionable_type='meal' limit 1;
 $$ language sql stable;
 
 GRANT SELECT, INSERT, UPDATE, DELETE on TABLE app.meal 
@@ -42,3 +42,5 @@ to app_meal_designer, app_admin;
 
 GRANT EXECUTE on FUNCTION app.meal_nutrition(app.meal) 
 to app_anonymous, app_user, app_meal_designer, app_admin;
+
+COMMIT;
