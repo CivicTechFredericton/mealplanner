@@ -37,10 +37,11 @@ root@container_id:/app# psql -h db -d $DBNAME -U postgres -f seed.sql
 
 ## :rocket: Running
 
-You can then start the GraphQL server with the following command.
+You can then start the GraphQL server and the frontend with the following command.
 
 ```
-$ docker-compose up graphql
+$ docker-compose up
 ```
 
 You can now visit the graphiql interface at [http://localhost:4000](http://localhost:4000).
+You can now visit the UI at [http://localhost:3000](http://localhost:3000).
