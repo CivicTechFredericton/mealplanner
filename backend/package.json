@@ -1,0 +1,19 @@
+{
+  "name": "mealplanner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "db-migrate": "^0.11.6",
+    "db-migrate-pg": "^1.0.0"
+  },
+  "dependencies": {
+    "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
+    "postgraphile": "^4.5.5"
+  }
+}
