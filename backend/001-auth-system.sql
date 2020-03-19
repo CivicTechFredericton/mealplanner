@@ -12,6 +12,7 @@ begin;
   create trigger tg_person_set_updated_at before update
   on app.person 
   for each row execute procedure app.set_updated_at();
+  
   create table if not exists app_private.account (
     person_id bigint primary key references app.person(id) on delete cascade,
     role app.role_type not null default 'app_user',
