@@ -15,6 +15,7 @@ npx postgraphile \
   --allow-explain \
   --cors \
   --enable-query-batching \
+  --append-plugins @graphile-contrib/pg-simplify-inflector \
   --legacy-relations omit \
   --connection $DATABASE_URL \
   --jwt-token-identifier app.jwt_token  \
