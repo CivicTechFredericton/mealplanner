@@ -4,10 +4,19 @@ begin;
     admn app.person;
     user1 app.person;
     user2 app.person;
+    meal_designer app.person;
+    customer app.person;
     meal1 app.meal;
     product1 app.product;
+    product2 app.product;
+    product3 app.product;
+    product4 app.product;
+    meal_plan1 app.meal_plan;
+
   begin
     admn := app.register_person('Vagmi Mudumbai', 'vagmi@tarkalabs.com', 'password');
+    meal_designer := app.register_person('Meal Designer1', 'mealdesigner@greenvillage.com', 'password');
+    customer := app.register_person('Shanthi', 'shanthi.shanmugam@gmail.com', 'password');
     user1 := app.register_person('User One', 'user1@example.com', 'password');
     user2 := app.register_person('User Two', 'user2@example.com', 'password');
 
@@ -23,15 +32,15 @@ begin;
 
     INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, walmart_link, tags)
     VALUES ('Coriander leaves', 'feuilles de coriandre', 'cl_v', '1.47', '1', 'bunch', '4889', 'https://www.walmart.ca/en/ip/cilantro/981707',
-    '{"indian cuisine", "vegetable","vegan", "vegetarian", "farm fresh"}');
+    '{"indian cuisine", "vegetable","vegan", "vegetarian", "farm fresh"}') returning * into product2;
 
     INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, walmart_link, tags)
     VALUES ('Red Chilli', 'rouge piment', 'rc_v', '1.27', 100, 'g', '82815810318', 'https://www.walmart.ca/en/ip/red-chilli-whole/6000188763096',
-    '{"indian cuisine", "vegetable","vegan", "vegetarian", "grocery"}');
+    '{"indian cuisine", "vegetable","vegan", "vegetarian", "grocery"}') returning * into product3;
 
     INSERT INTO app.product(name_en, name_fr, code, price, quantity, unit, upc, walmart_link, tags)
     VALUES ('Roasted gram', '', 'rg_p', '1.97', '350', 'g', '82815820042', 'https://www.walmart.ca/en/ip/pti-roasted-chana-with-skin/6000188764683',
-    '{"indian cuisine", "pulse", "vegetarian", "vegan", "grocery"}');
+    '{"indian cuisine", "pulse", "vegetarian", "vegan", "grocery"}') returning * into product4;
 
     INSERT INTO app.meal (code, name_en, name_fr, tags, description_en, description_fr, categories, photo_url, video_url, 
     method, cooking_duration, total_cost, serving_cost, tips, servings_size, servings_size_unit, serves) 
@@ -50,7 +59,10 @@ begin;
     2, 'tbsp', 1) returning * into meal1;
 
     INSERT INTO app.measure(unit, quantity, product_id, meal_id)
-    VALUES ('tbsp', 2, product1.id, meal1.id);
+      VALUES ('tbsp', 2, product1.id, meal1.id),
+             ('bunch', 0.5, product2.id, meal1.id),
+             ('g', 1, product3.id, meal1.id),
+             ('tbsp', 2, product4.id, meal1.id);
 
     INSERT INTO app.nutrition(
     serving_size, serving_size_unit, serving_size_text, calories, total_fat, total_fat_unit,
@@ -76,6 +88,21 @@ begin;
      0, 'mg', 2.5, 'mg', 0, 2.5, 'g', 
      1.5, 'g', 1, 'g', 0.5, 'g', 
      0, 0, 0, 3, product1.id, 'product');
+  
+
+    INSERT INTO app.meal_plan(
+    name_en,
+    description_en,
+    tags
+    ) VALUES('Vegetarian Meal Plan', 'This meal plan will cater to egg-free vegetarian meals with diary products', '{"vegetarian","egg-free"}')
+    returning * into meal_plan1;
+
+    INSERT INTO app.meal_plan_entry(
+      category, days, meal_plan_id, meal_id)
+      VALUES ('Breakfast', 1, meal_plan1.id, meal1.id);
+
+    UPDATE app.person set meal_plan_id=meal_plan1.id where app.person.id=customer.id;
   end;
   $$;
+
 commit;
