@@ -1,4 +1,4 @@
-dropdb --if-exists -h db -U postgres $DBNAME && createdb -h db -U postgres $DBNAME
+psql -h db -U postgres $DBNAME -c "drop schema if exists app_private, app cascade" && \
 cat setup-user.sql | envsubst | psql -h db -U postgres -f - && \
 psql -h db -U postgres $DBNAME -f 000-common-utils.sql  && \
 psql -h db -U postgres $DBNAME -f 001-auth-system.sql && \

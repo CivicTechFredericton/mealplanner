@@ -31,6 +31,7 @@ To set this up, you'll have to do the following.
 
 ```
 $ docker-compose run graphql bash
+root@container_id:/app# createdb -h db -U postgres $DBNAME
 root@container_id:/app# ./db-reset.sh
 root@container_id:/app# psql -h db -d $DBNAME -U postgres -f seed.sql
 ```
