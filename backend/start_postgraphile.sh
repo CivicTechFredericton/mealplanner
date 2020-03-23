@@ -2,6 +2,7 @@ npx postgraphile \
   --subscriptions \
   --watch \
   --dynamic-json \
+  --classic-ids \
   --no-setof-functions-contain-nulls \
   --no-ignore-rbac \
   --no-ignore-indexes \

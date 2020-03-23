@@ -1,0 +1,29 @@
+{
+  "name": "relay-integration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "relay": "relay-compiler --src ./src --watch --schema ../backend/schema.graphql --extensions js jsx"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-plugin-relay": "^9.0.0",
+    "parcel-bundler": "^1.12.4",
+    "relay-compiler": "^9.0.0",
+    "relay-config": "^9.0.0"
+  },
+  "dependencies": {
+    "core-js": "^3.6.4",
+    "graphql": "^14.6.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-relay": "^9.0.0"
+  }
+}

@@ -15,7 +15,8 @@ begin;
 
   begin
     admn := app.register_person('Vagmi Mudumbai', 'vagmi@tarkalabs.com', 'password');
-    meal_designer := app.register_person('Meal Designer1', 'mealdesigner@greenvillage.com', 'password');
+    meal_designer := app.register_person('Meal Designer1', 'mealdesigner@example.com', 'password');
+    perform app.authorize_meal_designer(meal_designer.id);
     customer := app.register_person('Shanthi', 'shanthi.shanmugam@gmail.com', 'password');
     user1 := app.register_person('User One', 'user1@example.com', 'password');
     user2 := app.register_person('User Two', 'user2@example.com', 'password');
