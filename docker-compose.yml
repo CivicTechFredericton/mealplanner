@@ -12,10 +12,12 @@ services:
       context: backend
     ports:
       - "4000:4000"
+      - "2222:22"
     volumes:
       - ./backend:/app
       - /app/node_modules
     environment:
+      ENABLE_SSH: "false"
       DATABASE_URL: postgres://postgres:password123@db/${DBNAME}?sslmode=disable
       JWT_SECRET: AVerySecretString
       PGPASSWORD: password123

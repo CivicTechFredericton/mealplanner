@@ -10,5 +10,8 @@ copy . .
 
 run npm install
 
+expose 22
 expose 3000
+
+entrypoint [".docker/entrypoint.sh"]
 cmd ["./start_postgraphile.sh"]
