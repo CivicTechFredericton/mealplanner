@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import graphql from 'babel-plugin-relay/macro';
+import { commitMutation } from 'react-relay';
+import environment from '../relay-environment'
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +13,44 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageCarousel from "./ImageCarousel";
+
+import { setCurrentToken } from '../utils/auth'
+
+const authMutation = graphql`
+mutation LoginMutation(
+  $userEmail: String,
+  $password: String
+) {
+  authenticate(input: {
+    userEmail: $userEmail
+    password: $password
+  }) {
+    jwtToken
+  }
+}
+`;
+
+const authenticate = ({ userEmail, password }) => {
+  return new Promise((resolve, reject) => {
+    commitMutation(
+      environment,
+      {
+        mutation: authMutation,
+        variables: { userEmail, password },
+        onCompleted: (response, errors) => {
+          if (errors) {
+            reject(errors)
+          }
+          const { authenticate: { jwtToken } } = response
+          resolve(jwtToken)
+        },
+        onError: err => {
+          reject(err)
+        }
+      }
+    )
+  })
+};
 
 const Explanation = (props) => {
   return (
@@ -22,6 +65,9 @@ const Explanation = (props) => {
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
+    '& .MuiOutlinedInput-root': {
+      color: 'black',
+    }
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -63,6 +109,25 @@ const FindOutMore = (props) => {
 
 const LoginForm = (props) => {
   const classes = useStyles();
+  const [userEmail, setUserEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [invalidCreds, setInvalidCreds] = useState(false);
+  const [submitError, setSubmitError] =  useState(null);
+
+  const handleSubmit = async () => {
+    try {
+      setInvalidCreds(false)
+      const jwtToken = await authenticate({ userEmail, password })
+      if (jwtToken === null) {
+        setInvalidCreds(true)
+      }
+      setCurrentToken(jwtToken)
+      window.location = "/"
+    } catch (e) {
+      setSubmitError(e);
+    }
+  }
+
   return(
     <Box  component={Paper} elevation={12} square
       position="absolute"
@@ -82,7 +147,8 @@ const LoginForm = (props) => {
           name="email"
           autoComplete="email"
           autoFocus
-          color="textPrimary"
+          onChange={e => setUserEmail(e.target.value)}
+          value={userEmail}
         />
         <TextField
           variant="outlined"
@@ -94,10 +160,14 @@ const LoginForm = (props) => {
           type="password"
           id="password"
           autoComplete="current-password"
-          color="textPrimary"
+          onChange={e => setPassword(e.target.value)}
+          value={password}
         />
         <Box mt={5}>
-          <Explanation />
+          {invalidCreds 
+            ? (<div style={{ color: "red" }}>CREDS INVALID TODO BETTER ERROR</div>) 
+            : <Explanation />
+          }
         </Box>
         <Button
           type="submit"
@@ -106,6 +176,10 @@ const LoginForm = (props) => {
           color="secondary"
           size="large"
           className={classes.submit}
+          onClick={e => {
+            e.preventDefault()
+            handleSubmit()
+          }}
         >
           Sign In
         </Button>
