@@ -17,3 +17,7 @@ output "bastion_address" {
 output "bastion_ip" {
   value = aws_instance.bastion.public_ip
 }
+
+output "kubeconfig" {
+  value = "${local.kubeconfig}"
+}
