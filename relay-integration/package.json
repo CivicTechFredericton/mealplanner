@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "parcel": "parcel src/index.html",
     "relay": "relay-compiler --src ./src --watch --schema ../backend/schema.graphql --extensions js jsx"
   },
   "keywords": [],
