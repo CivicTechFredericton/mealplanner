@@ -5,7 +5,7 @@ import {
   Store,
 } from 'relay-runtime';
 
-import { getCurrentToken } from './utils/auth'
+import { getCurrentToken } from './utils/auth';
 
 async function fetchQuery(
   operation,
@@ -13,10 +13,10 @@ async function fetchQuery(
 ) {
   const headers = {
     'Content-Type': 'application/json',
-  }
-  const authtoken = getCurrentToken()
+  };
+  const authtoken = getCurrentToken();
   if (authtoken) {
-    headers.Authorization = `Bearer ${authtoken}`
+    headers.Authorization = `Bearer ${authtoken}`;
   }
 
   let resp = await fetch('http://localhost:4000/graphql', {
@@ -26,7 +26,7 @@ async function fetchQuery(
       query: operation.text,
       variables,
     }),
-  })
+  });
   return resp.json();
 }
 

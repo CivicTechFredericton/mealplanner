@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
-import environment from '../relay-environment'
+import environment from '../relay-environment';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,9 +12,9 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import ImageCarousel from "./ImageCarousel";
+import ImageCarousel from './ImageCarousel';
 
-import { setCurrentToken } from '../utils/auth'
+import { setCurrentToken } from '../utils/auth';
 
 const authMutation = graphql`
 mutation LoginMutation(
@@ -39,20 +39,20 @@ const authenticate = ({ userEmail, password }) => {
         variables: { userEmail, password },
         onCompleted: (response, errors) => {
           if (errors) {
-            reject(errors)
+            reject(errors);
           }
-          const { authenticate: { jwtToken } } = response
-          resolve(jwtToken)
+          const { authenticate: { jwtToken } } = response;
+          resolve(jwtToken);
         },
         onError: err => {
-          reject(err)
+          reject(err);
         }
       }
-    )
-  })
+    );
+  });
 };
 
-const Explanation = (props) => {
+const Explanation = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       <p>
@@ -60,7 +60,7 @@ const Explanation = (props) => {
       </p>
     </Typography>
   );
-}
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -85,7 +85,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const FindOutMore = (props) => {
+const FindOutMore = () => {
   const classes = useStyles();
   return(
     <Box m={12} position="absolute" left={0} top={50} right={600}>
@@ -107,26 +107,26 @@ const FindOutMore = (props) => {
   );
 };
 
-const LoginForm = (props) => {
+const LoginForm = () => {
   const classes = useStyles();
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [invalidCreds, setInvalidCreds] = useState(false);
-  const [submitError, setSubmitError] =  useState(null);
+  const [, setSubmitError] =  useState(null);
 
   const handleSubmit = async () => {
     try {
-      setInvalidCreds(false)
-      const jwtToken = await authenticate({ userEmail, password })
+      setInvalidCreds(false);
+      const jwtToken = await authenticate({ userEmail, password });
       if (jwtToken === null) {
-        setInvalidCreds(true)
+        setInvalidCreds(true);
       }
-      setCurrentToken(jwtToken)
-      window.location = "/"
+      setCurrentToken(jwtToken);
+      window.location = '/';
     } catch (e) {
       setSubmitError(e);
     }
-  }
+  };
 
   return(
     <Box  component={Paper} elevation={12} square
@@ -165,7 +165,7 @@ const LoginForm = (props) => {
         />
         <Box mt={5}>
           {invalidCreds 
-            ? (<div style={{ color: "red" }}>CREDS INVALID TODO BETTER ERROR</div>) 
+            ? (<div style={{ color: 'red' }}>CREDS INVALID TODO BETTER ERROR</div>) 
             : <Explanation />
           }
         </Box>
@@ -177,18 +177,18 @@ const LoginForm = (props) => {
           size="large"
           className={classes.submit}
           onClick={e => {
-            e.preventDefault()
-            handleSubmit()
+            e.preventDefault();
+            handleSubmit();
           }}
         >
           Sign In
         </Button>
       </form>
     </Box>
-  )
-}
+  );
+};
 
-const Login = (props) => {
+const Login = () => {
   const classes = useStyles();
 
   return (
@@ -210,6 +210,6 @@ const Login = (props) => {
       </Grid>  
     </Grid>   
   );
-}
+};
 
 export default Login;
