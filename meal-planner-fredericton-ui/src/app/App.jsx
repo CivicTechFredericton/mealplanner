@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from '../core/private-route/PrivateRoute'
 import Home from "../home/Home";
 import Login from "../login/Login";
-//import Header from '../core/header/Header';
-//import Footer from "../core/footer/Footer";
 import Dashboard from "../dashboard/Dashboard";
+import PlanPage from '../planpage/PlanPage'
 
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
   return (
     <>
       <Switch>
-      <Route
+        <Route
           path='/login'
           render={() => (
             <Login />
@@ -22,6 +22,12 @@ const App = () => {
           path='/dashboard'
           render={() => (
             <Dashboard />
+          )}
+        />
+        <PrivateRoute
+          path='/meal-planner'
+          render={() => (
+            <PlanPage />
           )}
         />
         <Route

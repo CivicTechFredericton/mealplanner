@@ -16,6 +16,7 @@ import logo from '../../Logo.png';
 import StarIcon from '@material-ui/icons/Star';
 import SettingIcon from '@material-ui/icons/Settings';
 import PersonIcon from '@material-ui/icons/Person';
+import { getCurrentToken } from '../../utils/auth';
 
 
 
@@ -132,25 +133,23 @@ const useStyles = makeStyles(theme => ({
 const Header = () => {
     const styles = useStyles();
     
-    const navMenu = [
-      {
-        label: "Dashboard",
-        pathname: "/dashboard"
-      },
-      {
+    const navMenu = []
+    navMenu.push({
+      label: "Dashboard",
+      pathname: "/dashboard"
+    })
+
+    // only add link to protected page if user authenticated
+    if (getCurrentToken()) {
+      navMenu.push({
         label: "Meal Planner",
         pathname: "/meal-planner",
-      },
-      {
-        label: "Shopping List",
-        pathname: "/shopping-list"
-      }
-    ];
-   
-   
-   
-
-    
+      })
+    }
+    navMenu.push({
+      label: "Shopping List",
+      pathname: "/shopping-list"
+    })
 
     return (<AppBar className={styles.appBar}>
         <Toolbar elevation={0} spacing={0} padding={0} className={styles.tBar}>
