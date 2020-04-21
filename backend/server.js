@@ -23,6 +23,7 @@ const postgraphileOptions = {
   legacyRelations: "omit",
   pgDefaultRole: "app_anonymous",
   ownerConnectionString: process.env.OWNER_DATABASE_URL,
+  classicIds: true,
   pgSettings: {},
 };
 
