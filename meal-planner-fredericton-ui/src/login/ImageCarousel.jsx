@@ -4,14 +4,14 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import Box from '@material-ui/core/Box';
-import login1 from "./login1.jpg";
-import login2 from "./login2.jpg";
-import login3 from "./login3.jpg";
+import login1 from './login1.jpg';
+import login2 from './login2.jpg';
+import login3 from './login3.jpg';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const carouselImages = [
-    login1, login2, login3
+  login1, login2, login3
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ImageCarousel = (props) =>{
+const ImageCarousel = () =>{
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -79,6 +79,6 @@ const ImageCarousel = (props) =>{
       />
     </Box>
   );
-}
+};
 
 export default ImageCarousel;

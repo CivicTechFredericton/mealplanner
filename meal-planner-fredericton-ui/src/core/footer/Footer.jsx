@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import Grid from "@material-ui/core/Grid";
-import MenuItem from "@material-ui/core/MenuItem";
-import {Link} from "react-router-dom";
-import {MenuList} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
+import {Link} from 'react-router-dom';
+import {MenuList} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
 
-const useStyles = makeStyles (theme => ({
+const useStyles = makeStyles (() => ({
   footerContainer: {
     backgroundColor: '#22242b',
   },
@@ -41,114 +41,114 @@ const Footer = (props) => {
   useEffect( () => {
     const data = [
       {
-        title:"What we do",
+        title:'What we do',
         links:[
           {
-            name: "Loans",
-            links: "https://wwww.google.ca"
+            name: 'Loans',
+            links: 'https://wwww.google.ca'
           },
           {
-            name: "Car Loans",
-            links: "https://www.yahoo.ca"
+            name: 'Car Loans',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Debt consolidated Loans",
-            links: "https://www.yahoo.ca"
+            name: 'Debt consolidated Loans',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Home improvement loans",
-            links: "https://www.yahoo.ca"
+            name: 'Home improvement loans',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Wedding loans",
-            links: "https://www.yahoo.ca"
+            name: 'Wedding loans',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Innovative finance ISA",
-            links: "https://www.yahoo.ca"
+            name: 'Innovative finance ISA',
+            links: 'https://www.yahoo.ca'
           }
         ]
       },
       {
-        title:"About",
+        title:'About',
         links:[
           {
-            name: "About us",
-            links: "https://wwww.google.ca"
+            name: 'About us',
+            links: 'https://wwww.google.ca'
           },
           {
-            name: "Our Story",
-            links: "https://www.yahoo.ca"
+            name: 'Our Story',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Meet the board",
-            links: "https://www.yahoo.ca"
+            name: 'Meet the board',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Meet the leadership team",
-            links: "https://www.yahoo.ca"
+            name: 'Meet the leadership team',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Awards",
-            links: "https://www.yahoo.ca"
+            name: 'Awards',
+            links: 'https://www.yahoo.ca'
           },{
-            name: "Careers",
-            links: "https://www.yahoo.ca"
+            name: 'Careers',
+            links: 'https://www.yahoo.ca'
           }
         ]
       },
       {
-        title:"Legal",
+        title:'Legal',
         links:[
           {
-            name: "Privacy policy",
-            links: "https://wwww.google.ca"
+            name: 'Privacy policy',
+            links: 'https://wwww.google.ca'
           },
           {
-            name: "Loans2go principles",
-            links: "https://www.yahoo.ca"
+            name: 'Loans2go principles',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Website terms",
-            links: "https://www.yahoo.ca"
+            name: 'Website terms',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Cookie policy",
-            links: "https://www.yahoo.ca"
+            name: 'Cookie policy',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Conflicts policy",
-            links: "https://www.yahoo.ca"
+            name: 'Conflicts policy',
+            links: 'https://www.yahoo.ca'
           }
         ]
       },
       {
-        title:"Site info",
+        title:'Site info',
         links:[
           {
-            name: "Support",
-            links: "https://wwww.google.ca"
+            name: 'Support',
+            links: 'https://wwww.google.ca'
           },
           {
-            name: "FAQ",
-            links: "https://www.yahoo.ca"
+            name: 'FAQ',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Sitemap",
-            links: "https://www.yahoo.ca"
+            name: 'Sitemap',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Careers",
-            links: "https://www.yahoo.ca"
+            name: 'Careers',
+            links: 'https://www.yahoo.ca'
           },
           {
-            name: "Contact us",
-            links: "https://www.yahoo.ca"
+            name: 'Contact us',
+            links: 'https://www.yahoo.ca'
           },
         ]
       }
     ];
-    setState({...State, data})
+    setState({...State, data});
   }, []);
 
   useEffect(() => {
@@ -156,40 +156,40 @@ const Footer = (props) => {
       const components = [];
       State.data.forEach(
         result => {
-          console.log(result, "This is text");
+          console.log(result, 'This is text');
           const component = outColumn(result);
-          components.push(component)
+          components.push(component);
         }
       );
-      setState({...State, components})
+      setState({...State, components});
     }
   }, [State.data]);
 
   const outColumn = (data) => {
-    console.log("Seperate", data);
+    console.log('Seperate', data);
     return (
-      <Grid key={"Column"+data.title} item xs={12} sm={3}>
+      <Grid key={'Column'+data.title} item xs={12} sm={3}>
         <h2>
           {data.title}
         </h2>
         {inColumn(data.links, data)}
       </Grid>
-    )
+    );
   };
 
   const inColumn = (links) => {
-    console.log("Seperate2", links);
+    console.log('Seperate2', links);
     return(
       <div>
         {links.map((item, id) => (
-          <MenuList>
+          <MenuList key={id}>
             <MenuItem key={id} component={Link} to={item.name}>
               {item.name}
             </MenuItem>
           </MenuList>
         ))}
       </div>
-    )
+    );
   };
 
   return (
