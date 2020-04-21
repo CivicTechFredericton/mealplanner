@@ -22,6 +22,7 @@ const postgraphileOptions = {
   jwtSecret: process.env.JWT_SECRET,
   legacyRelations: "omit",
   pgDefaultRole: "app_anonymous",
+  ownerConnectionString: process.env.OWNER_DATABASE_URL,
   pgSettings: {},
 };
 
