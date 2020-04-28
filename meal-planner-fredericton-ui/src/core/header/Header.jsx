@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {withRouter} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,9 +12,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Tab from '@material-ui/core/Tab';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import PhoneIcon from '@material-ui/icons/Phone';
+import logo from '../../Logo.png';
+import StarIcon from '@material-ui/icons/Star';
+import SettingIcon from '@material-ui/icons/Settings';
+import PersonIcon from '@material-ui/icons/Person';
 
-const logo = require('../../Logo.png');
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,9 +33,11 @@ const useStyles = makeStyles(theme => ({
         paddingTop: 0,
         paddingBottom: 0,
       },
-      inline: {
-        display: 'inline'
+      tBar:{
+          paddingLeft:0,
+          paddingRight:0,
       },
+      
       flex: {
         display: 'flex',
         [theme.breakpoints.down('sm')]: {
@@ -60,13 +64,14 @@ const useStyles = makeStyles(theme => ({
       },
       menu: {
         display:'flex',
-        
+        '& li:hover':{
+          backgroundColor: '#7ac073',
+        },
         '& a' : {
           display: 'block',
           fontSize: 16,
           color:'#ffffff',
           padding: '18px 5px',
-          marginRight: 55,
           textDecoration: 'none',
           fontFamily: 'Open Sans',
           fontWeight:600
@@ -91,7 +96,6 @@ const useStyles = makeStyles(theme => ({
       },
 
       contact: {
-        backgroundColor: '#313038',
         opacity:1,
         color: '#ffffff',
         fontSize:'16px',
@@ -100,7 +104,10 @@ const useStyles = makeStyles(theme => ({
         paddingRight:30,
         '& span': {
           flexDirection: 'row'
-        }
+        },
+        '& :hover':{
+          opacity:'0.7',
+        },
       },
       phone: {
         backgroundColor: '#7ac073',
@@ -112,92 +119,59 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: '#7ac073',
         color: '#ffffff',
         opacity:1
+      },
+      rightnav: {
+          marginLeft: 'auto',
+          order: 3,
       }
  
   }));
 
 
 
-const Header = (props) => {
-    const styles = useStyles(props);
+const Header = () => {
+    const styles = useStyles();
     
     const navMenu = [
       {
-        id: 1,
-        label: "Home",
-        pathname: "/"
+        label: "Dashboard",
+        pathname: "/dashboard"
       },
       {
-        id: 2,
-        label: "About Us",
-        pathname: "/about",
-        subitems: [
-          {
-            id: 1,
-            label: "Subitem 1",
-            pathname: "/",
-          },
-          {
-            id: 2,
-            label: "Subitem 2",
-            pathname: "/",
-          },
-          {
-            id: 3,
-            label: "Subitem 3",
-            pathname: "/",
-          }
-        ]
+        label: "Meal Planner",
+        pathname: "/meal-planner",
       },
       {
-        id: 3,
-        label: "Pages",
-        pathname: "/pages",
-      },
-      {
-        id: 4,
-        label: "News",
-        pathname: "/news"
-      },
-      {
-        id: 5,
-        label: "Contact",
-        pathname: "/contact"
+        label: "Shopping List",
+        pathname: "/shopping-list"
       }
     ];
    
    
-    const [anchorEl, setAnchorEl] = useState(null);
-    const handleOpen = e => setAnchorEl(e.currentTarget);
+   
 
-    const handleClose = () => setAnchorEl(null);
-  
-    const handleClick = onItemClick => {
-      onItemClick();
-      handleClose();
-    };
+    
 
-    return (<div className={styles.root} ><AppBar position="absolute" className={styles.appBar}>
-        <Toolbar elevation={0} spacing={0}>
-          <Grid container spacing={24} alignItems="baseline">
-              <Grid item xs={12} className={styles.flex}>
-                  <div className={styles.inline}>
+    return (<AppBar className={styles.appBar}>
+        <Toolbar elevation={0} spacing={0} padding={0} className={styles.tBar}>
+          <Grid container spacing={24} alignItems="baseline" className={styles.flex}>
+              <Grid item xs={2}>
+                  
                       <Link to='/' className={styles.link}>
                         <img width={159} src={logo} alt="" className={styles.productLogo}/>
                       </Link>
                     
-                  </div>
-                  
-                    <>
-                    
+                 
+              </Grid>
+              <Grid item md={10} xs={1}>
+              <>
                     <div className={styles.iconContainer}>
-                  
-                    <IconButton aria-controls="menu" aria-haspopup="true" onClick={handleClick}>
+                    
+                    <IconButton aria-controls="menu" aria-haspopup="true">
                       <MenuIcon />
                     </IconButton>
-                    
-                    
                     </div>
+
                     <nav className={styles.menuContainer}>
                     
                     <MenuList id="menu" className={styles.menu}>
@@ -207,21 +181,19 @@ const Header = (props) => {
                           </MenuItem>
                         ))}
                     </MenuList>
-                      
-                      <Tab label="Call Us Now!" className={styles.contact} component={Link} icon={<PhoneIcon className={styles.phone}/>} to="/contact" />
-                      <Tab label="+1 (506) 123-4567" className={styles.contact2} />
-                    
+                    <div className={styles.rightnav}>
+                      <Tab label="Favorites" className={styles.contact} component={Link} icon={<StarIcon className={styles.phone}/>} to="/favorites" />
+                      <Tab label="Settings" className={styles.contact} component={Link} icon={<SettingIcon className={styles.phone}/>} to="/settings" />
+                      <Tab label="My Name" className={styles.contact} component={Link} icon={<PersonIcon className={styles.phone}/>} to="/profile" />
+                      </div>
                     </nav>
-                    
-                    
                     </>
-                  
               </Grid>
             </Grid>
 
         </Toolbar>
       </AppBar>
-      </div>
+      
     )
 }
 
