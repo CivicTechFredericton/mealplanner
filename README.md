@@ -25,6 +25,12 @@ export DBNAME=mealplanner
 ```
 Run `direnv allow` to load the environment variable into the shell.
 
+setup hooks
+```
+cp hooks/pre-commit.sh .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
 ## :hammer: Setup
 
 To set this up, you'll have to do the following. 

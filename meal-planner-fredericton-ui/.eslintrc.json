@@ -23,6 +23,7 @@
     }
   },
   "rules": {
+    "indent": ["error", 2],
     "no-console": "off",
     "no-unreachable": "error",
     "eqeqeq": "warn",
