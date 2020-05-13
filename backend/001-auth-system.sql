@@ -82,10 +82,17 @@ begin;
     end;
   $$ language plpgsql security definer;
 
-  create or replace function app.current_person() returns app.person as $$
-    select *
+  create type app.current_user as (id bigint, role text, email text, full_name text);
+
+  create or replace function app.current_person() returns app.current_user as $$
+    select app.person.id, app_private.account.role::text, app_private.account.email, app.person.full_name
     from app.person
+    join app_private.account on app.person.id = app_private.account.person_id
     where id = nullif(current_setting('jwt.claims.person_id', true), '')::bigint
+  $$ language sql stable security definer;
+
+  create or replace function app.current_user_person(cu app.current_user) returns app.person as $$
+    select * from app.person where id=cu.id
   $$ language sql stable;
 
   grant usage on schema app to app_anonymous, app_meal_designer, app_user, app_admin;
@@ -96,6 +103,7 @@ begin;
 
   grant execute on function app.authenticate(text, text) to app_anonymous;
   grant execute on function app.current_person() to app_anonymous, app_user, app_meal_designer, app_admin;
+  grant execute on function app.current_user_person(app.current_user) to app_user, app_meal_designer, app_admin;
   grant execute on function app.register_person(text, text, text) to app_anonymous, app_admin;
 
   alter table app.person enable row level security;

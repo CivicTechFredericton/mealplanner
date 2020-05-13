@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -14,6 +13,8 @@
   },
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
+    "express": "^4.17.1",
+    "md5": "^2.2.1",
     "postgraphile": "^4.5.5"
   }
 }

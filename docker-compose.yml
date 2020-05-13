@@ -3,6 +3,8 @@ services:
   db:
     image: postgres:12
     restart: always
+    ports:
+      - "5533:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
@@ -17,6 +19,9 @@ services:
       - /app/node_modules
     environment:
       DATABASE_URL: postgres://postgres:password123@db/${DBNAME}?sslmode=disable
+      ENABLE_SSH: "false"
+      DATABASE_URL: postgres://app_graphile:password123@db/${DBNAME}?sslmode=disable
+      OWNER_DATABASE_URL: postgres://postgres:password123@db/${DBNAME}?sslmode=disable
       JWT_SECRET: AVerySecretString
       PGPASSWORD: password123
       DBNAME: "$DBNAME"
