@@ -1,6 +1,8 @@
 const express = require("express");
 const { postgraphile } = require("postgraphile");
 const { GravatarPlugin } = require("./extensions/current_user");
+const ConnectionFilterPlugin = require("postgraphile-plugin-connection-filter");
+
 const app = express();
 
 const postgraphileOptions = {
@@ -12,7 +14,7 @@ const postgraphileOptions = {
   ignoreIndexes: false,
   showErrorStack: "json",
   extendedErrors: ["hint", "detail", "errcode"],
-  appendPlugins: [require("@graphile-contrib/pg-simplify-inflector"), GravatarPlugin],
+  appendPlugins: [require("@graphile-contrib/pg-simplify-inflector"), ConnectionFilterPlugin, GravatarPlugin],
   exportGqlSchemaPath: "schema.graphql",
   graphiql: true,
   enhanceGraphiql: true,
@@ -24,6 +26,7 @@ const postgraphileOptions = {
   pgDefaultRole: "app_anonymous",
   ownerConnectionString: process.env.OWNER_DATABASE_URL,
   classicIds: true,
+  enableCors: true,
   pgSettings: {},
 };
 
