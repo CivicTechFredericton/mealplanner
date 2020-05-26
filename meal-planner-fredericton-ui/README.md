@@ -12,6 +12,23 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
+### `configuring backend`
+
+If you want to run backend locally, follow instructions in README file in parent directory.
+
+It is also possible to connect to a remote backend, the URL is configurable by environment variable called 
+`REACT_APP_GRAPHQL_URL`.
+
+[There are many ways to set it](https://create-react-app.dev/docs/adding-custom-environment-variables/), but easiest
+is just to create a .env file in this directory with the following contents:
+
+```
+REACT_APP_GRAPHQL_URL=http://fast-everglades-80450.herokuapp.com/graphql
+```
+
+Then do `npm start`
+
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
