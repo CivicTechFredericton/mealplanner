@@ -4,6 +4,8 @@ import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Router } from 'react-router-dom';
+import Backend from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
 import history from './utils/history/index';
 import i18n from './utils/i18n';
 import { I18nextProvider } from 'react-i18next';
@@ -45,11 +47,13 @@ const initialState = {
 ReactDOM.render(
   <StateProvider initialState={initialState} reducer={reducer}>
     <I18nextProvider i18n={i18n}>
-      <Router history={history}>
-        <MuiThemeProvider theme={theme}>
-          <App />
-        </MuiThemeProvider>
-      </Router>
+      <DndProvider backend={Backend}>
+        <Router history={history}>
+          <MuiThemeProvider theme={theme}>
+            <App />
+          </MuiThemeProvider>
+        </Router>
+      </DndProvider>
     </I18nextProvider>
   </StateProvider>
   , document.getElementById('root'));

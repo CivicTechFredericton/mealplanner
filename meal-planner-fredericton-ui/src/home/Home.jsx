@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import graphql from 'babel-plugin-relay/macro';
@@ -11,12 +11,12 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import MealPlans from './MealPlans';
 
+import Header from '../core/header/Header'
 import { clearCurrentToken } from '../utils/auth';
 
 const query = graphql`
   query HomeQuery {
     currentPerson {
-      id
       fullName
     }
     ...MealPlans_mealPlansFragment
@@ -56,18 +56,21 @@ const HomeContent = props => {
   }
 
   return (
-    <Grid container component="main" className={classes.root}>
-      <Grid item xs={12}>
-        <Typography className={classes.text}>
-          {personMessage}
-          {' '}
-          {loginLink}
-        </Typography>
+    <Fragment>
+      <Header />
+      <Grid container component="main" className={classes.root}>
+        <Grid item xs={12}>
+          <Typography className={classes.text}>
+            {personMessage}
+            {' '}
+            {loginLink}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <MealPlans mealPlansFragment={props} />
+        </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <MealPlans mealPlansFragment={props} />
-      </Grid>
-    </Grid>
+    </Fragment>
   );
 };
 
