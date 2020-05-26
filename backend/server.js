@@ -32,5 +32,7 @@ const postgraphileOptions = {
 
 app.use(postgraphile( process.env.DATABASE_URL, "app", postgraphileOptions));
 
+let port = parseInt(process.env.PORT || "4000");
 console.log("starting graphql server ...");
-app.listen(4000);
+
+app.listen(port);
