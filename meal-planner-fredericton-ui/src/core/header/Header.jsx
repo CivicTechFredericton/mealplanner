@@ -1,5 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -124,14 +125,25 @@ const useStyles = makeStyles(theme => ({
       rightnav: {
           marginLeft: 'auto',
           order: 3,
+      },
+      selectedPath: {
+        textDecoration: 'underline',
+        '& a': {
+          color: theme.palette.secondary.main,
+        },
+        '& :hover': {
+          color: theme.palette.secondary.contrastText,
+        }
       }
- 
+
   }));
 
 
 
 const Header = () => {
     const styles = useStyles();
+    const location = useLocation();
+    console.log({ location })
     
     const navMenu = []
     navMenu.push({
@@ -174,11 +186,18 @@ const Header = () => {
                     <nav className={styles.menuContainer}>
                     
                     <MenuList id="menu" className={styles.menu}>
-                      {navMenu.map( item => (
-                          <MenuItem key={item.id} >
-                          <Link to={item.pathname}>{item.label}</Link>
-                          </MenuItem>
-                        ))}
+                      {navMenu.map( item => {
+                          const className = item.pathname === location.pathname
+                            ? styles.selectedPath
+                            : ''
+                          return (
+                            <MenuItem className={className} key={item.id} >
+                              <Link to={item.pathname}>
+                                <span>{item.label}</span>
+                              </Link>
+                            </MenuItem>
+                          )
+                      })}
                     </MenuList>
                     <div className={styles.rightnav}>
                       <Tab label="Favorites" className={styles.contact} component={Link} icon={<StarIcon className={styles.phone}/>} to="/favorites" />
