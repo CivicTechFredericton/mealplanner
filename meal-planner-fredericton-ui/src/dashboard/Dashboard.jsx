@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 import graphql from 'babel-plugin-relay/macro';
-import { QueryRenderer, commitMutation } from 'react-relay';
+import { QueryRenderer, createRefetchContainer, commitMutation } from 'react-relay';
 import environment from '../relay-environment';
 
 import { Link } from 'react-router-dom';
@@ -12,7 +12,6 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox';
 import Box  from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -21,7 +20,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow'
 import EditIcon from '@material-ui/icons/Edit';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import Header from '../core/header/Header';
@@ -92,6 +90,31 @@ const useStyles = makeStyles(theme => ({
     }
   }    
 }));
+
+function doDeleteMeapPlan({ id }) {
+  return new Promise(function doDeleteMealPlanPromise(resolve, reject) {
+    commitMutation(environment, {
+      mutation: graphql`
+        mutation DashboardDeleteMealPlanMutation($id: ID!) {
+          deleteMealPlanById(input: { id: $id }) {
+            deletedMealPlanId
+          }
+        }
+      `,
+      variables: { id },
+      onCompleted: function onCompleteHandler(response, errors) {
+        if (errors) {
+          reject(errors)
+          return
+        }
+        resolve()
+      },
+      onError: function onErrorHandler(err) {
+        reject(err)
+      }
+    })
+  })
+}
 
 const Dashboard = props => {
   const classes = useStyles();
@@ -164,18 +187,16 @@ const Dashboard = props => {
             <Table color="primary" className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell></TableCell>
                   <TableCell>Meal Plans Created</TableCell>
                   <TableCell align="center">Date Created</TableCell>
                   <TableCell align="center">Edit</TableCell>
-                  <TableCell align="center">Clone</TableCell>
+                  {/* <TableCell align="center">Clone</TableCell> */}
                   <TableCell align="center">Remove</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.map(row => (
                   <TableRow key={row.label}>
-                    <TableCell><Checkbox/></TableCell>
                     <TableCell component="th" scope="row">
                       <Link to={{
                         pathname: '/meal-designer',
@@ -203,8 +224,15 @@ const Dashboard = props => {
                         <EditIcon />
                       </Link>
                     </TableCell>
-                    <TableCell align="right"><Link to='/copy-plan'><FileCopyIcon /></Link></TableCell>
-                    <TableCell align="right"><Link to='/delete-plan'><DeleteIcon /></Link></TableCell>
+                    {/* <TableCell align="right"><Link to='/copy-plan'><FileCopyIcon /></Link></TableCell> */}
+                    <TableCell align="right">
+                      <Link onClick={async () => {
+                        await doDeleteMeapPlan(row)
+                        props.relay.refetch()
+                      }}>
+                        <DeleteIcon />
+                      </Link>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -225,7 +253,10 @@ Dashboard.propTypes = {
         createdAt: PropTypes.string
       })
     )
-  })
+  }),
+  relay: PropTypes.shape({
+    refetch: PropTypes.func.isRequired,
+  }).isRequired
 }
 
 const query = graphql`
@@ -240,15 +271,23 @@ query DashboardQuery	 {
 }
 `
 
+const DashboardRefetchContainer = createRefetchContainer(
+  Dashboard,
+  {
+  },
+  query
+)
+
 function DashboardWithQuery() {
   return (
     <QueryRenderer
       environment={environment}
       query={query}
       variables={{}}
-      render={({ error, props }) => <Dashboard error={error} {...props} />}
+      render={({ error, props }) => <DashboardRefetchContainer error={error} {...props} />}
     />
   )
 }
+
 
 export default DashboardWithQuery
