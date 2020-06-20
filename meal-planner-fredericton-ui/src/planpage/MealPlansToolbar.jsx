@@ -1,5 +1,7 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+
+import { useLocation } from "react-router-dom"
 
 import graphql from 'babel-plugin-relay/macro';
 import { createFragmentContainer } from 'react-relay';
@@ -30,10 +32,26 @@ const useStyles = makeStyles(() => ({
  * Toolbar with controls for selecting, creating and saving meal plan
  */
 export function MealPlansToolbar(props) {
+  const location = useLocation()
+  const [
+    alreadySelectedMealAfterNav,
+    setAlreadySelectedMealAfterNav,
+  ] = useState(false)
+
   const classes = useStyles();
   const [newPlanModalOpen, setNewPlanModalOpen] = useState(false)
 
   const options = props.mealPlansToolbarFragment?.mealPlans?.nodes ?? []
+
+  useEffect(() => {
+    if (location.state?.planId !== undefined && !alreadySelectedMealAfterNav) {
+      const planToEdit = options.find(mealPlan => mealPlan.id === location.state.planId)
+      if (planToEdit !== undefined) {
+        props.setSelectedPlan(planToEdit)
+        setAlreadySelectedMealAfterNav(true)
+      }
+    }
+  }, [props.mealPlansToolbarFragment])
 
   return (
     <Fragment>

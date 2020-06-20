@@ -3,6 +3,18 @@ import cookie from 'cookie';
 
 const COOKIE_NAME = 'mealplannerAccessToken';
 
+export function isAuthenticated() {
+  return getCurrentToken() !== undefined
+}
+
+export function logout(e, redirect = true) {
+  e.preventDefault();
+  clearCurrentToken();
+  if (redirect) {
+    window.location = '/login';
+  }
+}
+
 export function getCurrentToken() {
   // TODO probably a faster way to access this than parsing 
   // the document cookie each time
