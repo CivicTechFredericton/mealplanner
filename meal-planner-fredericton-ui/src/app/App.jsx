@@ -5,6 +5,8 @@ import Home from "../home/Home";
 import Login from "../login/Login";
 import Dashboard from "../dashboard/Dashboard";
 import PlanPage from '../planpage/PlanPage'
+import Catalog from '../catalog/Catalog';
+import DisplayMeal from '../catalog/DisplayMeal';
 
 
 const App = () => {
@@ -22,6 +24,18 @@ const App = () => {
           path='/dashboard'
           render={() => (
             <Dashboard />
+          )}
+        />
+        <Route
+          path='/catalogue-meals'
+          render={() => (
+            <Catalog />
+          )}
+        />
+        <Route
+          path='/meal/:id'
+          render={() => (
+            <DisplayMeal />
           )}
         />
         <PrivateRoute
