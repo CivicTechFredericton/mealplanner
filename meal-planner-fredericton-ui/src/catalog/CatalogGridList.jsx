@@ -39,9 +39,9 @@ const useStyles = makeStyles((theme) => ({
 const CatalogGridList = (props) => {
   const classes = useStyles();
   return (
-      <QueryRenderer
-          environment={environment}
-          query={graphql`
+    <QueryRenderer
+      environment={environment}
+      query={graphql`
             query CatalogGridListQuery {
               meals {
                 nodes {
@@ -52,9 +52,9 @@ const CatalogGridList = (props) => {
               }
             }
       `}
-          render={renderQuery}
-          variables={{}}
-      />
+      render={renderQuery}
+      variables={{}}
+    />
   );
 }
 
@@ -64,31 +64,31 @@ const renderQuery = ({error, props}) => {
   if (error || props === undefined) {
     return (
       <h2>Error: Catalog Not Found</h2>
-  );
+    );
   } else if (props) return (
-      <div>
-        <Box ml={5} mr={5}>
-          <GridList cellHeight={180} cols={5}>
-            {props.meals.nodes.map((tile) => (
-              <GridListTile key={tile.photoUrl}>
-                <img src={tile.photoUrl} alt={tile.nameEn} />
-                <GridListTileBar
-                  nameEn={tile.nameEn}
-                  actionIcon={
-                    <div>
-                      <IconButton aria-label={`info about ${tile.nameEn}`} type="button">
+    <div>
+      <Box ml={5} mr={5}>
+        <GridList cellHeight={180} cols={5}>
+          {props.meals.nodes.map((tile) => (
+            <GridListTile key={tile.photoUrl}>
+              <img src={tile.photoUrl} alt={tile.nameEn} />
+              <GridListTileBar
+                nameEn={tile.nameEn}
+                actionIcon={
+                  <div>
+                    <IconButton aria-label={`info about ${tile.nameEn}`} type="button">
                       <Link to={/meal/ + tile.id}>
                         <InfoIcon style ={{color: 'rgba(255, 255, 255, 0.54)'}}/>
                       </Link>
-                      </IconButton>
-                    </div>
-                  }
-                />
-              </GridListTile>
-            ))}
-          </GridList>
-        </Box>
-      </div>
+                    </IconButton>
+                  </div>
+                }
+              />
+            </GridListTile>
+          ))}
+        </GridList>
+      </Box>
+    </div>
   )
   return <div>Loading</div>;
 }
