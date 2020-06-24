@@ -42,7 +42,7 @@ const Catalog = (props) => {
           </Typography>
         </Box>  
       </Grid>
-      <Grid style={{paddingTop: 175}}>
+      <Grid style={{paddingTop: 100}}>
         <Footer />
       </Grid>
     </div>

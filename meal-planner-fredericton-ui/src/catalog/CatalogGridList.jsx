@@ -73,7 +73,7 @@ const renderQuery = ({error, props}) => {
             <GridListTile key={tile.photoUrl}>
               <img src={tile.photoUrl} alt={tile.nameEn} />
               <GridListTileBar
-                nameEn={tile.nameEn}
+                title={tile.nameEn}
                 actionIcon={
                   <div>
                     <IconButton aria-label={`info about ${tile.nameEn}`} type="button">
