@@ -88,7 +88,7 @@ const renderQuery = ({error, props}) => {
   } else if (props) return (
     <div>
       <Header />
-      <Grid container component="main" style={{paddingTop: 75}} xs={12}>
+      <Grid container component="main" style={{paddingTop: 75, fontFamily: 'Open Sans'}} xs={12}>
         <Grid item xs={12}>
           <Typography variant="body" color="textSecondary" align="center">
             <h1>{props.mealById.nameEn}</h1>
@@ -118,7 +118,7 @@ const renderQuery = ({error, props}) => {
                 <dl>
                   {props.mealById.products.nodes.map(product => (
                     <dt key={product}>
-                      {product.quantity}
+                      {product.quantity}&nbsp;
                       {product.unit} of&nbsp;
                       {product.nameEn}
                     </dt>
@@ -146,7 +146,7 @@ const renderQuery = ({error, props}) => {
           </Box>
         </Grid>  
       </Grid>
-      <Grid style={{marginTop: 1200}}>
+      <Grid style={{marginTop: 100}}>
         <Footer />
       </Grid>
     </div>
