@@ -7,8 +7,9 @@
     "eslint": "6.8.0",
     "eslint-plugin-jest": "23.8.2",
     "eslint-plugin-react": "7.19.0",
+    "graphql": "^14.6.0",
     "npm-run-all": "4.1.5",
-    "relay-compiler": "9.0.0",
+    "relay-compiler": "^9.0.0",
     "relay-config": "9.0.0"
   },
   "dependencies": {
@@ -23,7 +24,6 @@
     "eslint-config-react-app": "5.2.0",
     "formik": "2.1.4",
     "formik-material-ui": "2.0.0-alpha.3",
-    "graphql": "14.6.0",
     "i18next": "19.1.0",
     "i18next-browser-languagedetector": "4.0.1",
     "i18next-chained-backend": "2.0.1",
@@ -37,10 +37,11 @@
     "react-dnd-html5-backend": "10.0.2",
     "react-dom": "16.12.0",
     "react-i18next": "11.3.1",
-    "react-relay": "9.0.0",
+    "react-relay": "0.0.0-experimental-94e87455",
     "react-router-dom": "5.1.2",
     "react-scripts": "3.4.0",
-    "react-swipeable-views": "0.13.9"
+    "react-swipeable-views": "0.13.9",
+    "relay-runtime": "^9.1.0"
   },
   "scripts": {
     "eslint": "eslint src/**/*.js*",

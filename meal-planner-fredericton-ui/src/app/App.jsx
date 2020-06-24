@@ -1,10 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../core/private-route/PrivateRoute'
-import Home from "../home/Home";
 import Login from "../login/Login";
 import Dashboard from "../dashboard/Dashboard";
 import PlanPage from '../planpage/PlanPage'
+import Catalog from '../catalog/Catalog';
+import DisplayMeal from '../catalog/DisplayMeal';
 
 
 const App = () => {
@@ -24,8 +25,20 @@ const App = () => {
             <Dashboard />
           )}
         />
+        <Route
+          path='/catalogue-meals'
+          render={() => (
+            <Catalog />
+          )}
+        />
+        <Route
+          path='/meal/:id'
+          render={() => (
+            <DisplayMeal />
+          )}
+        />
         <PrivateRoute
-          path='/meal-planner'
+          path='/meal-designer'
           render={() => (
             <PlanPage />
           )}
@@ -33,7 +46,7 @@ const App = () => {
         <Route
           path='/'
           render={() => (
-            <Home />
+            <Dashboard />
           )}
         />
       </Switch>

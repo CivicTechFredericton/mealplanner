@@ -268,7 +268,6 @@ export function PlanPage(props) {
   const classes = useStyles()
 
   const [selectedPlan, setSelectedPlan] = useState(null)
-  const [selectedMeals, setSelectedMeals] = useState([])
   const [mealsAtTimes, setMealsAtTimes] = useState(makeDefaultMealsAtTimes())
 
   useEffect(() => {
@@ -307,10 +306,6 @@ export function PlanPage(props) {
     )
   }
 
-  const mealOptions = selectedMeals.map((meal, i) => {
-    return <MealOption key={`selectedMeal-${i}`} meal={meal} />
-  })
-
   const onSave = () => {
     handleSave({
       selectedPlan,
@@ -341,11 +336,6 @@ export function PlanPage(props) {
         )}
         {selectedPlan !== null && (
           <Fragment>
-            <Grid container component="div">
-              <Grid item xs={4}>
-                {mealOptions}
-              </Grid>
-            </Grid>
             <Grid item xs={4}>
               <CreatePlanOptions
                 createPlanOptionsFragment={props}

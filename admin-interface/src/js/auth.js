@@ -1,7 +1,38 @@
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
+import gql from 'graphql-tag'
+import client from './apollo'
 
 const COOKIE_NAME = 'mealplannerAccessToken';
+
+const authMutation = gql`
+mutation LoginMutation(
+  $userEmail: String,
+  $password: String
+) {
+  authenticate(input: {
+    userEmail: $userEmail
+    password: $password
+  }) {
+    jwtToken
+  }
+}
+`;
+
+export const authenticate = async ({ userEmail, password }) => {
+  const result = await client.mutate({
+    mutation: authMutation,
+    variables: { userEmail, password },
+  });
+  const token = result?.data?.authenticate?.jwtToken ?? null
+  console.log(token)
+  if (token != null) {
+    setCurrentToken(token)
+    return token
+  } else {
+    throw new Error(JSON.stringify(result))
+  }
+};
 
 export function isAuthenticated() {
   return getCurrentToken() !== undefined
