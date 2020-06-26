@@ -15,20 +15,25 @@ import {
   RichTextInput, 
   TextField,
   TextInput,
+  NumberInput,
   DateField,
   DateInput,
   SimpleForm,
   EditButton,
+  ReferenceField,
+  ReferenceManyField,
+  SingleFieldList,
+  ReferenceInput,
+  SelectInput,
 } from 'react-admin';
 
 import { isAuthenticated } from './auth'
 import Login from './login'
 
-function deleteThing() {
+function Thing(props) {
+  console.log(props)
   return (
-    <div>
-      test
-    </div>
+    null
   )
 }
 
@@ -40,9 +45,23 @@ const MealList = (props) => (
       <TextField source="rowId"/>
       <TextField source="nameEn"/>
       <TextField source="descriptionEn"/>
+      <TextField source="photoUrl"/>
+      <TextField source="videoUrl"/>
       <RichTextField source="method"/>
       <DateField source="createdAt" showTime/>
       <DateField source="updatedAt" showTime/>
+      <ReferenceManyField  label="Measures" reference="measures" target="mealId">
+        <Datagrid>
+          <TextField source="id"/>
+          <TextField source="unit"/>
+          <TextField source="mealId"/>
+          <TextField source="quantity"/>
+          <TextField source="productId"/>
+          <ReferenceField label="Product" reference="products" source="productId">
+              <TextField source="nameEn"/>
+          </ReferenceField>
+        </Datagrid>
+      </ReferenceManyField>
     </Datagrid>
   </List>
 )
@@ -50,17 +69,14 @@ const MealList = (props) => (
 export const MealCreate = (props) => (
   <Create title="Create a Meal" {...props}>
       <SimpleForm>
-        <TextInput source="rowId"/>
         <TextInput source="nameEn"/>
         <TextInput source="code"/>
         <TextInput source="photoUrl"/>
         <TextInput source="videoUrl"/>
         <TextInput source="descriptionEn"/>
         <TextInput multiline source="method"/>
-        <TextInput source="cookingDuration"/>
-        <TextInput source="serves" />
-        <DateInput source="createdAt" showTime/>
-        <DateInput source="updatedAt" showTime/>
+        <NumberInput source="cookingDuration"/>
+        <NumberInput source="serves" />
       </SimpleForm>
   </Create>
 );
@@ -74,13 +90,89 @@ export const MealEdit = (props) => (
         <TextInput source="videoUrl"/>
         <TextInput source="descriptionEn"/>
         <TextInput multiline source="method"/>
-        <TextInput source="cookingDuration"/>
-        <TextInput source="serves" />
-        <DateInput source="createdAt" showTime/>
-        <DateInput source="updatedAt" showTime/>
+        <NumberInput source="cookingDuration"/>
+        <NumberInput source="serves" />
       </SimpleForm>
   </Edit>
 )
+
+const MeasureList = (props) => (
+  <List {...props}>
+    <Datagrid>
+      <EditButton basePath="/meals" />
+      <TextField source="id"/>
+      <TextField source="unit"/>
+      <TextField source="mealId"/>
+      <TextField source="quantity"/>
+      <TextField source="productId"/>
+      <ReferenceField label="Product" reference="products" source="productId">
+        <TextField source="nameEn"/>
+      </ReferenceField>
+      <ReferenceField label="Meal" reference="products" source="mealId">
+        <TextField source="nameEn"/>
+      </ReferenceField>
+    </Datagrid>
+  </List>
+)
+
+const MeasureCreate = (props) => (
+  <Create title="Create a Measure" {...props}>
+    <SimpleForm>
+      <TextInput source="unit"/>
+      <NumberInput source="quantity"/>
+      <ReferenceInput label="Meal" source="mealId" reference="meals">
+        <SelectInput optionText="nameEn" />
+      </ReferenceInput>
+      <ReferenceInput label="Product" source="productId" reference="products">
+        <SelectInput optionText="nameEn" />
+      </ReferenceInput>
+    </SimpleForm>
+  </Create>
+)
+
+const ProductsList = (props) => (
+  <List {...props}>
+    <Datagrid>
+      <EditButton basePath="/products" />
+      <TextField source="id"/>
+      <TextField source="rowId"/>
+      <TextField source="nameEn"/>
+      <TextField source="unit"/>
+      <TextField source="price"/>
+      <TextField source="quantity"/>
+      <ReferenceManyField  label="Measures" reference="measures" target="productId">
+        <SingleFieldList>
+          <TextField source="id"/>
+        </SingleFieldList>
+      </ReferenceManyField>
+    </Datagrid>
+  </List>
+)
+
+export const ProductsCreate = (props) => (
+  <Create title="Create a Product" {...props}>
+      <SimpleForm>
+        <TextInput source="nameEn"/>
+        <TextInput source="code"/>
+        <NumberInput source="price"/>
+        <NumberInput source="quantity"/>
+        <TextInput source="unit"/>
+      </SimpleForm>
+  </Create>
+);
+
+export const ProductsEdit = (props) => (
+  <Edit title="Edit Product" {...props}>
+      <SimpleForm>
+        <TextInput source="nameEn"/>
+        <TextInput source="code"/>
+        <NumberInput source="price"/>
+        <NumberInput source="quantity"/>
+        <TextInput source="unit"/>
+      </SimpleForm>
+  </Edit>
+);
+
 
 const AppAdmin = () => {
   const [dataProvider, setDataProvider] = useState(null);
@@ -103,7 +195,17 @@ const AppAdmin = () => {
           create={MealCreate}
           
         />
-        <Resource name="ingredients" />
+        <Resource
+          list={ProductsList}
+          create={ProductsCreate}
+          edit={ProductsEdit}
+          name="products" 
+        />
+        <Resource
+          list={MeasureList}
+          create={MeasureCreate}
+          name="measures" 
+        />
       </Admin>
     )
   )
