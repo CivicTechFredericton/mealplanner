@@ -14,7 +14,7 @@ const useStyles = makeStyles (() => ({
     width: '100%',
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginBottom: 50,
+    marginBottom: 0,
     color: 'white',
     '& a' : {
       color: 'white',
