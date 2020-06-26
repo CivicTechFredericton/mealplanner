@@ -11,27 +11,15 @@ import Footer from '../core/footer/Footer'
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    backgroundColor: theme.palette.secondary.main,
-    display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    margin: theme.spacing(4),
-    alignItems: 'center',
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
+    flex: 0
   },
 }));
 
 const Catalog = (props) => {
   const classes = useStyles();
   return (
-    <div>
+    <Grid container direction="column">
       <Header />
       <Grid container component="main" className={classes.root} style={{paddingTop: 75}}>
         <Box>
@@ -42,10 +30,10 @@ const Catalog = (props) => {
           </Typography>
         </Box>  
       </Grid>
-      <Grid style={{paddingTop: 100}}>
+      <Grid style={{paddingTop: 10}}>
         <Footer />
       </Grid>
-    </div>
+    </Grid>
   );
 }
   
