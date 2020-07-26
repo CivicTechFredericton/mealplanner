@@ -277,7 +277,7 @@ export function PlanPage(props) {
   useEffect(() => {
     if (selectedPlan !== null) {
       let mealsAtTimes = makeDefaultMealsAtTimes()
-      const mealPlanEntries = selectedPlan.mealPlanEntries.nodes
+      const mealPlanEntries = selectedPlan?.mealPlanEntries?.nodes ?? []
       for (var mealPlanEntry of mealPlanEntries) {
         mealsAtTimes = putMealAtTime({
           mealsAtTimes,
@@ -316,6 +316,8 @@ export function PlanPage(props) {
       mealsAtTimes
     })
   }
+
+  console.log({ selectedPlan })
 
   return (
     <Fragment>
