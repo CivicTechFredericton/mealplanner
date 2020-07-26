@@ -126,6 +126,8 @@ export default function NewMealPlanModal(props) {
         // now handle successful new plan create
         setSubmitInProgress(false)
         props.setSelectedPlan(mealPlan)
+        setPlanName('')
+        setPlanDescription('')
         props.onClose()
       })
       console.debug('Success create new plan', { mealPlan })
@@ -173,8 +175,17 @@ export default function NewMealPlanModal(props) {
           <Button color="primary" onClick={handleFormSubmit} disabled={submitInProgress}>
             Save <SaveIcon />
           </Button>
-          <Button color="secondary" onClick={props.onClose} disabled={submitInProgress}>
-            Cancel <CancelIcon />
+          <Button
+            color="secondary" 
+            onClick={() => {
+              setPlanName('')
+              setPlanDescription('')
+              props.onClose()
+            }}
+            disabled={submitInProgress}
+          >
+            Cancel
+            <CancelIcon />
           </Button>
         </Grid>
       </Grid>
@@ -184,7 +195,11 @@ export default function NewMealPlanModal(props) {
   return (
     <Modal
       open={props.open}
-      onClose={props.onClose}
+      onClose={() => {
+        setPlanName('')
+        setPlanDescription('')
+        props.onClose()
+      }}
     >
       {body}
     </Modal>
