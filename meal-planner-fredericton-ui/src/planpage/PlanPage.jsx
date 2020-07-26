@@ -220,7 +220,7 @@ function mealEntryHasBeenRemoved({
 }) {
   const mealsAtTime = mealsAtTimes[numberToDay(existingEntry.days)][existingEntry.category]
   for (var meal of mealsAtTime) {
-    if (meal.rowId === existingEntry.rowId) {
+    if (meal.rowId === existingEntry.meal.rowId) {
       return false
     }
   }
