@@ -48,6 +48,10 @@ const useStyles = makeStyles(() =>( {
     '& .MuiTableCell-root': {
       color: 'black',
     },
+    '& .plan-options-container': {
+      height: 'calc(100vh - 196px)',
+      overflow: 'scroll',
+    }
   },
 }))
 
@@ -337,9 +341,11 @@ export function PlanPage(props) {
         {selectedPlan !== null && (
           <Fragment>
             <Grid item xs={4}>
+              <div className="plan-options-container">
               <CreatePlanOptions
                 createPlanOptionsFragment={props}
               />
+              </div>
             </Grid>
             <Grid item xs={8}>
               <CreatePlanTable
