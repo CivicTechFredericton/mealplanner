@@ -72,7 +72,7 @@ export const buildQuery = (introspectionResults, factory) => (
   const type = typeMap[resourceTypename]
   const manyLowerResourceName = pluralize(lowercase(resourceTypename))
   const singleLowerResourceName = lowercase(resourceTypename)
-  const idField = type.fields.find((thisType) => thisType.name === 'id')
+  const idField = type.fields.find((thisType) => thisType.name === 'rowId')
   // tslint:disable-next-line:no-let
   let idType = idField.type
   if (!idType) {
@@ -82,11 +82,13 @@ export const buildQuery = (introspectionResults, factory) => (
     // tslint:disable-next-line:no-expression-statement
     idType = idType.ofType
   }
+
   switch (raFetchType) {
     case VERB_GET_ONE:
+
       return {
         query: gql`query ${singleLowerResourceName}($id: ${idType.name}!) {
-            ${singleLowerResourceName}(id: $id) {
+            ${singleLowerResourceName}(rowId: $id) {
             ${createQueryFromType(
               resourceTypename,
               typeMap,
@@ -98,32 +100,52 @@ export const buildQuery = (introspectionResults, factory) => (
           id: mapType(idType, params.id)
         },
         parseResponse: (response) => {
-          return { data: response.data[singleLowerResourceName] }
+          return { 
+            data: {
+              ...response.data[singleLowerResourceName],
+              id: response.data[singleLowerResourceName].id,
+            }
+          }
         }
       }
     case VERB_GET_MANY:
       return {
-        query: createGetManyQuery(
-          type,
-          manyLowerResourceName,
-          resourceTypename,
-          typeMap,
-          queryMap,
-          allowedComplexTypes,
-          idType.name
-        ),
+        // query: createGetManyQuery(
+        //   type,
+        //   manyLowerResourceName,
+        //   resourceTypename,
+        //   typeMap,
+        //   queryMap,
+        //   allowedComplexTypes,
+        //   idType.name
+        // ),
+        query: gql`
+          query ${manyLowerResourceName}($filters: [${resourceTypename}Filter!]) {
+              ${manyLowerResourceName}(filter: { or: $filters }) {
+              nodes {
+                  ${createQueryFromType(resourceTypename, typeMap, allowedComplexTypes)}
+              }
+            }
+          }`,
         variables: {
-          ids: params.ids
+          filters: params.ids
             .filter((v) => typeof v !== 'undefined')
-            .map((id) => mapType(idType, id))
+            .map(id => {
+              return { rowId: { equalTo: id } }
+            })
         },
         parseResponse: (response) => {
           const { nodes } = response.data[manyLowerResourceName]
-          return { data: nodes }
+          return { 
+            data: nodes.map(node => ({
+              ...node,
+              id: node.rowId,
+            }))
+          }
         }
       }
     case VERB_GET_MANY_REFERENCE:
-      return getManyReference(
+      const manyReference = getManyReference(
         params,
         type,
         manyLowerResourceName,
@@ -132,6 +154,16 @@ export const buildQuery = (introspectionResults, factory) => (
         queryMap,
         allowedComplexTypes
       )
+      return {
+        ...manyReference,
+        parseResponse: response => {
+          response = manyReference.parseResponse(response)
+          response.data.forEach(data => {
+            data.id = data.rowId
+          })
+          return response
+        }
+      }
     case VERB_GET_LIST: {
       const { filter, sort } = params
       const orderBy = sort
@@ -155,6 +187,9 @@ export const buildQuery = (introspectionResults, factory) => (
         },
         parseResponse: (response) => {
           const { nodes, totalCount } = response.data[manyLowerResourceName]
+          nodes.forEach(node => {
+            node.id = node.rowId
+          })
           return { data: nodes, total: totalCount }
         }
       }
@@ -227,6 +262,7 @@ export const buildQuery = (introspectionResults, factory) => (
           }),
           {}
         ),
+        
         query: gql`
             mutation deleteMany${resourceTypename}(
             ${thisIds
@@ -259,7 +295,7 @@ export const buildQuery = (introspectionResults, factory) => (
     case VERB_UPDATE: {
       const updateVariables = {
         input: {
-          id: mapType(idType, params.id),
+          rowId: mapType(idType, params.id),
           patch: mapInputToVariables(
             params.data,
             typeMap[`${resourceTypename}Patch`],

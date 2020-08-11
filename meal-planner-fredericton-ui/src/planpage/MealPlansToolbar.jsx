@@ -53,6 +53,8 @@ export function MealPlansToolbar(props) {
     }
   }, [props.mealPlansToolbarFragment])
 
+  console.log({ options })
+
   return (
     <Fragment>
       <Grid container>
@@ -75,6 +77,7 @@ export function MealPlansToolbar(props) {
             }}
             value={props.selectedPlan}
             onChange={(event, val) => {
+              console.log({ val })
               props.setSelectedPlan(val)
             }}
           />

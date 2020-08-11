@@ -48,6 +48,10 @@ const useStyles = makeStyles(() =>( {
     '& .MuiTableCell-root': {
       color: 'black',
     },
+    '& .plan-options-container': {
+      height: 'calc(100vh - 196px)',
+      overflow: 'scroll',
+    }
   },
 }))
 
@@ -216,7 +220,7 @@ function mealEntryHasBeenRemoved({
 }) {
   const mealsAtTime = mealsAtTimes[numberToDay(existingEntry.days)][existingEntry.category]
   for (var meal of mealsAtTime) {
-    if (meal.rowId === existingEntry.rowId) {
+    if (meal.rowId === existingEntry.meal.rowId) {
       return false
     }
   }
@@ -273,7 +277,7 @@ export function PlanPage(props) {
   useEffect(() => {
     if (selectedPlan !== null) {
       let mealsAtTimes = makeDefaultMealsAtTimes()
-      const mealPlanEntries = selectedPlan.mealPlanEntries.nodes
+      const mealPlanEntries = selectedPlan?.mealPlanEntries?.nodes ?? []
       for (var mealPlanEntry of mealPlanEntries) {
         mealsAtTimes = putMealAtTime({
           mealsAtTimes,
@@ -313,6 +317,8 @@ export function PlanPage(props) {
     })
   }
 
+  console.log({ selectedPlan })
+
   return (
     <Fragment>
       <Header />
@@ -337,9 +343,11 @@ export function PlanPage(props) {
         {selectedPlan !== null && (
           <Fragment>
             <Grid item xs={4}>
+              <div className="plan-options-container">
               <CreatePlanOptions
                 createPlanOptionsFragment={props}
               />
+              </div>
             </Grid>
             <Grid item xs={8}>
               <CreatePlanTable

@@ -11,6 +11,6 @@ export const DAYS_OF_WEEK = [
 export const MEALS_OF_DAY = [
   'BREAKFAST',
   'LUNCH',
-  'SUPPER',
-  'SNACKS',
+  'DINNER',
+  'SNACK',
 ]
