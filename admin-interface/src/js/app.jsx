@@ -174,6 +174,33 @@ export const ProductsEdit = (props) => (
 );
 
 
+export const ClientList = (props) => (
+  <List {...props}>
+    <Datagrid>
+      <EditButton basePath="/clients" />
+      <TextField source="id"/>
+      <TextField source="rowId"/>
+      <TextField source="clientId" />
+    </Datagrid>
+  </List>
+)
+
+export const ClientCreate= (props) => (
+  <Create title="Create a Client" {...props}>
+      <SimpleForm>
+        <TextInput source="clientId"/>
+      </SimpleForm>
+  </Create>
+)
+
+export const ClientEdit = (props) => (
+  <Edit title="Edit Client" {...props}>
+      <SimpleForm>
+        <TextInput source="clientId"/>
+      </SimpleForm>
+  </Edit>
+);
+
 const AppAdmin = () => {
   const [dataProvider, setDataProvider] = useState(null);
   const client = useApolloClient();
@@ -205,6 +232,12 @@ const AppAdmin = () => {
           list={MeasureList}
           create={MeasureCreate}
           name="measures" 
+        />
+        <Resource
+          list={ClientList}
+          create={ClientCreate}
+          edit={ClientEdit}
+          name="clients" 
         />
       </Admin>
     )
