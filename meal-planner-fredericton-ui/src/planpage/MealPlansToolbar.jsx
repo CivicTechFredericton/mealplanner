@@ -15,6 +15,7 @@ import SaveIcon from '@material-ui/icons/Save'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 
 import NewMealPlanModal from './NewMealPlanModal'
+import MealPlanAssignment from './MealPlanAssignment'
 
 const useStyles = makeStyles(() => ({
   autocompleteText: {
@@ -53,16 +54,14 @@ export function MealPlansToolbar(props) {
     }
   }, [props.mealPlansToolbarFragment])
 
-  console.log({ options })
-
   return (
     <Fragment>
       <Grid container>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <Autocomplete
             id="combo-box-demo"
             options={options}
-            getOptionLabel={(option) => option.nameEn}
+            getOptionLabel={(option) => option.nameEn + option.client?.clientId}
             style={{ width: 600 }}
             renderInput={(params) => 
               <TextField 
@@ -73,13 +72,26 @@ export function MealPlansToolbar(props) {
               />
             }
             renderOption={params =>{
-              return <span style={{color: 'black'}}>{params.nameEn}</span>
+              return (
+              <span style={{color: 'black'}}>
+                {params.nameEn}
+                <span style={{color: 'darkgray', paddingLeft: '10px'}}>
+                  (client: {params.client?.clientId || 'Unassigned'})
+                </span>
+              </span>)
             }}
             value={props.selectedPlan}
             onChange={(event, val) => {
-              console.log({ val })
               props.setSelectedPlan(val)
             }}
+          />
+        </Grid>
+        <Grid item xs={2}  justify="flex-end">
+          <MealPlanAssignment
+            allClients={props.mealPlansToolbarFragment.clients}
+            assignedClientId={props.assignedClientId}
+            setAssignedClientId={props.setAssignedClientId}
+            selectedPlan={props.selectedPlan}
           />
         </Grid>
         <Grid container item xs={2} justify="flex-end">
@@ -106,6 +118,8 @@ export function MealPlansToolbar(props) {
 }
 
 MealPlansToolbar.propTypes = {
+  assignedClientId: PropTypes.string,
+  setAssignedClientId: PropTypes.func,
   mealPlansToolbarFragment: PropTypes.any,
   onSave: PropTypes.func,
   selectedPlan: PropTypes.object,
@@ -120,11 +134,17 @@ const MealPlansToolbarWithQuery = createFragmentContainer(
         mealPlans {
           nodes {
             id
+            clientId
             rowId
             nameEn
             nameFr
             descriptionEn
             descriptionFr
+            client {
+              id
+              rowId
+              clientId
+            }
             mealPlanEntries {
               nodes {
                 id
@@ -143,6 +163,13 @@ const MealPlansToolbarWithQuery = createFragmentContainer(
             }
           }
         }
+        clients {
+          nodes {
+            id
+            rowId
+            clientId
+          }
+        } 
       }
     `
   }

@@ -227,12 +227,52 @@ function mealEntryHasBeenRemoved({
   return true
 }
 
+
+function updateAssignment({ selectedPlan, assignedClientId }) {
+  return new Promise(function updateAssignmentPromise(resolve, reject) {
+    commitMutation(environment, {
+      mutation: graphql`
+        mutation PlanPageUpdateAssignmentMutation(
+            $id: ID!
+            $clientId: BigInt!
+          ) {
+          updateMealPlanById(input: {
+            id: $id
+            patch: {
+              clientId: $clientId
+            }
+          }) {
+            mealPlan {
+              clientId
+            }
+          }
+        }
+      `,
+      variables: {
+        id: selectedPlan.id,
+        clientId: assignedClientId.rowId,
+      },
+      onCompleted: function onCompleteHandler(response, errors) {
+        if (errors) {
+          reject(errors)
+          return
+        }
+        resolve()
+      },
+      onError: function onErrorHandler(err) {
+        reject(err)
+      }
+    })
+  })
+}
+
 /**
  * handle when user clicks to save meal plan
  */
 async function handleSave({
   selectedPlan,
-  mealsAtTimes
+  mealsAtTimes,
+  assignedClientId
 }) {
   const promises = []
 
@@ -261,6 +301,10 @@ async function handleSave({
     }
   })
 
+  if (assignedClientId && (assignedClientId.rowId != selectedPlan.clientId)) {
+    promises.push(updateAssignment({ selectedPlan, assignedClientId }))
+  }
+
   try {
     await Promise.all(promises) // wait for all mutations to complete
   } catch(e) {
@@ -272,7 +316,9 @@ export function PlanPage(props) {
   const classes = useStyles()
 
   const [selectedPlan, setSelectedPlan] = useState(null)
+  const [assignedClientId, setAssignedClientId] = useState(null)
   const [mealsAtTimes, setMealsAtTimes] = useState(makeDefaultMealsAtTimes())
+  
 
   useEffect(() => {
     if (selectedPlan !== null) {
@@ -313,11 +359,10 @@ export function PlanPage(props) {
   const onSave = () => {
     handleSave({
       selectedPlan,
-      mealsAtTimes
+      mealsAtTimes,
+      assignedClientId,
     })
   }
-
-  console.log({ selectedPlan })
 
   return (
     <Fragment>
@@ -325,6 +370,8 @@ export function PlanPage(props) {
       <Grid container component="main" className={classes.root}>
         <Grid item xs={12}>
           <MealPlansToolbar
+            assignedClientId={assignedClientId}
+            setAssignedClientId={setAssignedClientId}
             mealPlansToolbarFragment={props}
             selectedPlan={selectedPlan}
             setSelectedPlan={setSelectedPlan}
