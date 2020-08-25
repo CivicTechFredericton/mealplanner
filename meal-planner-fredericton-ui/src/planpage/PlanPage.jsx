@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import graphql from 'babel-plugin-relay/macro';
-import { QueryRenderer, commitMutation } from 'react-relay';
+import { QueryRenderer, createRefetchContainer, commitMutation } from 'react-relay';
 import environment from '../relay-environment';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -272,7 +272,8 @@ function updateAssignment({ selectedPlan, assignedClientId }) {
 async function handleSave({
   selectedPlan,
   mealsAtTimes,
-  assignedClientId
+  assignedClientId,
+  callback
 }) {
   const promises = []
 
@@ -307,6 +308,9 @@ async function handleSave({
 
   try {
     await Promise.all(promises) // wait for all mutations to complete
+    if (callback) {
+      callback()
+    }
   } catch(e) {
     console.error('Error happen creating meal plan entries', e)
   }
@@ -361,6 +365,7 @@ export function PlanPage(props) {
       selectedPlan,
       mealsAtTimes,
       assignedClientId,
+      callback: props.relay.refetch,
     })
   }
 
@@ -418,13 +423,20 @@ const query = graphql`
   }
 `;
 
+const PlanPageRefechContainer = createRefetchContainer(
+  PlanPage,
+  {
+  },
+  query
+)
+
 function PlanPageWithQuery() {
   return (
     <QueryRenderer
       environment={environment}
       query={query}
       variables={{}}
-      render={({ error, props }) => <PlanPage error={error} {...props} />}
+      render={({ error, props }) => <PlanPageRefechContainer error={error} {...props} />}
     />
   )
 }
