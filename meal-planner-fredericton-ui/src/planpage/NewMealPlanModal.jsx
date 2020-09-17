@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import graphql from 'babel-plugin-relay/macro'
@@ -98,11 +98,33 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewMealPlanModal(props) {
   const [planName, setPlanName] = useState('')
+  const [planNameError, setPlanNameError] = useState(null)
   const [planDescription, setPlanDescription] = useState('')
   const [submitInProgress, setSubmitInProgress] = useState(false)
 
+  function validateNewMealName() {
+    let isError = false
+    if (planName === "" || planName === null || planName === undefined) {
+      isError = true
+    }
+    setPlanNameError(isError)
+    return isError
+  }
+
+  useEffect(() => {
+    if (planNameError === null) {
+      setPlanNameError(false)
+    } else {
+      validateNewMealName()
+    }
+  }, [planName])
+
   async function handleFormSubmit() {
     try {
+      const isError = validateNewMealName()
+      if (isError) {
+        return
+      }
       setSubmitInProgress(true)
       const mealPlan = await doCreateNewPlan({
         name: planName,
@@ -153,6 +175,7 @@ export default function NewMealPlanModal(props) {
             className={classes.input}
             value={planName}
             onChange={event => { setPlanName(event.target.value)}}
+            error={planNameError}
           />
           <br />
           <br />
@@ -172,7 +195,11 @@ export default function NewMealPlanModal(props) {
           <br />
         </Grid>
         <Grid container item justify="flex-end" >
-          <Button color="primary" onClick={handleFormSubmit} disabled={submitInProgress}>
+          <Button 
+            color="primary" 
+            onClick={handleFormSubmit} 
+            disabled={submitInProgress || planNameError}
+          >
             Save <SaveIcon />
           </Button>
           <Button
