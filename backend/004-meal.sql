@@ -18,6 +18,7 @@ create table if not exists app.meal (
     servings_size numeric,
     servings_size_unit text,
     serves numeric,
+	nutrition_rating integer default 10,
     created_at timestamp default now() not null,
     updated_at timestamp default now() not null
 );
