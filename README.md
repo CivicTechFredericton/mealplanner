@@ -1,6 +1,6 @@
 # Backend System for graphql
 
-For Windows, see [[Setting up the backend (postgraphile) on Windows|wiki/Setting-up-the-backend-(postgraphile)-on-Windows]]
+For Windows, see [Setting up the backend (postgraphile) on Windows](wiki/Setting-up-the-backend-(postgraphile)-on-Windows)
 
 setup hooks
 ```
