@@ -1,29 +1,6 @@
 # Backend System for graphql
 
-## :office: Environment
-
-You will need to setup an environment variable called `DBNAME`. You may use [direnv](https://direnv.net/)
-
-For Mac OSX users install as,
-
-```
-brew install direnv
-```
-
-For Linux users,
-
-```
-apt-get install direnv
-```
-Then [hook direnv](https://direnv.net/docs/hook.html) to the shell. In my case I am running zsh. In `.zshrc` add the below to the end of the file,
-```
-eval "$(direnv hook zsh)"
-```
-In .envrc file, include the line
-```
-export DBNAME=mealplanner
-```
-Run `direnv allow` to load the environment variable into the shell.
+For Windows, see [[Setting up the backend (postgraphile) on Windows|wiki/Setting-up-the-backend-(postgraphile)-on-Windows]]
 
 setup hooks
 ```
