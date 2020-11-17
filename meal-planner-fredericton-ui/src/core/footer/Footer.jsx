@@ -41,110 +41,32 @@ const Footer = (props) => {
   useEffect( () => {
     const data = [
       {
-        title:'What we do',
         links:[
           {
-            name: 'Loans',
-            links: 'https://wwww.google.ca'
-          },
-          {
-            name: 'Car Loans',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Debt consolidated Loans',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Home improvement loans',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Wedding loans',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Innovative finance ISA',
-            links: 'https://www.yahoo.ca'
+            name: 'Powered by CivicTechFredericton'
           }
         ]
       },
       {
-        title:'About',
         links:[
           {
-            name: 'About us',
-            links: 'https://wwww.google.ca'
+            name: 'About Us'
           },
           {
-            name: 'Our Story',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Meet the board',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Meet the leadership team',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Awards',
-            links: 'https://www.yahoo.ca'
-          },{
-            name: 'Careers',
-            links: 'https://www.yahoo.ca'
+            name: 'Contact Us'
           }
         ]
       },
       {
-        title:'Legal',
         links:[
           {
-            name: 'Privacy policy',
-            links: 'https://wwww.google.ca'
+            name: 'Greener Village',
+            links: 'https://www.greenervillage.ca'
           },
           {
-            name: 'Loans2go principles',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Website terms',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Cookie policy',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Conflicts policy',
+            name: 'Privacy Policy',
             links: 'https://www.yahoo.ca'
           }
-        ]
-      },
-      {
-        title:'Site info',
-        links:[
-          {
-            name: 'Support',
-            links: 'https://wwww.google.ca'
-          },
-          {
-            name: 'FAQ',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Sitemap',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Careers',
-            links: 'https://www.yahoo.ca'
-          },
-          {
-            name: 'Contact us',
-            links: 'https://www.yahoo.ca'
-          },
         ]
       }
     ];
@@ -197,7 +119,7 @@ const Footer = (props) => {
       <Grid item className={styles.footerInnerContainer}
         container
         direction="row"
-        justify="center"
+        justify="space-between"
         alignItems="flex-start">
         {
           State.components
