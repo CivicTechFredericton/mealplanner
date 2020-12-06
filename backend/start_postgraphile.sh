@@ -1,6 +1,5 @@
 #!/bin/bash
-# sleep in case this is the first build, postgres takes time to init
-sleep 5
+
 # test for the presence of the schema
 export PGPASSWORD=${POSTGRES_PASSWORD}
 
