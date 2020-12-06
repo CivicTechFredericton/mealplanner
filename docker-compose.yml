@@ -35,7 +35,6 @@ services:
       - "3000:3000"
     volumes:
       - ./meal-planner-fredericton-ui:/app
-      - /app/node_modules
       - ./backend:/backend
     environment:
       REACT_APP_GRAPHQL_URL: http://graphql:4000/graphql
