@@ -6,8 +6,9 @@ begin;
       select true into role_exists from pg_roles where rolname='app_graphile';
 
       if role_exists is null then
-        create role app_graphile login password '$PGPASSWORD';
-        grant connect on database $PGDATABASE to app_graphile;
+        create role app_graphile;
+	execute format('grant app_graphile to %I',current_user);
+        execute format('grant connect on database %I to app_graphile',current_database());
       end if;
 
       select true into role_exists from pg_roles where rolname='app_anonymous';
