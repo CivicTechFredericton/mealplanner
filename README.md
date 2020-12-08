@@ -16,7 +16,7 @@ Before composing the application you must ensure that Docker is installed and fu
 
 It is recomended to perform the install and "getting started" steps for Docker Desktop before proceeding.
 
-Now that Docker is available, set up the environment for the composed applications.  In the main project folder, where the `docker-compose.yaml` file is, create a file named `.env` and add two variables to it. These are a databse password and a token secret. Both should be treated like passwords and should be reasonably unique and random.  This is and example (please don't use these passwords, crete your own):
+Now that Docker is available, set up the environment for the composed applications.  In the main project folder, where the `docker-compose.yaml` file is, create a file named `.env` and add two variables to it. These are a databse password and a token secret. Both should be treated like passwords and should be reasonably unique and random.  This is and example (please don't use these passwords, create your own):
 ```
 POSTGRES_PASSWORD=databasepassword
 JWT_SECRET=signingsecret
