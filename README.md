@@ -13,9 +13,10 @@ Before composing the application you must ensure that Docker is installed and fu
  - MacOS [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
  - Windows 10 *Home* [Docker Desktop for Windows 10 Home](https://docs.docker.com/docker-for-windows/install-windows-home/)
  - Windows 10 *Pro* or *Enterprise* [Docker Desktop for Windows 10](https://docs.docker.com/docker-for-windows/install/)
+
 It is recomended to perform the install and "getting started" steps for Docker Desktop before proceeding.
 
-Now that Docker is available, set up the environment for the composed applications.  In the main project folder, where the docker-compose.yaml file is, create a file named `.env` and add two variables to it. These are a databse passowrd and a token secret. Both should be treated like passwords and should be reasonably unique and random.  This is and example (please don't use these passwords, crete your own):
+Now that Docker is available, set up the environment for the composed applications.  In the main project folder, where the `docker-compose.yaml` file is, create a file named `.env` and add two variables to it. These are a databse password and a token secret. Both should be treated like passwords and should be reasonably unique and random.  This is and example (please don't use these passwords, crete your own):
 ```
 POSTGRES_PASSWORD=databasepassword
 JWT_SECRET=signingsecret
