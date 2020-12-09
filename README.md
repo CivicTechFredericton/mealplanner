@@ -23,6 +23,13 @@ JWT_SECRET=signingsecret
 ```
 Now, in the same folder run `docker-compose up`. Docker compose will download base images and begin the container builds.  If all is well, the graphql server will be available at http://localhost:4000/graphql or http://localhost:4000/graphiql. The frontend UI will be available at http://localhost:3000
 
+If you are unfamiliar with Docker and find that you gotten your application into a weird state, you can reset the whole thing with a couple of commands:
+```
+docker-compose down -v --rmi all
+docker volume prune
+```
+After this, `docker-compose up` will rebuild containers from scratch.
+
 ## To add some automatic linting on your commits:
 
 setup hooks
