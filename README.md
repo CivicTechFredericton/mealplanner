@@ -6,7 +6,7 @@ For Ubuntu, see [Setting up the backend (postgraphile) on Ubuntu](../../wiki/Set
 ## Setting up front and backend with Docker
 The mealplanner project can be built and run using docker-compose on platforms that support Docker (Linux, MacOS, Windows 10 *Pro*)
 
-In the main project directory there is a docker-compose.yaml file that will build and run three containers: postgres, graphl backend and the frontend application. The postgres container uses a standard psotgres image from docker hub, the other two will be built on top of the node:12 container. The Dockerfiles in the backend and meal-planner-fredericton-ui directories decribe the builds.
+In the main project directory there is a docker-compose.yml file that will build and run three containers: postgres, graphl backend and the frontend application. The postgres container uses a standard psotgres image from docker hub, the other two will be built on top of the node:12 container. The Dockerfiles in the backend and meal-planner-fredericton-ui directories decribe the builds.
 ### Pre-requisites
 Before composing the application you must ensure that Docker is installed and functioning. A quick check is to run `docker version` on the command line to see if you get any output. If you get an error, see the Docker set up for your platfrom.
  - Ubuntu - this should be as simple as `sudo apt install docker docker-compose docker.io python3-docker python3-dockerpty`
@@ -16,7 +16,7 @@ Before composing the application you must ensure that Docker is installed and fu
 
 It is recomended to perform the install and "getting started" steps for Docker Desktop before proceeding.
 
-Now that Docker is available, set up the environment for the composed applications.  In the main project folder, where the `docker-compose.yaml` file is, create a file named `.env` and add two variables to it. These are a databse password and a token secret. Both should be treated like passwords and should be reasonably unique and random.  This is and example (please don't use these passwords, create your own):
+Now that Docker is available, set up the environment for the composed applications.  In the main project folder, where the `docker-compose.yml` file is, create a file named `.env` and add two variables to it. These are a databse password and a token secret. Both should be treated like passwords and should be reasonably unique and random.  This is and example (please don't use these passwords, create your own):
 ```
 POSTGRES_PASSWORD=databasepassword
 JWT_SECRET=signingsecret
