@@ -2005,7 +2005,7 @@ convert-source-map@^1.5.1, convert-source-map@^1.7.0:
   dependencies:
     safe-buffer "~5.1.1"
 
-cookie@^0.4.1:
+cookie@0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.1.tgz#afd713fe26ebd21ba95ceb61f9a8116e50a537d1"
   integrity sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==
@@ -2987,7 +2987,7 @@ grapheme-breaker@^0.3.2:
     brfs "^1.2.0"
     unicode-trie "^0.3.1"
 
-graphql-tag@^2.10.1, graphql-tag@^2.4.2:
+graphql-tag@2.10.3, graphql-tag@^2.10.1, graphql-tag@^2.4.2:
   version "2.10.3"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.3.tgz#ea1baba5eb8fc6339e4c4cf049dabe522b0edf03"
   integrity sha512-4FOv3ZKfA4WdOKJeHdz6B3F/vxBLSgmBcGeAFPf4n1F64ltJUvOOerNj0rsJxONQGdhUMynQIvd6LzB+1J5oKA==
@@ -3647,7 +3647,7 @@ jsonexport@^2.4.1:
   resolved "https://registry.yarnpkg.com/jsonexport/-/jsonexport-2.5.2.tgz#fafbcdb2cb8e12d0a2a92cda6e0634c8d48005ac"
   integrity sha512-4joNLCxxUAmS22GN3GA5os/MYFnq8oqXOKvoCymmcT0MPz/QPZ5eA+Fh5sIPxUji45RKq8DdQ1yoKq91p4E9VA==
 
-jsonwebtoken@^8.5.1:
+jsonwebtoken@8.5.1:
   version "8.5.1"
   resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz#00e71e0b8df54c2121a1f26137df2280673bcc0d"
   integrity sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==
@@ -3876,9 +3876,9 @@ lodash.uniq@^4.5.0:
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
 lodash@^4.17.13, lodash@^4.17.15, lodash@^4.17.4, lodash@~4.17.5:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log-symbols@^2.2.0:
   version "2.2.0"
