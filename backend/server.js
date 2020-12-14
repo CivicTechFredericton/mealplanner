@@ -21,7 +21,7 @@ const postgraphileOptions = {
   allowExplain: true,
   enableQueryBatching: true,
   jwtPgTypeIdentifier: "app.jwt_token",
-  jwtSecret: process.env.JWT_SECRET,
+  jwtSecret: process.env.JWT_SECRET||"AVerySecretString",
   legacyRelations: "omit",
   pgDefaultRole: "app_anonymous",
   ownerConnectionString: process.env.OWNER_DATABASE_URL,
@@ -30,7 +30,7 @@ const postgraphileOptions = {
   pgSettings: {},
 };
 
-app.use(postgraphile( process.env.DATABASE_URL, "app", postgraphileOptions));
+app.use(postgraphile( process.env.DATABASE_URL || "postgres://localhost:5432/", "app", postgraphileOptions));
 
 let port = parseInt(process.env.PORT || "4000");
 console.log("starting graphql server ...");

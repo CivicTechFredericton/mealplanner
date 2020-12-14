@@ -1,14 +1,14 @@
 version: '3.7'
 services:
   db:
-    image: postgres:12
+    image: postgres
     restart: always
     ports:
-      - "5533:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: password123
+    env_file:
+      - .env
   graphql:
     build:
       context: backend
@@ -17,17 +17,13 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+    env_file:
+      - .env
     environment:
-      DATABASE_URL: postgres://postgres:password123@db/${DBNAME}?sslmode=disable
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@db/?sslmode=disable
       ENABLE_SSH: "false"
-      DATABASE_URL: postgres://app_graphile:password123@db/${DBNAME}?sslmode=disable
-      OWNER_DATABASE_URL: postgres://postgres:password123@db/${DBNAME}?sslmode=disable
-      JWT_SECRET: AVerySecretString
-      PGPASSWORD: password123
-      PGDATABASE: "$DBNAME" 
-      PGHOST: db
-      PGUSER: postgres
-      DBNAME: "$DBNAME"
+      OWNER_DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@db/?sslmode=disable
+      PG_HOST: db
     depends_on:
       - db
     links:
@@ -39,12 +35,9 @@ services:
       - "3000:3000"
     volumes:
       - ./meal-planner-fredericton-ui:/app
-      - /app/node_modules
+      - ./backend:/backend
     environment:
-      DATABASE_URL: postgres://postgres:password123@db/${DBNAME}?sslmode=disable
-      JWT_SECRET: AVerySecretString
-      PGPASSWORD: password123
-      DBNAME: "$DBNAME"
+      REACT_APP_GRAPHQL_URL: http://graphql:4000/graphql
     depends_on:
       - graphql
     links:
@@ -52,3 +45,4 @@ services:
 
 volumes:
   pgdata:
+
