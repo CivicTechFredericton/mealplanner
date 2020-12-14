@@ -9,6 +9,7 @@ import Footer from '../core/footer/Footer';
 import { useParams } from "react-router-dom";
 import { QueryRenderer} from 'react-relay';
 import environment from '../relay-environment';
+import StarRating from '../components/starRating/StarRating';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,6 +63,7 @@ const DisplayMeal = (props) => {
                               quantity
                             }
                         }
+                        nutritionRating
                     }
                 }
         `}
@@ -102,6 +104,7 @@ const renderQuery = ({error, props}) => {
           </Grid>
           <Grid item xs={4}>
             <Box mt={10} ml={3} mr={5}>
+              <h2>Nutrition Score: <StarRating halfStars={props.mealById.nutritionRating}></StarRating></h2>
               <h2 style={{whiteSpace: 'pre-wrap'}}>
                 {props.mealById.descriptionEn}{"\n"}
                             Ready in: {props.mealById.cookingDuration} minutes{"\n"}
