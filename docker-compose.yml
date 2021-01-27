@@ -43,6 +43,19 @@ services:
       - graphql
     links:
       - graphql
+  admin:
+    build:
+      context: admin-interface
+    ports:
+      - "2000:2000"
+    volumes:
+      - ./admin-interface:/app
+      - /app/node_modules
+      - /app/dist
+    depends_on:
+      - graphql
+    links:
+      - graphql
 
 volumes:
   pgdata:
