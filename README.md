@@ -31,13 +31,32 @@ JWT_SECRET=signingsecret
 ```
 Now, in the same folder run `docker-compose up`. Docker compose will download base images and begin the container builds.  If all is well, the graphql server will be available at `http://localhost:4000/graphql` or `http://localhost:4000/graphiql`. The frontend UI will be available at `http://localhost:3000`
 
-If you are unfamiliar with Docker and find that you gotten your application into a weird state, you can reset the whole thing with a couple of commands:
+If you are unfamiliar with Docker and find that you have gotten your application into a weird state, you can reset the whole thing with a couple of commands:
 
 ```
 docker-compose down -v --rmi all
 docker volume prune
 ```
 After this, `docker-compose up` will rebuild containers from scratch.
+
+### populating sample data
+On the initial build and startup, the database will be completely empty. There won't even be an account created for logging in. To populate the databse with a handful of users and some recipe material run the following docker-compose command to seed the database:
+
+```
+docker-compose exec -T db /usr/bin/psql -U postgres -f - < backend/seed.sql
+```
+
+Pay careful attention to the output as it will include the randomly generated passwords for the defaul users. This will look something like the following but the passwords will be unique each time:
+
+```
+BEGIN
+psql:<stdin>:114: NOTICE:     Admin login: admin@example.com        676538dc8285f2c
+psql:<stdin>:114: NOTICE:  Designer login: mealdesigner@example.com bd99ff9537fdc63
+psql:<stdin>:114: NOTICE:     User1 login: user1@example.com        8fc76f1a89d08cb
+psql:<stdin>:114: NOTICE:     User2 login: user2@example.com        10d3b4cba908d72
+DO
+COMMIT
+```
 
 ## To add some automatic linting on your commits:
 
