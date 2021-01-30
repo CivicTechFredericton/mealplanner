@@ -5,7 +5,7 @@ begin;
     user1 app.person;
     user2 app.person;
     meal_designer app.person;
-    customer app.person;
+    person_pass text;
     meal1 app.meal;
     product1 app.product;
     product2 app.product;
@@ -14,12 +14,6 @@ begin;
     meal_plan1 app.meal_plan;
 
   begin
-    admn := app.register_person('Vagmi Mudumbai', 'vagmi@tarkalabs.com', 'password');
-    meal_designer := app.register_person('Meal Designer1', 'mealdesigner@example.com', 'password');
-    perform app.authorize_meal_designer(meal_designer.id);
-    customer := app.register_person('Shanthi', 'shanthi.shanmugam@gmail.com', 'password');
-    user1 := app.register_person('User One', 'user1@example.com', 'password');
-    user2 := app.register_person('User Two', 'user2@example.com', 'password');
 
     INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, walmart_link, tags)
     VALUES ('HIMALAYAN PINK SALT', 'sel rose de l''Himalaya', 'hs', '2.97', 200,'g', '62891583057', 
@@ -102,7 +96,20 @@ begin;
       category, days, meal_plan_id, meal_id)
       VALUES ('Breakfast', 1, meal_plan1.id, meal1.id);
 
-    UPDATE app.person set meal_plan_id=meal_plan1.id where app.person.id=customer.id;
+    select substring(encode(digest(random()::TEXT,'sha256'),'hex') from 0 for 16) into person_pass;
+    admn := app.register_person('Admin', 'admin@example.com', person_pass);
+    raise notice '   Admin login: admin@example.com        %', person_pass;
+    select substring(encode(digest(random()::TEXT,'sha256'),'hex') from 0 for 16) into person_pass;
+    meal_designer := app.register_person('Meal Designer', 'mealdesigner@example.com', person_pass);
+    perform app.authorize_meal_designer(meal_designer.id);
+    raise notice 'Designer login: mealdesigner@example.com %', person_pass;
+    select substring(encode(digest(random()::TEXT,'sha256'),'hex') from 0 for 16) into person_pass;
+    user1 := app.register_person('User One', 'user1@example.com', person_pass);
+    raise notice '   User1 login: user1@example.com        %', person_pass;
+    select substring(encode(digest(random()::TEXT,'sha256'),'hex') from 0 for 16) into person_pass;
+    user2 := app.register_person('User Two', 'user2@example.com', person_pass);
+    raise notice '   User2 login: user2@example.com        %', person_pass;
+
   end;
   $$;
 
