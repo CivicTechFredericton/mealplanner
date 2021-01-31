@@ -2,6 +2,8 @@
 
 ## Setting up local postgraphile backend
 
+If you are unable or unwilling to run docker on your development machine, you could instead set up the services locally. If you are able to run Docker then skip this section. 
+
 For Windows, see [Setting up the backend (postgraphile) on Windows](../../wiki/Setting-up-the-backend-(postgraphile)-on-Windows)
 
 For Ubuntu, see [Setting up the backend (postgraphile) on Ubuntu](../../wiki/Setting-up-the-backend-(postgraphile)-on-Ubuntu)
