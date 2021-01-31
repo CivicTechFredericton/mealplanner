@@ -6,10 +6,8 @@ drop schema if exists app_private, app cascade;
 \i 003-product.sql
 \i 004-meal.sql
 \i 005-measure.sql
-\i 005_2-clients.sql
 \i 006-meal-plan.sql
 \i 007-meal-plan-entry.sql
-\i 008-pantry.sql
 \i 009-authorize-meal-designer.sql
 \i 010-shopping-list.sql
 
