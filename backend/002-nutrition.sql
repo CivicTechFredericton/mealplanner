@@ -49,7 +49,7 @@ create table if not exists app.nutrition (
     created_at timestamp default now() not null,
     updated_at timestamp default now() not null
 );
-comment on table app.nutrition is 'Table to store nutrition details';
+comment on table app.nutrition is 'Nutrition details that can be applied to Meals or Products. Not directly related to any other object, the nutritionable_id and nutritional_type are combined to determine the application.';
 
 create trigger tg_nutrition_set_updated_at before update
 on app.nutrition

@@ -22,6 +22,8 @@ WHERE app.meal_plan.id = p.id
 GROUP BY app.product.id, app.product.name_en, app.measure.unit;
 
 $$ language sql stable;
+comment on function app.meal_plan_shopping_list(app.meal_plan) is 'Generate a shopping list from the Products referenced by the Meals in this Meal Plan.';
 
 GRANT execute on function app.meal_plan_shopping_list(app.meal_plan) to app_user, app_meal_designer, app_admin;
+
 COMMIT;
