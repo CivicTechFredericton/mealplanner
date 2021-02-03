@@ -15,25 +15,25 @@ begin;
 
   begin
 
-    INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, walmart_link, tags)
+    INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, source_link, tags)
     VALUES ('HIMALAYAN PINK SALT', 'sel rose de l''Himalaya', 'hs', '2.97', 200,'g', '62891583057', 
     'https://www.walmart.ca/en/ip/great-value-pink-himalayan-rock-salt-grinder-refill/6000199880834',
     '{"indian cuisine", "condiments", "vegan", "vegetarian"}');
 
-    INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, walmart_link, tags)
+    INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, source_link, tags)
     VALUES ('COCONUT chunks', 'morceaux de noix de coco', 'cc_v', '3.47', 200, 'g', '80914514137', 
     'https://www.walmart.ca/en/ip/coconut-chunks-200g/6000198054613',
     '{"indian cuisine", "vegetable","vegan", "vegetarian", "frozen", "farm fresh"}') returning * into product1;
 
-    INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, walmart_link, tags)
+    INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, source_link, tags)
     VALUES ('Coriander leaves', 'feuilles de coriandre', 'cl_v', '1.47', '1', 'bunch', '4889', 'https://www.walmart.ca/en/ip/cilantro/981707',
     '{"indian cuisine", "vegetable","vegan", "vegetarian", "farm fresh"}') returning * into product2;
 
-    INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, walmart_link, tags)
+    INSERT INTO app.product (name_en, name_fr, code, price, quantity, unit, upc, source_link, tags)
     VALUES ('Red Chilli', 'rouge piment', 'rc_v', '1.27', 100, 'g', '82815810318', 'https://www.walmart.ca/en/ip/red-chilli-whole/6000188763096',
     '{"indian cuisine", "vegetable","vegan", "vegetarian", "grocery"}') returning * into product3;
 
-    INSERT INTO app.product(name_en, name_fr, code, price, quantity, unit, upc, walmart_link, tags)
+    INSERT INTO app.product(name_en, name_fr, code, price, quantity, unit, upc, source_link, tags)
     VALUES ('Roasted gram', '', 'rg_p', '1.97', '350', 'g', '82815820042', 'https://www.walmart.ca/en/ip/pti-roasted-chana-with-skin/6000188764683',
     '{"indian cuisine", "pulse", "vegetarian", "vegan", "grocery"}') returning * into product4;
 
