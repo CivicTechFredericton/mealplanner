@@ -40,8 +40,8 @@ comment on column app.meal.cooking_duration is 'The typical time to complete the
 comment on column app.meal.total_cost is 'An estimate of the cost of ingredients.';
 comment on column app.meal.serving_cost is 'An estimate of the cost per serving.';
 comment on column app.meal.tips is 'Some tips and tricks that could help make recipe preparation successful.';
-comment on column app.meal.servings_size is '??';
-comment on column app.meal.servings_size_unit is '??';
+comment on column app.meal.servings_size is 'The numerical size of each serving, combines with servingSizeUnit';
+comment on column app.meal.servings_size_unit is 'The unit of measure to complement servingSize';
 comment on column app.meal.serves is 'The number of people this recipe is meant to serve.';
 comment on column app.meal.nutrition_rating is '??';
 
