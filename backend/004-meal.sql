@@ -1,4 +1,7 @@
 BEGIN;
+
+create type app.category_t as enum('Breakfast', 'Lunch', 'Dinner', 'Snack');
+
 create table if not exists app.meal (
     id bigserial primary key,
     code text not null,
@@ -7,7 +10,7 @@ create table if not exists app.meal (
     tags text[],
     description_en text,
     description_fr text,
-    categories text[],
+    categories app.category_t[],
     photo_url text,
     video_url text,
     method text,
@@ -29,7 +32,7 @@ comment on column app.meal.name_fr is 'Short name or title in French';
 comment on column app.meal.tags is 'A list of tags (strings) used to apply attributes to the Meal/recipe. May include things like "vegetarian" or "contains peanuts" to facilitate filtering and matching with user''s dietrary needs and so forth. Tag values are determined by the user.';
 comment on column app.meal.description_en is 'Longer form description of the recipe to complement the name, in English';
 comment on column app.meal.description_fr is 'Longer form description of the recipe to complement the name, in French';
-comment on column app.meal.categories is '??';
+comment on column app.meal.categories is 'Categories for which this Meal is appropriate. This is used to restrict Categories to which a Meal may be assigned within a Meal Plan. These iclude "Breakfast", "Lunch", "Dinner", "Snack"';
 comment on column app.meal.photo_url is '??';
 comment on column app.meal.video_url is '??';
 comment on column app.meal.method is 'The instructions for preparing the recipe, usually in point form. Plain text formatting determined by the user.';

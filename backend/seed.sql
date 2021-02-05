@@ -42,7 +42,7 @@ begin;
     VALUES ('cc_side', 'coriander coconut chutney', 'chutney de coriandre à la noix de coco', 
     '{"side dish", "vegetarian", "vegan", "indian cuisine"}', 
     'It can be used  to eat along with idli, dosa, vada, bonda or bajji', 'Il peut être utilisé pour manger avec idli, dosa vada, bonda ou bajji', 
-    '{"Breakfast", "snacks", "dinner"}', 'http://photo_url', 'http://video_url', 
+    '{"Breakfast", "Snack", "Dinner"}', 'http://photo_url', 'http://video_url', 
     '1. Clean the bunch of coriander leaves thoroughly.
     2. grind 1 cup of coconut chunks to powder in a mixie
     3. Then add 3/4th cup of roasted gram,  3 red chilli, 1 inch ginger and grind it

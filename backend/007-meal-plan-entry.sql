@@ -1,8 +1,5 @@
 BEGIN;
 
-
-create type app.category_t as enum('Breakfast', 'Lunch', 'Dinner', 'Snack');
-
 create table if not exists app.meal_plan_entry (
     id bigserial primary key,
     category app.category_t not null,
