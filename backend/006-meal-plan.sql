@@ -22,10 +22,30 @@ create trigger tg_meal_plan_set_updated_at before update
 on app.meal_plan 
 for each row execute procedure app.set_updated_at();
 
+create trigger tg_meal_plan_set_created_at before insert
+on app.meal_plan 
+for each row execute procedure app.set_created_at();
+
 create index idx_meal_plan_person_id on app.meal_plan(person_id);
 
-GRANT select, insert, delete, update on app.meal_plan to app_meal_designer, app_admin;
-GRANT select on app.meal_plan to app_anonymous, app_user;
-GRANT usage on SEQUENCE app.meal_plan_id_seq to app_meal_designer, app_admin;
+GRANT select, insert, delete, update on app.meal_plan to app_user, app_meal_designer, app_admin;
+GRANT usage on SEQUENCE app.meal_plan_id_seq to app_user, app_meal_designer, app_admin;
 
+alter table app.meal_plan enable row level security;
+
+create policy all_meal_plan_admin
+  on app.meal_plan
+  for all
+  to app_admin using(true);
+
+create policy all_meal_plan_meal_designer
+  on app.meal_plan
+  for all
+  to app_meal_designer using(true);
+
+create policy all_meal_plan_user
+  on app.meal_plan
+  for all
+  to app_user using(person_id = nullif(current_setting('jwt.claims.person_id', true), '')::bigint);
+  
 COMMIT;

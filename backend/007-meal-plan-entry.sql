@@ -19,6 +19,10 @@ create trigger tg_meal_plan_entry_set_updated_at before update
 on app.meal_plan_entry
 for each row execute procedure app.set_updated_at();
 
+create trigger tg_meal_plan_entry_set_created_at before insert
+on app.meal_plan_entry
+for each row execute procedure app.set_created_at();
+
 create index idx_meal_plan_entry_meal_plan_id on app.meal_plan_entry(meal_plan_id);
 create index idx_meal_plan_entry_meal_id on app.meal_plan_entry(meal_id);
 

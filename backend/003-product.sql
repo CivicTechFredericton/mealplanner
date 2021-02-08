@@ -33,6 +33,10 @@ create trigger tg_product_set_updated_at before update
 on app.product 
 for each row execute procedure app.set_updated_at();
 
+create trigger tg_product_set_created_at before insert
+on app.product 
+for each row execute procedure app.set_created_at();
+
 create or replace function app.product_nutrition(p app.product) returns app.nutrition as $$
   select * from app.nutrition n where n.nutritionable_id=p.id and n.nutritionable_type='product' limit 1;
 $$ language sql stable;

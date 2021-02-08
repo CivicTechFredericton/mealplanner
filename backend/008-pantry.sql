@@ -12,6 +12,10 @@ create trigger tg_app_pantry_set_updated_at before UPDATE
 on app.pantry
 for each row execute procedure app.set_updated_at(); 
 
+create trigger tg_app_pantry_set_created_at before insert
+on app.pantry
+for each row execute procedure app.set_created_at(); 
+
 create index idx_pantry_person_id on app.pantry(person_id);
 create index idx_pantry_product_id on app.pantry(product_id);
 

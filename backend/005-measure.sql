@@ -19,6 +19,10 @@ create trigger tg_measure_set_updated_at before update
 on app.measure 
 for each row execute procedure app.set_updated_at();
 
+create trigger tg_measure_set_created_at before insert
+on app.measure 
+for each row execute procedure app.set_created_at();
+
 create INDEX idx_measure_product_id ON app.measure(product_id);
 create INDEX idx_measure_meal_id ON app.measure(meal_id);
 

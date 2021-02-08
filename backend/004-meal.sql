@@ -1,6 +1,7 @@
 BEGIN;
 
 create type app.category_t as enum('Breakfast', 'Lunch', 'Dinner', 'Snack');
+comment on type app.category_t is 'Possible values for Meal category. "Breakfast","Lunch","Dinner","Snack"';
 
 create table if not exists app.meal (
     id bigserial primary key,
@@ -43,11 +44,15 @@ comment on column app.meal.tips is 'Some tips and tricks that could help make re
 comment on column app.meal.servings_size is 'The numerical size of each serving, combines with servingSizeUnit';
 comment on column app.meal.servings_size_unit is 'The unit of measure to complement servingSize';
 comment on column app.meal.serves is 'The number of people this recipe is meant to serve.';
-comment on column app.meal.nutrition_rating is '??';
+comment on column app.meal.nutrition_rating is 'An overall nutritional quality rating from 1 - 10';
 
 create trigger tg_meal_set_updated_at before update
 on app.meal 
 for each row execute procedure app.set_updated_at();
+
+create trigger tg_meal_set_created_at before insert
+on app.meal 
+for each row execute procedure app.set_created_at();
 
 create or replace function app.meal_nutrition(m app.meal) returns app.nutrition as $$
   select * from app.nutrition n where n.nutritionable_id=m.id and n.nutritionable_type='meal' limit 1;

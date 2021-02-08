@@ -55,6 +55,10 @@ create trigger tg_nutrition_set_updated_at before update
 on app.nutrition
 for each row execute procedure app.set_updated_at();
 
+create trigger tg_nutrition_set_created_at before insert
+on app.nutrition
+for each row execute procedure app.set_created_at();
+
 grant select on table app.nutrition to app_anonymous, app_user, app_meal_designer, app_admin;
 grant usage on sequence app.nutrition_id_seq to app_meal_designer, app_admin;
 grant insert, update, delete on table app.nutrition to app_meal_designer, app_admin;
