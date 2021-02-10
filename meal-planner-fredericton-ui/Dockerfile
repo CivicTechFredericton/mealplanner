@@ -7,4 +7,4 @@ run npm install
 
 
 expose 3000
-cmd ["npm","start"]
+cmd ["/bin/bash","start.sh"]
