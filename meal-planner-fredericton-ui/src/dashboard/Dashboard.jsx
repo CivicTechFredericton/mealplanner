@@ -345,18 +345,19 @@ query DashboardQuery	 {
       id
       nameEn
       createdAt
-      client {
-        clientId
+      person {
+        id
       }
     }
   }
-  clients {
+  people {
     nodes {
-      clientId
+      id
     }
   }
 }
 `
+
 
 const DashboardRefetchContainer = createRefetchContainer(
   Dashboard,
