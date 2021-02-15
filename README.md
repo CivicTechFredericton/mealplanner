@@ -10,7 +10,7 @@ For Ubuntu, see [Setting up the backend (postgraphile) on Ubuntu](../../wiki/Set
 
 ## Setting up front and backend with Docker
 
-The mealplanner project can be built and run using docker-compose on platforms that support Docker (Linux, MacOS, Windows 10 **Pro**)
+The mealplanner project can be built and run using docker-compose on platforms that support Docker (Linux, MacOS, Windows 10)
 
 In the main project directory there is a docker-compose.yml file that will build and run three containers: postgres, graphl backend and the frontend application. The postgres container uses a standard psotgres image from docker hub, the other two will be built on top of the node:12 container. The Dockerfiles in the backend and meal-planner-fredericton-ui directories decribe the builds.
 
