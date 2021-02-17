@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageCarousel from './ImageCarousel';
+import { useTranslation } from 'react-i18next';
 
 import { setCurrentToken } from '../utils/auth';
 
@@ -108,6 +109,9 @@ const FindOutMore = () => {
 };
 
 const LoginForm = () => {
+  const { t } = useTranslation([
+    'authentication'
+  ]);
   const classes = useStyles();
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -143,7 +147,7 @@ const LoginForm = () => {
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label={t('authentication:lblEmailAddress')}
           name="email"
           autoComplete="email"
           autoFocus
@@ -156,7 +160,7 @@ const LoginForm = () => {
           required
           fullWidth
           name="password"
-          label="Password"
+          label={t('authentication:lblPassword')}
           type="password"
           id="password"
           autoComplete="current-password"
