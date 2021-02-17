@@ -10,4 +10,4 @@ drop schema if exists app_private, app cascade;
 \i 007-meal-plan-entry.sql
 \i 009-authorize-meal-designer.sql
 \i 010-shopping-list.sql
-
+\i 011-authorize-admin.sql
