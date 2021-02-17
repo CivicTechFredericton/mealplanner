@@ -18,6 +18,7 @@ import StarIcon from '@material-ui/icons/Star';
 import SettingIcon from '@material-ui/icons/Settings';
 import PersonIcon from '@material-ui/icons/Person';
 
+import { useTranslation } from 'react-i18next';
 import { isAuthenticated, logout } from '../../utils/auth';
 
 
@@ -141,6 +142,10 @@ const useStyles = makeStyles(theme => ({
 
 
 const Header = () => {
+  const { t } = useTranslation([
+    'common'
+  ]);
+
   const styles = useStyles();
   const location = useLocation();
     
@@ -149,7 +154,7 @@ const Header = () => {
   // only add link to protected page if user authenticated
   if (isAuthenticated()) {
     navMenu.push({
-      label: "Meal Designer",
+      label: "Meal DesignerQ",
       pathname: "/meal-designer",
     })
   }
