@@ -17,6 +17,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import NewMealPlanModal from './NewMealPlanModal'
 import MealPlanAssignment from './MealPlanAssignment'
 
+import { useTranslation } from 'react-i18next';
+
 const useStyles = makeStyles(() => ({
   autocompleteText: {
     color: 'black',
@@ -33,6 +35,10 @@ const useStyles = makeStyles(() => ({
  * Toolbar with controls for selecting, creating and saving meal plan
  */
 export function MealPlansToolbar(props) {
+  const { t } = useTranslation([
+    'common'
+  ]);
+
   const location = useLocation()
   const [
     alreadySelectedMealAfterNav,
@@ -67,7 +73,7 @@ export function MealPlansToolbar(props) {
               <TextField 
                 className={classes.autocompleteText}
                 {...params} 
-                label={props.selectedPlan ? "Meal Plan" : "Select Meal Plan to Begin"}
+                label={props.selectedPlan ? t('common:lblMealPlan') : t('common:lblSelectMealPlan')}
                 variant="outlined"
               />
             }
@@ -96,14 +102,14 @@ export function MealPlansToolbar(props) {
         </Grid>
         <Grid container item xs={2} justify="flex-end">
           <Button color="primary" onClick={props.onSave}>
-            Save
+            {t('common:btnSave')}
             <SaveIcon />
           </Button>
           <Button 
             color="primary" 
             onClick={() => setNewPlanModalOpen(true)}
           >
-            New
+            {t('common:btnNew')}
             <AddIcon />
           </Button>
         </Grid>

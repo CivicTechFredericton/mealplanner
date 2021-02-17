@@ -23,5 +23,8 @@
     "lblGreenerVillage": "Greener Village",
     "lblPrivacyPolicy": "Privacy Policy",
     "btnSave": "Save",
-    "btnCancel": "Cancel"
+    "btnCancel": "Cancel",
+    "btnNew": "New",
+    "lblSelectMealPlan": "Select Meal Plan to Begin"
+
 }
