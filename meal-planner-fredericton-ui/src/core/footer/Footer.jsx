@@ -4,6 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {Link} from 'react-router-dom';
 import {MenuList} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles (() => ({
   footerContainer: {
@@ -36,6 +37,10 @@ const useStyles = makeStyles (() => ({
   },
 }));
 const Footer = (props) => {
+  const { t } = useTranslation([
+    'common'
+  ]);
+
   const styles = useStyles(props);
   const [State, setState] = useState({data:[], components:[]});
   useEffect( () => {
@@ -43,28 +48,28 @@ const Footer = (props) => {
       {
         links:[
           {
-            name: 'Powered by CivicTechFredericton'
+            name: t('common:lblPoweredby')
           }
         ]
       },
       {
         links:[
           {
-            name: 'About Us'
+            name: t('common:lblAboutUs')
           },
           {
-            name: 'Contact Us'
+            name: t('common:lblContactUs')
           }
         ]
       },
       {
         links:[
           {
-            name: 'Greener Village',
+            name: t('common:lblGrennerVillage'),
             links: 'https://www.greenervillage.ca'
           },
           {
-            name: 'Privacy Policy',
+            name: t('common:lblPrivacyPolicy'),
             links: 'https://www.yahoo.ca'
           }
         ]

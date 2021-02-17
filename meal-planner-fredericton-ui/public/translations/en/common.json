@@ -16,5 +16,10 @@
     "lblSettings": "Settings",
     "lblFavorites": "Favorites",
     "lblShoppingList": "Shopping List",
-    "lblMealDesigner": "Meal Designer"
+    "lblMealDesigner": "Meal Designer",
+    "lblPoweredBy": "Powered by CivicTech Fredericton",
+    "lblAboutUs": "About Us",
+    "lblContactUs": "Contact Us",
+    "lblGreenerVillage": "Greener Village",
+    "lblPrivacyPolicy": "Privacy Policy"
 }
