@@ -87,6 +87,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const FindOutMore = () => {
+  const { t } = useTranslation([
+    'common'
+  ]);
   const classes = useStyles();
   return(
     <Box m={12} position="absolute" left={0} top={50} right={600}>
@@ -102,7 +105,7 @@ const FindOutMore = () => {
         size="large"
         className={classes.submit}
       >
-        FIND OUT MORE
+        {t('common:lblFindOutMore')}
       </Button>
     </Box>
   );
@@ -185,7 +188,7 @@ const LoginForm = () => {
             handleSubmit();
           }}
         >
-          Sign In
+          {t('authentication:lblSignIn')}
         </Button>
       </form>
     </Box>

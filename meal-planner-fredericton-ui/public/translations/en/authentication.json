@@ -2,7 +2,7 @@
     "lblEmailAddress": "Email Address",
     "username": "Username",
     "lblPassword": "Password",
-    "login": "Login",
+    "lblSignIn": "Sign In",
     "logout": "Log Out",
     "firstName": "First Name",
     "lastName": "Last Name",
