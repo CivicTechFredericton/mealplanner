@@ -1,80 +1,47 @@
 import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+import Backend from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import XHR from 'i18next-xhr-backend';
-import Backend from 'i18next-chained-backend';
-import LocalStorageBackend from 'i18next-localstorage-backend';
-
-
-export const getCurrentLanguage = () => {
-  return i18n.language;
-};
-
-export const changeLanguage = nextLang => {
-  return i18n.changeLanguage(nextLang);
-};
-
-const detectorOptions = {
-  order: [],
-  lookupFromPathIndex: 0,
-  // cache user language on
-  caches: ['localStorage']
-};
-
-/**
-  Here you can define your i18n configuration.
-  Right now it makes two assumptions:
-  1. The only allowed language is en (this is easy to change)
-  2. Your translations existing at the root of the project in the translations/
-     folder and are named following the convention /language-code/namespace.json
-  If those two conditions are met, you only need to ensure that you define
-  the correct namespaces along with your containers and you should be good
-  to go.
-**/
+// not like to use this?
+// have a look at the Quick start guide
+// for passing in lng and translations on init
 
 i18n
+  // load translation using xhr -> see /public/locales (i.e. https://github.com/i18next/react-i18next/tree/master/example/react/public/locales)
+  // learn more: https://github.com/i18next/i18next-xhr-backend
   .use(Backend)
+  // detect user language
+  // learn more: https://github.com/i18next/i18next-browser-languageDetector
   .use(LanguageDetector)
+  // pass the i18n instance to react-i18next.
+  .use(initReactI18next)
+  // init i18next
+  // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     fallbackLng: 'en',
     lng: 'en',
     whitelist: ['en'],
     ns: 'common',
     backend: {
-      backends: [
-        LocalStorageBackend, //primary
-        XHR // fallback
-      ],
-      backendOptions: [
-        {
-          prefix: 'i18next_res_',
-          expirationTime: 1 * 24 * 60 * 60 * 1000,
-          defaultVersion: '',
-          versions: { en: 'v1.0', fr: 'v1.0' },
-          store: window.localStorage
-
-        },
-        { loadPath: '../translations/{{lng}}/{{ns}}.json' }
-      ],
+      loadPath: '/translations/{{lng}}/{{ns}}.json',
     },
     react: {
-      // **** BROWSER WARNING *******
-      // the wait option throws browser warning
-      // -> "warning: Did not expect server HTML to contain a <div> in <div>."
-      // it causes the screen to flash when the page is refreshed / loading
-      wait: process && !process.release,
-      bindI18n: false,
-      bindStore: false,
-      nsMode: 'default',
-      useSuspense: false,
+      wait: true,
+      useSuspense: false, // using the react suspense functionality causes issues with the material ui components like tabs and drawers see related issues for reference:
     },
-    // if react { } is commented out and replaced by initImmediate,
-    // the browser warning disappears. However, the browser
-    // shows translation missing before it initialises
-    // initImmediate: !(process && !process.release),
-    interpolations: {
-      escapeValue: false,
-    }
-
+    cache: {
+      enabled: true,
+      expirationTime: 24 * 60 * 60 * 1000,
+    },
   });
+
+export const getCurrentLanguage = () => {
+  return i18n.language;
+};
+
+export const changeLanguage = (lang) => {
+  return i18n.changeLanguage(lang);
+};
 
 export default i18n;

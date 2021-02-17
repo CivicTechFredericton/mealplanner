@@ -1,7 +1,7 @@
 {
-    "userEmail": "Email",
+    "lblEmailAddress": "Email Address",
     "username": "Username",
-    "password": "Password",
+    "lblPassword": "Password",
     "login": "Login",
     "logout": "Log Out",
     "firstName": "First Name",
