@@ -1,5 +1,7 @@
 {
     "invalidEmail": "Invalid email address",
     "errorLogin": "Incorrect username password combination",
-    "passwordsDoNotMatch": "Password does not match"
+    "passwordsDoNotMatch": "Password does not match",
+    "lblSomethingWentWrong": "Something went wrong...",
+    "lblLoading": "Loading..."
 }

@@ -2,7 +2,7 @@
     "lblEmailAddress": "Email Address",
     "username": "Username",
     "lblPassword": "Password",
-    "lblSignIn": "Sign In",
+    "lblLogin": "Login",
     "logout": "Log Out",
     "firstName": "First Name",
     "lastName": "Last Name",
@@ -11,5 +11,7 @@
     "btnCreate": "Create",
     "registerUser": "Don't have an account?  Click here to register.",
     "lblConfirmCode": "Please enter the confirmation code sent to your email to proceed",
-    "btnConfirmCode": "Confirm"
+    "btnConfirmCode": "Confirm",
+    "msgNotLoggedIn": "You aren't logged in",
+    "msgYouAre": "You Are"
 }

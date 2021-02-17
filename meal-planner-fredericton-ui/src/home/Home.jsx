@@ -13,6 +13,7 @@ import MealPlans from './MealPlans';
 
 import Header from '../core/header/Header'
 import { clearCurrentToken } from '../utils/auth';
+import { useTranslation } from 'react-i18next';
 
 const query = graphql`
   query HomeQuery {
@@ -34,14 +35,18 @@ const useStyles = makeStyles(() => ({
 }));
 
 const HomeContent = props => {
+  const { t } = useTranslation([
+    'error'
+  ]);
+
   const classes = useStyles();
 
   let personMessage, loginLink = null;
   if (props.currentPerson === null) {
-    personMessage = 'You aren\'t logged in.';
-    loginLink = <Link to="/login">Login</Link>;
+    personMessage = t('authentication:msgNotLoggedIn')
+    loginLink = <Link to="/login">{t('authentication:lblLogin')}</Link>;
   } else {
-    personMessage = `You are ${props.currentPerson.fullName}`;
+    personMessage = t('authentication:msgYouAre') ` ${props.currentPerson.fullName}`;
     loginLink = (
       <button 
         onClick={e => {
@@ -81,10 +86,10 @@ HomeContent.propTypes = {
 const renderHome = ({ error, props }) => {
   if(error) {
     console.log(error);
-    return <div>Something went wrong..</div>;
+    return <div>{t('error:lblSomethingWentWrong')}</div>;
   }
   if(!props) {
-    return <div>Loading...</div>;
+    return <div>{t('error:lblLoading')}</div>;
   }
   return <HomeContent {...props} />;
 };
