@@ -13,7 +13,7 @@
     "registerUser": "Don't have an account?  Click here to register.",
     "lblConfirmCode": "Please enter the confirmation code sent to your email to proceed",
     "btnConfirmCode": "Confirm",
-    "lblFLAGFORCHARLES": "FLAG FOR CHARLES"
+    "lblFLAGFORCHARLES": "Remove this"
   },
   "dialogs": {
     "createUser": "Create User",
@@ -27,7 +27,8 @@
   "error": {
     "invalidEmail": "Invalid email address",
     "errorLogin": "Incorrect username password combination",
-    "passwordsDoNotMatch": "Password does not match"
+    "passwordsDoNotMatch": "Password does not match",
+    "lblFLAGFORCHARLES": "Remove this"
   },
   "home": {
     "filterTitle": "Event Category"

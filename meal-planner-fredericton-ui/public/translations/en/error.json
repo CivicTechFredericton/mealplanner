@@ -1,0 +1,5 @@
+{
+    "invalidEmail": "Invalid email address",
+    "errorLogin": "Incorrect username password combination",
+    "passwordsDoNotMatch": "Password does not match"
+}
