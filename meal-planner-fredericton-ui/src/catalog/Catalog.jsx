@@ -9,9 +9,7 @@ import Header from '../core/header/Header'
 import Footer from '../core/footer/Footer'
 import { useTranslation } from 'react-i18next';
 
-const { t } = useTranslation([
-  'common'
-]);
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,6 +20,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Catalog = (props) => {
+
+  const { t } = useTranslation([
+    'common'
+  ]);
+
   const classes = useStyles();
   return (
     <Grid container direction="column">
