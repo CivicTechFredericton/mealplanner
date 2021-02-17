@@ -10,7 +10,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import { Link } from 'react-router-dom';
 import { QueryRenderer} from 'react-relay';
 import environment from '../relay-environment';
-
+//CHARLIEFLAG i18n does not work
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
