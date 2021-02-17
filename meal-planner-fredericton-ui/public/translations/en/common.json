@@ -1,4 +1,15 @@
 {
     "lblMealCatalog": "Meal Catalog",
-    "lblFindOutMore": "Find Out More"
+    "lblFindOutMore": "Find Out More",
+    "lblRemove": "Remove",
+    "lblEdit": "Edit",
+    "lblDateCreated": "Date Created",
+    "lblClient": "Client",
+    "lblMealPlansCreated": "Meal Plans Created",
+    "lblMealPlans": "Meal Plans",
+    "lblClients": "Clients",
+    "lblCatalogueofProducts": "Catalogue of Products",
+    "lblCatalogueofUnits": "Catalogue of Units",
+    "lblCatalogueofMeals": "Catalogue of Meals",
+    "lblClientID": "Client ID"
 }
