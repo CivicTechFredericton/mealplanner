@@ -78,7 +78,7 @@ const Footer = (props) => {
       const components = [];
       State.data.forEach(
         result => {
-          console.log(result, 'This is text');
+          console.log(result, 'This is text');  //<- why is this here
           const component = outColumn(result);
           components.push(component);
         }
@@ -88,7 +88,7 @@ const Footer = (props) => {
   }, [State.data]);
 
   const outColumn = (data) => {
-    console.log('Seperate', data);
+    console.log('Seperate', data); //<- why is this here
     return (
       <Grid key={'Column'+data.title} item xs={12} sm={3}>
         <h2>
@@ -100,7 +100,7 @@ const Footer = (props) => {
   };
 
   const inColumn = (links) => {
-    console.log('Seperate2', links);
+    console.log('Seperate2', links); //<- why is this here
     return(
       <div>
         {links.map((item, id) => (
