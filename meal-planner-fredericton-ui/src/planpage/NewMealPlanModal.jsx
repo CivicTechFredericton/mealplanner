@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography'
 import CancelIcon from '@material-ui/icons/Cancel'
 import SaveIcon from '@material-ui/icons/Save'
 
+import { useTranslation } from 'react-i18next';
+
 const createNewPlanMutation = graphql`
 mutation NewMealPlanModalMutation(
   $name: String!,
@@ -97,6 +99,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function NewMealPlanModal(props) {
+  const { t } = useTranslation([
+    'modal',
+    'common'
+  ]);
+
   const [planName, setPlanName] = useState('')
   const [planNameError, setPlanNameError] = useState(null)
   const [planDescription, setPlanDescription] = useState('')
@@ -164,13 +171,13 @@ export default function NewMealPlanModal(props) {
     <div className={classes.paper}>
       <Grid container>
         <Grid item xs={12}>
-          <Typography variant="h4">New Meal Plan</Typography>
+          <Typography variant="h4">{t('modal:lblNewMealPlan')}</Typography>
           <br />
         </Grid>
         <Grid item xs={12}>
           <TextField
             id="outlined-basic" 
-            label="Name" 
+            label={t('modal:lblName')}
             variant="outlined" 
             className={classes.input}
             value={planName}
@@ -183,7 +190,7 @@ export default function NewMealPlanModal(props) {
         <Grid item xs={12}>
           <TextField
             id="outlined-multiline-static"
-            label="Description"
+            label={t('modal:lblDescription')}
             multiline
             rows={4}
             variant="outlined"
@@ -200,7 +207,7 @@ export default function NewMealPlanModal(props) {
             onClick={handleFormSubmit} 
             disabled={submitInProgress || planNameError}
           >
-            Save <SaveIcon />
+            {t('common:btnSave')} <SaveIcon />
           </Button>
           <Button
             color="secondary" 
@@ -211,7 +218,7 @@ export default function NewMealPlanModal(props) {
             }}
             disabled={submitInProgress}
           >
-            Cancel
+            {t('common:btnCancel')}
             <CancelIcon />
           </Button>
         </Grid>

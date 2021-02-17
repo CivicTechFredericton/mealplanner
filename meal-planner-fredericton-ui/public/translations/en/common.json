@@ -21,5 +21,7 @@
     "lblAboutUs": "About Us",
     "lblContactUs": "Contact Us",
     "lblGreenerVillage": "Greener Village",
-    "lblPrivacyPolicy": "Privacy Policy"
+    "lblPrivacyPolicy": "Privacy Policy",
+    "btnSave": "Save",
+    "btnCancel": "Cancel"
 }
