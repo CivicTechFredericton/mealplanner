@@ -7,6 +7,11 @@ import Box from '@material-ui/core/Box';
 import CatalogGridList from "./CatalogGridList";
 import Header from '../core/header/Header'
 import Footer from '../core/footer/Footer'
+import { useTranslation } from 'react-i18next';
+
+const { t } = useTranslation([
+  'common'
+]);
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,7 +30,7 @@ const Catalog = (props) => {
         <Box>
           <CssBaseline />
           <Typography variant="body2" color="textSecondary" align="center">
-            <h1>Meal Catalog</h1>
+            <h1>{t('common:lblMealCatalog')}</h1>
             <CatalogGridList />
           </Typography>
         </Box>  
