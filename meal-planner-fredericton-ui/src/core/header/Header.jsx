@@ -154,7 +154,7 @@ const Header = () => {
   // only add link to protected page if user authenticated
   if (isAuthenticated()) {
     navMenu.push({
-      label: "Meal DesignerQ",
+      label: "Meal Designer",
       pathname: "/meal-designer",
     })
   }
