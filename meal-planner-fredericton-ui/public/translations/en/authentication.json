@@ -13,5 +13,6 @@
     "lblConfirmCode": "Please enter the confirmation code sent to your email to proceed",
     "btnConfirmCode": "Confirm",
     "msgNotLoggedIn": "You aren't logged in",
-    "msgYouAre": "You Are"
+    "msgYouAre": "You Are",
+    "lblSignIn": "Sign In"
 }

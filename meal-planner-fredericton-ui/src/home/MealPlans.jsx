@@ -2,14 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import graphql from 'babel-plugin-relay/macro';
 import { createFragmentContainer } from 'react-relay';
+import { useTranslation } from 'react-i18next';
+
 
 const MealPlansInner = (props) => {
+  const { t } = useTranslation([
+    'common'
+  ]);
+
   return (
     <>
-      <h3>Meal Plans</h3>
+      <h3>{t('common:lblMealPlans')}</h3>
       <ul>
         {props.mealPlansFragment.mealPlans.nodes.map((mp, i) => (
-          <li key={i}>Meal Plan {mp.nameEn}</li>
+          <li key={i}>{t('common:lblMealPlan')} {mp.nameEn}</li>
         ))}
       </ul>
     </>

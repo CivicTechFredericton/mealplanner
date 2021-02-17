@@ -11,5 +11,6 @@
     "lblCatalogueofProducts": "Catalogue of Products",
     "lblCatalogueofUnits": "Catalogue of Units",
     "lblCatalogueofMeals": "Catalogue of Meals",
-    "lblClientID": "Client ID"
+    "lblClientID": "Client ID",
+    "lblMealPlan": "Meal Plan"
 }
