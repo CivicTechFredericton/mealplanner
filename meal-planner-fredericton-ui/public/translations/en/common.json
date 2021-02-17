@@ -12,7 +12,8 @@
     "btnCreate": "Create",
     "registerUser": "Don't have an account?  Click here to register.",
     "lblConfirmCode": "Please enter the confirmation code sent to your email to proceed",
-    "btnConfirmCode": "Confirm"
+    "btnConfirmCode": "Confirm",
+    "lblFLAGFORCHARLES": "FLAG FOR CHARLES"
   },
   "dialogs": {
     "createUser": "Create User",
