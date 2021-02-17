@@ -1,4 +1,9 @@
 {
+  "IMPORTANT":{
+    "THIS CAME": "FROM CARING CALENDAR",
+    "DELETE": "THIS FILE"
+  },
+
   "authorize": {
     "userEmail": "Email",
     "username": "Username",
