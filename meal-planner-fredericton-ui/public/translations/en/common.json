@@ -12,5 +12,9 @@
     "lblCatalogueofUnits": "Catalogue of Units",
     "lblCatalogueofMeals": "Catalogue of Meals",
     "lblClientID": "Client ID",
-    "lblMealPlan": "Meal Plan"
+    "lblMealPlan": "Meal Plan",
+    "lblSettings": "Settings",
+    "lblFavorites": "Favorites",
+    "lblShoppingList": "Shopping List",
+    "lblMealDesigner": "Meal Designer"
 }

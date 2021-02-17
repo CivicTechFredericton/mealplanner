@@ -3,7 +3,7 @@
     "username": "Username",
     "lblPassword": "Password",
     "lblLogin": "Login",
-    "logout": "Log Out",
+    "lblLogOut": "Log Out",
     "firstName": "First Name",
     "lastName": "Last Name",
     "confirmPassword": "Confirm Password",
