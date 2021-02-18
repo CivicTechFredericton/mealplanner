@@ -7,15 +7,15 @@ import { useTranslation } from 'react-i18next';
 
 const MealPlansInner = (props) => {
   const { t } = useTranslation([
-    'common'
+    'meal'
   ]);
 
   return (
     <>
-      <h3>{t('common:lblMealPlans')}</h3>
+      <h3>{t('meal:lblMealPlans')}</h3>
       <ul>
         {props.mealPlansFragment.mealPlans.nodes.map((mp, i) => (
-          <li key={i}>{t('common:lblMealPlan')} {mp.nameEn}</li>
+          <li key={i}>{t('meal:lblMealPlan')} {mp.nameEn}</li>
         ))}
       </ul>
     </>

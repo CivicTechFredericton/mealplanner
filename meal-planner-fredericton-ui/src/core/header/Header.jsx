@@ -144,7 +144,8 @@ const useStyles = makeStyles(theme => ({
 const Header = () => {
   const { t } = useTranslation([
     'common',
-    'authentication'
+    'authentication',
+    'meal'
   ]);
 
   const styles = useStyles();
@@ -155,12 +156,12 @@ const Header = () => {
   // only add link to protected page if user authenticated
   if (isAuthenticated()) {
     navMenu.push({
-      label: t('common:lblMealDesigner'),
+      label: t('meal:lblMealDesigner'),
       pathname: "/meal-designer",
     })
   }
   navMenu.push({
-    label: t('common:lblShoppingList'),
+    label: t('meal:lblShoppingList'),
     pathname: "/shopping-list"
   })
 
@@ -203,7 +204,7 @@ const Header = () => {
                 </MenuList>
                 <div className={styles.rightnav}>
                   <Tab 
-                    label={t('common:lblFavorites')} 
+                    label={t('meal:lblFavorites')} 
                     className={styles.contact} 
                     component={Link} 
                     icon={<StarIcon className={styles.phone}/>} 

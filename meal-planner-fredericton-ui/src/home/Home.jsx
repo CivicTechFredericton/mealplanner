@@ -36,7 +36,8 @@ const useStyles = makeStyles(() => ({
 
 const HomeContent = props => {
   const { t } = useTranslation([
-    'error'
+    'error',
+    'authentication'
   ]);
 
   const classes = useStyles();

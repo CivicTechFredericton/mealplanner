@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MealPlanAssignment(props) {
   const { t } = useTranslation([
-    'common'
+    'common',
+    'meal'
   ]);
 
   const classes = useStyles()
@@ -76,7 +77,7 @@ export default function MealPlanAssignment(props) {
   return (
     <Fragment>
       <Typography>
-        <b>{t('common:lblClientAssignment')}</b>
+        <b>{t('meal:lblClientAssignment')}</b>
         <Button className={classes.button} onClick={() => setModalOpen(true)}>
           <EditIcon fontSize={'8px'} />
         </Button>
@@ -88,7 +89,7 @@ export default function MealPlanAssignment(props) {
         <div className={classes.paper}>
           <Grid container>
             <Grid item xs={12}>
-              <Typography variant="h4">{t('common:lblChangeClientAssignment')}</Typography>
+              <Typography variant="h4">{t('meal:lblChangeClientAssignment')}</Typography>
               <br />
             </Grid>
             <Grid item xs={12}>

@@ -36,7 +36,8 @@ const useStyles = makeStyles(() => ({
  */
 export function MealPlansToolbar(props) {
   const { t } = useTranslation([
-    'common'
+    'common',
+    'meal'
   ]);
 
   const location = useLocation()

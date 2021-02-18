@@ -1,22 +1,13 @@
 {
-    "lblMealCatalog": "Meal Catalog",
     "lblFindOutMore": "Find Out More",
     "lblRemove": "Remove",
     "lblEdit": "Edit",
     "lblDateCreated": "Date Created",
     "lblClient": "Client",
-    "lblMealPlansCreated": "Meal Plans Created",
-    "lblMealPlans": "Meal Plans",
     "lblClients": "Clients",
-    "lblCatalogueofProducts": "Catalogue of Products",
-    "lblCatalogueofUnits": "Catalogue of Units",
-    "lblCatalogueofMeals": "Catalogue of Meals",
     "lblClientID": "Client ID",
-    "lblMealPlan": "Meal Plan",
     "lblSettings": "Settings",
     "lblFavorites": "Favorites",
-    "lblShoppingList": "Shopping List",
-    "lblMealDesigner": "Meal Designer",
     "lblPoweredBy": "Powered by CivicTech Fredericton",
     "lblAboutUs": "About Us",
     "lblContactUs": "Contact Us",
@@ -25,10 +16,6 @@
     "btnSave": "Save",
     "btnCancel": "Cancel",
     "btnNew": "New",
-    "lblSelectMealPlan": "Select Meal Plan to Begin",
-    "lblClientAssignment": "Client Assignment:",
-    "lblChangeClientAssignment": "Change Client Assignment",
-    "btnOK": "OK",
-    "lblMealPlanUnassigned": "This meal plan is unassigned"
+    "btnOK": "OK"
 
 }

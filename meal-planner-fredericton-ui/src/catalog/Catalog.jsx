@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 const Catalog = (props) => {
 
   const { t } = useTranslation([
-    'common'
+    'meal'
   ]);
 
   const classes = useStyles();
