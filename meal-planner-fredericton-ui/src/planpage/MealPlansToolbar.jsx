@@ -74,7 +74,7 @@ export function MealPlansToolbar(props) {
               <TextField 
                 className={classes.autocompleteText}
                 {...params} 
-                label={props.selectedPlan ? t('common:lblMealPlan') : t('common:lblSelectMealPlan')}
+                label={props.selectedPlan ? t('meal:lblMealPlan') : t('meal:lblSelectMealPlan')}
                 variant="outlined"
               />
             }

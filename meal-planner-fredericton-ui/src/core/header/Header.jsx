@@ -204,7 +204,7 @@ const Header = () => {
                 </MenuList>
                 <div className={styles.rightnav}>
                   <Tab 
-                    label={t('meal:lblFavorites')} 
+                    label={t('common:lblFavorites')} 
                     className={styles.contact} 
                     component={Link} 
                     icon={<StarIcon className={styles.phone}/>} 

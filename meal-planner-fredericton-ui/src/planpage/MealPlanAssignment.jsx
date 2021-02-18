@@ -83,7 +83,7 @@ export default function MealPlanAssignment(props) {
         </Button>
       </Typography>
       <Typography>
-        {props.assignedClientId ? props.assignedClientId.clientId : t('common:lblMealPlanUnassigned')}
+        {props.assignedClientId ? props.assignedClientId.clientId : t('meal:lblMealPlanUnassigned')}
       </Typography>
       <Modal open={modalOpen}>
         <div className={classes.paper}>
