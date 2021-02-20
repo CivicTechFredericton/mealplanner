@@ -8,6 +8,6 @@ begin
 end;
 $$ language plpgsql security definer;
 
-comment on function app.authorize_meal_designer(bigint) is 'Pass in person id to mark the person as meal designer';
+comment on function app.authorize_meal_designer(bigint) is 'Elevate Person with p_id to the Meal Designer role';
 
 GRANT execute on function app.authorize_meal_designer(bigint) to app_admin;

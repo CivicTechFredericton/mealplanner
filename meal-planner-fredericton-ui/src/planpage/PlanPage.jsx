@@ -234,16 +234,16 @@ function updateAssignment({ selectedPlan, assignedClientId }) {
       mutation: graphql`
         mutation PlanPageUpdateAssignmentMutation(
             $id: ID!
-            $clientId: BigInt!
+            $personId: BigInt!
           ) {
           updateMealPlanById(input: {
             id: $id
             patch: {
-              clientId: $clientId
+              personId: $personId
             }
           }) {
             mealPlan {
-              clientId
+              personId
             }
           }
         }
@@ -265,6 +265,8 @@ function updateAssignment({ selectedPlan, assignedClientId }) {
     })
   })
 }
+
+
 
 /**
  * handle when user clicks to save meal plan
@@ -305,7 +307,7 @@ async function handleSave({
   if (assignedClientId && (assignedClientId.rowId != selectedPlan.clientId)) {
     promises.push(updateAssignment({ selectedPlan, assignedClientId }))
   }
-
+  
   try {
     await Promise.all(promises) // wait for all mutations to complete
     if (callback) {

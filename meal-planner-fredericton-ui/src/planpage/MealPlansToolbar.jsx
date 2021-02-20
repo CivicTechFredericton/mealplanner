@@ -134,16 +134,15 @@ const MealPlansToolbarWithQuery = createFragmentContainer(
         mealPlans {
           nodes {
             id
-            clientId
+            personId
             rowId
             nameEn
             nameFr
             descriptionEn
             descriptionFr
-            client {
+            person {
               id
               rowId
-              clientId
             }
             mealPlanEntries {
               nodes {
@@ -163,11 +162,10 @@ const MealPlansToolbarWithQuery = createFragmentContainer(
             }
           }
         }
-        clients {
+        people {
           nodes {
             id
             rowId
-            clientId
           }
         } 
       }
