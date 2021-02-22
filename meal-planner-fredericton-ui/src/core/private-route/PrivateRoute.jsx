@@ -1,21 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Route, Redirect } from 'react-router-dom'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Route, Redirect } from 'react-router-dom';
 
-import { getCurrentToken } from '../../utils/auth'
+import { getCurrentToken } from '../../utils/auth';
 
 const PrivateRoute = ({ render, ...rest }) => (
   <Route {...rest} render={() => {
-    const token = getCurrentToken()
+    const token = getCurrentToken();
     if (token) {
-      return render()
+      return render();
     }
-    return <Redirect to='/' />
+    return <Redirect to='/' />;
   }} />
-)
+);
 
 PrivateRoute.propTypes = {
   render: PropTypes.func,
-}
+};
 
-export default PrivateRoute
+export default PrivateRoute;

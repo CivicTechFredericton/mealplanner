@@ -9,9 +9,9 @@ import { getCurrentToken } from './utils/auth';
 
 function getGraphQLURL() {
   if (process.env.REACT_APP_GRAPHQL_URL) {
-    return process.env.REACT_APP_GRAPHQL_URL
+    return process.env.REACT_APP_GRAPHQL_URL;
   }
-  return 'http://localhost:4000/graphql'
+  return 'http://localhost:4000/graphql';
 }
 
 async function fetchQuery(

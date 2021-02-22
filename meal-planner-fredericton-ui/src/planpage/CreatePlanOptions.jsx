@@ -1,24 +1,24 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import graphql from 'babel-plugin-relay/macro';
 import { createFragmentContainer } from 'react-relay';
 
 import { makeStyles } from '@material-ui/core/styles';
-import MealOption from './MealOption'
+import MealOption from './MealOption';
 
 const useStyles = makeStyles(() => ({
   container: {
     padding: '8px',
   },
-}))
+}));
 
 /**
  * List of meals that can be added to the meal plan
  */
 export function CreatePlanOptions(props) {
-  const styles = useStyles()
-  const meals = props.createPlanOptionsFragment?.meals?.edges ?? []
+  const styles = useStyles();
+  const meals = props.createPlanOptionsFragment?.meals?.edges ?? [];
   return (
     <div className={styles.container}>
       {
@@ -29,16 +29,16 @@ export function CreatePlanOptions(props) {
           )
       }
     </div>
-  )
+  );
 }
 
 CreatePlanOptions.defaultProps = {
   onSelectMeals: new Function()
-}
+};
 
 CreatePlanOptions.propTypes = {
   createPlanOptionsFragment: PropTypes.object,
-}
+};
 
 
 const CreatePlanOptionsWithQeury = createFragmentContainer(
@@ -61,6 +61,6 @@ const CreatePlanOptionsWithQeury = createFragmentContainer(
       }
     `
   }
-)
+);
 
-export default CreatePlanOptionsWithQeury
+export default CreatePlanOptionsWithQeury;
