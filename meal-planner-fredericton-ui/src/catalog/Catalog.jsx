@@ -1,22 +1,22 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import CatalogGridList from "./CatalogGridList";
-import Header from '../core/header/Header'
-import Footer from '../core/footer/Footer'
+import Header from '../core/header/Header';
+import Footer from '../core/footer/Footer';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
     height: '100vh',
     flexDirection: 'column',
     flex: 0
   },
-}));
+});
 
-const Catalog = (props) => {
+const Catalog = () => {
   const classes = useStyles();
   return (
     <Grid container direction="column">
@@ -35,6 +35,6 @@ const Catalog = (props) => {
       </Grid>
     </Grid>
   );
-}
+};
   
 export default Catalog;

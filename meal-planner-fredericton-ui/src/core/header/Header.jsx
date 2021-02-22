@@ -144,19 +144,19 @@ const Header = () => {
   const styles = useStyles();
   const location = useLocation();
     
-  const navMenu = []
+  const navMenu = [];
 
   // only add link to protected page if user authenticated
   if (isAuthenticated()) {
     navMenu.push({
       label: "Meal Designer",
       pathname: "/meal-designer",
-    })
+    });
   }
   navMenu.push({
     label: "Shopping List",
     pathname: "/shopping-list"
-  })
+  });
 
   return (
     <AppBar className={styles.appBar}>
@@ -185,14 +185,14 @@ const Header = () => {
                   {navMenu.map( item => {
                     const className = item.pathname === location.pathname
                       ? styles.selectedPath
-                      : ''
+                      : '';
                     return (
                       <MenuItem className={className} key={item.id} >
                         <Link to={item.pathname}>
                           <span>{item.label}</span>
                         </Link>
                       </MenuItem>
-                    )
+                    );
                   })}
                 </MenuList>
                 <div className={styles.rightnav}>
@@ -237,7 +237,7 @@ const Header = () => {
       </Toolbar>
     </AppBar>
       
-  )
-}
+  );
+};
 
 export default withRouter(Header);

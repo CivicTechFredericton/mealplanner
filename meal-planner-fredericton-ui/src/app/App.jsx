@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from '../core/private-route/PrivateRoute'
+import PrivateRoute from '../core/private-route/PrivateRoute';
 import Login from "../login/Login";
 import Dashboard from "../dashboard/Dashboard";
-import PlanPage from '../planpage/PlanPage'
+import PlanPage from '../planpage/PlanPage';
 import Catalog from '../catalog/Catalog';
-import DisplayMeal from '../catalog/DisplayMeal';
+import DisplayMeal from '../displayMeal/DisplayMeal';
 
 
 const App = () => {

@@ -1,21 +1,21 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-import { useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom";
 
 import graphql from 'babel-plugin-relay/macro';
 import { createFragmentContainer } from 'react-relay';
 
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
-import AddIcon from '@material-ui/icons/Add'
-import SaveIcon from '@material-ui/icons/Save'
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import AddIcon from '@material-ui/icons/Add';
+import SaveIcon from '@material-ui/icons/Save';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
-import NewMealPlanModal from './NewMealPlanModal'
-import MealPlanAssignment from './MealPlanAssignment'
+import NewMealPlanModal from './NewMealPlanModal';
+import MealPlanAssignment from './MealPlanAssignment';
 
 const useStyles = makeStyles(() => ({
   autocompleteText: {
@@ -27,32 +27,32 @@ const useStyles = makeStyles(() => ({
   select: {
 
   }
-}))
+}));
 
 /**
  * Toolbar with controls for selecting, creating and saving meal plan
  */
 export function MealPlansToolbar(props) {
-  const location = useLocation()
+  const location = useLocation();
   const [
     alreadySelectedMealAfterNav,
     setAlreadySelectedMealAfterNav,
-  ] = useState(false)
+  ] = useState(false);
 
   const classes = useStyles();
-  const [newPlanModalOpen, setNewPlanModalOpen] = useState(false)
+  const [newPlanModalOpen, setNewPlanModalOpen] = useState(false);
 
-  const options = props.mealPlansToolbarFragment?.mealPlans?.nodes ?? []
+  const options = props.mealPlansToolbarFragment?.mealPlans?.nodes ?? [];
 
   useEffect(() => {
     if (location.state?.planId !== undefined && !alreadySelectedMealAfterNav) {
-      const planToEdit = options.find(mealPlan => mealPlan.id === location.state.planId)
+      const planToEdit = options.find(mealPlan => mealPlan.id === location.state.planId);
       if (planToEdit !== undefined) {
-        props.setSelectedPlan(planToEdit)
-        setAlreadySelectedMealAfterNav(true)
+        props.setSelectedPlan(planToEdit);
+        setAlreadySelectedMealAfterNav(true);
       }
     }
-  }, [props.mealPlansToolbarFragment])
+  }, [props.mealPlansToolbarFragment]);
 
   return (
     <Fragment>
@@ -78,11 +78,11 @@ export function MealPlansToolbar(props) {
                 <span style={{color: 'darkgray', paddingLeft: '10px'}}>
                   (client: {params.client?.clientId || 'Unassigned'})
                 </span>
-              </span>)
+              </span>);
             }}
             value={props.selectedPlan}
             onChange={(event, val) => {
-              props.setSelectedPlan(val)
+              props.setSelectedPlan(val);
             }}
           />
         </Grid>
@@ -114,7 +114,7 @@ export function MealPlansToolbar(props) {
         setSelectedPlan={props.setSelectedPlan}
       />
     </Fragment>
-  )
+  );
 }
 
 MealPlansToolbar.propTypes = {
@@ -124,7 +124,7 @@ MealPlansToolbar.propTypes = {
   onSave: PropTypes.func,
   selectedPlan: PropTypes.object,
   setSelectedPlan: PropTypes.func,
-}
+};
 
 const MealPlansToolbarWithQuery = createFragmentContainer(
   MealPlansToolbar,
@@ -171,6 +171,6 @@ const MealPlansToolbarWithQuery = createFragmentContainer(
       }
     `
   }
-)
+);
 
-export default MealPlansToolbarWithQuery
+export default MealPlansToolbarWithQuery;
