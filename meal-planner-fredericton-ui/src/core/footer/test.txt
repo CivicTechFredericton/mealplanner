@@ -1,0 +1,299 @@
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import StarIcon from '@material-ui/icons/StarBorder';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  '@global': {
+    ul: {
+      margin: 0,
+      padding: 0,
+      listStyle: 'none',
+    },
+  },
+  appBar: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+  },
+  toolbar: {
+    flexWrap: 'wrap',
+  },
+  toolbarTitle: {
+    flexGrow: 1,
+  },
+  link: {
+    margin: theme.spacing(1, 1.5),
+  },
+  heroContent: {
+    padding: theme.spacing(8, 0, 6),
+  },
+  cardHeader: {
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
+  },
+  cardPricing: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'baseline',
+    marginBottom: theme.spacing(2),
+  },
+  footer: {
+    borderTop: `1px solid ${theme.palette.divider}`,
+    marginTop: theme.spacing(8),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: theme.spacing(6),
+      paddingBottom: theme.spacing(6),
+    },
+  },
+}));
+
+const tiers = [
+  {
+    title: 'Free',
+    price: '0',
+    description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
+    buttonText: 'Sign up for free',
+    buttonVariant: 'outlined',
+  },
+  {
+    title: 'Pro',
+    subheader: 'Most popular',
+    price: '15',
+    description: [
+      '20 users included',
+      '10 GB of storage',
+      'Help center access',
+      'Priority email support',
+    ],
+    buttonText: 'Get started',
+    buttonVariant: 'contained',
+  },
+  {
+    title: 'Enterprise',
+    price: '30',
+    description: [
+      '50 users included',
+      '30 GB of storage',
+      'Help center access',
+      'Phone & email support',
+    ],
+    buttonText: 'Contact us',
+    buttonVariant: 'outlined',
+  },
+];
+const footers = [
+  {
+    title: 'Company',
+    description: ['Team', 'History', 'Contact us', 'Locations'],
+  },
+  {
+    title: 'Features',
+    description: ['Cool stuff', 'Random feature', 'Team feature', 'Developer stuff', 'Another one'],
+  },
+  {
+    title: 'Resources',
+    description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
+  },
+  {
+    title: 'Legal',
+    description: ['Privacy policy', 'Terms of use'],
+  },
+];
+
+export default function Pricing() {
+  const classes = useStyles();
+
+  return (
+    <React.Fragment>
+
+      {/* Footer */}
+      <Container maxWidth="md" component="footer" className={classes.footer}>
+        <Grid container spacing={4} justify="space-evenly">
+          {footers.map((footer) => (
+            <Grid item xs={6} sm={3} key={footer.title}>
+              <Typography variant="h6" color="textPrimary" gutterBottom>
+                {footer.title}
+              </Typography>
+              <ul>
+                {footer.description.map((item) => (
+                  <li key={item}>
+                    <Link href="#" variant="subtitle1" color="textSecondary">
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Grid>
+          ))}
+        </Grid>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
+      {/* End footer */}
+    </React.Fragment>
+  );
+}
+
+
+import React, {useEffect, useState} from 'react';
+import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
+import {Link} from 'react-router-dom';
+import {MenuList} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+//
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+
+import { useTranslation } from 'react-i18next';
+
+const useStyles = makeStyles (() => ({
+  footerContainer: {
+    backgroundColor: '#22242b',
+  },
+  footerInnerContainer: {
+    maxWidth: 1176,
+    width: '100%',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    marginBottom: 0,
+    color: 'white',
+    '& a' : {
+      color: 'white',
+      fontSize: 14,
+      fontFamily: 'Open Sans',
+      padding: 0,
+      lineHeight: 1.5
+    },
+    '& h2': {
+      fontSize: 18,
+      fontWeight: 700,
+      fontFamily: 'Open Sans',
+    },
+    footerText: {
+      fontStyle: 'italic',
+      marginBottom: 40,
+      color: 'white'
+    }
+  },
+}));
+const Footer = (props) => {
+  const { t } = useTranslation([
+    'common'
+  ]);
+
+  const styles = useStyles(props);
+
+  const tiers = [
+    {
+      title: 'Free',
+      price: '0',
+      description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
+      buttonText: 'Sign up for free',
+      buttonVariant: 'outlined',
+    },
+    {
+      title: 'Pro',
+      subheader: 'Most popular',
+      price: '15',
+      description: [
+        '20 users included',
+        '10 GB of storage',
+        'Help center access',
+        'Priority email support',
+      ],
+      buttonText: 'Get started',
+      buttonVariant: 'contained',
+    },
+    {
+      title: 'Enterprise',
+      price: '30',
+      description: [
+        '50 users included',
+        '30 GB of storage',
+        'Help center access',
+        'Phone & email support',
+      ],
+      buttonText: 'Contact us',
+      buttonVariant: 'outlined',
+    },
+  ];
+  const footers = [
+    {
+      title: 'Company',
+      description: ['Team', 'History', 'Contact us', 'Locations'],
+    },
+    {
+      title: 'Features',
+      description: ['Cool stuff', 'Random feature', 'Team feature', 'Developer stuff', 'Another one'],
+    },
+    {
+      title: 'Resources',
+      description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
+    },
+    {
+      title: 'Legal',
+      description: ['Privacy policy', 'Terms of use'],
+    },
+  ];
+
+  return (
+    <React.Fragment>
+
+    {/* Footer */}
+    <Container maxWidth="md" component="footer">
+      <Grid container spacing={4} justify="space-evenly">
+        {footers.map((footer) => (
+          <Grid item xs={6} sm={3} key={footer.title}>
+            <Typography variant="h6" color="textPrimary" gutterBottom>
+              {footer.title}
+            </Typography>
+            <ul>
+              {footer.description.map((item) => (
+                <li key={item}>
+                  <Link href="#" variant="subtitle1" color="textSecondary">
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Grid>
+        ))}
+      </Grid>
+      <Box mt={5}>
+       
+      </Box>
+    </Container>
+    {/* End footer */}
+  </React.Fragment>
+  );
+};
+export default Footer;
