@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import graphql from 'babel-plugin-relay/macro';
 import { QueryRenderer, createRefetchContainer, commitMutation } from 'react-relay';
@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Box  from '@material-ui/core/Box';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -20,13 +20,13 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow'
-import Select from '@material-ui/core/Select'
-import Toolbar from '@material-ui/core/Toolbar'
-import Tooltip from '@material-ui/core/Tooltip'
+import TableRow from '@material-ui/core/TableRow';
+import Select from '@material-ui/core/Select';
+import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList'
+import FilterListIcon from '@material-ui/icons/FilterList';
 
 import Header from '../core/header/Header';
 import Footer from "../core/footer/Footer";
@@ -140,23 +140,23 @@ function doDeleteMeapPlan({ id }) {
       variables: { id },
       onCompleted: function onCompleteHandler(response, errors) {
         if (errors) {
-          reject(errors)
-          return
+          reject(errors);
+          return;
         }
-        resolve()
+        resolve();
       },
       onError: function onErrorHandler(err) {
-        reject(err)
+        reject(err);
       }
-    })
-  })
+    });
+  });
 }
 
 const Dashboard = props => {
-  const [filterMenuOpen, setFilterMenuOpen] = useState(false)
-  const [clientsFilter, setClientsFilter] = useState(null)
+  const [filterMenuOpen, setFilterMenuOpen] = useState(false);
+  const [clientsFilter, setClientsFilter] = useState(null);
 
-  const toggleFilterMenuOpen = () => setFilterMenuOpen(!filterMenuOpen)
+  const toggleFilterMenuOpen = () => setFilterMenuOpen(!filterMenuOpen);
 
   const { t } = useTranslation([
     'common',
@@ -167,16 +167,16 @@ const Dashboard = props => {
   const rows = (props.mealPlans?.nodes ?? [])
     .filter(meal => {
       if (clientsFilter) {
-        return meal.client?.clientId === clientsFilter
+        return meal.client?.clientId === clientsFilter;
       } else {
-        return true
+        return true;
       }
     })
     .map(meal => ({
       ...meal,
       label: meal.nameEn,
       createdAt: meal.createdAt
-    }))
+    }));
 
 
 
@@ -199,7 +199,7 @@ const Dashboard = props => {
         ))}
       </Select>
     </Paper>
-  ) : null
+  ) : null;
   
 
 
@@ -313,8 +313,8 @@ const Dashboard = props => {
                     {/* <TableCell align="right"><Link to='/copy-plan'><FileCopyIcon /></Link></TableCell> */}
                     <TableCell align="right">
                       <Link onClick={async () => {
-                        await doDeleteMeapPlan(row)
-                        props.relay.refetch()
+                        await doDeleteMeapPlan(row);
+                        props.relay.refetch();
                       }}>
                         <DeleteIcon />
                       </Link>
@@ -328,8 +328,8 @@ const Dashboard = props => {
       </Container>
       <Footer/>
     </>
-  )
-}
+  );
+};
 
 Dashboard.propTypes = {
   mealPlans: PropTypes.shape({
@@ -343,7 +343,7 @@ Dashboard.propTypes = {
   relay: PropTypes.shape({
     refetch: PropTypes.func.isRequired,
   }).isRequired
-}
+};
 
 const query = graphql`
 query DashboardQuery	 {
@@ -352,25 +352,26 @@ query DashboardQuery	 {
       id
       nameEn
       createdAt
-      client {
-        clientId
+      person {
+        id
       }
     }
   }
-  clients {
+  people {
     nodes {
-      clientId
+      id
     }
   }
 }
-`
+`;
+
 
 const DashboardRefetchContainer = createRefetchContainer(
   Dashboard,
   {
   },
   query
-)
+);
 
 function DashboardWithQuery() {
   return (
@@ -380,8 +381,8 @@ function DashboardWithQuery() {
       variables={{}}
       render={({ error, props }) => <DashboardRefetchContainer error={error} {...props} />}
     />
-  )
+  );
 }
 
 
-export default DashboardWithQuery
+export default DashboardWithQuery;

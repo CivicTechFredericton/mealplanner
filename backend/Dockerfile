@@ -11,4 +11,4 @@ copy . .
 run npm install
 
 expose 4000
-cmd ["./start_postgraphile.sh"]
+cmd ["/bin/bash","start_postgraphile.sh"]

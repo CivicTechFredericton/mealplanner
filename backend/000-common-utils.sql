@@ -8,6 +8,15 @@ begin;
   create or replace function app.set_updated_at() returns trigger as $$
   begin
     new.updated_at := current_timestamp;
+    new.created_at := old.created_at;
+    return new;
+  end;
+  $$ language plpgsql;
+
+  create or replace function app.set_created_at() returns trigger as $$
+  begin
+    new.created_at := current_timestamp;
+    new.updated_at := new.created_at;
     return new;
   end;
   $$ language plpgsql;

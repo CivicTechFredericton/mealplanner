@@ -1,7 +1,7 @@
 import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+//import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Header from '../core/header/Header';
@@ -11,34 +11,34 @@ import { QueryRenderer} from 'react-relay';
 import environment from '../relay-environment';
 import StarRating from '../components/starRating/StarRating';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: '100vh',
-    margin: "5px"
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    width:'150px',
-    height: '150px',
-    borderRadius: '50%',
-    backgroundColor:'#eee',
-    flexGrow:'unset',
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     height: '100vh',
+//     margin: "5px"
+//   },
+//   paper: {
+//     padding: theme.spacing(2),
+//     textAlign: 'center',
+//     color: theme.palette.text.secondary,
+//     width:'150px',
+//     height: '150px',
+//     borderRadius: '50%',
+//     backgroundColor:'#eee',
+//     flexGrow:'unset',
 
-    [theme.breakpoints.down('sm')]: {
-      width:'120px',
-      height: '120px',
-    }
-  },
-  form: {
-    margin: theme.spacing(4),
-    alignItems: 'center',
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+//     [theme.breakpoints.down('sm')]: {
+//       width:'120px',
+//       height: '120px',
+//     }
+//   },
+//   form: {
+//     margin: theme.spacing(4),
+//     alignItems: 'center',
+//   },
+//   submit: {
+//     margin: theme.spacing(3, 0, 2),
+//   },
+// }));
 
 const DisplayMeal = (props) => {
   let { id } = useParams();
@@ -73,7 +73,7 @@ const DisplayMeal = (props) => {
       }}
     />
   );
-}
+};
 
 const renderQuery = ({error, props}) => {
   console.log(props);
@@ -153,8 +153,8 @@ const renderQuery = ({error, props}) => {
         <Footer />
       </Grid>
     </div>
-  )
+  );
   return <div>Loading</div>;
-}
+};
   
 export default DisplayMeal;

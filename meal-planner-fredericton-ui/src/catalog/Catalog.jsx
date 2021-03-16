@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,16 +10,15 @@ import Footer from '../core/footer/Footer'
 import { useTranslation } from 'react-i18next';
 
 
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
     height: '100vh',
     flexDirection: 'column',
     flex: 0
   },
-}));
+});
 
-const Catalog = (props) => {
+const Catalog = () => {
 
   const { t } = useTranslation([
     'meal'
@@ -43,6 +42,6 @@ const Catalog = (props) => {
       </Grid>
     </Grid>
   );
-}
+};
   
 export default Catalog;

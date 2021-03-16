@@ -1,29 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-import { DragSource } from 'react-dnd'
+import PropTypes from 'prop-types';
+import { DragSource } from 'react-dnd';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar'
-import Typography from '@material-ui/core/Typography'
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
 
 const Types = {
   CARD: 'card'
-}
+};
 
 const cardSource = {
   beginDrag(props) {
-    return props.meal
+    return props.meal;
   },
 
   endDrag(props, monitor, component) {
   }
-}
+};
 
 function collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging(),
-  }
+  };
 }
 
 const useStyles = makeStyles(() => ({
@@ -38,11 +38,11 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     top: '10px',
   }
-}))
+}));
 
 
 export function MealOption(props) {
-  const { isDragging, connectDragSource } = props
+  const { isDragging, connectDragSource } = props;
   const styles = useStyles(props);
 
   return connectDragSource(
@@ -54,11 +54,11 @@ export function MealOption(props) {
       />
       <Typography className={styles.name}>{props.meal.nameEn}</Typography>
     </div>
-  )
+  );
 }
 
 MealOption.propTypes = {
   meal: PropTypes.object,
-}
+};
 
-export default DragSource(Types.CARD, cardSource, collect)(MealOption)
+export default DragSource(Types.CARD, cardSource, collect)(MealOption);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from "@material-ui/core/Link";
 import Proptypes from "prop-types";
 import { withRouter } from 'react-router';
@@ -19,4 +19,5 @@ CustomLink.proptype = {
   name:Proptypes.string.isRequired,
   link:Proptypes.string.isRequired
 };
-export default withRouter(CustomLink)
+
+export default withRouter(CustomLink);

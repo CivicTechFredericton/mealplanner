@@ -1,17 +1,17 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
-import CancelIcon from '@material-ui/icons/Cancel'
-import EditIcon from '@material-ui/icons/Edit'
-import CheckIcon from '@material-ui/icons/Check'
-import SaveIcon from '@material-ui/icons/Save'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import { Modal } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import CancelIcon from '@material-ui/icons/Cancel';
+import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import SaveIcon from '@material-ui/icons/Save';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { Modal } from '@material-ui/core';
 
 import { useTranslation } from 'react-i18next';
 
@@ -42,9 +42,10 @@ const useStyles = makeStyles((theme) => ({
     top: '100px',
     left: 'calc(50% - 200px)',
   },
-}))
+}));
 
 export default function MealPlanAssignment(props) {
+<<<<<<< HEAD
   const { t } = useTranslation([
     'common',
     'meal'
@@ -53,21 +54,26 @@ export default function MealPlanAssignment(props) {
   const classes = useStyles()
   const [modalOpen, setModalOpen] = useState(false)
   const [modalValue, setModalValue] = useState(null)
+=======
+  const classes = useStyles();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalValue, setModalValue] = useState(null);
+>>>>>>> origin/develop
 
-  const options = props.allClients?.nodes ?? []
+  const options = props.allClients?.nodes ?? [];
 
   useEffect(() => {
     if (props.selectedPlan?.clientId) {
-      const option = options.find(({ rowId }) => rowId === props.selectedPlan?.clientId)
+      const option = options.find(({ rowId }) => rowId === props.selectedPlan?.clientId);
       if (option) {
-        setModalValue(option)
-        props.setAssignedClientId(option)
+        setModalValue(option);
+        props.setAssignedClientId(option);
       }
     }
   }, [
     props.selectedPlan,
     props.allClients
-  ])
+  ]);
 
   if (!props.selectedPlan) {
     // no point in rendering anything, cannot show assignment if no meal
@@ -106,12 +112,12 @@ export default function MealPlanAssignment(props) {
                   />
                 }
                 renderOption={params =>{
-                  return <span style={{color: 'black'}}>{params.clientId}</span>
+                  return <span style={{color: 'black'}}>{params.clientId}</span>;
                 }}
                 value={modalValue}
                 onChange={(event, val) => {
-                  console.log({ val })
-                  setModalValue(val)
+                  console.log({ val });
+                  setModalValue(val);
                 }}
               />
               <br />
@@ -121,8 +127,8 @@ export default function MealPlanAssignment(props) {
               <Button
                 color="primary"
                 onClick={() => {
-                  props.setAssignedClientId(modalValue)
-                  setModalOpen(false)
+                  props.setAssignedClientId(modalValue);
+                  setModalOpen(false);
                 }}
               >
                 {t('common:btnOK')} <CheckIcon />
@@ -130,7 +136,7 @@ export default function MealPlanAssignment(props) {
               <Button
                 color="secondary" 
                 onClick={() => {
-                  setModalOpen(false)
+                  setModalOpen(false);
                 }}
               >
                 {t('common:btnCancel')}
@@ -141,7 +147,7 @@ export default function MealPlanAssignment(props) {
         </div>
       </Modal>
     </Fragment>
-  )
+  );
 
 }
 
@@ -149,4 +155,4 @@ MealPlanAssignment.propTypes = {
   assignedClientId: PropTypes.string,
   setAssignedClientId: PropTypes.func,
   selectedPlan: PropTypes.object,
-}
+};

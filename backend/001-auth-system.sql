@@ -7,11 +7,18 @@ begin;
     created_at timestamp default now() not null,
     updated_at timestamp default now() not null
   );
-  comment on table app.person is 'Table to store person details';
+  comment on table app.person is 'Person represents a user that can log in and work with the application based on their role.';
+  comment on column app.person.full_name is 'Person''s full name';
+  comment on column app.person.id is 'database id (PK) for the Person';
+  -- todo: fix grants so that timestamps aren't updatable
 
   create trigger tg_person_set_updated_at before update
   on app.person 
   for each row execute procedure app.set_updated_at();
+  
+  create trigger tg_person_set_created_at before insert
+  on app.person 
+  for each row execute procedure app.set_created_at();
   
   create table if not exists app_private.account (
     person_id bigint primary key references app.person(id) on delete cascade,
@@ -33,7 +40,7 @@ begin;
     return new;
   end;
   $$ language plpgsql security definer;
-
+  
   create trigger tg_account_make_admin before insert 
   on app_private.account
   for each row execute procedure app_private.make_first_user_admin();
@@ -43,6 +50,10 @@ begin;
   create trigger tg_account_set_updated_at
   before update on app_private.account 
   for each row execute procedure app.set_updated_at();
+
+  create trigger tg_account_set_created_at before insert
+  on app_private.account 
+  for each row execute procedure app.set_created_at();
 
   create extension if not exists pgcrypto;
 
@@ -61,6 +72,7 @@ begin;
     return p;
   end;
   $$ language plpgsql security definer;
+  comment on function app.register_person(text,text,text) is 'Creates a Person plus private account details (username, password). People with account details may log in. By default the first registered Person will have role admin, others will start with lowest privilege. see authorize* to elevate privilege.';
 
   create type app.jwt_token as (
     role text,
@@ -81,6 +93,7 @@ begin;
       return null;
     end;
   $$ language plpgsql security definer;
+  comment on function app.authenticate(text,text) is 'Login method for People. Username and password are authenticated against the account table. On success a JWT is created with claims for Person and role.';
 
   create type app.current_user as (id bigint, role text, email text, full_name text);
 
@@ -90,10 +103,12 @@ begin;
     join app_private.account on app.person.id = app_private.account.person_id
     where id = nullif(current_setting('jwt.claims.person_id', true), '')::bigint
   $$ language sql stable security definer;
+  comment on function app.current_person() is 'Account details for the currently logged in Person';
 
   create or replace function app.current_user_person(cu app.current_user) returns app.person as $$
     select * from app.person where id=cu.id
   $$ language sql stable;
+  comment on function app.current_user_person(app.current_user) is 'Person details for current_user.';
 
   grant usage on schema app to app_anonymous, app_meal_designer, app_user, app_admin;
 
@@ -104,10 +119,12 @@ begin;
   grant execute on function app.authenticate(text, text) to app_anonymous;
   grant execute on function app.current_person() to app_anonymous, app_user, app_meal_designer, app_admin;
   grant execute on function app.current_user_person(app.current_user) to app_user, app_meal_designer, app_admin;
-  grant execute on function app.register_person(text, text, text) to app_anonymous, app_admin;
+  grant execute on function app.register_person(text, text, text) to app_admin;
+  -- 2020/02/01 removed app_anonymous from registration
 
   alter table app.person enable row level security;
 
+  -- consider removing select for anonymous
   create policy select_person 
     on app.person 
     for select using (true);

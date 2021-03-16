@@ -1,37 +1,37 @@
 export function dayToNumber(day) {
   switch (day) {
   case 'MONDAY':
-    return 0
+    return 0;
   case 'TUESDAY':
-    return 1
+    return 1;
   case 'WEDNESDAY':
-    return 2
+    return 2;
   case 'THURSDAY':
-    return 3
+    return 3;
   case 'FRIDAY':
-    return 4
+    return 4;
   case 'SATURDAY':
-    return 5
+    return 5;
   case 'SUNDAY':
-    return 6
+    return 6;
   }
 }
 
 export function numberToDay(number) {
   switch (number) {
   case 0:
-    return 'MONDAY'
+    return 'MONDAY';
   case 1:
-    return 'TUESDAY'
+    return 'TUESDAY';
   case 2:
-    return 'WEDNESDAY'
+    return 'WEDNESDAY';
   case 3:
-    return 'THURSDAY'
+    return 'THURSDAY';
   case 4:
-    return 'FRIDAY'
+    return 'FRIDAY';
   case 5:
-    return 'SATURDAY'
+    return 'SATURDAY';
   case 6:
-    return 'SUNDAY'
+    return 'SUNDAY';
   }
 }

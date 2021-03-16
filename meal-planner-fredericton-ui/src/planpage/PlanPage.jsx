@@ -7,17 +7,17 @@ import environment from '../relay-environment';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-import Header from '../core/header/Header'
-import Footer from '../core/footer/Footer'
+import Header from '../core/header/Header';
+import Footer from '../core/footer/Footer';
 
-import CreatePlanOptions from './CreatePlanOptions'
-import CreatePlanTable from './CreatePlanTable'
-import MealOption from './MealOption'
-import MealPlansToolbar from './MealPlansToolbar'
+import CreatePlanOptions from './CreatePlanOptions';
+import CreatePlanTable from './CreatePlanTable';
+//import MealOption from './MealOption'
+import MealPlansToolbar from './MealPlansToolbar';
 
-import { dayToNumber, numberToDay} from './utils'
+import { dayToNumber, numberToDay} from './utils';
 
-import { MEALS_OF_DAY, DAYS_OF_WEEK } from './constants'
+import { MEALS_OF_DAY, DAYS_OF_WEEK } from './constants';
 
 /**
  * state for which meals are selected at which tims is a map keyed by day, 
@@ -30,15 +30,15 @@ import { MEALS_OF_DAY, DAYS_OF_WEEK } from './constants'
  * this creates an empty version of that
  */ 
 const makeDefaultMealsAtTimes = () => {
-  const defaultMealsAtTimes = {}
+  const defaultMealsAtTimes = {};
   for (let day of DAYS_OF_WEEK) {
-    defaultMealsAtTimes[day] = {}
+    defaultMealsAtTimes[day] = {};
     for (let meal of MEALS_OF_DAY) {
-      defaultMealsAtTimes[day][meal] = []
+      defaultMealsAtTimes[day][meal] = [];
     }
   }
-  return defaultMealsAtTimes
-}
+  return defaultMealsAtTimes;
+};
 
 const useStyles = makeStyles(() =>( {
   root: {
@@ -53,7 +53,7 @@ const useStyles = makeStyles(() =>( {
       overflow: 'scroll',
     }
   },
-}))
+}));
 
 /**
  * Add a meal to the state
@@ -73,7 +73,7 @@ function putMealAtTime({
         meal,
       ]
     }
-  }
+  };
 }
 
 /**
@@ -85,10 +85,10 @@ function removeMealAtTime({
   mealTime,
   meal,
 }) {
-  const meals = mealsAtTimes[day]?.[mealTime] ?? null
+  const meals = mealsAtTimes[day]?.[mealTime] ?? null;
   if (meals === null) {
     // meals not in there, return
-    return mealsAtTimes
+    return mealsAtTimes;
   }
 
   return {
@@ -97,7 +97,7 @@ function removeMealAtTime({
       ...mealsAtTimes[day],
       [mealTime]: meals.filter(selectedMeal => meal.id !== selectedMeal.id)
     }
-  }
+  };
 
 }
 
@@ -144,18 +144,18 @@ function doCreateMealPlanEntry({
         `,
         onCompleted: function onCompleteHandler(response, errors) {
           if (errors) {
-            reject(errors)
-            return
+            reject(errors);
+            return;
           }
-          const { createMealPlanEntry: { mealPlanEntry } } = response
-          resolve(mealPlanEntry)
+          const { createMealPlanEntry: { mealPlanEntry } } = response;
+          resolve(mealPlanEntry);
         },
         onError: function onErrorHandler(err) {
-          reject(err)
+          reject(err);
         }
       }
-    )
-  })
+    );
+  });
 }
 
 /**
@@ -176,16 +176,16 @@ function doDeleteMealPlanEntry({ id }) {
       variables: { id },
       onCompleted: function onCompleteHandler(response, errors) {
         if (errors) {
-          reject(errors)
-          return
+          reject(errors);
+          return;
         }
-        resolve()
+        resolve();
       },
       onError: function onErrorHandler(err) {
-        reject(err)
+        reject(err);
       }
-    })
-  })
+    });
+  });
 }
 
 /**
@@ -195,20 +195,20 @@ function mealEntryAlreadyExists({
   selectedPlan,
   newMealEntry,
 }) {
-  const existingEntries = selectedPlan.mealPlanEntries.nodes
+  const existingEntries = selectedPlan.mealPlanEntries.nodes;
   const existingEntry = existingEntries.find(existingEntry => {
     if (existingEntry.days !== newMealEntry.days) {
-      return false
+      return false;
     }
     if (existingEntry.category !== newMealEntry.category) {
-      return false
+      return false;
     }
     if (existingEntry.meal.rowId !== newMealEntry.mealId) {
-      return false
+      return false;
     }
-    return true
-  })
-  return existingEntry !== undefined
+    return true;
+  });
+  return existingEntry !== undefined;
 }
 
 /**
@@ -218,13 +218,13 @@ function mealEntryHasBeenRemoved({
   mealsAtTimes,
   existingEntry
 }) {
-  const mealsAtTime = mealsAtTimes[numberToDay(existingEntry.days)][existingEntry.category]
+  const mealsAtTime = mealsAtTimes[numberToDay(existingEntry.days)][existingEntry.category];
   for (var meal of mealsAtTime) {
     if (meal.rowId === existingEntry.meal.rowId) {
-      return false
+      return false;
     }
   }
-  return true
+  return true;
 }
 
 
@@ -234,16 +234,16 @@ function updateAssignment({ selectedPlan, assignedClientId }) {
       mutation: graphql`
         mutation PlanPageUpdateAssignmentMutation(
             $id: ID!
-            $clientId: BigInt!
+            $personId: BigInt!
           ) {
           updateMealPlanById(input: {
             id: $id
             patch: {
-              clientId: $clientId
+              personId: $personId
             }
           }) {
             mealPlan {
-              clientId
+              personId
             }
           }
         }
@@ -254,17 +254,19 @@ function updateAssignment({ selectedPlan, assignedClientId }) {
       },
       onCompleted: function onCompleteHandler(response, errors) {
         if (errors) {
-          reject(errors)
-          return
+          reject(errors);
+          return;
         }
-        resolve()
+        resolve();
       },
       onError: function onErrorHandler(err) {
-        reject(err)
+        reject(err);
       }
-    })
-  })
+    });
+  });
 }
+
+
 
 /**
  * handle when user clicks to save meal plan
@@ -275,70 +277,70 @@ async function handleSave({
   assignedClientId,
   callback
 }) {
-  const promises = []
+  const promises = [];
 
   // save all the meals that don't already exist
   Object.keys(mealsAtTimes).forEach(day => {
     Object.keys(mealsAtTimes[day]).forEach(mealTime => {
-      const listOfMeals = mealsAtTimes[day][mealTime]
+      const listOfMeals = mealsAtTimes[day][mealTime];
       listOfMeals.forEach(meal => {
         const newMealEntry = {
           days: dayToNumber(day),
           category: mealTime,
           mealId: meal.rowId,
           mealPlanId: selectedPlan.rowId
-        }
+        };
         if (!mealEntryAlreadyExists({ newMealEntry, selectedPlan })) {
-          promises.push(doCreateMealPlanEntry(newMealEntry))
+          promises.push(doCreateMealPlanEntry(newMealEntry));
         }
-      })
-    })
-  })
+      });
+    });
+  });
 
-  const existingEntries = selectedPlan.mealPlanEntries.nodes
+  const existingEntries = selectedPlan.mealPlanEntries.nodes;
   existingEntries.forEach(existingEntry => {
     if (mealEntryHasBeenRemoved({ mealsAtTimes, existingEntry })) {
-      promises.push(doDeleteMealPlanEntry(existingEntry))
+      promises.push(doDeleteMealPlanEntry(existingEntry));
     }
-  })
+  });
 
   if (assignedClientId && (assignedClientId.rowId != selectedPlan.clientId)) {
-    promises.push(updateAssignment({ selectedPlan, assignedClientId }))
+    promises.push(updateAssignment({ selectedPlan, assignedClientId }));
   }
-
+  
   try {
-    await Promise.all(promises) // wait for all mutations to complete
+    await Promise.all(promises); // wait for all mutations to complete
     if (callback) {
-      callback()
+      callback();
     }
   } catch(e) {
-    console.error('Error happen creating meal plan entries', e)
+    console.error('Error happen creating meal plan entries', e);
   }
 }
 
 export function PlanPage(props) {
-  const classes = useStyles()
+  const classes = useStyles();
 
-  const [selectedPlan, setSelectedPlan] = useState(null)
-  const [assignedClientId, setAssignedClientId] = useState(null)
-  const [mealsAtTimes, setMealsAtTimes] = useState(makeDefaultMealsAtTimes())
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [assignedClientId, setAssignedClientId] = useState(null);
+  const [mealsAtTimes, setMealsAtTimes] = useState(makeDefaultMealsAtTimes());
   
 
   useEffect(() => {
     if (selectedPlan !== null) {
-      let mealsAtTimes = makeDefaultMealsAtTimes()
-      const mealPlanEntries = selectedPlan?.mealPlanEntries?.nodes ?? []
+      let mealsAtTimes = makeDefaultMealsAtTimes();
+      const mealPlanEntries = selectedPlan?.mealPlanEntries?.nodes ?? [];
       for (var mealPlanEntry of mealPlanEntries) {
         mealsAtTimes = putMealAtTime({
           mealsAtTimes,
           day: numberToDay(mealPlanEntry.days),
           mealTime: mealPlanEntry.category,
           meal: mealPlanEntry.meal,
-        })
+        });
       }
-      setMealsAtTimes(mealsAtTimes)
+      setMealsAtTimes(mealsAtTimes);
     }
-  }, [selectedPlan])
+  }, [selectedPlan]);
 
   const onNewMealSelect = ({
     day,
@@ -347,8 +349,8 @@ export function PlanPage(props) {
   }) => {
     setMealsAtTimes(
       putMealAtTime({ day, meal, mealTime, mealsAtTimes })
-    )
-  }
+    );
+  };
 
   const onMealUnselect = ({
     day, 
@@ -357,8 +359,8 @@ export function PlanPage(props) {
   }) => {
     setMealsAtTimes(
       removeMealAtTime({ day, meal, mealTime, mealsAtTimes })
-    )
-  }
+    );
+  };
 
   const onSave = () => {
     handleSave({
@@ -366,8 +368,8 @@ export function PlanPage(props) {
       mealsAtTimes,
       assignedClientId,
       callback: props.relay.refetch,
-    })
-  }
+    });
+  };
 
   return (
     <Fragment>
@@ -413,7 +415,7 @@ export function PlanPage(props) {
       </Grid>
       <Footer />
     </Fragment>
-  )
+  );
 }
 
 const query = graphql`
@@ -428,7 +430,7 @@ const PlanPageRefechContainer = createRefetchContainer(
   {
   },
   query
-)
+);
 
 function PlanPageWithQuery() {
   return (
@@ -438,7 +440,7 @@ function PlanPageWithQuery() {
       variables={{}}
       render={({ error, props }) => <PlanPageRefechContainer error={error} {...props} />}
     />
-  )
+  );
 }
 
-export default PlanPageWithQuery
+export default PlanPageWithQuery;

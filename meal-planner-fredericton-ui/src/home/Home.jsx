@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import MealPlans from './MealPlans';
 
-import Header from '../core/header/Header'
+import Header from '../core/header/Header';
 import { clearCurrentToken } from '../utils/auth';
 import { useTranslation } from 'react-i18next';
 
