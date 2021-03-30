@@ -31,7 +31,7 @@ Now that Docker is available, set up the environment for the composed applicatio
 POSTGRES_PASSWORD=databasepassword
 JWT_SECRET=signingsecret
 ```
-Now, in the same folder run `docker-compose up`. Docker compose will download base images and begin the container builds.  If all is well, the graphql server will be available at `http://localhost:4000/graphql` or `http://localhost:4000/graphiql`. The frontend UI will be available at `http://localhost:3000`
+Now, in the same folder run `docker-compose up`. Docker compose will download base images and begin the container builds.  If all is well, the graphql server will be available at `http://localhost:4000/graphql` or `http://localhost:4000/graphiql`. The frontend UI will be available at `http://localhost:3000`. If you only want to run the DB and GraphQL services in docker, run `docker-compose up graphql`
 
 If you are unfamiliar with Docker and find that you have gotten your application into a weird state, you can reset the whole thing with a couple of commands:
 
