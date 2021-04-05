@@ -18,6 +18,7 @@ import StarIcon from '@material-ui/icons/Star';
 import SettingIcon from '@material-ui/icons/Settings';
 import PersonIcon from '@material-ui/icons/Person';
 
+import { useTranslation } from 'react-i18next';
 import { isAuthenticated, logout } from '../../utils/auth';
 
 
@@ -141,6 +142,12 @@ const useStyles = makeStyles(theme => ({
 
 
 const Header = () => {
+  const { t } = useTranslation([
+    'common',
+    'authentication',
+    'meal'
+  ]);
+
   const styles = useStyles();
   const location = useLocation();
     
@@ -149,12 +156,12 @@ const Header = () => {
   // only add link to protected page if user authenticated
   if (isAuthenticated()) {
     navMenu.push({
-      label: "Meal Designer",
+      label: t('meal:lblMealDesigner'),
       pathname: "/meal-designer",
     });
   }
   navMenu.push({
-    label: "Shopping List",
+    label: t('meal:lblShoppingList'),
     pathname: "/shopping-list"
   });
 
@@ -197,14 +204,14 @@ const Header = () => {
                 </MenuList>
                 <div className={styles.rightnav}>
                   <Tab 
-                    label="Favorites" 
+                    label={t('common:lblFavorites')} 
                     className={styles.contact} 
                     component={Link} 
                     icon={<StarIcon className={styles.phone}/>} 
                     to="/favorites" 
                   />
                   <Tab
-                    label="Settings"
+                    label={t('common:lblSettings')}
                     className={styles.contact}
                     component={Link}
                     icon={<SettingIcon className={styles.phone}/>} 
@@ -212,7 +219,7 @@ const Header = () => {
                   />
                   {!isAuthenticated() ? (
                     <Tab 
-                      label="Log In"
+                      label={t('authentication:lblLogin')}
                       className={styles.contact}
                       onClick={logout}
                       component={Link}
@@ -221,7 +228,7 @@ const Header = () => {
                     />
                   ) : (
                     <Tab 
-                      label="Log Out"
+                      label={t('authentication:lblLogOut')}
                       className={styles.contact}
                       onClick={logout}
                       icon={<PersonIcon className={styles.phone} />}

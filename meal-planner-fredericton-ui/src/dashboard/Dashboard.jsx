@@ -32,6 +32,9 @@ import Header from '../core/header/Header';
 import Footer from "../core/footer/Footer";
 import Container from "../components/container/Container";
 
+import { useTranslation } from 'react-i18next';
+
+
 const useStyles = makeStyles(theme => ({
   header:{
     position:"relative"
@@ -155,6 +158,10 @@ const Dashboard = props => {
 
   const toggleFilterMenuOpen = () => setFilterMenuOpen(!filterMenuOpen);
 
+  const { t } = useTranslation([
+    'common',
+    'meal'
+  ]);
 
   const classes = useStyles();
   const rows = (props.mealPlans?.nodes ?? [])
@@ -176,7 +183,7 @@ const Dashboard = props => {
   const filterMenu = filterMenuOpen ? (
     <Paper className={classes.filterMenu}>
       <Typography align="center">
-        Client ID:
+      {t('common:lblClientID')}
       </Typography>
       <Select
         value={clientsFilter}
@@ -215,7 +222,7 @@ const Dashboard = props => {
           <Grid item>
             <Paper className={classes.paper} />
             <Typography variant="h6" align="center">
-              <Link to='/catalogue-meals' className={classes.link}>Catalogue of Meals</Link>
+              <Link to='/catalogue-meals' className={classes.link}>{t('meal:lblCatalogueofMeals')}</Link>
             </Typography>
           </Grid>
           <Grid item>
@@ -223,7 +230,7 @@ const Dashboard = props => {
               <ButtonBase className={classes.img} /> 
             </Paper>
             <Typography variant="h6"  align="center">
-              <Link to='/catalogue-units' className={classes.link}>Catalogue of Units</Link>
+              <Link to='/catalogue-units' className={classes.link}>{t('meal:lblCatalogueofUnits')}</Link>
             </Typography>
           </Grid>
           <Grid item>
@@ -231,7 +238,7 @@ const Dashboard = props => {
               <ButtonBase className={classes.img} />
             </Paper>
             <Typography variant="h6"  align="center">
-              <Link to='/catalogue-products' className={classes.link}>Catalogue of Products</Link>
+              <Link to='/catalogue-products' className={classes.link}>{t('meal:lblCatalogueofProducts')}</Link>
             </Typography>
           </Grid>
           <Grid item>
@@ -239,7 +246,7 @@ const Dashboard = props => {
               <ButtonBase className={classes.img} />      
             </Paper>
             <Typography variant="h6" align="center">
-              <Link to='/clients' className={classes.link}>Clients</Link>
+              <Link to='/clients' className={classes.link}>{t('common:lblClients')}</Link>
             </Typography>
           </Grid>
         </Grid>
@@ -247,7 +254,7 @@ const Dashboard = props => {
         <Box m={8}>
           <TableContainer component={Paper}>
             <Toolbar className={classes.toolbar}>
-              <Typography variant="h6">Meal Plans</Typography>
+              <Typography variant="h6">{t('meal:lblMealPlans')}</Typography>
               <span>
                 <span>
                   <Tooltip title="Filter list" onClick={toggleFilterMenuOpen}>
@@ -262,12 +269,12 @@ const Dashboard = props => {
             <Table color="primary" className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Meal Plans Created</TableCell>
-                  <TableCell>Client</TableCell>
-                  <TableCell align="center">Date Created</TableCell>
-                  <TableCell align="center">Edit</TableCell>
+                  <TableCell>{t('meal:lblMealPlansCreated')}</TableCell>
+                  <TableCell>{t('common:lblClient')}</TableCell>
+                  <TableCell align="center">{t('common:lblDateCreated')}</TableCell>
+                  <TableCell align="center">{t('common:lblEdit')}</TableCell>
                   {/* <TableCell align="center">Clone</TableCell> */}
-                  <TableCell align="center">Remove</TableCell>
+                  <TableCell align="center">{t('common:lblRemove')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

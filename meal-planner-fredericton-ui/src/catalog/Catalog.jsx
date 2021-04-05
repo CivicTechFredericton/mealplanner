@@ -5,8 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import CatalogGridList from "./CatalogGridList";
-import Header from '../core/header/Header';
-import Footer from '../core/footer/Footer';
+import Header from '../core/header/Header'
+import Footer from '../core/footer/Footer'
+import { useTranslation } from 'react-i18next';
+
 
 const useStyles = makeStyles({
   root: {
@@ -17,6 +19,11 @@ const useStyles = makeStyles({
 });
 
 const Catalog = () => {
+
+  const { t } = useTranslation([
+    'meal'
+  ]);
+
   const classes = useStyles();
   return (
     <Grid container direction="column">
@@ -25,7 +32,7 @@ const Catalog = () => {
         <Box>
           <CssBaseline />
           <Typography variant="body2" color="textSecondary" align="center">
-            <h1>Meal Catalog</h1>
+            <h1>{t('common:lblMealCatalog')}</h1>
             <CatalogGridList />
           </Typography>
         </Box>  

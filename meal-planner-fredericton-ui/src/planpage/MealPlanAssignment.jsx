@@ -13,6 +13,8 @@ import SaveIcon from '@material-ui/icons/Save';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Modal } from '@material-ui/core';
 
+import { useTranslation } from 'react-i18next';
+
 const useStyles = makeStyles((theme) => ({
   autocompleteText: {
     color: 'black',
@@ -43,9 +45,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MealPlanAssignment(props) {
+<<<<<<< HEAD
+  const { t } = useTranslation([
+    'common',
+    'meal'
+  ]);
+
+  const classes = useStyles()
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalValue, setModalValue] = useState(null)
+=======
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalValue, setModalValue] = useState(null);
+>>>>>>> origin/develop
 
   const options = props.allClients?.nodes ?? [];
 
@@ -70,19 +83,19 @@ export default function MealPlanAssignment(props) {
   return (
     <Fragment>
       <Typography>
-        <b>Client Assignment:</b>
+        <b>{t('meal:lblClientAssignment')}</b>
         <Button className={classes.button} onClick={() => setModalOpen(true)}>
           <EditIcon fontSize={'8px'} />
         </Button>
       </Typography>
       <Typography>
-        {props.assignedClientId ? props.assignedClientId.clientId : 'This meal plan is unassigned'}
+        {props.assignedClientId ? props.assignedClientId.clientId : t('meal:lblMealPlanUnassigned')}
       </Typography>
       <Modal open={modalOpen}>
         <div className={classes.paper}>
           <Grid container>
             <Grid item xs={12}>
-              <Typography variant="h4">Change Client Assignment</Typography>
+              <Typography variant="h4">{t('meal:lblChangeClientAssignment')}</Typography>
               <br />
             </Grid>
             <Grid item xs={12}>
@@ -118,7 +131,7 @@ export default function MealPlanAssignment(props) {
                   setModalOpen(false);
                 }}
               >
-                OK <CheckIcon />
+                {t('common:btnOK')} <CheckIcon />
               </Button>
               <Button
                 color="secondary" 
@@ -126,7 +139,7 @@ export default function MealPlanAssignment(props) {
                   setModalOpen(false);
                 }}
               >
-                Cancel
+                {t('common:btnCancel')}
                 <CancelIcon />
               </Button>
             </Grid>

@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageCarousel from './ImageCarousel';
+import { useTranslation } from 'react-i18next';
 
 import { setCurrentToken } from '../utils/auth';
 
@@ -86,6 +87,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const FindOutMore = () => {
+  const { t } = useTranslation([
+    'common'
+  ]);
   const classes = useStyles();
   return(
     <Box m={12} position="absolute" left={0} top={50} right={600}>
@@ -101,13 +105,16 @@ const FindOutMore = () => {
         size="large"
         className={classes.submit}
       >
-        FIND OUT MORE
+        {t('common:lblFindOutMore')}
       </Button>
     </Box>
   );
 };
 
 const LoginForm = () => {
+  const { t } = useTranslation([
+    'authentication'
+  ]);
   const classes = useStyles();
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -143,7 +150,7 @@ const LoginForm = () => {
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label={t('authentication:lblEmailAddress')}
           name="email"
           autoComplete="email"
           autoFocus
@@ -156,7 +163,7 @@ const LoginForm = () => {
           required
           fullWidth
           name="password"
-          label="Password"
+          label={t('authentication:lblPassword')}
           type="password"
           id="password"
           autoComplete="current-password"
@@ -181,7 +188,7 @@ const LoginForm = () => {
             handleSubmit();
           }}
         >
-          Sign In
+          {t('authentication:lblSignIn')}
         </Button>
       </form>
     </Box>

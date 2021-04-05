@@ -1,0 +1,22 @@
+{
+    "lblMealCatalog": "Meal Catalog",
+    "lblMealPlansCreated": "Meal Plans Created",
+    "lblMealPlans": "Meal Plans",
+    "lblCatalogueofProducts": "Catalogue of Products",
+    "lblCatalogueofUnits": "Catalogue of Units",
+    "lblCatalogueofMeals": "Catalogue of Meals",
+    "lblMealPlan": "Meal Plan",
+    "lblShoppingList": "Shopping List",
+    "lblMealDesigner": "Meal Designer",
+    "lblSelectMealPlan": "Select Meal Plan to Begin",
+    "lblClientAssignment": "Client Assignment:",
+    "lblChangeClientAssignment": "Change Client Assignment",
+    "lblMealPlanUnassigned": "This meal plan is unassigned",
+    "lblNutritionScore": "Nutrition Score:",
+    "lblReadyIn": "Ready in:",
+    "lblServes": "Serves:",
+    "lblMinutes": "minutes",
+    "lblIngredients": "Ingredients:",
+    "lblDirection": "Direction:"
+
+}
