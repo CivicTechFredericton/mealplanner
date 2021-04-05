@@ -4,7 +4,7 @@ import cookie from 'cookie';
 const COOKIE_NAME = 'mealplannerAccessToken';
 
 export function isAuthenticated() {
-  return getCurrentToken() !== undefined
+  return getCurrentToken() !== undefined;
 }
 
 export function logout(e, redirect = true) {

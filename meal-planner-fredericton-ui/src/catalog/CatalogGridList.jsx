@@ -1,6 +1,6 @@
 import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
-import { makeStyles } from '@material-ui/core/styles';
+//import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -11,33 +11,33 @@ import { Link } from 'react-router-dom';
 import { QueryRenderer} from 'react-relay';
 import environment from '../relay-environment';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
-  gridList: {
-    //width: 1200,
-    //height: 400,
-  },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  }
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: 'flex',
+//     flexWrap: 'wrap',
+//     justifyContent: 'space-around',
+//     overflow: 'hidden',
+//     backgroundColor: theme.palette.background.paper,
+//   },
+//   gridList: {
+//     //width: 1200,
+//     //height: 400,
+//   },
+//   modal: {
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   paper: {
+//     backgroundColor: theme.palette.background.paper,
+//     border: '2px solid #000',
+//     boxShadow: theme.shadows[5],
+//     padding: theme.spacing(2, 4, 3),
+//   }
+// }));
 
-const CatalogGridList = (props) => {
-  const classes = useStyles();
+const CatalogGridList = () => {
+  //const classes = useStyles();
   return (
     <QueryRenderer
       environment={environment}
@@ -56,7 +56,7 @@ const CatalogGridList = (props) => {
       variables={{}}
     />
   );
-}
+};
 
 const renderQuery = ({error, props}) => {
   console.log(props);
@@ -89,8 +89,8 @@ const renderQuery = ({error, props}) => {
         </GridList>
       </Box>
     </div>
-  )
+  );
   return <div>Loading</div>;
-}
+};
 
 export default CatalogGridList;
