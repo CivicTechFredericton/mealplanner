@@ -104,10 +104,10 @@ export default function NewMealPlanModal(props) {
     'common'
   ]);
 
-  const [planName, setPlanName] = useState('')
-  const [planNameError, setPlanNameError] = useState(null)
-  const [planDescription, setPlanDescription] = useState('')
-  const [submitInProgress, setSubmitInProgress] = useState(false)
+  const [planName, setPlanName] = useState('');
+  const [planNameError, setPlanNameError] = useState(null);
+  const [planDescription, setPlanDescription] = useState('');
+  const [submitInProgress, setSubmitInProgress] = useState(false);
 
   function validateNewMealName() {
     let isError = false;

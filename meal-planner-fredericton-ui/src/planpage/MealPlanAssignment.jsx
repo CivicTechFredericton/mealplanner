@@ -50,9 +50,9 @@ export default function MealPlanAssignment(props) {
     'meal'
   ]);
 
-  const classes = useStyles()
-  const [modalOpen, setModalOpen] = useState(false)
-  const [modalValue, setModalValue] = useState(null)
+  const classes = useStyles();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalValue, setModalValue] = useState(null);
 
   const options = props.allClients?.nodes ?? [];
 

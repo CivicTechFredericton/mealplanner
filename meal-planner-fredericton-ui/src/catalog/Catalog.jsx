@@ -5,8 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import CatalogGridList from "./CatalogGridList";
-import Header from '../core/header/Header'
-import Footer from '../core/footer/Footer'
+import Header from '../core/header/Header';
+import Footer from '../core/footer/Footer';
 import { useTranslation } from 'react-i18next';
 
 

@@ -40,7 +40,7 @@ export function MealPlansToolbar(props) {
     'meal'
   ]);
 
-  const location = useLocation()
+  const location = useLocation();
   const [
     alreadySelectedMealAfterNav,
     setAlreadySelectedMealAfterNav,
