@@ -35,16 +35,12 @@ const useStyles = makeStyles(() => ({
  * Toolbar with controls for selecting, creating and saving meal plan
  */
 export function MealPlansToolbar(props) {
-<<<<<<< HEAD
   const { t } = useTranslation([
     'common',
     'meal'
   ]);
 
-  const location = useLocation()
-=======
   const location = useLocation();
->>>>>>> origin/develop
   const [
     alreadySelectedMealAfterNav,
     setAlreadySelectedMealAfterNav,

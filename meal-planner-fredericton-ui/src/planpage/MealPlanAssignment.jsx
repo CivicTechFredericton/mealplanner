@@ -45,20 +45,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MealPlanAssignment(props) {
-<<<<<<< HEAD
   const { t } = useTranslation([
     'common',
     'meal'
   ]);
 
-  const classes = useStyles()
-  const [modalOpen, setModalOpen] = useState(false)
-  const [modalValue, setModalValue] = useState(null)
-=======
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalValue, setModalValue] = useState(null);
->>>>>>> origin/develop
 
   const options = props.allClients?.nodes ?? [];
 

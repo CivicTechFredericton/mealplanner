@@ -51,7 +51,7 @@
     "build": "npm-run-all relay build:create-react-app",
     "build:create-react-app": "react-scripts build",
     "test": "react-scripts test",
-    "relay": "relay-compiler --src ./src --watch --schema ../backend/schema.graphql --extensions js jsx"
+    "relay": "relay-compiler --src ./src --watchman --schema ../backend/schema.graphql --extensions js jsx"
   },
   "eslintConfig": {
     "extends": "react-app"

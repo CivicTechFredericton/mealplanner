@@ -99,22 +99,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function NewMealPlanModal(props) {
-<<<<<<< HEAD
   const { t } = useTranslation([
     'modal',
     'common'
   ]);
 
-  const [planName, setPlanName] = useState('')
-  const [planNameError, setPlanNameError] = useState(null)
-  const [planDescription, setPlanDescription] = useState('')
-  const [submitInProgress, setSubmitInProgress] = useState(false)
-=======
   const [planName, setPlanName] = useState('');
   const [planNameError, setPlanNameError] = useState(null);
   const [planDescription, setPlanDescription] = useState('');
   const [submitInProgress, setSubmitInProgress] = useState(false);
->>>>>>> origin/develop
 
   function validateNewMealName() {
     let isError = false;
