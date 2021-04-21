@@ -6,6 +6,7 @@ import Dashboard from "../dashboard/Dashboard";
 import PlanPage from '../planpage/PlanPage';
 import Catalog from '../catalog/Catalog';
 import DisplayMeal from '../displayMeal/DisplayMeal';
+import PracticeForm from "../form/PracticeForm";
 
 
 const App = () => {
@@ -13,10 +14,19 @@ const App = () => {
   return (
     <>
       <Switch>
+        
         <Route
           path='/login'
           render={() => (
             <Login />
+          )}
+        />
+        <Route
+          path='/example'
+          render={() => (
+            <PracticeForm 
+               name="Dan"
+            />
           )}
         />
         <Route
