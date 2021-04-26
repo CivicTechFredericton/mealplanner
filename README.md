@@ -18,10 +18,9 @@ In the main project directory there is a docker-compose.yml file that will build
 
 Before composing the application you must ensure that Docker is installed and functioning. A quick check is to run `docker version` on the command line to see if you get any output. If you get an error, see the Docker set up for your platfrom.
 
- - Ubuntu - this should be as simple as `sudo apt install docker docker-compose docker.io python3-docker python3-dockerpty`
+ - Ubuntu - this should be as simple as `sudo apt install docker docker-compose docker.io python3-docker python3-dockerpty` 
  - MacOS [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
- - Windows 10 *Home* [Docker Desktop for Windows 10 Home](https://docs.docker.com/docker-for-windows/install-windows-home/)
- - Windows 10 *Pro* or *Enterprise* [Docker Desktop for Windows 10](https://docs.docker.com/docker-for-windows/install/)
+ - Windows 10 [Docker Desktop for Windows 10](https://docs.docker.com/docker-for-windows/install/)
 
 It is recomended to perform the install and "getting started" steps for Docker Desktop before proceeding.
 
@@ -37,16 +36,26 @@ If you are unfamiliar with Docker and find that you have gotten your application
 
 ```
 docker-compose down -v --rmi all
+docker system prune
 docker volume prune
 ```
-After this, `docker-compose up` will rebuild containers from scratch.
+After this, `docker-compose up --build` will rebuild containers from scratch.
 
 ### populating sample data
-On the initial build and startup, the database will be completely empty. There won't even be an account created for logging in. To populate the databse with a handful of users and some recipe material run the following docker-compose command to seed the database:
+On the initial build and startup, the database will be completely empty. There won't even be an account created for logging in. To populate the databse with a handful of users and some recipe material run the appropriate version of the following docker-compose commands to seed the database.
+
+On Linux or MacOS:
 
 ```
-docker-compose exec -T db /usr/bin/psql -U postgres -f - < backend/seed.sql
+cat ./backend/seed.sql | docker-compose exec -T db /usr/bin/psql -U postgres -f -
 ```
+
+On Windows (Powershell):
+
+```
+Get-Content .\backend\seed.sql | docker-compose exec -T db /usr/bin/psql -U postgres -f -
+```
+
 
 Pay careful attention to the output as it will include the randomly generated passwords for the defaul users. This will look something like the following but the passwords will be unique each time:
 
