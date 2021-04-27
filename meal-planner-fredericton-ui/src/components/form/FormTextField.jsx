@@ -7,13 +7,13 @@ import TextField from "@material-ui/core/TextField";
 const useStyles = makeStyles({
     root: {
         marginTop: 5,
-        marginBottom: 16
+        marginBottom: 15
     },
     text: {
         marginBottom: 0,
         paddingBottom: 0,
         fontSize: 12
-    },
+    }
 });
 const FormTextField = (props) => {
     const {
@@ -88,7 +88,7 @@ const FormTextField = (props) => {
                 error={handleErrors()}
                 helperText={handleErrorText()}
                 rows={rows}
-                InputProps={InputProps}
+                InputProps={{...InputProps}}
             />
         </Box>
     );

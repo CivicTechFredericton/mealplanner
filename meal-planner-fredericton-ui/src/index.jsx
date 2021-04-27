@@ -18,25 +18,33 @@ const theme = createMuiTheme({
       light: '#4a4c54',
       main: '#22242b',
       dark: '#000000',
-      contrastText: '#ffffff',
+      contrastText: '#000000',
     },
     secondary: {
       light: '#abf3a2',
       main: '#7ac073',
       dark: '#4a8f46',
-      contrastText: '#ffffff',
+      contrastText: '#000000',
     },
     typography: {
       useNextVariants: true,
-      fontFamily: 'Open Sans',
-    },
-    text: {
-      primary: '#ffffff',
-      secondary: '#000000',
-      disabled: '#000000',
-      hint: '#000000',
-    },
+    }
   },
+  overrides: {
+    MuiOutlinedInput: {
+      notchedOutline: {
+        borderRadius: 4,
+      },
+      input: {
+        fontSize: 13,
+        padding: 8,
+      },
+      multiline: {
+        padding: 8,
+      }
+    },
+  }
+
 });
 
 const initialState = {

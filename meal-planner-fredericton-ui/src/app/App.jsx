@@ -7,6 +7,7 @@ import PlanPage from '../planpage/PlanPage';
 import Catalog from '../catalog/Catalog';
 import DisplayMeal from '../displayMeal/DisplayMeal';
 import PracticeForm from "../form/PracticeForm";
+import PracticeForm2 from "../form/PracticeForm2";
 
 
 const App = () => {
@@ -21,12 +22,16 @@ const App = () => {
             <Login />
           )}
         />
-        <Route
-          path='/example'
+         <Route
+          path='/nutrition/:NUTRITIONID'
           render={() => (
-            <PracticeForm 
-               name="Dan"
-            />
+            <PracticeForm2 />
+          )}
+        />
+        <Route
+          path='/nutrition'
+          render={() => (
+            <PracticeForm />
           )}
         />
         <Route
