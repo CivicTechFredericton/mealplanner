@@ -194,7 +194,7 @@ const Dashboard = props => {
             className={classes.filterLisItem}
             value={person.id}
           >
-              {person.id}
+              {person.fullName}
           </MenuItem>
         ))}
       </Select>
@@ -361,6 +361,7 @@ query DashboardQuery	 {
   people {
     nodes {
       id
+      fullName
     }
   }
 }
