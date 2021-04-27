@@ -68,7 +68,7 @@ export function MealPlansToolbar(props) {
           <Autocomplete
             id="combo-box-demo"
             options={options}
-            getOptionLabel={(option) => option.nameEn + option.client?.clientId}
+            getOptionLabel={(option) => option.nameEn + " (" + option.person?.fullName + ")"}
             style={{ width: 600 }}
             renderInput={(params) => 
               <TextField 
@@ -83,7 +83,7 @@ export function MealPlansToolbar(props) {
               <span style={{color: 'black'}}>
                 {params.nameEn}
                 <span style={{color: 'darkgray', paddingLeft: '10px'}}>
-                  (client: {params.client?.clientId || 'Unassigned'})
+                  ({params.person?.fullName || 'Unassigned'})
                 </span>
               </span>);
             }}
@@ -95,9 +95,9 @@ export function MealPlansToolbar(props) {
         </Grid>
         <Grid item xs={2}  justify="flex-end">
           <MealPlanAssignment
-            allClients={props.mealPlansToolbarFragment.clients}
-            assignedClientId={props.assignedClientId}
-            setAssignedClientId={props.setAssignedClientId}
+            allPeople={props.mealPlansToolbarFragment.people}
+            assignedPersonId={props.assignedPersonId}
+            setAssignedPersonId={props.setAssignedPersonId}
             selectedPlan={props.selectedPlan}
           />
         </Grid>
@@ -125,8 +125,8 @@ export function MealPlansToolbar(props) {
 }
 
 MealPlansToolbar.propTypes = {
-  assignedClientId: PropTypes.string,
-  setAssignedClientId: PropTypes.func,
+  assignedPersonId: PropTypes.string,
+  setAssignedPersonId: PropTypes.func,
   mealPlansToolbarFragment: PropTypes.any,
   onSave: PropTypes.func,
   selectedPlan: PropTypes.object,
@@ -150,6 +150,7 @@ const MealPlansToolbarWithQuery = createFragmentContainer(
             person {
               id
               rowId
+	      fullName
             }
             mealPlanEntries {
               nodes {
@@ -173,6 +174,7 @@ const MealPlansToolbarWithQuery = createFragmentContainer(
           nodes {
             id
             rowId
+	    fullName
           }
         } 
       }

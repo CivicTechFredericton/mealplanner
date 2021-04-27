@@ -54,19 +54,19 @@ export default function MealPlanAssignment(props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalValue, setModalValue] = useState(null);
 
-  const options = props.allClients?.nodes ?? [];
+  const options = props.allPeople?.nodes ?? [];
 
   useEffect(() => {
-    if (props.selectedPlan?.clientId) {
-      const option = options.find(({ rowId }) => rowId === props.selectedPlan?.clientId);
+    if (props.selectedPlan?.person) {
+      const option = options.find(({ rowId }) => rowId === props.selectedPlan?.person.rowId);
       if (option) {
         setModalValue(option);
-        props.setAssignedClientId(option);
+        props.setAssignedPersonId(option.id);
       }
     }
   }, [
     props.selectedPlan,
-    props.allClients
+    props.allPeople
   ]);
 
   if (!props.selectedPlan) {
@@ -77,26 +77,26 @@ export default function MealPlanAssignment(props) {
   return (
     <Fragment>
       <Typography>
-        <b>{t('meal:lblClientAssignment')}</b>
+        <b>{t('meal:lblPersonAssignment')}</b>
         <Button className={classes.button} onClick={() => setModalOpen(true)}>
           <EditIcon fontSize={'8px'} />
         </Button>
       </Typography>
       <Typography>
-        {props.assignedClientId ? props.assignedClientId.clientId : t('meal:lblMealPlanUnassigned')}
+        {props.assignedPersonId ? props.assignedPersonId.fullName : t('meal:lblMealPlanUnassigned')}
       </Typography>
       <Modal open={modalOpen}>
         <div className={classes.paper}>
           <Grid container>
             <Grid item xs={12}>
-              <Typography variant="h4">{t('meal:lblChangeClientAssignment')}</Typography>
+              <Typography variant="h4">{t('meal:lblChangePersonAssignment')}</Typography>
               <br />
             </Grid>
             <Grid item xs={12}>
               <Autocomplete
                 id="combo-box-demo"
                 options={options}
-                getOptionLabel={(option) => option.clientId}
+                getOptionLabel={(option) => option.fullName}
                 style={{ width: 300 }}
                 renderInput={(params) => 
                   <TextField 
@@ -106,7 +106,7 @@ export default function MealPlanAssignment(props) {
                   />
                 }
                 renderOption={params =>{
-                  return <span style={{color: 'black'}}>{params.clientId}</span>;
+                  return <span style={{color: 'black'}}>{params.fullName}</span>;
                 }}
                 value={modalValue}
                 onChange={(event, val) => {
@@ -121,7 +121,7 @@ export default function MealPlanAssignment(props) {
               <Button
                 color="primary"
                 onClick={() => {
-                  props.setAssignedClientId(modalValue);
+                  props.setAssignedPersonId(modalValue);
                   setModalOpen(false);
                 }}
               >
@@ -146,7 +146,7 @@ export default function MealPlanAssignment(props) {
 }
 
 MealPlanAssignment.propTypes = {
-  assignedClientId: PropTypes.string,
-  setAssignedClientId: PropTypes.func,
+  assignedPersonId: PropTypes.string,
+  setAssignedPersonId: PropTypes.func,
   selectedPlan: PropTypes.object,
 };

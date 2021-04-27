@@ -154,7 +154,7 @@ function doDeleteMeapPlan({ id }) {
 
 const Dashboard = props => {
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
-  const [clientsFilter, setClientsFilter] = useState(null);
+  const [peopleFilter, setPeopleFilter] = useState(null);
 
   const toggleFilterMenuOpen = () => setFilterMenuOpen(!filterMenuOpen);
 
@@ -166,8 +166,8 @@ const Dashboard = props => {
   const classes = useStyles();
   const rows = (props.mealPlans?.nodes ?? [])
     .filter(meal => {
-      if (clientsFilter) {
-        return meal.client?.clientId === clientsFilter;
+      if (peopleFilter) {
+        return meal.person?.id === peopleFilter;
       } else {
         return true;
       }
@@ -183,18 +183,18 @@ const Dashboard = props => {
   const filterMenu = filterMenuOpen ? (
     <Paper className={classes.filterMenu}>
       <Typography align="center">
-      {t('common:lblClientID')}
+      {t('common:lblPersonID')}
       </Typography>
       <Select
-        value={clientsFilter}
-        onChange={e => setClientsFilter(e.target.value)}
+        value={peopleFilter}
+        onChange={e => setPeopleFilter(e.target.value)}
       >
-        {(props.clients?.nodes ?? []).map(client => (
+        {(props.people?.nodes ?? []).map(person => (
           <MenuItem
             className={classes.filterLisItem}
-            value={client.clientId}
+            value={person.id}
           >
-              {client.clientId}
+              {person.fullName}
           </MenuItem>
         ))}
       </Select>
@@ -246,7 +246,7 @@ const Dashboard = props => {
               <ButtonBase className={classes.img} />      
             </Paper>
             <Typography variant="h6" align="center">
-              <Link to='/clients' className={classes.link}>{t('common:lblClients')}</Link>
+              <Link to='/clients' className={classes.link}>{t('common:lblPeople')}</Link>
             </Typography>
           </Grid>
         </Grid>
@@ -270,7 +270,7 @@ const Dashboard = props => {
               <TableHead>
                 <TableRow>
                   <TableCell>{t('meal:lblMealPlansCreated')}</TableCell>
-                  <TableCell>{t('common:lblClient')}</TableCell>
+                  <TableCell>{t('common:lblPerson')}</TableCell>
                   <TableCell align="center">{t('common:lblDateCreated')}</TableCell>
                   <TableCell align="center">{t('common:lblEdit')}</TableCell>
                   {/* <TableCell align="center">Clone</TableCell> */}
@@ -293,7 +293,7 @@ const Dashboard = props => {
                       </Link>
                     </TableCell>
                     <TableCell>
-                      {row.client?.clientId ?? 'Unassigned'}
+                      {row.person?.fullName ?? 'Unassigned'}
                     </TableCell>
                     <TableCell align="right">
                       {row.createdAt}
@@ -354,12 +354,14 @@ query DashboardQuery	 {
       createdAt
       person {
         id
+	fullName
       }
     }
   }
   people {
     nodes {
       id
+      fullName
     }
   }
 }

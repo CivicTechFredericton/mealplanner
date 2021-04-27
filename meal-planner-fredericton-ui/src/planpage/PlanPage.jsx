@@ -228,7 +228,7 @@ function mealEntryHasBeenRemoved({
 }
 
 
-function updateAssignment({ selectedPlan, assignedClientId }) {
+function updateAssignment({ selectedPlan, assignedPersonId }) {
   return new Promise(function updateAssignmentPromise(resolve, reject) {
     commitMutation(environment, {
       mutation: graphql`
@@ -250,7 +250,7 @@ function updateAssignment({ selectedPlan, assignedClientId }) {
       `,
       variables: {
         id: selectedPlan.id,
-        clientId: assignedClientId.rowId,
+        personId: assignedPersonId.rowId,
       },
       onCompleted: function onCompleteHandler(response, errors) {
         if (errors) {
@@ -274,7 +274,7 @@ function updateAssignment({ selectedPlan, assignedClientId }) {
 async function handleSave({
   selectedPlan,
   mealsAtTimes,
-  assignedClientId,
+  assignedPersonId,
   callback
 }) {
   const promises = [];
@@ -304,8 +304,8 @@ async function handleSave({
     }
   });
 
-  if (assignedClientId && (assignedClientId.rowId != selectedPlan.clientId)) {
-    promises.push(updateAssignment({ selectedPlan, assignedClientId }));
+  if (assignedPersonId && (assignedPersonId.rowId != selectedPlan.personId)) {
+    promises.push(updateAssignment({ selectedPlan, assignedPersonId }));
   }
   
   try {
@@ -322,7 +322,7 @@ export function PlanPage(props) {
   const classes = useStyles();
 
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [assignedClientId, setAssignedClientId] = useState(null);
+  const [assignedPersonId, setAssignedPersonId] = useState(null);
   const [mealsAtTimes, setMealsAtTimes] = useState(makeDefaultMealsAtTimes());
   
 
@@ -366,7 +366,7 @@ export function PlanPage(props) {
     handleSave({
       selectedPlan,
       mealsAtTimes,
-      assignedClientId,
+      assignedPersonId,
       callback: props.relay.refetch,
     });
   };
@@ -377,8 +377,8 @@ export function PlanPage(props) {
       <Grid container component="main" className={classes.root}>
         <Grid item xs={12}>
           <MealPlansToolbar
-            assignedClientId={assignedClientId}
-            setAssignedClientId={setAssignedClientId}
+            assignedPersonId={assignedPersonId}
+            setAssignedPersonId={setAssignedPersonId}
             mealPlansToolbarFragment={props}
             selectedPlan={selectedPlan}
             setSelectedPlan={setSelectedPlan}
