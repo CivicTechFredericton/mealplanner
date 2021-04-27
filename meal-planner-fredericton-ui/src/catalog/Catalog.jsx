@@ -32,7 +32,7 @@ const Catalog = () => {
         <Box>
           <CssBaseline />
           <Typography variant="body2" color="textSecondary" align="center">
-            <h1>{t('common:lblMealCatalog')}</h1>
+            <h1>{t('meal:lblMealCatalog')}</h1>
             <CatalogGridList />
           </Typography>
         </Box>  
