@@ -56,14 +56,18 @@ const DisplayMeal = (props) => {
                         descriptionEn
                         cookingDuration
                         serves
-                        products {
-                            nodes {
-                              nameEn
-                              unit
-                              quantity
-                            }
-                        }
                         nutritionRating
+			measures {
+			      nodes {
+			        quantity
+			        unit
+			        product {
+			          nameEn
+			          quantity
+			          unit
+			        }
+			      }
+			    }
                     }
                 }
         `}
@@ -119,11 +123,11 @@ const renderQuery = ({error, props}) => {
               <h2>Ingredients: </h2>
               <p style={{fontSize: 20}}>
                 <dl>
-                  {props.mealById.products.nodes.map(product => (
-                    <dt key={product}>
-                      {product.quantity}&nbsp;
-                      {product.unit} of&nbsp;
-                      {product.nameEn}
+                  {props.mealById.measures.nodes.map(measure => (
+                    <dt key={measure}>
+                      {measure.quantity}&nbsp;
+                      {measure.unit} of&nbsp;
+                      {measure.product.nameEn}
                     </dt>
                   ))}
                 </dl>
