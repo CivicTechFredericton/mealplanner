@@ -124,11 +124,15 @@ const renderQuery = ({error, props}) => {
               <p style={{fontSize: 20}}>
                 <dl>
                   {props.mealById.measures.nodes.map(measure => (
-                    <dt key={measure}>
+			  <div>
+                    <dt key={measure} style={{float: 'left', width: '15%', textAlign: 'right', paddingRight: '2%'}}>
                       {measure.quantity}&nbsp;
-                      {measure.unit} of&nbsp;
-                      {measure.product.nameEn}
+                      {measure.unit}&nbsp;
                     </dt>
+                    <dd>
+                      {measure.product.nameEn}
+                    </dd>
+			  </div>
                   ))}
                 </dl>
               </p>
