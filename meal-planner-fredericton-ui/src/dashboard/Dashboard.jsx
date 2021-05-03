@@ -167,7 +167,7 @@ const Dashboard = props => {
   const rows = (props.mealPlans?.nodes ?? [])
     .filter(meal => {
       if (peopleFilter) {
-        return meal.person?.id === peopleFilter;
+        return 'All' === peopleFilter || meal.person?.id === peopleFilter;
       } else {
         return true;
       }
@@ -183,12 +183,18 @@ const Dashboard = props => {
   const filterMenu = filterMenuOpen ? (
     <Paper className={classes.filterMenu}>
       <Typography align="center">
-      {t('common:lblPersonID')}
+      {t('common:lblAssignee')}
       </Typography>
       <Select
         value={peopleFilter}
         onChange={e => setPeopleFilter(e.target.value)}
       >
+          <MenuItem
+            className={classes.filterLisItem}
+            value={'All'}
+          >
+              All
+          </MenuItem>
         {(props.people?.nodes ?? []).map(person => (
           <MenuItem
             className={classes.filterLisItem}
