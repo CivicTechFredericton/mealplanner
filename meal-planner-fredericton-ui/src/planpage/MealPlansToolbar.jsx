@@ -68,7 +68,7 @@ export function MealPlansToolbar(props) {
           <Autocomplete
             id="combo-box-demo"
             options={options}
-            getOptionLabel={(option) => option.nameEn + " (" + option.person?.fullName + ")"}
+            getOptionLabel={(option) => option.nameEn + " (" + (option.person ? option.person.fullName : 'Unassigned') + ")"}
             style={{ width: 600 }}
             renderInput={(params) => 
               <TextField 
