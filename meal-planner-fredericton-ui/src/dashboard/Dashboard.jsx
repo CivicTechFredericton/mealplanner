@@ -167,7 +167,13 @@ const Dashboard = props => {
   const rows = (props.mealPlans?.nodes ?? [])
     .filter(meal => {
       if (peopleFilter) {
-        return 'All' === peopleFilter || meal.person?.id === peopleFilter;
+      	if ('Show All' === peopleFilter ) {
+		return true;
+	} else if (!meal.person && 'Unassigned' === peopleFilter) {
+		return true;
+      	} else {
+        	return meal.person?.id === peopleFilter;
+	}
       } else {
         return true;
       }
@@ -191,9 +197,15 @@ const Dashboard = props => {
       >
           <MenuItem
             className={classes.filterLisItem}
-            value={'All'}
+            value={'Show All'}
           >
-              All
+              Show All
+          </MenuItem>
+          <MenuItem
+            className={classes.filterLisItem}
+            value={'Unassigned'}
+          >
+              Unassigned
           </MenuItem>
         {(props.people?.nodes ?? []).map(person => (
           <MenuItem
@@ -220,42 +232,6 @@ const Dashboard = props => {
           alignItems="center" spacing={6}
           className={classes.papercontainer}
         />
-        <Grid container
-          direction="row"
-          justify="space-evenly"
-          alignItems="center" spacing={3}       
-        >
-          <Grid item>
-            <Paper className={classes.paper} />
-            <Typography variant="h6" align="center">
-              <Link to='/catalogue-meals' className={classes.link}>{t('meal:lblCatalogueofMeals')}</Link>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Paper className={classes.paper}>
-              <ButtonBase className={classes.img} /> 
-            </Paper>
-            <Typography variant="h6"  align="center">
-              <Link to='/catalogue-units' className={classes.link}>{t('meal:lblCatalogueofUnits')}</Link>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Paper className={classes.paper}>
-              <ButtonBase className={classes.img} />
-            </Paper>
-            <Typography variant="h6"  align="center">
-              <Link to='/catalogue-products' className={classes.link}>{t('meal:lblCatalogueofProducts')}</Link>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Paper className={classes.paper}>
-              <ButtonBase className={classes.img} />      
-            </Paper>
-            <Typography variant="h6" align="center">
-              <Link to='/clients' className={classes.link}>{t('common:lblPeople')}</Link>
-            </Typography>
-          </Grid>
-        </Grid>
 
         <Box m={8}>
           <TableContainer component={Paper}>
