@@ -154,6 +154,10 @@ const Header = () => {
   const navMenu = [];
 
   // only add link to protected page if user authenticated
+  navMenu.push({
+    label: t('meal:lblCatalogueofMeals'),
+    pathname: "/catalogue-meals"
+  });
   if (isAuthenticated()) {
     navMenu.push({
       label: t('meal:lblMealDesigner'),
