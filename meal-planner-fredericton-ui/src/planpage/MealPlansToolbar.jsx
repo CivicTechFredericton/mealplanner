@@ -56,7 +56,7 @@ export function MealPlansToolbar(props) {
       const planToEdit = options.find(mealPlan => mealPlan.id === location.state.planId);
       if (planToEdit !== undefined) {
         props.setSelectedPlan(planToEdit);
-        setAlreadySelectedMealAfterNav(true);
+        setAlreadySelectedMealAfterNav(false);
       }
     }
   }, [props.mealPlansToolbarFragment]);
