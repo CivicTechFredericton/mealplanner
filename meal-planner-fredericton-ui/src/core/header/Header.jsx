@@ -164,10 +164,12 @@ const Header = () => {
       pathname: "/meal-designer",
     });
   }
-  navMenu.push({
-    label: t('meal:lblShoppingList'),
-    pathname: "/shopping-list"
-  });
+  if(false) { // gone until shopping list is implemented
+    navMenu.push({
+      label: t('meal:lblShoppingList'),
+      pathname: "/shopping-list"
+    });
+  }
 
   return (
     <AppBar className={styles.appBar}>
