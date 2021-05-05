@@ -209,6 +209,7 @@ const Header = () => {
                   })}
                 </MenuList>
                 <div className={styles.rightnav}>
+	  	{ true ? ( <></> ) : ( // temporarily removed
                   <Tab 
                     label={t('common:lblFavorites')} 
                     className={styles.contact} 
@@ -216,6 +217,8 @@ const Header = () => {
                     icon={<StarIcon className={styles.phone}/>} 
                     to="/favorites" 
                   />
+		)}
+	  	{ true ? ( <></> ) : ( // temporarily removed
                   <Tab
                     label={t('common:lblSettings')}
                     className={styles.contact}
@@ -223,6 +226,7 @@ const Header = () => {
                     icon={<SettingIcon className={styles.phone}/>} 
                     to="/settings"
                   />
+		)}
                   {!isAuthenticated() ? (
                     <Tab 
                       label={t('authentication:lblLogin')}
