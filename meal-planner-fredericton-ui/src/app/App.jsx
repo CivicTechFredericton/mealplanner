@@ -6,7 +6,7 @@ import Dashboard from "../dashboard/Dashboard";
 import PlanPage from '../planpage/PlanPage';
 import Catalog from '../catalog/Catalog';
 import DisplayMeal from '../displayMeal/DisplayMeal';
-
+import ShoppingList from '../ShoppingList/ShoppingList';
 
 const App = () => {
  
@@ -42,6 +42,10 @@ const App = () => {
           render={() => (
             <PlanPage />
           )}
+        />
+        <PrivateRoute
+          path='/mealplans/:rowId/shoppinglist'
+          render={()=> (<ShoppingList />)}
         />
         <Route
           path='/'
