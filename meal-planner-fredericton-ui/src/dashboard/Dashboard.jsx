@@ -34,6 +34,7 @@ import Container from "../components/container/Container";
 
 import { useTranslation } from 'react-i18next';
 
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const useStyles = makeStyles(theme => ({
   header:{
@@ -252,6 +253,7 @@ const Dashboard = props => {
               <TableHead>
                 <TableRow>
                   <TableCell>{t('meal:lblMealPlansCreated')}</TableCell>
+                  <TableCell></TableCell>
                   <TableCell>{t('common:lblPerson')}</TableCell>
                   <TableCell align="center">{t('common:lblDateCreated')}</TableCell>
                   <TableCell align="center">{t('common:lblEdit')}</TableCell>
@@ -272,6 +274,13 @@ const Dashboard = props => {
                       }}
                       >
                         {row.label}
+                      </Link>
+                    </TableCell>
+                    <TableCell>
+                      <Link to={{
+                        pathname: `/mealplans/${row.rowId}/shoppinglist`,
+                      }}>
+                         <ShoppingCartIcon />
                       </Link>
                     </TableCell>
                     <TableCell>
@@ -332,6 +341,7 @@ query DashboardQuery	 {
   mealPlans {
     nodes {
       id
+      rowId
       nameEn
       createdAt
       person {
