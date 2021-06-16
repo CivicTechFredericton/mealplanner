@@ -4,7 +4,7 @@ create table if not exists app.meal_plan_entry (
     id bigserial primary key,
     category app.category_t not null,
     days int not null,
-    meal_plan_id bigint REFERENCES app.meal_plan(id) NOT NULL,
+    meal_plan_id bigint REFERENCES app.meal_plan(id) ON DELETE CASCADE NOT NULL ,
     meal_id bigint REFERENCES app.meal(id) NOT NULL,
     created_at timestamp default now() not null,
     updated_at timestamp default now() not null

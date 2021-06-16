@@ -31,13 +31,14 @@ const theme = createMuiTheme({
       fontFamily: 'Open Sans',
     },
     text: {
-      primary: '#ffffff',
+      primary: '#000000',
       secondary: '#000000',
       disabled: '#000000',
       hint: '#000000',
     },
   },
-});
+}
+);
 
 const initialState = {
   appState: { State: 'Loading' }
