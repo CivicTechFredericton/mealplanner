@@ -35,6 +35,7 @@ import Container from "../components/container/Container";
 import { useTranslation } from 'react-i18next';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   header:{
@@ -128,7 +129,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function doDeleteMeapPlan({ id }) {
+function doDeleteMealPlan({ id }) {
   return new Promise(function doDeleteMealPlanPromise(resolve, reject) {
     commitMutation(environment, {
       mutation: graphql`
@@ -152,6 +153,36 @@ function doDeleteMeapPlan({ id }) {
     });
   });
 }
+
+const DeleteDialog = ({mealPlan, onDelete, onCancel}) => {
+  
+  
+  const handleConfirm = async () => {
+      await doDeleteMealPlan(mealPlan);
+      onDelete();
+  };
+
+  return (
+    <Dialog
+          // open = {setShowDelete(true)}
+          open={true}
+          onClose={onCancel}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+    >
+    <DialogTitle id="alert-dialog-title">{"Delete MealPlan?"}</DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+        Are you sure you want to delete the mealplan {mealPlan.label} ?
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={handleConfirm} color="primary">Yes</Button>
+      <Button onClick={onCancel} color="primary" autoFocus>No</Button>
+    </DialogActions>
+  </Dialog> 
+  );
+};
 
 const Dashboard = props => {
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
@@ -220,11 +251,19 @@ const Dashboard = props => {
     </Paper>
   ) : null;
   
-
-
-
+  const [showDelete, setShowDelete] = React.useState(false);
+  const [currentRow, setCurrentRow] = React.useState(null);
+  
   return (
     <>
+      {showDelete?<DeleteDialog 
+      mealPlan={currentRow} 
+      onDelete={()=> {
+        setShowDelete(false);
+        props.relay.refetch();
+        }} 
+      onCancel={()=>setShowDelete(false)} 
+      />:""}
       <Header className={classes.header} />
       <Container maxWidth="100%">
         <Grid container
@@ -263,7 +302,7 @@ const Dashboard = props => {
               </TableHead>
               <TableBody>
                 {rows.map(row => (
-                  <TableRow key={row.label}>
+                  <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
                       <Link to={{
                         pathname: '/meal-designer',
@@ -303,10 +342,18 @@ const Dashboard = props => {
                     </TableCell>
                     {/* <TableCell align="right"><Link to='/copy-plan'><FileCopyIcon /></Link></TableCell> */}
                     <TableCell align="right">
-                      <Link onClick={async () => {
-                        await doDeleteMeapPlan(row);
+                      {/* <Link onClick={
+                        async () => {
+                        await doDeleteMealPlan(row);
                         props.relay.refetch();
-                      }}>
+                      }}> */}
+                      <Link onClick={() => {
+                        setCurrentRow(row);
+                        console.log('set current row mealplan', row);
+                        setShowDelete(true);
+                        console.log('delete dialog is set to open', showDelete);
+                      }
+                        }>
                         <DeleteIcon />
                       </Link>
                     </TableCell>
