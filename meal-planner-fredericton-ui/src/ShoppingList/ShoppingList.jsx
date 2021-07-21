@@ -4,14 +4,16 @@ import Container from "../components/container/Container";
 
 import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
-import { useParams } from 'react-router-dom';
+import { useParams, Link} from 'react-router-dom';
 import { QueryRenderer } from 'react-relay';
 import environment from '../relay-environment';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { Checkbox, ListItemAvatar, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, ThemeProvider, Typography, useTheme } from '@material-ui/core';
+import { Checkbox, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, ThemeProvider, Typography, useTheme } from '@material-ui/core';
 import moment from 'moment';
+import PrintIcon from '@material-ui/icons/Print';
+
 
 const useStyles = makeStyles(theme => ({
     header: {
@@ -28,7 +30,22 @@ const useStyles = makeStyles(theme => ({
     },
     ul: {
         listStyleType: "none",
+    },
+    ['@media print']: {
+        headerWrapper: {
+            display: "none"
+        },
+        spacer: {
+            display: "none"
+        },
+        footerWrapper: {
+            display: "none"
+        },
+        printButton: {
+            display: "none"
+        }
     }
+
 })
 );
 
@@ -78,8 +95,11 @@ const ShoppingListDisplay = ({ mealPlan }) => {
                 </Grid>
 
                 <Grid item xs="8">
-                    <Typography variant="h4">{mealPlan.nameEn} <br />Shopping List</Typography>
-
+                    <Typography variant="h4">{mealPlan.nameEn} <br />Shopping List &nbsp;
+                    <Link className={classes.printButton} to="#" onClick={()=>{window.print();}}>
+                    <PrintIcon></PrintIcon>
+                    </Link>
+                    </Typography>
                 </Grid>
                 <Grid item xs="4">
                     <Typography>Estimate<Typography variant="h2">${totalPrice}</Typography></Typography>
@@ -134,7 +154,9 @@ const ShoppingList = (props) => {
     let { rowId } = useParams();
     return (
         <div>
-            <Header className={classes.header}></Header>
+            <Grid className = {classes.headerWrapper}>
+                <Header className={classes.header}></Header>
+            </Grid>
             <Container>
                 <Grid container
                     className={classes.spacer}
@@ -175,7 +197,9 @@ const ShoppingList = (props) => {
                 </QueryRenderer>
                 {/* </Grid> */}
             </Container>
-            <Footer></Footer>
+            <Grid className={classes.footerWrapper}>
+                <Footer></Footer>
+            </Grid>
         </div>
     );
 };
