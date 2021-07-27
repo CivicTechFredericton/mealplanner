@@ -46,13 +46,13 @@ const Footer = (props) => {
   const [State, setState] = useState({data:[], components:[]});
   const footers = [
     {
-      description: [t('common:lblPoweredBy')],
+	    footer: [ { description: t('common:lblPoweredBy'), link: 'https://www.civictechfredericton.com/' } ]
     },
-    {  
-      description: [t('common:lblContactUs'), t('common:lblPrivacyPolicy')],
-    },
+//    {  
+//	    footer: [ { description: t('common:lblContactUs'), link: '#' }, { description: t('common:lblPrivacyPolicy'), link: '#' } ]
+//    },
     {
-      description: [t('common:lblGreenerVillage')]
+	    footer: [ { description: t('common:lblGreenerVillage'), link: 'https://www.greenervillage.ca/' } ]
     }
   ];
 
@@ -67,10 +67,10 @@ const Footer = (props) => {
         alignItems="flex-start">
         {footers.map((footer) => (
             <ul>
-              {footer.description.map((item) => (
+              {footer.footer.map((item) => (
                 <li key={item}>
-                  <Link href="#" variant="subtitle1" color="textSecondary">
-                    {item}
+                  <Link to={{ pathname: item.link }} target="_blank" variant="subtitle1" color="textSecondary">
+		      {item.description}
                   </Link>
                 </li>
               ))}
