@@ -67,10 +67,10 @@ const Footer = (props) => {
         alignItems="flex-start">
         {footers.map((footer, i) => (
             <ul key={i}>
-              {footer.description.map((item) => (
+              {footer.footer.map((item) => (
                 <li key={item}>
-                  <Link to="#" variant="subtitle1" color="textSecondary">
-                    {item}
+                  <Link to={{ pathname: item.link }} target="_blank" variant="subtitle1" color="textSecondary">
+                    {item.description}
                   </Link>
                 </li>
               ))}
