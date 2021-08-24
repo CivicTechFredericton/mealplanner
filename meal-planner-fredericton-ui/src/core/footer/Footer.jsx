@@ -55,7 +55,7 @@ const Footer = (props) => {
 	    footer: [ { description: t('common:lblGreenerVillage'), link: 'https://www.greenervillage.ca/' } ]
     }
   ];
-
+  
 
 
   return (
@@ -65,12 +65,12 @@ const Footer = (props) => {
         direction="row"
         justify="space-between"
         alignItems="flex-start">
-        {footers.map((footer) => (
-            <ul>
-              {footer.footer.map((item) => (
+        {footers.map((footer, i) => (
+            <ul key={i}>
+              {footer.description.map((item) => (
                 <li key={item}>
-                  <Link to={{ pathname: item.link }} target="_blank" variant="subtitle1" color="textSecondary">
-		      {item.description}
+                  <Link to="#" variant="subtitle1" color="textSecondary">
+                    {item}
                   </Link>
                 </li>
               ))}

@@ -174,7 +174,7 @@ const Header = () => {
   return (
     <AppBar className={styles.appBar}>
       <Toolbar elevation={0} spacing={0} padding={0} className={styles.tBar}>
-        <Grid container spacing={24} alignItems="baseline" className={styles.flex}>
+        <Grid container spacing={2} alignItems="baseline" className={styles.flex}>
           <Grid item xs={2}>
                   
             <Link to='/' className={styles.link}>
@@ -200,7 +200,7 @@ const Header = () => {
                       ? styles.selectedPath
                       : '';
                     return (
-                      <MenuItem className={className} key={item.id} >
+                      <MenuItem className={className} key={item.label} >
                         <Link to={item.pathname}>
                           <span>{item.label}</span>
                         </Link>
