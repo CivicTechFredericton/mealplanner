@@ -19,6 +19,7 @@
     "cookie": "0.4.1",
     "graphql-tag": "2.10.3",
     "jsonwebtoken": "8.5.1",
+    "parcel": "^2.0.0-rc.0",
     "ra-data-graphql": "^3.4.3",
     "ra-postgraphile": "^3.0.5",
     "react": "^16.13.1",
