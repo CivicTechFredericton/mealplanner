@@ -127,12 +127,19 @@ const renderQuery = ({error, props}) => {
           </Grid> 
         </Grid>  
         <Grid container item xs={12}>
-          <Box mt={2} ml={10} mr={10}>
-            <div>
-              <p><b>Ready in:</b>&nbsp;{props.mealById.cookingDuration} minutes<br/></p>
-              <p><b>Serves:</b>&nbsp; {props.mealById.serves}</p>
-            </div>  
-          </Box>  
+          <Grid xs={6}>
+            <Box mt={2} ml={10} mr={10}>
+              <h2>Nutrition Score: <StarRating halfStars={props.mealById.nutritionRating}></StarRating></h2>
+            </Box>
+          </Grid> 
+          <Grid xs={6}>
+            <Box mt={2} mr={10}>
+              <div>
+                <p><b>Ready in:</b>&nbsp;{props.mealById.cookingDuration} minutes<br/></p>
+                <p><b>Serves:</b>&nbsp; {props.mealById.serves}</p>
+              </div>  
+            </Box>  
+          </Grid> 
         </Grid>
         <Grid container xs={12}>
           <Grid item xs={6}>
