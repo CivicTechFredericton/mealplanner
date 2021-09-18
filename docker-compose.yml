@@ -49,7 +49,6 @@ services:
     ports:
       - "2000:2000"
     volumes:
-      - ./admin-interface:/app:z
       - /app/node_modules
     depends_on:
       - graphql

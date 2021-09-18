@@ -20,8 +20,7 @@ const middlewareLink = new ApolloLink((operation, forward) => {
 const client = new ApolloClient({
   link: middlewareLink.concat(
     createUploadLink({
-    uri: process.env.GRAPHQL_URL || 'http://localhost:4000/graphql'
-    // uri: 'https://fast-everglades-80450.herokuapp.com/graphql'
+    	uri: process.env.GRAPHQL_URL || 'http://localhost:4000/graphql'
     })
   ),
   cache: new InMemoryCache(),
