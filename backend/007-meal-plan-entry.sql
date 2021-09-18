@@ -26,8 +26,25 @@ for each row execute procedure app.set_created_at();
 create index idx_meal_plan_entry_meal_plan_id on app.meal_plan_entry(meal_plan_id);
 create index idx_meal_plan_entry_meal_id on app.meal_plan_entry(meal_id);
 
-GRANT select, insert, delete, update on app.meal_plan_entry to app_meal_designer, app_admin;
-GRANT select on app.meal_plan_entry to app_anonymous, app_user;
-GRANT usage on SEQUENCE app.meal_plan_entry_id_seq to app_meal_designer, app_admin;
+GRANT select, insert, delete, update on app.meal_plan_entry to app_user, app_meal_designer, app_admin;
+GRANT select on app.meal_plan_entry to app_anonymous;
+GRANT usage on SEQUENCE app.meal_plan_entry_id_seq to app_user, app_meal_designer, app_admin;
+
+alter table app.meal_plan_entry enable row level security;
+
+create policy all_meal_plan_entry_admin
+  on app.meal_plan_entry
+  for all
+  to app_admin using(true);
+
+create policy all_meal_plan_entry_meal_designer
+  on app.meal_plan_entry
+  for all
+  to app_meal_designer using(true);
+
+create policy all_meal_plan_entry_user
+  on app.meal_plan_entry
+  for all
+  to app_user using(meal_plan_id in (select meal_plan_id from app.meal_plan)); -- NOTE: depends on meal_plan row level policy
 
 COMMIT;
