@@ -45,6 +45,6 @@ create policy all_meal_plan_entry_meal_designer
 create policy all_meal_plan_entry_user
   on app.meal_plan_entry
   for all
-  to app_user using(meal_plan_id in (select meal_plan_id from app.meal_plan)); -- NOTE: depends on meal_plan row level policy
+  to app_user using(meal_plan_id in (select id from app.meal_plan where person_id = nullif(current_setting('jwt.claims.person_id', true), '')::bigint)); -- NOTE: depends on meal_plan row level policy
 
 COMMIT;
