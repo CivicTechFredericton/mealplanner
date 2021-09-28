@@ -26,6 +26,20 @@ create trigger tg_meal_plan_set_created_at before insert
 on app.meal_plan 
 for each row execute procedure app.set_created_at();
 
+-- ensure that regular, unprivileged user's new plans are automatically assigned to them
+create or replace function app.set_meal_plan_new_person_id() returns trigger as $$
+  begin
+    if current_user = 'app_user' then
+      new.person_id := nullif(current_setting('jwt.claims.person_id', true), '')::bigint;
+    end if;
+    return new;
+  end;
+  $$ language plpgsql;
+
+create trigger tg_meal_plan_set_app_user_person_id before insert
+  on app.meal_plan
+  for each row execute procedure app.set_meal_plan_new_person_id();
+
 create index idx_meal_plan_person_id on app.meal_plan(person_id);
 
 GRANT select, insert, delete, update on app.meal_plan to app_user, app_meal_designer, app_admin;
