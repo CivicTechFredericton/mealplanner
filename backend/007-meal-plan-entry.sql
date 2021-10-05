@@ -11,7 +11,7 @@ create table if not exists app.meal_plan_entry (
 );
 comment on table app.meal_plan_entry is 'Entries are Meals assigned to days of the week and specific meal times (Breakfast, Lunch, etc) within a specific Plan.';
 comment on column app.meal_plan_entry.category is 'Category or mealtime for the assigned Meal. Can be one of "Breakfast", "Lunch", "Dinner" or "Snack" ';
-comment on column app.meal_plan_entry.days is '??';
+comment on column app.meal_plan_entry.days is 'MONDAY: 0, TUESDAY: 1.., SUNDAY: 6';
 comment on column app.meal_plan_entry.meal_plan_id is 'Reference to the Plan in which item belongs.';
 comment on column app.meal_plan_entry.meal_id is 'The Meal that is being assigned to the plan.';
 
