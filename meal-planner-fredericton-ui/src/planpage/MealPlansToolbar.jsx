@@ -18,6 +18,7 @@ import NewMealPlanModal from './NewMealPlanModal';
 import MealPlanAssignment from './MealPlanAssignment';
 
 import { useTranslation } from 'react-i18next';
+import DuplicateMealPlan from './DuplicateMealPlan';
 
 const useStyles = makeStyles(() => ({
   autocompleteText: {
@@ -48,7 +49,7 @@ export function MealPlansToolbar(props) {
 
   const classes = useStyles();
   const [newPlanModalOpen, setNewPlanModalOpen] = useState(false);
-
+  
   const options = props.mealPlansToolbarFragment?.mealPlans?.nodes ?? [];
 
   useEffect(() => {
@@ -70,22 +71,22 @@ export function MealPlansToolbar(props) {
             options={options}
             getOptionLabel={(option) => option.nameEn + " (" + (option.person ? option.person.fullName : 'Unassigned') + ")"}
             style={{ width: 600 }}
-            renderInput={(params) => 
-              <TextField 
+            renderInput={(params) =>
+              <TextField
                 className={classes.autocompleteText}
-                {...params} 
+                {...params}
                 label={props.selectedPlan ? t('meal:lblMealPlan') : t('meal:lblSelectMealPlan')}
                 variant="outlined"
               />
             }
-            renderOption={params =>{
+            renderOption={params => {
               return (
-              <span style={{color: 'black'}}>
-                {params.nameEn}
-                <span style={{color: 'darkgray', paddingLeft: '10px'}}>
-                  ({params.person?.fullName || 'Unassigned'})
-                </span>
-              </span>);
+                <span style={{ color: 'black' }}>
+                  {params.nameEn}
+                  <span style={{ color: 'darkgray', paddingLeft: '10px' }}>
+                    ({params.person?.fullName || 'Unassigned'})
+                  </span>
+                </span>);
             }}
             value={props.selectedPlan}
             onChange={(event, val) => {
@@ -93,21 +94,33 @@ export function MealPlansToolbar(props) {
             }}
           />
         </Grid>
-        <Grid item xs={2}  justify="flex-end">
+        {/* <Grid item xs={2}  justify="flex-end">
           <MealPlanAssignment
             allPeople={props.mealPlansToolbarFragment.people}
             assignedPersonId={props.assignedPersonId}
             setAssignedPersonId={props.setAssignedPersonId}
             selectedPlan={props.selectedPlan}
           />
-        </Grid>
+        </Grid> */}
         <Grid container item xs={2} justify="flex-end">
+          <MealPlanAssignment
+            allPeople={props.mealPlansToolbarFragment.people}
+            assignedPersonId={props.assignedPersonId}
+            setAssignedPersonId={props.setAssignedPersonId}
+            selectedPlan={props.selectedPlan}
+          />
+          <DuplicateMealPlan 
+          selectedPlan={props.selectedPlan} 
+          setSelectedPlan={props.setSelectedPlan}
+          assignedPersonId={props.assignedPersonId}
+          />
+          
           <Button color="primary" onClick={props.onSave}>
             {t('common:btnSave')}
             <SaveIcon />
           </Button>
-          <Button 
-            color="primary" 
+          <Button
+            color="primary"
             onClick={() => setNewPlanModalOpen(true)}
           >
             {t('common:btnNew')}
@@ -120,6 +133,9 @@ export function MealPlansToolbar(props) {
         onClose={() => setNewPlanModalOpen(false)}
         setSelectedPlan={props.setSelectedPlan}
       />
+
+      
+
     </Fragment>
   );
 }
@@ -150,7 +166,7 @@ const MealPlansToolbarWithQuery = createFragmentContainer(
             person {
               id
               rowId
-	      fullName
+	            fullName
             }
             mealPlanEntries {
               nodes {

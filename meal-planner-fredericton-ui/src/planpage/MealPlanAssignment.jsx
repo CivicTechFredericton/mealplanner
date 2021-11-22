@@ -9,13 +9,16 @@ import Typography from '@material-ui/core/Typography';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
-import SaveIcon from '@material-ui/icons/Save';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Modal } from '@material-ui/core';
+import { FormControlLabel, Modal } from '@material-ui/core';
 
 import { useTranslation } from 'react-i18next';
+import { Checkbox } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  assignment: {
+    padding: "2rem 0",
+  },
   autocompleteText: {
     color: 'black',
     '& .MuiInputBase-input': {
@@ -33,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     position: 'absolute',
-    height: 180,
+    height: 220,
     width: 400,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
@@ -44,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function DuplicateMealPlan(name) {
+ console.log("DuplicateMeal Plan name", name);
+}
 export default function MealPlanAssignment(props) {
   const { t } = useTranslation([
     'common',
@@ -52,7 +58,8 @@ export default function MealPlanAssignment(props) {
 
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalValue, setModalValue] = useState(null);
+  const [currentPerson, setCurrentPerson] = useState(null);
+  
 
   const options = props.allPeople?.nodes ?? [];
 
@@ -60,7 +67,7 @@ export default function MealPlanAssignment(props) {
     if (props.selectedPlan?.person) {
       const option = options.find(({ rowId }) => rowId === props.selectedPlan?.person.rowId);
       if (option) {
-        setModalValue(option);
+        setCurrentPerson(option);
         props.setAssignedPersonId(option.id);
       }
     }
@@ -76,70 +83,51 @@ export default function MealPlanAssignment(props) {
 
   return (
     <Fragment>
-      <Typography>
-        <b>{t('meal:lblPersonAssignment')}</b>
-        <Button className={classes.button} onClick={() => setModalOpen(true)}>
-          <EditIcon fontSize={'8px'} />
-        </Button>
-      </Typography>
-      <Typography>
-        {props.assignedPersonId ? props.assignedPersonId.fullName : t('meal:lblMealPlanUnassigned')}
-      </Typography>
-      <Modal open={modalOpen}>
-        <div className={classes.paper}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Typography variant="h4">{t('meal:lblChangePersonAssignment')}</Typography>
-              <br />
-            </Grid>
-            <Grid item xs={12}>
-              <Autocomplete
-                id="combo-box-demo"
-                options={options}
-                getOptionLabel={(option) => option.fullName}
-                style={{ width: 300 }}
-                renderInput={(params) => 
-                  <TextField 
-                    className={classes.autocompleteText}
-                    {...params} 
-                    variant="outlined"
-                  />
+      <div className={classes.assignment}>
+          
+        <Typography noWrap>
+        {/* <Button className = {classes.button} onClick = {DuplicateMealPlan(props.selectedPlan)}> Duplicate Meal plan
+        </Button> */}
+        {/* <FormControlLabel 
+              control = {<Checkbox checked={duplicate} onChange={()=> {
+                setDuplicate(!duplicate);
                 }
-                renderOption={params =>{
-                  return <span style={{color: 'black'}}>{params.fullName}</span>;
-                }}
-                value={modalValue}
-                onChange={(event, val) => {
-                  console.log({ val });
-                  setModalValue(val);
-                }}
-              />
-              <br />
-              <br />
-            </Grid>
-            <Grid container item justify="flex-end" >
-              <Button
-                color="primary"
-                onClick={() => {
-                  props.setAssignedPersonId(modalValue);
-                  setModalOpen(false);
-                }}
-              >
-                {t('common:btnOK')} <CheckIcon />
-              </Button>
-              <Button
-                color="secondary" 
-                onClick={() => {
-                  setModalOpen(false);
-                }}
-              >
-                {t('common:btnCancel')}
-                <CancelIcon />
-              </Button>
-            </Grid>
-          </Grid>
-        </div>
-      </Modal>
+                } name="DuplicateMealPlan" />}
+              label = "Make a copy"
+              />      */}
+          {/* <b>{t('meal:lblPersonAssignment')}</b>&nbsp; */}
+          {/* {props.selectedPlan.person ? props.selectedPlan.person.fullName : t('meal:lblMealPlanUnassigned')}
+          &nbsp; */}
+          <Autocomplete
+                  id="combo-box-demo"
+                  options={options}
+                  getOptionLabel={(option) => option.fullName}
+                  style={{ width: 300 }}
+                  renderInput={(params) =>
+                    <TextField
+                      className={classes.autocompleteText}
+                      {...params}
+                      variant="outlined"
+                    />
+                  }
+                  renderOption={params => {
+                    return <span style={{ color: 'black' }}>{params.fullName}</span>;
+                  }}
+                  value={currentPerson}
+                  onChange={(event, val) => {
+                    console.log({ val });
+                    props.setAssignedPersonId(val);
+                    setCurrentPerson(val);
+                  }}
+                />
+          {/* <Button className={classes.button} onClick={() => setModalOpen(true)}>
+            <EditIcon fontSize={'8px'} />
+          </Button> */}
+
+        </Typography>
+        {console.log(`props assignedPersonId ${props.assignedPersonId} `)}
+        
+      </div>
     </Fragment>
   );
 
