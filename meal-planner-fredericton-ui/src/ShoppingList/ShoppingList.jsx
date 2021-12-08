@@ -77,14 +77,11 @@ const ShoppingListDisplay = ({ mealPlan }) => {
     totalPrice = parseFloat(totalPrice).toFixed(2);
     return (
         <div>
-            {/* {JSON.stringify(props.mealPlan)} */}
-            {console.log("mealplan person", mealPlan.person)}
-
             <Grid container fluid>
                 <Grid container spacing="5">
                     <Grid item>
                         <Typography variant="caption">
-                            Prepared for {mealPlan.person.fullName}
+                            {mealPlan.person &&  `Prepared for ${mealPlan.person.fullName}`}
                         </Typography>
                     </Grid>
                     <Grid item>
