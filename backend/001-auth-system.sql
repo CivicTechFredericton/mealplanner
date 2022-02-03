@@ -57,6 +57,7 @@ begin;
 
   create extension if not exists pgcrypto;
 
+ -- create user --
   create or replace function app.register_person(
     full_name text,
     email text,
@@ -87,6 +88,8 @@ begin;
       acct app_private.account;
     begin
       select * into acct from app_private.account a where a.email = user_email;
+      -- The salt is stored along with the password_hash. The crypt function
+      -- will read the bytes corresponding to the salt from the password_hash column
       if acct.password_hash = crypt(password, acct.password_hash) THEN
         return (acct.role::text, acct.person_id, extract(epoch from (now() + interval '7 days')))::app.jwt_token;
       end if;
