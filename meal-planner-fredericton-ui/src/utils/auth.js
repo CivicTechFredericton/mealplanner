@@ -40,7 +40,7 @@ export function setCurrentToken(token) {
   if (decodedCookie.exp) {
     cookieExp = ` ${new Date(decodedCookie.exp * 1000).toUTCString()};`;
   }
-  document.cookie = `${COOKIE_NAME}=${token};${cookieExp}; path=/`;
+  document.cookie = `${COOKIE_NAME}=${token};expires=${cookieExp}; path=/`;
 }
 
 

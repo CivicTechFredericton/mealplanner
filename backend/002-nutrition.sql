@@ -44,8 +44,8 @@ create table if not exists app.nutrition (
     calcium numeric,
     iron numeric,
     potassium numeric,
-    nutritionable_id bigint not null,
-    nutritionable_type text not null,
+    nutritionable_id bigint not null, -- this id is either app.meal(id) or app.product(id)
+    nutritionable_type text not null, -- the type value is an enum of 'meal' or 'product'
     created_at timestamp default now() not null,
     updated_at timestamp default now() not null
 );
