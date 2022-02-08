@@ -71,19 +71,21 @@ const renderQuery = ({error, props}) => {
         <GridList cellHeight={180} cols={5}>
           {props.meals.nodes.map((tile) => (
             <GridListTile key={tile.photoUrl}>
+            <Link to={/meal/ + tile.id}>
               <img src={tile.photoUrl} alt={tile.nameEn} />
               <GridListTileBar
                 title={tile.nameEn}
                 actionIcon={
                   <div>
                     <IconButton aria-label={`info about ${tile.nameEn}`} type="button">
-                      <Link to={/meal/ + tile.id}>
+                      
                         <InfoIcon style ={{color: 'rgba(255, 255, 255, 0.54)'}}/>
-                      </Link>
+                      
                     </IconButton>
                   </div>
                 }
               />
+              </Link>
             </GridListTile>
           ))}
         </GridList>
