@@ -338,6 +338,7 @@ export function PlanPage(props) {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [assignedPersonId, setAssignedPersonId] = useState(null);
   const [mealsAtTimes, setMealsAtTimes] = useState(makeDefaultMealsAtTimes());
+  const [printOpen, setPrintOpen] = useState(false);
 
   useEffect(() => {
     if (selectedPlan !== null) {
@@ -418,15 +419,21 @@ export function PlanPage(props) {
               />
               </div>
             </Grid>
-            <Grid item xs={8} className={classes.planTable}>
+            <Grid item xs={printOpen ? 12 : 8} className={classes.planTable}>
             <Typography variant="h6" className={classes.printHeader}>
             {selectedPlan.nameEn} - {selectedPlan.person.fullName}
             </Typography>
             <Link className = {classes.printButton} to="#" 
             onClick={()=>{
-              window.print();
-              }
-            }>
+              setPrintOpen(true);
+              setTimeout(()=> window.print(), 100);
+              window.onafterprint = () => {
+                setPrintOpen(false);
+                window.onafterprint = null;
+              };
+            }
+            }
+            >
             <PrintIcon></PrintIcon>
             </Link>
             
