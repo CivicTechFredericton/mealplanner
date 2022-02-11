@@ -18,6 +18,9 @@ import MealPlansToolbar from './MealPlansToolbar';
 import { dayToNumber, numberToDay} from './utils';
 
 import { MEALS_OF_DAY, DAYS_OF_WEEK } from './constants';
+import PrintIcon from '@material-ui/icons/Print';
+import { Link } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 /**
  * state for which meals are selected at which tims is a map keyed by day, 
@@ -51,8 +54,19 @@ const useStyles = makeStyles(() =>( {
     '& .plan-options-container': {
       height: 'calc(100vh - 196px)',
       overflow: 'scroll',
-    }
+    },
   },
+  printHeader: {display: "none"},
+  ['@media print']: {
+    headerWrapper: {display: "none"},
+    spacer: {display: "none"},
+    footerWrapper: {display: "none"},
+    meals : {display: "none"},
+    printButton: {display: "none"},
+    MealPlansToolbar:{display: "none"},
+    printHeader: {display: "inline-block"},
+    planTable: {width: "100%"}
+  }
 }));
 
 /**
@@ -324,7 +338,6 @@ export function PlanPage(props) {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [assignedPersonId, setAssignedPersonId] = useState(null);
   const [mealsAtTimes, setMealsAtTimes] = useState(makeDefaultMealsAtTimes());
-  
 
   useEffect(() => {
     if (selectedPlan !== null) {
@@ -375,7 +388,7 @@ export function PlanPage(props) {
     <Fragment>
       <Header />
       <Grid container component="main" className={classes.root}>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.MealPlansToolbar}>
           <MealPlansToolbar
             assignedPersonId={assignedPersonId}
             setAssignedPersonId={setAssignedPersonId}
@@ -387,6 +400,7 @@ export function PlanPage(props) {
           <br />
           <br />
         </Grid>
+        
         {selectedPlan === null && (
           <Grid container component="div">
             <Grid item xs={4}>
@@ -394,16 +408,28 @@ export function PlanPage(props) {
             </Grid>
           </Grid>
         )}
+        
         {selectedPlan !== null && (
           <Fragment>
-            <Grid item xs={4}>
+            <Grid className= {classes.meals} item xs={4}>
               <div className="plan-options-container">
               <CreatePlanOptions
                 createPlanOptionsFragment={props}
               />
               </div>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={8} className={classes.planTable}>
+            <Typography variant="h6" className={classes.printHeader}>
+            {selectedPlan.nameEn} - {selectedPlan.person.fullName}
+            </Typography>
+            <Link className = {classes.printButton} to="#" 
+            onClick={()=>{
+              window.print();
+              }
+            }>
+            <PrintIcon></PrintIcon>
+            </Link>
+            
               <CreatePlanTable
                 mealsAtTimes={mealsAtTimes}
                 onNewMealSelect={onNewMealSelect}
@@ -413,6 +439,7 @@ export function PlanPage(props) {
           </Fragment>
         )}
       </Grid>
+     
       <Footer />
     </Fragment>
   );
