@@ -61,9 +61,10 @@ const useStyles = makeStyles((theme) => ({
   productLogo: {
     // display: 'inline-block',
     // marginLeft: 25,
-    paddingLeft: 24,
+    marginLeft: 24,
+    marginTop: 8,
     [theme.breakpoints.up("md")]: {
-      paddingTop: 8,
+      // paddingTop: 8,
     },
     [theme.breakpoints.down("sm")]: {
       marginLeft: 0,
@@ -271,7 +272,14 @@ const Header = () => {
                     />
                   ) : (
                     <>
-                      <div style={{ height: 30, paddingTop: 7 }}>
+                      <div
+                        style={{
+                          height: 30,
+                          paddingTop: 7,
+                          boxSizing: "revert",
+                          width: 80,
+                        }}
+                      >
                         {" "}
                         <span className={styles.username}>Username</span>
                       </div>
