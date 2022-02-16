@@ -93,3 +93,6 @@ Upgrading Relay as we are going to use hooks such as PreLoadedQuery as the versi
 4. When a infoIcon is clicked in the Catalogue page, it opens the link `/meal/id` This link renders the DisplayMeal component reading the route from App.jsx. In DisplayMeal use useQuery hook instead of QueryRenderer.
 5. In ShoppingList also use useQuery hook instead of QueryRenderer.
 
+
+$ npm run relay
+$ npm run start
