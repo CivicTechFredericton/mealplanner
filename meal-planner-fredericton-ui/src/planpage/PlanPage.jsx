@@ -19,8 +19,7 @@ import { dayToNumber, numberToDay} from './utils';
 
 import { MEALS_OF_DAY, DAYS_OF_WEEK } from './constants';
 import PrintIcon from '@material-ui/icons/Print';
-import { Link } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 /**
  * state for which meals are selected at which tims is a map keyed by day, 
@@ -423,7 +422,7 @@ export function PlanPage(props) {
             <Typography variant="h6" className={classes.printHeader}>
             {selectedPlan.nameEn} - {selectedPlan.person.fullName}
             </Typography>
-            <Link className = {classes.printButton} to="#" 
+            <Button className = {classes.printButton} to="#" 
             onClick={()=>{
               setPrintOpen(true);
               setTimeout(()=> window.print(), 100);
@@ -435,7 +434,7 @@ export function PlanPage(props) {
             }
             >
             <PrintIcon></PrintIcon>
-            </Link>
+            </Button>
             
               <CreatePlanTable
                 mealsAtTimes={mealsAtTimes}
