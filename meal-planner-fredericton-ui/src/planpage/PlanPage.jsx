@@ -46,7 +46,6 @@ const useStyles = makeStyles(() =>( {
   root: {
     height: 'calc(100vh - 90)',
     margin: '100px 0 10px 0',
-    padding: '10px',
     '& .MuiTableCell-root': {
       color: 'black',
     },

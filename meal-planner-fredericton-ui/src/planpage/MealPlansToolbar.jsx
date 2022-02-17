@@ -21,6 +21,10 @@ import { useTranslation } from 'react-i18next';
 import DuplicateMealPlan from './DuplicateMealPlan';
 
 const useStyles = makeStyles(() => ({
+  toolbar: {
+    margin: '0 20px',
+    padding: '10px',
+  },
   autocompleteText: {
     color: 'black',
     '& .MuiInputBase-input': {
@@ -64,8 +68,8 @@ export function MealPlansToolbar(props) {
 
   return (
     <Fragment>
-      <Grid container>
-        <Grid item xs={8}>
+      <Grid container >
+        <Grid item xs={5} className={classes.toolbar}>
           <Autocomplete
             id="combo-box-demo"
             options={options}
@@ -102,7 +106,7 @@ export function MealPlansToolbar(props) {
             selectedPlan={props.selectedPlan}
           />
         </Grid> */}
-        <Grid container item xs={2} justify="flex-end">
+        <Grid container item xs={6} justify="flex-end">
           <MealPlanAssignment
             allPeople={props.mealPlansToolbarFragment.people}
             assignedPersonId={props.assignedPersonId}

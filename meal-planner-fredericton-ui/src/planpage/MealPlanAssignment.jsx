@@ -17,7 +17,7 @@ import { Checkbox } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   assignment: {
-    padding: "2rem 0",
+    padding: "10px 0",
   },
   autocompleteText: {
     color: 'black',
