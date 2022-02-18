@@ -4,7 +4,7 @@ import Container from "../components/container/Container";
 
 import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
-import { useParams, Link} from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import { QueryRenderer } from 'react-relay';
 import environment from '../relay-environment';
 
@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import { Checkbox, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, ThemeProvider, Typography, useTheme } from '@material-ui/core';
 import moment from 'moment';
 import PrintIcon from '@material-ui/icons/Print';
+import {Button} from '@material-ui/core';
 
 
 const useStyles = makeStyles(theme => ({
@@ -93,9 +94,9 @@ const ShoppingListDisplay = ({ mealPlan }) => {
 
                 <Grid item xs="8">
                     <Typography variant="h4">{mealPlan.nameEn} <br />Shopping List &nbsp;
-                    <Link className={classes.printButton} to="#" onClick={()=>{window.print();}}>
+                    <Button className={classes.printButton} to="#" onClick={()=>{window.print();}}>
                     <PrintIcon></PrintIcon>
-                    </Link>
+                    </Button>
                     </Typography>
                 </Grid>
                 <Grid item xs="4">
