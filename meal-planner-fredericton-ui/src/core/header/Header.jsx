@@ -25,6 +25,10 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { useTranslation } from "react-i18next";
 import { isAuthenticated, logout } from "../../utils/auth";
 
+import graphql from 'babel-plugin-relay/macro';
+import { createRefetchContainer, QueryRenderer } from "react-relay";
+import environment from "../../relay-environment";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -150,10 +154,11 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Open Sans",
     fontWeight: 500,
     fontSize: 16,
+    width: "100px",
   },
 }));
 
-const Header = () => {
+const Header = (props) => {
   const { t } = useTranslation(["common", "authentication", "meal"]);
 
   const styles = useStyles();
@@ -273,29 +278,29 @@ const Header = () => {
                   ) : (
                     <>
                       <div
-                        style={{
-                          height: 30,
-                          paddingTop: 7,
-                          boxSizing: "revert",
-                          width: 80,
-                        }}
+                        // style={{
+                        //   height: 30,
+                        //   paddingTop: 7,
+                        //   boxSizing: "revert",
+                        //   // width: 80,
+                        // }}
                       >
                         {" "}
-                        <span className={styles.username}>Username</span>
+                        <span className={styles.username}>{props.currentPerson && props.currentPerson.fullName}</span>
                       </div>
 
                       <IconButton
                         aria-controls="simple-menu"
                         aria-haspopup="true"
                         onClick={menuClick}
-                        style={{
-                          height: 20,
-                          width: 20,
-                          verticalAlign: "middle",
-                        }}
+                        // style={{
+                        //   height: 20,
+                        //   width: 20,
+                        //   verticalAlign: "middle",
+                        // }}
                       >
                         <AccountCircle
-                          style={{ color: "white", height: 20, width: 20 }}
+                          style={{ color: "white", height: 30, width: 30 }}
                         />
                       </IconButton>
 
@@ -316,8 +321,8 @@ const Header = () => {
                         }}
                         style={
                           scrollBar
-                            ? { left: -30, top: 8 }
-                            : { left: -12, top: 8 }
+                            ? { left: -30, top: -5 }
+                            : { left: -12, top: -5 }
                         }
                       >
                         <MenuItem onClick={logout}>Logout</MenuItem>
@@ -334,4 +339,27 @@ const Header = () => {
   );
 };
 
-export default withRouter(Header);
+const query = graphql`
+  query HeaderQuery {
+    currentPerson {
+      fullName
+    }
+  }
+`;
+
+const CurrentUserContainer = createRefetchContainer(
+  withRouter(Header),
+  {},
+  query
+);
+
+export default function CurrentUserQuery() {
+  return (
+    <QueryRenderer
+      environment={environment}
+      query={query}
+      variables={{}}
+      render={({error, props})=><CurrentUserContainer error={error} {...props} />}
+    />
+  );
+}
