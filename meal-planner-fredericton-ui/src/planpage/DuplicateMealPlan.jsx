@@ -79,8 +79,6 @@ export default function DuplicateMealPlan(props) {
     }
     //const [duplicate, setDuplicate] = useState(false);
     return (
-        <div>
             <Button color="primary" onClick={handleClick}> Duplicate </Button>
-        </div>
     );
 }
