@@ -16,7 +16,7 @@ interface AuthContextType {
     signout: ()=>void;
 } 
 
-let AuthContext = React.createContext<AuthContextType>(null!);
+let AuthContext = React.createContext<AuthContextType | null>(null);
 
 const AuthProvider = ({children}:{children : React.ReactNode}) => {
     let [userEmail, setUserEmail] = React.useState<UserType>(null);

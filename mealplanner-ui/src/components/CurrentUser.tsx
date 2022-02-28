@@ -1,6 +1,5 @@
-import environment from "../relay/environment";
 import { graphql } from "babel-plugin-relay/macro";
-import {loadQuery, usePreloadedQuery} from 'react-relay/hooks';
+import { useLazyLoadQuery } from "react-relay/hooks";
 import { CurrentUserQuery } from "./__generated__/CurrentUserQuery.graphql";
 const userQuery = graphql`
     query CurrentUserQuery {
@@ -11,10 +10,14 @@ const userQuery = graphql`
     }
 `;
 
-const preLoadedQuery = loadQuery<CurrentUserQuery>(environment, userQuery, {});
-
 export const CurrentUser = () => {
-    const data = usePreloadedQuery(userQuery, preLoadedQuery);
+    const data = useLazyLoadQuery<CurrentUserQuery>(
+        userQuery, 
+        {}, 
+        {
+        fetchPolicy: 'store-or-network'
+        }
+    );
 
     return (
         <div>
