@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 0,
     paddingRight: 0,
   },
-
   flex: {
     display: "flex",
     alignItems: "center",
@@ -69,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       marginLeft: 0,
       paddingLeft: 0,
+      marginTop: 14,
     },
   },
   menu: {
@@ -90,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
     [theme.breakpoints.down("sm")]: {
       display: "block",
+      marginTop: 16,
 
       "& button": {
         color: "#fff",
@@ -151,6 +152,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     fontSize: 16,
   },
+  menuLink: {
+    textDecoration: "none",
+    color: "black",
+  },
 }));
 
 const Header = () => {
@@ -165,6 +170,8 @@ const Header = () => {
 
   const navMenu = [];
 
+  // for large screen user menu
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const menuClick = (event) => {
@@ -173,6 +180,18 @@ const Header = () => {
 
   const menuClose = () => {
     setAnchorEl(null);
+  };
+
+  // for hamburger menu when on tablet size change
+
+  const [anchorEl1, setAnchorEl1] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl1(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl1(null);
   };
 
   // only add link to protected page if user authenticated
@@ -217,10 +236,43 @@ const Header = () => {
           <Grid item md={10} xs={1}>
             <>
               <div className={styles.iconContainer}>
-                <IconButton aria-controls="menu" aria-haspopup="true">
+                <IconButton
+                  aria-controls="menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
                   <MenuIcon />
                 </IconButton>
               </div>
+
+              <Menu
+                id="menu"
+                anchorEl={anchorEl1}
+                keepMounted
+                open={Boolean(anchorEl1)}
+                onClose={handleClose}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+              >
+                {navMenu.map((item) => {
+                  return (
+                    <MenuItem key={item.label}>
+                      <Link to={item.pathname} className={styles.menuLink}>
+                        <span>{item.label}</span>
+                      </Link>
+                    </MenuItem>
+                  );
+                })}
+
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </Menu>
 
               <nav className={styles.menuContainer}>
                 <MenuList id="menu" className={styles.menu}>
