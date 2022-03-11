@@ -1,15 +1,35 @@
 import React, { Suspense } from "react";
 import "./App.css";
-import { CurrentUser } from "./components/CurrentUser";
 import { RelayEnvironmentProvider } from "react-relay";
 import environment from "./relay/environment";
 import { Route, Routes } from "react-router-dom";
 import { useAuth } from "./auth/Auth";
+import { Layout } from "./layouts/Layout";
+import { MealPlan } from "./pages/MealPlans/MealPlan";
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      light: '#81c784',
+      main: '#6AA64A',
+      dark: '#436D2C',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+  },
+});
 
 function App() {
   const auth = useAuth();
 
-    
+   
   //const {userEmail, signin, signout} = useAuth();
   const userName = process.env.USERNAME || '';
   const password = process.env.PASSWORD || '';
@@ -21,17 +41,16 @@ function App() {
   ) : ""
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Mealplanner Version 2 </h1>
-        {login}
-      </header>
       <RelayEnvironmentProvider environment={environment}>
+        <ThemeProvider theme={theme}>
           <Routes>
-            <Route path="/" element={<Suspense fallback={"loading inner..."}> <CurrentUser /></Suspense>} />
+            <Route element={<Layout />}>
+            <Route path="/mealplans/:id" element={<Suspense fallback={"loading inner..."}> <MealPlan /></Suspense>} />
+            
+            </Route>          
           </Routes>
+          </ThemeProvider>
       </RelayEnvironmentProvider>
-    </div>
   );
 }
 
