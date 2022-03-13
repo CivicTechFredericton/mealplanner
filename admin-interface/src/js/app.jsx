@@ -177,10 +177,10 @@ export const ProductsEdit = (props) => (
 export const ClientList = (props) => (
   <List {...props}>
     <Datagrid>
-      <EditButton basePath="/clients" />
+      <EditButton basePath="/people" />
       <TextField source="id"/>
       <TextField source="rowId"/>
-      <TextField source="clientId" />
+      <TextField source="fullName" />
     </Datagrid>
   </List>
 )
@@ -188,7 +188,7 @@ export const ClientList = (props) => (
 export const ClientCreate= (props) => (
   <Create title="Create a Client" {...props}>
       <SimpleForm>
-        <TextInput source="clientId"/>
+        <TextInput source="fullName"/>
       </SimpleForm>
   </Create>
 )
@@ -196,7 +196,7 @@ export const ClientCreate= (props) => (
 export const ClientEdit = (props) => (
   <Edit title="Edit Client" {...props}>
       <SimpleForm>
-        <TextInput source="clientId"/>
+        <TextInput source="fullName"/>
       </SimpleForm>
   </Edit>
 );
@@ -237,7 +237,7 @@ const AppAdmin = () => {
           list={ClientList}
           create={ClientCreate}
           edit={ClientEdit}
-          name="clients" 
+          name="people" 
         />
       </Admin>
     )
