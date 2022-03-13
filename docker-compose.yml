@@ -37,7 +37,6 @@ services:
       - ./meal-planner-fredericton-ui:/app:z
       - /app/node_modules
       - ./backend:/backend:z
-      - /app/package-lock.json
     environment:
       REACT_APP_GRAPHQL_URL: http://localhost:4000/graphql
     depends_on:
