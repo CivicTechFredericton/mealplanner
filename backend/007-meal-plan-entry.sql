@@ -25,6 +25,8 @@ for each row execute procedure app.set_created_at();
 
 create index idx_meal_plan_entry_meal_plan_id on app.meal_plan_entry(meal_plan_id);
 create index idx_meal_plan_entry_meal_id on app.meal_plan_entry(meal_id);
+create index idx_meal_plan_entry_category on app.meal_plan_entry(category);
+create index idx_meal_plan_entry_days on app.meal_plan_entry(days);
 
 GRANT select, insert, delete, update on app.meal_plan_entry to app_user, app_meal_designer, app_admin;
 GRANT select on app.meal_plan_entry to app_anonymous;
