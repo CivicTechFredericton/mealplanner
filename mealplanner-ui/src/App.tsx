@@ -46,7 +46,7 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
             <Route path="/mealplans/:id" element={<Suspense fallback={"loading inner..."}> <MealPlan /></Suspense>} />
-            
+            <Route path="/" element={<h4>This page is not yet implemented. Go to mealplans/:id Eg; localhost/mealplans/3</h4>}>  </Route>
             </Route>          
           </Routes>
           </ThemeProvider>

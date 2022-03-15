@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ff78c1c0b24c777744ac91c7b13051ed>>
+ * @generated SignedSource<<4af5ad2b8a7f7d294a872cd4a736a816>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -44,7 +44,8 @@ const node: ReaderFragment = {
           "kind": "Literal",
           "name": "orderBy",
           "value": [
-            "CATEGORY_ASC"
+            "CATEGORY_ASC",
+            "DAYS_ASC"
           ]
         }
       ],
@@ -118,13 +119,13 @@ const node: ReaderFragment = {
           "storageKey": null
         }
       ],
-      "storageKey": "mealPlanEntries(orderBy:[\"CATEGORY_ASC\"])"
+      "storageKey": "mealPlanEntries(orderBy:[\"CATEGORY_ASC\",\"DAYS_ASC\"])"
     }
   ],
   "type": "MealPlan",
   "abstractKey": null
 };
 
-(node as any).hash = "52054e2e4b48ecaf77b37e9ef138a7cf";
+(node as any).hash = "f91f38db3441d09c64fe84ed7501481f";
 
 export default node;

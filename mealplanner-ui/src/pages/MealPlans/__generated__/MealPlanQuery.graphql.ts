@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6a30e43f6dc32e264371698e75392f54>>
+ * @generated SignedSource<<bd1e549dccc34c27946aaa1f4ab1213b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -123,7 +123,8 @@ return {
                 "kind": "Literal",
                 "name": "orderBy",
                 "value": [
-                  "CATEGORY_ASC"
+                  "CATEGORY_ASC",
+                  "DAYS_ASC"
                 ]
               }
             ],
@@ -180,7 +181,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "mealPlanEntries(orderBy:[\"CATEGORY_ASC\"])"
+            "storageKey": "mealPlanEntries(orderBy:[\"CATEGORY_ASC\",\"DAYS_ASC\"])"
           },
           (v5/*: any*/)
         ],
@@ -189,12 +190,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1087294c8fc51e7bd50e848b091d1676",
+    "cacheID": "c0970cdb578bca8f556f6855051ebd47",
     "id": null,
     "metadata": {},
     "name": "MealPlanQuery",
     "operationKind": "query",
-    "text": "query MealPlanQuery(\n  $id: BigInt!\n) {\n  mealPlan(rowId: $id) {\n    nameEn\n    nameFr\n    descriptionEn\n    ...Calendar_mealPlan\n    id\n  }\n}\n\nfragment Calendar_mealPlan on MealPlan {\n  mealPlanEntries(orderBy: [CATEGORY_ASC]) {\n    nodes {\n      category\n      mealId\n      days\n      meal {\n        id\n        nameEn\n        nameFr\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query MealPlanQuery(\n  $id: BigInt!\n) {\n  mealPlan(rowId: $id) {\n    nameEn\n    nameFr\n    descriptionEn\n    ...Calendar_mealPlan\n    id\n  }\n}\n\nfragment Calendar_mealPlan on MealPlan {\n  mealPlanEntries(orderBy: [CATEGORY_ASC, DAYS_ASC]) {\n    nodes {\n      category\n      mealId\n      days\n      meal {\n        id\n        nameEn\n        nameFr\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

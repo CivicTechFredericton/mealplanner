@@ -9,7 +9,7 @@ import { Calendar_mealPlan$key } from './__generated__/Calendar_mealPlan.graphql
 
 const fragment = graphql`
 fragment Calendar_mealPlan on MealPlan {
-  mealPlanEntries(orderBy:[CATEGORY_ASC]) {
+  mealPlanEntries(orderBy:[CATEGORY_ASC, DAYS_ASC]) {
       nodes {
         category
         mealId
@@ -40,7 +40,7 @@ export const Calendar: React.FC<Props> = ({mealPlan}) => {
             // else
               // render calendar for all days as a data grid.
           }
-            {!matches ? <MobileCalendar mealplan={data}/>:<DesktopCalendar />}
+            {!matches ? <MobileCalendar mealplan={data}/>:<DesktopCalendar mealplan={data}/>}
         </React.Fragment>
     )
 }
