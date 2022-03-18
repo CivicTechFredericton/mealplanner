@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bd1e549dccc34c27946aaa1f4ab1213b>>
+ * @generated SignedSource<<2f6387170883a6693e7920f9221ea427>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,6 +20,7 @@ export type MealPlanQuery$data = {
     readonly descriptionEn: string | null;
     readonly " $fragmentSpreads": FragmentRefs<"Calendar_mealPlan">;
   } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchMeal_data">;
 };
 export type MealPlanQuery = {
   variables: MealPlanQuery$variables;
@@ -77,6 +78,11 @@ return {
     "name": "MealPlanQuery",
     "selections": [
       {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "SearchMeal_data"
+      },
+      {
         "alias": null,
         "args": (v1/*: any*/),
         "concreteType": "MealPlan",
@@ -105,6 +111,44 @@ return {
     "kind": "Operation",
     "name": "MealPlanQuery",
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "MealsConnection",
+        "kind": "LinkedField",
+        "name": "meals",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Meal",
+            "kind": "LinkedField",
+            "name": "nodes",
+            "plural": true,
+            "selections": [
+              (v5/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "rowId",
+                "storageKey": null
+              },
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "tags",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": (v1/*: any*/),
@@ -190,16 +234,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c0970cdb578bca8f556f6855051ebd47",
+    "cacheID": "653f8b8a72af05125037d9c9d5774c1f",
     "id": null,
     "metadata": {},
     "name": "MealPlanQuery",
     "operationKind": "query",
-    "text": "query MealPlanQuery(\n  $id: BigInt!\n) {\n  mealPlan(rowId: $id) {\n    nameEn\n    nameFr\n    descriptionEn\n    ...Calendar_mealPlan\n    id\n  }\n}\n\nfragment Calendar_mealPlan on MealPlan {\n  mealPlanEntries(orderBy: [CATEGORY_ASC, DAYS_ASC]) {\n    nodes {\n      category\n      mealId\n      days\n      meal {\n        id\n        nameEn\n        nameFr\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query MealPlanQuery(\n  $id: BigInt!\n) {\n  ...SearchMeal_data\n  mealPlan(rowId: $id) {\n    nameEn\n    nameFr\n    descriptionEn\n    ...Calendar_mealPlan\n    id\n  }\n}\n\nfragment Calendar_mealPlan on MealPlan {\n  mealPlanEntries(orderBy: [CATEGORY_ASC, DAYS_ASC]) {\n    nodes {\n      category\n      mealId\n      days\n      meal {\n        id\n        nameEn\n        nameFr\n      }\n      id\n    }\n  }\n}\n\nfragment SearchMeal_data on Query {\n  meals {\n    nodes {\n      id\n      rowId\n      nameEn\n      tags\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9864b129e12c5a8caead2c4a4d4e0a1f";
+(node as any).hash = "ae847118fd5fd50d078a67901aabbf37";
 
 export default node;

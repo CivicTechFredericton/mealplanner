@@ -5,10 +5,12 @@ import { useLazyLoadQuery } from "react-relay";
 import { useParams } from "react-router-dom";
 import { MealPlanQuery } from "./__generated__/MealPlanQuery.graphql";
 import { Calendar } from "./Calendar";
+import { SearchMeal } from "./SearchMeal";
 
 /* Meal plan query */
 const mealPlanQuery = graphql`
   query MealPlanQuery($id: BigInt!) {
+    ...SearchMeal_data
     mealPlan(rowId: $id) {
       nameEn
       nameFr
@@ -30,25 +32,28 @@ export const MealPlan = () => {
 
   return (
     <React.Fragment>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} style={{padding: '1rem',}}>
         {matches ? (
           <Grid item md={3}>
-            <Typography>Meal catalog</Typography>
+            <Typography><SearchMeal data={data}/></Typography>
           </Grid>
         ) : (
           ""
         )}
 
         <Grid item xs={12} md={9}>
-          <section>
+          <section style={
+            {border: `2px solid ${theme.palette.primary.main}`,
+            borderRadius: '10px', marginBottom: '1rem',
+            } }>
             <Box
               display="flex"
               flexDirection="column"
-              alignItems="center"
-              bgcolor="primary.dark"
+              bgcolor="primary.main"
             >
               <Typography
-                padding="10px 0"
+                padding="0.5rem 0"
+                marginLeft="1rem"
                 color="primary.contrastText"
                 variant={"h5"}
               >

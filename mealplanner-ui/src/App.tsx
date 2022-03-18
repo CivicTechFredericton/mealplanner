@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      light: '#81c784',
+      light: '#8CD068',
       main: '#6AA64A',
       dark: '#436D2C',
       contrastText: '#fff',
@@ -23,6 +23,9 @@ const theme = createTheme({
       dark: '#ba000d',
       contrastText: '#000',
     },
+    grey: {
+      800: '#404040'
+    }
   },
 });
 
