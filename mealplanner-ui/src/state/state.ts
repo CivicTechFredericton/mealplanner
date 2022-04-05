@@ -1,0 +1,115 @@
+import { graphql } from "babel-plugin-relay/macro";
+import { commitLocalUpdate, commitMutation } from "relay-runtime";
+import environment from "../relay/environment";
+import { SearchedMeal } from "./types";
+import {
+  CategoryT,
+  state_createMealPlanEntryMutation,
+} from "./__generated__/state_createMealPlanEntryMutation.graphql";
+const STATE_ID = `client:GQLLocalState:21`;
+
+// This initializes the local state before the app is getting loaded. Need to call in App.ts
+export const initState = () => {
+  // commitLocalUpdate makes changes to relay store without sending it to the network
+  //Whatever is the object type in GraphQL translates to a record in Relay Store.
+  // store updater is the function call that takes in store as the parameter
+  // and maps the Linked Relay record to the GraphQL 'type Query'.
+  commitLocalUpdate(environment, (store) => {
+    const newLocalState = store.create(STATE_ID, "GQLocalState");
+    const query = store.getRoot();
+    query.setLinkedRecord(newLocalState, "gqLocalState");
+  });
+};
+
+export const setSelectedMeal = (meal: SearchedMeal) => {
+  commitLocalUpdate(environment, (store) => {
+    const localState = store.get(STATE_ID);
+    let mealRecord = store.get(`client:SelectedMeal:${meal.rowId}`);
+    if (!mealRecord) {
+      mealRecord = store.create(
+        `client:SelectedMeal:${meal.rowId}`,
+        "SelectedMeal"
+      );
+      mealRecord.setValue(meal.nameEn, "nameEn");
+      mealRecord.setValue(meal.rowId, "rowId");
+    }
+    localState?.setLinkedRecord(mealRecord, "selectedMeal");
+  });
+};
+
+export const clearSelectedMeal = () => {
+  commitLocalUpdate(environment, (store) => {
+    const localState = store.get(STATE_ID);
+    localState?.setValue(null, "selectedMeal");
+  });
+};
+
+//For appending edges referred this https://relay.dev/docs/guided-tour/list-data/updating-connections/#adding-edges
+const createMealPlanEntry = graphql`
+  mutation state_createMealPlanEntryMutation(
+    $connections: [ID!]!
+    $category: CategoryT!
+    $days: Int!
+    $mealPlanId: BigInt!
+    $mealId: BigInt!
+  ) {
+    createMealPlanEntry(
+      input: {
+        mealPlanEntry: {
+          category: $category
+          days: $days
+          mealPlanId: $mealPlanId
+          mealId: $mealId
+        }
+      }
+    ) {
+      # We used appendEdge to automatically reload when a change occurs in the underlying relay store.
+      mealPlanEntryEdge @appendEdge(connections: $connections) {
+        cursor
+        node {
+          id
+          rowId
+          days
+          category
+          mealId
+          meal {
+            id
+            rowId
+            nameEn
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const addMealToPlan = (
+  connectionID: string,
+  mealplanId: number,
+  category: CategoryT,
+  days: number
+) => {
+  let source = environment.getStore().getSource();
+  let localState: any = source.get(STATE_ID);
+  if (!localState.selectedMeal) {
+    return;
+  }
+  let mealId = source.get(localState.selectedMeal.__ref)!["rowId"];
+  let vars = {
+    mealPlanId: mealplanId.toString(),
+    category: category,
+    days: days,
+    mealId: mealId.toString(),
+    connections: [connectionID],
+  };
+
+  commitMutation<state_createMealPlanEntryMutation>(environment, {
+    mutation: createMealPlanEntry,
+    variables: vars,
+    optimisticUpdater: (_store) => {},
+    onCompleted: (resp) => {
+      // clearSelectedMeal();
+      console.log(`done with vars`, vars);
+    },
+  });
+};

@@ -58,6 +58,7 @@
   "relay": {
     "src": "./src",
     "schema": "../backend/schema.graphql",
+    "schemaExtensions": ["./src"],
     "exclude": [
       "**/node_modules/**",
       "**/__mocks__/**",

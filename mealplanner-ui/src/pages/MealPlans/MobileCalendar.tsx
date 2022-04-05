@@ -16,8 +16,8 @@ export const MobileCalendar: React.FC<Props> = ({ mealplan }) => {
   let categories = ["Breakfast", "Lunch", "Dinner", "Snack"];
 
   let [selectedDay, setSelectedDay] = useState(0);
-  let daywiseMeals = mealplan.mealPlanEntries.nodes.filter((n) => {
-    return n.days === selectedDay;
+  let daywiseMeals = mealplan.mealPlanEntries.edges.filter(({ node }) => {
+    return node.days === selectedDay;
   });
 
   return (
@@ -31,7 +31,7 @@ export const MobileCalendar: React.FC<Props> = ({ mealplan }) => {
         <ToggleButtonGroup value={days[selectedDay]} exclusive size="small">
           {days.map((day, idx) => (
             <ToggleButton
-                key={idx}
+              key={idx}
               value={days[idx]}
               sx={{ backgroundColor: "primary.light" }}
               onClick={(e) => setSelectedDay(idx)}
@@ -47,9 +47,11 @@ export const MobileCalendar: React.FC<Props> = ({ mealplan }) => {
           <h4>{c}</h4>
           <Box>
             {daywiseMeals
-              .filter((m) => c.toUpperCase() === m.category)
-              .map((m) => (
-                <Typography key={m.mealId} color="primary.dark">{m.meal?.nameEn}</Typography>
+              .filter(({ node }) => c.toUpperCase() === node.category)
+              .map(({ node }) => (
+                <Typography key={node.mealId} color="primary.dark">
+                  {node.meal?.nameEn}
+                </Typography>
               ))}
           </Box>
         </Box>
