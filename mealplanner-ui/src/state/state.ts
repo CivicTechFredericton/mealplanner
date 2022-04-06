@@ -6,6 +6,7 @@ import {
   CategoryT,
   state_createMealPlanEntryMutation,
 } from "./__generated__/state_createMealPlanEntryMutation.graphql";
+import { state_deleteMealPlanEntryMutation } from "./__generated__/state_deleteMealPlanEntryMutation.graphql";
 const STATE_ID = `client:GQLLocalState:21`;
 
 // This initializes the local state before the app is getting loaded. Need to call in App.ts
@@ -106,10 +107,45 @@ export const addMealToPlan = (
   commitMutation<state_createMealPlanEntryMutation>(environment, {
     mutation: createMealPlanEntry,
     variables: vars,
-    optimisticUpdater: (_store) => {},
     onCompleted: (resp) => {
       // clearSelectedMeal();
       console.log(`done with vars`, vars);
+    },
+  });
+};
+
+//delete meal plan entry graphql
+const deleteMealPlanEntry = graphql`
+  mutation state_deleteMealPlanEntryMutation(
+    $connections: [ID!]!
+    $mpeId: BigInt!
+  ) {
+    deleteMealPlanEntry(input: { rowId: $mpeId }) {
+      mealPlanEntryEdge {
+        cursor
+        node {
+          id @deleteEdge(connections: $connections)
+          rowId
+        }
+      }
+    }
+  }
+`;
+
+// delete meal plan entry function calls commit mutation
+export const deleteMealFromPlan = (connectionID: string, mpeId: number) => {
+  //let source = environment.getStore().getSource();
+  //let localState: any = source.get(STATE_ID);
+  commitMutation<state_deleteMealPlanEntryMutation>(environment, {
+    mutation: deleteMealPlanEntry,
+    variables: {
+      connections: [connectionID],
+      mpeId: mpeId.toString(),
+    },
+    onCompleted: (resp) => {
+      console.log(
+        `deleted meal plan entry ${resp.deleteMealPlanEntry?.mealPlanEntryEdge?.node.rowId}`
+      );
     },
   });
 };

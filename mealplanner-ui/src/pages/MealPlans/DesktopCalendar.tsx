@@ -1,9 +1,10 @@
+import { Box, Hidden, IconButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import React from "react";
-import { addMealToPlan } from "../../state/state";
+import React, { useState } from "react";
+import { addMealToPlan, deleteMealFromPlan } from "../../state/state";
 import { CategoryT } from "../../state/__generated__/state_createMealPlanEntryMutation.graphql";
 import { Calendar_mealPlan$data } from "./__generated__/Calendar_mealPlan.graphql";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 interface Props {
   mealplan: Calendar_mealPlan$data;
 }
@@ -50,6 +51,8 @@ export const DesktopCalendar: React.FC<Props> = ({ mealplan }) => {
     borderRight: `1px solid ${theme.palette.grey[800]}`,
     padding: "0.5rem",
   };
+
+  let [displayDelete, setDisplayDelete] = useState({display: "none"});
 
   return (
     <React.Fragment>
@@ -107,7 +110,23 @@ export const DesktopCalendar: React.FC<Props> = ({ mealplan }) => {
                       {cell.category}
                     </h6>
                     {cell.items.map((mpe) => (
-                      <div>{mpe.meal?.nameEn}</div>
+                      // <Box sx={{ display: "flex" }} onClick={setDisplayDelete({display: "none"})} fontSize="small" >
+                      // <div onMouseOver={(e)=> setDisplayDelete({display:"inline-flex"})}>
+                      // <div sx={{onblur:{setDisplayDelete({display: "none"})}}} >
+                      // <Box onMouseOver={(e)=> setDisplayDelete({display:"flex"})} onMouseLeave={(e)=> setDisplayDelete({display: "none"})}>
+                      <Box sx={{display: "inline-flex"}} onMouseOver={(e=>setDisplayDelete({display:"block"}))} onMouseLeave={(e)=>setDisplayDelete({display:"none"})}>
+                        <p style={{lineHeight: "1.1em", margin: "5px 0"}}>{mpe.meal?.nameEn}</p>
+                        <IconButton sx={{...displayDelete}}
+                          size="small" 
+                          onClick={(e) => {
+                            // e.preventDefault();
+                            e.stopPropagation();
+                            deleteMealFromPlan(connectionID, mpe.rowId);
+                          }}
+                        >
+                          <DeleteIcon sx={{ fontSize: "0.8em" }} />
+                        </IconButton>
+                      </Box>
                     ))}
                   </td>
                 ))}
