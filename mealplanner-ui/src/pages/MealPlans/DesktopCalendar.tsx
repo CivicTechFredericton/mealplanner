@@ -1,15 +1,14 @@
-import { Box, Hidden, IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Box, IconButton, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import React, { useState } from "react";
 import { addMealToPlan, deleteMealFromPlan } from "../../state/state";
 import { CategoryT } from "../../state/__generated__/state_createMealPlanEntryMutation.graphql";
 import { Calendar_mealPlan$data } from "./__generated__/Calendar_mealPlan.graphql";
-import DeleteIcon from "@mui/icons-material/Delete";
 interface Props {
   mealplan: Calendar_mealPlan$data;
 }
 
-// type MealPlanEntry = Exclude<Exclude<Calendar_mealPlan$data["mealPlanEntries"], null>["nodes"], null>[number];
 type MealPlanEntry = Exclude<
   Exclude<Calendar_mealPlan$data["mealPlanEntries"], null>["edges"],
   null
@@ -52,7 +51,7 @@ export const DesktopCalendar: React.FC<Props> = ({ mealplan }) => {
     padding: "0.5rem",
   };
 
-  let [displayDelete, setDisplayDelete] = useState({display: "none"});
+  let [displayDelete, setDisplayDelete] = useState("");
 
   return (
     <React.Fragment>
@@ -110,22 +109,30 @@ export const DesktopCalendar: React.FC<Props> = ({ mealplan }) => {
                       {cell.category}
                     </h6>
                     {cell.items.map((mpe) => (
-                      // <Box sx={{ display: "flex" }} onClick={setDisplayDelete({display: "none"})} fontSize="small" >
-                      // <div onMouseOver={(e)=> setDisplayDelete({display:"inline-flex"})}>
-                      // <div sx={{onblur:{setDisplayDelete({display: "none"})}}} >
-                      // <Box onMouseOver={(e)=> setDisplayDelete({display:"flex"})} onMouseLeave={(e)=> setDisplayDelete({display: "none"})}>
-                      <Box sx={{display: "inline-flex"}} onMouseOver={(e=>setDisplayDelete({display:"block"}))} onMouseLeave={(e)=>setDisplayDelete({display:"none"})}>
-                        <p style={{lineHeight: "1.1em", margin: "5px 0"}}>{mpe.meal?.nameEn}</p>
-                        <IconButton sx={{...displayDelete}}
-                          size="small" 
-                          onClick={(e) => {
-                            // e.preventDefault();
-                            e.stopPropagation();
-                            deleteMealFromPlan(connectionID, mpe.rowId);
-                          }}
+                      <Box
+                        key={mpe.rowId}
+                        sx={{ display: "inline-flex" }}
+                        onMouseOver={(e) => setDisplayDelete(mpe.id)}
+                        onMouseLeave={(e) => setDisplayDelete("")}
+                      >
+                        <Typography
+                          style={{ lineHeight: "1.1em", margin: "5px 0" }}
                         >
-                          <DeleteIcon sx={{ fontSize: "0.8em" }} />
-                        </IconButton>
+                          {mpe.meal?.nameEn}
+                        </Typography>
+                        {displayDelete === mpe.id ? (
+                          <IconButton
+                            size="small"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteMealFromPlan(connectionID, mpe.rowId);
+                            }}
+                          >
+                            <DeleteIcon sx={{ fontSize: "1em" }} />
+                          </IconButton>
+                        ) : (
+                          <></>
+                        )}
                       </Box>
                     ))}
                   </td>

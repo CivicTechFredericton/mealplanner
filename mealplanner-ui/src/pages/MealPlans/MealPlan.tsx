@@ -3,9 +3,9 @@ import { graphql } from "babel-plugin-relay/macro";
 import React from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { useParams } from "react-router-dom";
-import { MealPlanQuery } from "./__generated__/MealPlanQuery.graphql";
 import { Calendar } from "./Calendar";
 import { SearchMeal } from "./SearchMeal";
+import { MealPlanQuery } from "./__generated__/MealPlanQuery.graphql";
 
 /* Meal plan query */
 const mealPlanQuery = graphql`
@@ -32,25 +32,33 @@ export const MealPlan = () => {
 
   return (
     <React.Fragment>
-      <Grid container spacing={2} style={{padding: '1rem',}}>
+      <Grid container spacing={2} style={{ padding: "1rem" }}>
         {matches ? (
-          <Grid item md={3}>
-            <Typography><SearchMeal data={data}/></Typography>
+          <Grid
+            item
+            md={3}
+            style={{
+              backgroundColor: `${theme.palette.primary.dark}`,
+              padding: "1em",
+            }}
+          >
+            <Typography>
+              <SearchMeal data={data} />
+            </Typography>
           </Grid>
         ) : (
           ""
         )}
 
         <Grid item xs={12} md={9}>
-          <section style={
-            {border: `2px solid ${theme.palette.primary.main}`,
-            borderRadius: '10px', marginBottom: '1rem',
-            } }>
-            <Box
-              display="flex"
-              flexDirection="column"
-              bgcolor="primary.main"
-            >
+          <section
+            style={{
+              border: `2px solid ${theme.palette.primary.main}`,
+              borderRadius: "10px",
+              marginBottom: "1rem",
+            }}
+          >
+            <Box display="flex" flexDirection="column" bgcolor="primary.main">
               <Typography
                 padding="0.5rem 0"
                 marginLeft="1rem"

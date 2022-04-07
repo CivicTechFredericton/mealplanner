@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 import {
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  InputAdornment,
-  Grid,
   Box,
   Button,
+  FormControl,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Typography,
+  useTheme,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import { graphql } from "babel-plugin-relay/macro";
-import { SearchMeal_data$key } from "./__generated__/SearchMeal_data.graphql";
+import React, { useState } from "react";
 import { useFragment } from "react-relay";
-import { SearchedMeal } from "../../state/types";
 import { clearSelectedMeal, setSelectedMeal } from "../../state/state";
+import { SearchedMeal } from "../../state/types";
+import { SearchMeal_data$key } from "./__generated__/SearchMeal_data.graphql";
 
 const fragment = graphql`
   fragment SearchMeal_data on Query {
@@ -56,18 +58,40 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
     //setting the Relay state for selected Meal
     setSelectedMeal(meal);
   };
+
+  const theme = useTheme();
   return (
     <React.Fragment>
       <Grid sx={{ m: 1, height: "100vh" }}>
-        <h3>Meal Catalog</h3>
-        <FormControl variant="outlined" sx={{ width: "100%" }}>
-          <InputLabel>Search for meals</InputLabel>
+        <Typography
+          sx={{ color: `${theme.palette.primary.contrastText}` }}
+          padding="0.5rem 0"
+          marginLeft="1rem"
+          variant={"h5"}
+        >
+          Meal Catalog
+        </Typography>
+        <FormControl
+          variant="filled"
+          sx={{ width: "100%", color: `${theme.palette.primary.contrastText}` }}
+        >
+          <InputLabel sx={{ color: `${theme.palette.primary.contrastText}` }}>
+            Search for meals
+          </InputLabel>
           <OutlinedInput
-            label={<h4>Search for Meals</h4>}
-            notched={true}
+            sx={{
+              backgroundColor: theme.palette.primary.main,
+              color: `${theme.palette.primary.contrastText}`,
+            }}
+            label={
+              <h4 style={{ color: `${theme.palette.primary.contrastText}` }}>
+                Search for Meals
+              </h4>
+            }
+            notched={false}
             startAdornment={
               <InputAdornment position="start">
-                <SearchIcon />
+                <SearchIcon htmlColor={theme.palette.primary.contrastText} />
               </InputAdornment>
             }
             value={searchText}
@@ -80,16 +104,24 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
         <p>
           {searchData.gqLocalState.selectedMeal?.nameEn ? (
             <React.Fragment>
-              {searchData.gqLocalState.selectedMeal?.nameEn}
-              <Button
-                variant="outlined"
-                onClick={(e) => {
-                  e.preventDefault();
-                  clearSelectedMeal();
-                }}
+              <Typography
+                sx={{ color: `${theme.palette.primary.contrastText}` }}
               >
-                x
-              </Button>
+                {searchData.gqLocalState.selectedMeal?.nameEn}
+
+                <Button
+                  variant="contained"
+                  size="small"
+                  color="primary"
+                  sx={{ margin: "0 1em", padding: "0 0", minWidth: "2em" }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    clearSelectedMeal();
+                  }}
+                >
+                  x
+                </Button>
+              </Typography>
             </React.Fragment>
           ) : (
             <></>
@@ -99,12 +131,21 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
         <Box>
           {search(searchText).map((m) => (
             <Button
+              sx={{
+                textTransform: "capitalize",
+                width: "100%",
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
+              variant="contained"
+              color="primary"
               key={m.id}
               onClick={() => {
                 selectMeal(m);
               }}
             >
-              {m.nameEn} - {m.tags?.join(", ")}
+              <Typography fontWeight={"500"}>{m.nameEn} </Typography>
+              <Typography fontSize={"0.8em"}>{m.tags?.join(", ")}</Typography>
             </Button>
           ))}
         </Box>
