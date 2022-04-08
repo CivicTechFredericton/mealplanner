@@ -1,9 +1,10 @@
-import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import React from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { useParams } from "react-router-dom";
 import { Calendar } from "./Calendar";
+import { MealPlanHeader } from "./MealPlanHeader";
 import { SearchMeal } from "./SearchMeal";
 import { MealPlanQuery } from "./__generated__/MealPlanQuery.graphql";
 
@@ -12,9 +13,7 @@ const mealPlanQuery = graphql`
   query MealPlanQuery($id: BigInt!) {
     ...SearchMeal_data
     mealPlan(rowId: $id) {
-      nameEn
-      nameFr
-      descriptionEn
+      ...MealPlanHeader_mealPlan
       ...Calendar_mealPlan
     }
   }
@@ -51,24 +50,7 @@ export const MealPlan = () => {
         )}
 
         <Grid item xs={12} md={9}>
-          <section
-            style={{
-              border: `2px solid ${theme.palette.primary.main}`,
-              borderRadius: "10px",
-              marginBottom: "1rem",
-            }}
-          >
-            <Box display="flex" flexDirection="column" bgcolor="primary.main">
-              <Typography
-                padding="0.5rem 0"
-                marginLeft="1rem"
-                color="primary.contrastText"
-                variant={"h5"}
-              >
-                {data.mealPlan?.nameEn}
-              </Typography>
-            </Box>
-          </section>
+          <MealPlanHeader mealPlan={data.mealPlan!} />
           <section>
             <Calendar mealPlan={data.mealPlan!} />
           </section>

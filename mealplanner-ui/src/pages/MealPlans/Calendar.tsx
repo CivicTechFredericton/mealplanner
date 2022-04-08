@@ -36,10 +36,12 @@ const fragment = graphql`
     }
   }
 `;
-interface Props {
+
+interface MealPlanProps {
   mealPlan: Calendar_mealPlan$key;
 }
-export const Calendar: React.FC<Props> = ({ mealPlan }) => {
+
+export const Calendar: React.FC<MealPlanProps> = ({ mealPlan }) => {
   let data = useFragment<Calendar_mealPlan$key>(fragment, mealPlan);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<baa4e49e63bdc19315b91b071a8602a5>>
+ * @generated SignedSource<<63847f1cc236a3ead94dce202f469df7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,10 +15,7 @@ export type MealPlanQuery$variables = {
 };
 export type MealPlanQuery$data = {
   readonly mealPlan: {
-    readonly nameEn: string;
-    readonly nameFr: string | null;
-    readonly descriptionEn: string | null;
-    readonly " $fragmentSpreads": FragmentRefs<"Calendar_mealPlan">;
+    readonly " $fragmentSpreads": FragmentRefs<"MealPlanHeader_mealPlan" | "Calendar_mealPlan">;
   } | null;
   readonly " $fragmentSpreads": FragmentRefs<"SearchMeal_data">;
 };
@@ -46,35 +43,35 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "nameEn",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "nameFr",
+  "name": "rowId",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "descriptionEn",
+  "name": "nameEn",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "tags",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "rowId",
+  "name": "nameFr",
   "storageKey": null
 },
 v7 = [
@@ -124,9 +121,11 @@ return {
         "name": "mealPlan",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
-          (v4/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "MealPlanHeader_mealPlan"
+          },
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -161,16 +160,10 @@ return {
             "name": "nodes",
             "plural": true,
             "selections": [
-              (v5/*: any*/),
-              (v6/*: any*/),
               (v2/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "tags",
-                "storageKey": null
-              }
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/)
             ],
             "storageKey": null
           }
@@ -196,9 +189,9 @@ return {
                 "name": "selectedMeal",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
-                  (v6/*: any*/),
-                  (v5/*: any*/)
+                  (v4/*: any*/),
+                  (v3/*: any*/),
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -215,11 +208,18 @@ return {
         "name": "mealPlan",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
           (v4/*: any*/),
           (v6/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "descriptionEn",
+            "storageKey": null
+          },
           (v5/*: any*/),
+          (v3/*: any*/),
+          (v2/*: any*/),
           {
             "alias": null,
             "args": (v7/*: any*/),
@@ -251,8 +251,8 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
-                      (v6/*: any*/),
+                      (v2/*: any*/),
+                      (v3/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -282,9 +282,9 @@ return {
                         "name": "meal",
                         "plural": false,
                         "selections": [
-                          (v5/*: any*/),
                           (v2/*: any*/),
-                          (v3/*: any*/)
+                          (v4/*: any*/),
+                          (v6/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -348,16 +348,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a2bf3ec490c5c7a95bf17a1c210e086a",
+    "cacheID": "b995901f9b75c9d443d557b74a04d042",
     "id": null,
     "metadata": {},
     "name": "MealPlanQuery",
     "operationKind": "query",
-    "text": "query MealPlanQuery(\n  $id: BigInt!\n) {\n  ...SearchMeal_data\n  mealPlan(rowId: $id) {\n    nameEn\n    nameFr\n    descriptionEn\n    ...Calendar_mealPlan\n    id\n  }\n}\n\nfragment Calendar_mealPlan on MealPlan {\n  rowId\n  id\n  mealPlanEntries(orderBy: [CATEGORY_ASC, DAYS_ASC], first: 1000) {\n    edges {\n      cursor\n      node {\n        id\n        rowId\n        category\n        mealId\n        days\n        meal {\n          id\n          nameEn\n          nameFr\n        }\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SearchMeal_data on Query {\n  meals {\n    nodes {\n      id\n      rowId\n      nameEn\n      tags\n    }\n  }\n}\n"
+    "text": "query MealPlanQuery(\n  $id: BigInt!\n) {\n  ...SearchMeal_data\n  mealPlan(rowId: $id) {\n    ...MealPlanHeader_mealPlan\n    ...Calendar_mealPlan\n    id\n  }\n}\n\nfragment Calendar_mealPlan on MealPlan {\n  rowId\n  id\n  mealPlanEntries(orderBy: [CATEGORY_ASC, DAYS_ASC], first: 1000) {\n    edges {\n      cursor\n      node {\n        id\n        rowId\n        category\n        mealId\n        days\n        meal {\n          id\n          nameEn\n          nameFr\n        }\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MealPlanHeader_mealPlan on MealPlan {\n  nameEn\n  nameFr\n  descriptionEn\n  tags\n}\n\nfragment SearchMeal_data on Query {\n  meals {\n    nodes {\n      id\n      rowId\n      nameEn\n      tags\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ae847118fd5fd50d078a67901aabbf37";
+(node as any).hash = "1ffb748ec1e9ff26ec7d4b6804f205c7";
 
 export default node;

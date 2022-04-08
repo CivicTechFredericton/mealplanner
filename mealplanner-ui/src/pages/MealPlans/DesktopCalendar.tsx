@@ -5,7 +5,8 @@ import React, { useState } from "react";
 import { addMealToPlan, deleteMealFromPlan } from "../../state/state";
 import { CategoryT } from "../../state/__generated__/state_createMealPlanEntryMutation.graphql";
 import { Calendar_mealPlan$data } from "./__generated__/Calendar_mealPlan.graphql";
-interface Props {
+
+interface DataProps {
   mealplan: Calendar_mealPlan$data;
 }
 
@@ -41,14 +42,16 @@ const mealsArr = (mealplan: Calendar_mealPlan$data) => {
   return table;
 };
 
-export const DesktopCalendar: React.FC<Props> = ({ mealplan }) => {
+export const DesktopCalendar: React.FC<DataProps> = ({ mealplan }) => {
   const connectionID = mealplan.mealPlanEntries.__id;
   const theme = useTheme();
   let arr = mealsArr(mealplan);
+
   let cellStyle = {
     verticalAlign: "top",
     borderRight: `1px solid ${theme.palette.grey[800]}`,
     padding: "0.5rem",
+    backgroundColor: `${theme.palette.primary.contrastText}`,
   };
 
   let [displayDelete, setDisplayDelete] = useState("");
@@ -86,11 +89,18 @@ export const DesktopCalendar: React.FC<Props> = ({ mealplan }) => {
           <tbody>
             {arr.map((colarr: CellType[]) => (
               <tr style={{ margin: 0 }}>
-                {colarr.map((cell) => (
+                {colarr.map((cell, idx) => (
                   <td
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.cursor = "pointer";
+                      e.currentTarget.style.backgroundColor = `${theme.palette.primary.light}`;
+                    }}
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = `${theme.palette.primary.contrastText}`)
+                    }
                     style={cellStyle}
                     onClick={(e) => {
-                      // get mealPlanId, cateogry and days
+                      // get mealPlanId, cateogory and days
                       addMealToPlan(
                         connectionID,
                         mealplan.rowId,
