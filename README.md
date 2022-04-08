@@ -69,6 +69,17 @@ DO
 COMMIT
 ```
 
+## For v2
+
+After the database and the graphQL servers are up and running, under `mealplanner-ui` folder run the following command.
+
+```
+$ npm i
+$ npm start
+```
+
+This should start the server on http://localhost:3333/
+
 ## To add some automatic linting on your commits:
 
 setup hooks
