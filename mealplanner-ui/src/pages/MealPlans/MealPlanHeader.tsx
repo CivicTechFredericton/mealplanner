@@ -19,6 +19,9 @@ const fragment = graphql`
     nameFr
     descriptionEn
     tags
+    person {
+      fullName
+    }
   }
 `;
 
@@ -44,35 +47,48 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         justifyContent={"space-between"}
         bgcolor="primary.main"
       >
-        <Typography
-          padding="0.5rem 0"
-          marginLeft="1rem"
-          color="primary.contrastText"
-          variant={"h5"}
-        >
-          {data.nameEn}
-        </Typography>
-        <IconButton
-          sx={{ minWidth: "1.5em" }}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (!editHeader) {
-              setEditHeader(true);
-            } else setEditHeader(false);
-          }}
-        >
-          {editHeader ? (
-            <KeyboardArrowUp
-              htmlColor={`${theme.palette.primary.contrastText}`}
-              sx={{ fontSize: "1.5em" }}
-            />
-          ) : (
-            <KeyboardArrowDown
-              htmlColor={`${theme.palette.primary.contrastText}`}
-              sx={{ fontSize: "1.5em" }}
-            />
-          )}
-        </IconButton>
+        <Box display="inline-flex">
+          <Typography
+            padding="0.5rem 0"
+            marginLeft="1rem"
+            color="primary.contrastText"
+            variant={"h5"}
+          >
+            {data.nameEn}
+          </Typography>
+          <Typography
+            padding="0.75rem 1rem"
+            
+            color="primary.contrastText"
+            textTransform={"capitalize"}
+            fontStyle="normal"
+          >
+            {data.person?.fullName}
+          </Typography>
+        </Box>
+        <Box display="inline-flex">
+          <IconButton
+            sx={{ minWidth: "1.5em" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (!editHeader) {
+                setEditHeader(true);
+              } else setEditHeader(false);
+            }}
+          >
+            {editHeader ? (
+              <KeyboardArrowUp
+                htmlColor={`${theme.palette.primary.contrastText}`}
+                sx={{ fontSize: "1.5em" }}
+              />
+            ) : (
+              <KeyboardArrowDown
+                htmlColor={`${theme.palette.primary.contrastText}`}
+                sx={{ fontSize: "1.5em" }}
+              />
+            )}
+          </IconButton>
+        </Box>
       </Box>
       {editHeader ? (
         <Box
