@@ -74,5 +74,6 @@
   "devDependencies": {
     "@types/react-relay": "^13.0.1",
     "@types/relay-runtime": "^13.0.1"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }

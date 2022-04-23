@@ -4,12 +4,17 @@
 
 type GQLocalState {
     selectedMeal: SelectedMeal
+    currentUser: CurrentLoggedInUser
 }
 
 type SelectedMeal {
     id : ID!
     rowId: BigInt!
     nameEn: String!
+}
+
+type CurrentLoggedInUser {
+    personID: BigInt!
 }
 
 extend type Query {
