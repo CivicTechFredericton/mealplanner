@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # test for the presence of the schema
 export PGPASSWORD=${POSTGRES_PASSWORD}
@@ -15,4 +16,4 @@ for sql in migrations/*.sql
 do
 	psql -U postgres -h db  -f "${sql}"
 done
-npm start
+node server.js
