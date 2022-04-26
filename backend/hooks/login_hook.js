@@ -1,5 +1,6 @@
 // @ts-check
 
+
 /** @param {import("postgraphile").Build} build */
 const useAuthCredentials = (build) => {
   /** @param {import("postgraphile").Context} fieldContext */
@@ -11,14 +12,23 @@ const useAuthCredentials = (build) => {
     if(!pgFieldIntrospection || pgFieldIntrospection.name !== 'authenticate') {
       return null;
     }
+    console.log('ready to setup hook...');
     return {
       before: [],
       after: [{
-        priority: 1000,
-        callback: (result, args, context) => {
-          context.setAuthCookie(
-            result.data['@jwtToken'].personId, 
-            result.data['@jwtToken'].role);
+        priority: 100,
+        callback: (result, args, context, resolvInfo) => {
+          console.log('hook triggered', result);
+          if(result.data == null) {
+            resolvInfo.graphileMeta.messages.push({
+              level: "error",
+              message: "invalid credentials"
+            });
+          } else {
+            context.setAuthCookie(
+              result.data['@jwtToken'].personId, 
+              result.data['@jwtToken'].role);
+          }
           return result;
         }
       }]
