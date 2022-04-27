@@ -11,16 +11,19 @@ import {
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
 import { useFragment } from "react-relay";
+import { updateMealPlanName } from "../../state/state";
 import { MealPlanHeader_mealPlan$key } from "./__generated__/MealPlanHeader_mealPlan.graphql";
 
 const fragment = graphql`
   fragment MealPlanHeader_mealPlan on MealPlan {
+    rowId
     nameEn
     nameFr
     descriptionEn
     tags
     person {
       fullName
+      rowId
     }
   }
 `;
@@ -31,8 +34,12 @@ interface HeaderProps {
 
 export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
   let data = useFragment<MealPlanHeader_mealPlan$key>(fragment, mealPlan);
+
   const theme = useTheme();
   const [editHeader, setEditHeader] = useState(false);
+  const [isEditName, setIsEditName] = useState(false);
+  const [isEditUser, setIsEditUser] = useState(false);
+
   return (
     <section
       style={{
@@ -48,23 +55,68 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         bgcolor="primary.main"
       >
         <Box display="inline-flex">
-          <Typography
-            padding="0.5rem 0"
-            marginLeft="1rem"
-            color="primary.contrastText"
-            variant={"h5"}
-          >
-            {data.nameEn}
-          </Typography>
-          <Typography
-            padding="0.75rem 1rem"
-            
-            color="primary.contrastText"
-            textTransform={"capitalize"}
-            fontStyle="normal"
-          >
-            {data.person?.fullName}
-          </Typography>
+          {isEditName ? (
+            <TextField
+              id="filled-basic"
+              label="Filled"
+              variant="filled"
+              defaultValue={data.nameEn}
+              onBlur={(e) => {
+                updateMealPlanName(data.rowId, {
+                  mealPlanId: data.rowId,
+                  descriptionEn: data.descriptionEn,
+                  personId: data.person?.rowId,
+                  tags: data.tags,
+                  mealPlanName: e.target.value,
+                });
+                setIsEditName(false);
+              }}
+            />
+          ) : (
+            <Typography
+              padding="0.5rem 0"
+              marginLeft="1rem"
+              color="primary.contrastText"
+              variant={"h5"}
+              defaultValue={data.nameEn}
+              onClick={(e) => {
+                setIsEditName(true);
+              }}
+            >
+              {data.nameEn}
+            </Typography>
+          )}
+          {isEditUser ? (
+            <Autocomplete
+              options={[
+                { label: "Admin", id: 1 },
+                { label: "Meal Designer", id: 2 },
+                { label: "User 1", id: 3 },
+                { label: "User 2", id: 4 },
+              ]}
+              onChange={(e, value) => {
+                updateMealPlanName(data.rowId, {
+                  mealPlanId: data.rowId,
+                  descriptionEn: data.descriptionEn,
+                  personId: value?.id,
+                  tags: data.tags,
+                  mealPlanName: data.nameEn,
+                });
+                setIsEditUser(false);
+              }}
+              renderInput={(params) => <TextField {...params} label="Person" />}
+            ></Autocomplete>
+          ) : (
+            <Typography
+              padding="0.75rem 1rem"
+              color="primary.contrastText"
+              textTransform={"capitalize"}
+              fontStyle="normal"
+              onClick={(e) => setIsEditUser(true)}
+            >
+              {data.person?.fullName}
+            </Typography>
+          )}
         </Box>
         <Box display="inline-flex">
           <IconButton
