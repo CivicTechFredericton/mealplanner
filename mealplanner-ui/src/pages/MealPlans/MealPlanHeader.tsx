@@ -1,12 +1,10 @@
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import {
   Autocomplete,
-  Box,
-  IconButton,
-  TextareaAutosize,
+  Box, IconButton, TextareaAutosize,
   TextField,
   Typography,
-  useTheme,
+  useTheme
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
@@ -54,12 +52,13 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         justifyContent={"space-between"}
         bgcolor="primary.main"
       >
-        <Box display="inline-flex">
+        <Box display="inline-flex" justifyContent={"space-between"}>
           {isEditName ? (
             <TextField
               id="filled-basic"
-              label="Filled"
+              label="Edit Meal Plan Name"
               variant="filled"
+              style={{ backgroundColor: "white" }}
               defaultValue={data.nameEn}
               onBlur={(e) => {
                 updateMealPlanName(data.rowId, {
@@ -86,6 +85,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               {data.nameEn}
             </Typography>
           )}
+          <Typography padding="0.75rem 1rem"></Typography>
           {isEditUser ? (
             <Autocomplete
               options={[
@@ -94,6 +94,9 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 { label: "User 1", id: 3 },
                 { label: "User 2", id: 4 },
               ]}
+              onBlur={(e) => {
+                setIsEditUser(false);
+              }}
               onChange={(e, value) => {
                 updateMealPlanName(data.rowId, {
                   mealPlanId: data.rowId,
@@ -104,11 +107,18 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 });
                 setIsEditUser(false);
               }}
-              renderInput={(params) => <TextField {...params} label="Person" />}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Select user"
+                  style={{ backgroundColor: "white" }}
+                  variant="filled"
+                />
+              )}
             ></Autocomplete>
           ) : (
             <Typography
-              padding="0.75rem 1rem"
+              padding="0.75rem 0"
               color="primary.contrastText"
               textTransform={"capitalize"}
               fontStyle="normal"
