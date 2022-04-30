@@ -13,7 +13,8 @@ import { initState } from "./state/state";
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#8CD068",
+       light: "#8CD068",
+      //light: "#E8F3DB",
       main: "#6AA64A",
       dark: "#436D2C",
       contrastText: "#fff",
@@ -27,6 +28,9 @@ const theme = createTheme({
     grey: {
       800: "#404040",
     },
+    info: {
+      main: "#ffffff",
+    }
   },
 });
 

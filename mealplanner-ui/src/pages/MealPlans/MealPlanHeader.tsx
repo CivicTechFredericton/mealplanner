@@ -8,8 +8,9 @@ import {
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
-import { useFragment } from "react-relay";
+import { useFragment, useLazyLoadQuery } from "react-relay";
 import { updateMealPlanName } from "../../state/state";
+import { MealPlanHeaderAllUsersQuery} from "./__generated__/MealPlanHeaderAllUsersQuery.graphql";
 import { MealPlanHeader_mealPlan$key } from "./__generated__/MealPlanHeader_mealPlan.graphql";
 
 const fragment = graphql`
@@ -26,6 +27,18 @@ const fragment = graphql`
   }
 `;
 
+const query = graphql`
+  query MealPlanHeaderAllUsersQuery {
+  people {
+    nodes {
+      id
+      rowId
+      fullName
+    }
+  }
+}
+`
+
 interface HeaderProps {
   mealPlan: MealPlanHeader_mealPlan$key;
 }
@@ -33,6 +46,9 @@ interface HeaderProps {
 export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
   let data = useFragment<MealPlanHeader_mealPlan$key>(fragment, mealPlan);
 
+  let users = useLazyLoadQuery<MealPlanHeaderAllUsersQuery>(query, {});
+
+  let allUsers = users.people?.nodes.map(user => {return {label: user.fullName, id: user.rowId}});
   const theme = useTheme();
   const [editHeader, setEditHeader] = useState(false);
   const [isEditName, setIsEditName] = useState(false);
@@ -58,7 +74,8 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               id="filled-basic"
               label="Edit Meal Plan Name"
               variant="filled"
-              style={{ backgroundColor: "white" }}
+              color="info"
+              style={{ backgroundColor: theme.palette.primary.light, color: "yellow"}}
               defaultValue={data.nameEn}
               onBlur={(e) => {
                 updateMealPlanName(data.rowId, {
@@ -88,12 +105,13 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
           <Typography padding="0.75rem 1rem"></Typography>
           {isEditUser ? (
             <Autocomplete
-              options={[
-                { label: "Admin", id: 1 },
-                { label: "Meal Designer", id: 2 },
-                { label: "User 1", id: 3 },
-                { label: "User 2", id: 4 },
-              ]}
+              // options={[
+              //   { label: "Admin", id: 1 },
+              //   { label: "Meal Designer", id: 2 },
+              //   { label: "User 1", id: 3 },
+              //   { label: "User 2", id: 4 },
+              // ]}
+              options={allUsers || []}
               onBlur={(e) => {
                 setIsEditUser(false);
               }}
@@ -111,8 +129,9 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 <TextField
                   {...params}
                   label="Select user"
-                  style={{ backgroundColor: "white" }}
+                  style={{ backgroundColor: theme.palette.primary.contrastText, width: '200%' }}
                   variant="filled"
+
                 />
               )}
             ></Autocomplete>
