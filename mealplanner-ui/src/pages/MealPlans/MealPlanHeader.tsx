@@ -75,7 +75,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               label="Edit Meal Plan Name"
               variant="filled"
               color="info"
-              style={{ backgroundColor: theme.palette.primary.light, color: "yellow"}}
+              style={{ backgroundColor: theme.palette.primary.light}}
               defaultValue={data.nameEn}
               onBlur={(e) => {
                 updateMealPlanName(data.rowId, {
@@ -194,7 +194,16 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               borderColor: `${theme.palette.primary.light}`,
               borderRadius: "2%",
             }}
-            value={data.descriptionEn!}
+            defaultValue={data.descriptionEn!}
+            onBlur={(e) => {
+              updateMealPlanName(data.rowId, {
+                mealPlanId: data.rowId,
+                descriptionEn: e.target.value,
+                personId: data.person?.rowId,
+                tags: data.tags,
+                mealPlanName: data.nameEn,
+              });
+            }}
           />
 
           <Autocomplete
