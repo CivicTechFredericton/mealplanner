@@ -211,6 +211,15 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             freeSolo
             defaultValue={data.tags?.map((tag) => tag!)}
             options={data.tags?.map((tag) => tag!) || []}
+            onChange={(e, value) => {
+              updateMealPlanName(data.rowId, {
+                mealPlanId: data.rowId,
+                descriptionEn: data.descriptionEn,
+                personId: data.person?.rowId,
+                tags: value,
+                mealPlanName: data.nameEn,
+              });
+            }}
             renderInput={(params) => (
               <TextField
                 color="primary"
