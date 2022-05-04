@@ -9,6 +9,7 @@ import { MealPlan } from "./pages/MealPlans/MealPlan";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { initState } from "./state/state";
+import { LoginPage } from "./pages/Login";
 
 const theme = createTheme({
   palette: {
@@ -77,10 +78,9 @@ function App() {
             <Route
               path="/"
               element={
-                <h4>
-                  This page is not yet implemented. Go to mealplans/:id Eg;
-                  localhost/mealplans/3
-                </h4>
+                <Suspense fallback={"loading..."}>
+                  <LoginPage/>
+                </Suspense>
               }
             >
               {" "}

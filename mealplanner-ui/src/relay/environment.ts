@@ -2,9 +2,10 @@ import {Environment, Network, RecordSource, RequestParameters, Store, Variables}
 
 async function fetchGraphQL(params : RequestParameters, variables: Variables) {
     const TOKEN = process.env.REACT_APP_GRAPHQL_TOKEN;
-    const URL = process.env.GRAPHQL_ENDPOINT || 'http://localhost:4000/graphql';
+    const URL = process.env.GRAPHQL_ENDPOINT || '/graphql';
     const response = await fetch(URL, {
         method: 'POST',
+        credentials:  'include',
         headers: {
             Authorization: `bearer ${TOKEN}`,
             'Content-Type': 'application/json',

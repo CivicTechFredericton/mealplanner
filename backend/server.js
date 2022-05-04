@@ -6,7 +6,7 @@ const ConnectionFilterPlugin = require("postgraphile-plugin-connection-filter");
 const PgSimplifyInflector = require("@graphile-contrib/pg-simplify-inflector");
 const opHook = require("@graphile/operation-hooks").default;
 const OperationMessagesPlugin = require("@graphile/operation-hooks/lib/OperationMessagesPlugin").default;
-const LoginPlugin = require("./hooks/login_hook");
+const LoginPlugin = require("./hooks/login_plugin");
 const session = require("cookie-session");
 const { LogoutPlugin } = require("./extensions/logout");
 
@@ -15,7 +15,6 @@ const app = express();
 app.use(
   session({
     secret: process.env.JWT_SECRET,
-    sameSite: "lax",
     httpOnly: true,
   })
 );

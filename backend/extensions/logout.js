@@ -4,15 +4,18 @@ const md5 = require('md5');
 const LogoutPlugin = makeExtendSchemaPlugin(build => {
   return {
     typeDefs: gql`
+      type LogoutPayload {
+        status: String
+      }
       extend type Mutation {
-        logout: String
+        logout: LogoutPayload!
       }
     `,
     resolvers: {
       Mutation: {
         logout: async (_query, args, context, resolveInfo)  => {
           context.clearAuthCookie();
-          return "success";
+          return {status: "success"};
         }
       }
     }

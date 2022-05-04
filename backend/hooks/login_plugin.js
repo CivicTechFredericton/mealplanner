@@ -12,6 +12,8 @@ const useAuthCredentials = (build) => {
     if(!pgFieldIntrospection || pgFieldIntrospection.name !== 'authenticate') {
       return null;
     }
+    // explaining the double negative. If pgFieldIntrospection is not null and has
+    // the name 'authenticate' only then we need to run the following.
     console.log('ready to setup hook...');
     return {
       before: [],
@@ -37,11 +39,11 @@ const useAuthCredentials = (build) => {
 }
 
 /** @type{import("postgraphile").Plugin} */
-const plugin = (builder) => {
+const LoginPlugin = (builder) => {
   builder.hook("init", (input, build) => {
     build.addOperationHook(useAuthCredentials(build));
     return input;
   });
 }
 
-module.exports = plugin;
+module.exports = LoginPlugin;
