@@ -9,7 +9,7 @@ import { MealPlan } from "./pages/MealPlans/MealPlan";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { initState } from "./state/state";
-import { LoginPage } from "./pages/Login";
+import { LoginPage } from "./pages/LoginPage";
 
 const theme = createTheme({
   palette: {
