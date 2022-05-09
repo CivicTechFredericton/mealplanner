@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a110ddb7ada917b5febb11a25604ffd9>>
+ * @generated SignedSource<<208f3976f6f752a50c6e64951a270980>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,12 +11,14 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MealPlanHeader_mealPlan$data = {
+  readonly rowId: any;
   readonly nameEn: string;
   readonly nameFr: string | null;
   readonly descriptionEn: string | null;
   readonly tags: ReadonlyArray<string | null> | null;
   readonly person: {
     readonly fullName: string;
+    readonly rowId: any;
   } | null;
   readonly " $fragmentType": "MealPlanHeader_mealPlan";
 };
@@ -25,12 +27,21 @@ export type MealPlanHeader_mealPlan$key = {
   readonly " $fragmentSpreads": FragmentRefs<"MealPlanHeader_mealPlan">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "MealPlanHeader_mealPlan",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -73,7 +84,8 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "fullName",
           "storageKey": null
-        }
+        },
+        (v0/*: any*/)
       ],
       "storageKey": null
     }
@@ -81,7 +93,8 @@ const node: ReaderFragment = {
   "type": "MealPlan",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "d01429117bc257fcb67af907eaefabf8";
+(node as any).hash = "905eb7d4c1b3507a2867696429816eff";
 
 export default node;
