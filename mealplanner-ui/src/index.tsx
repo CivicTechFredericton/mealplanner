@@ -4,14 +4,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./auth/Auth";
+
 const Index = () => {
   return (
     <React.StrictMode>
       <BrowserRouter>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <App />
       </BrowserRouter>
     </React.StrictMode>
   );

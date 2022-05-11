@@ -12,12 +12,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useNavigate } from "react-router";
+import { logout } from "../state/state";
 
 
 const pages = ["Home", "Meals", "Plans"];
 const settings = ["Logout"];
 
 const ResponsiveAppBar = () => {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -114,7 +117,11 @@ const ResponsiveAppBar = () => {
             </Typography>
             <Tooltip title="Logout">
               <IconButton
-                onClick={handleOpenUserMenu}
+                //  onClick={handleOpenUserMenu}
+                onClick={async () => {
+                  await logout();
+                  navigate("/");
+                }}
                 sx={{ p: 0, color: "#FFFF" }}
               >
                 <LogoutIcon />

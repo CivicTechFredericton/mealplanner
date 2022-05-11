@@ -1,14 +1,21 @@
 import { graphql } from "babel-plugin-relay/macro";
-import { commitLocalUpdate, commitMutation } from "relay-runtime";
+import { commitLocalUpdate, commitMutation, fetchQuery } from "relay-runtime";
 import environment from "../relay/environment";
 import { SearchedMeal } from "./types";
 import {
   CategoryT,
   state_createMealPlanEntryMutation,
 } from "./__generated__/state_createMealPlanEntryMutation.graphql";
+import {
+  state_CurrentUserQuery,
+  state_CurrentUserQuery$data,
+} from "./__generated__/state_CurrentUserQuery.graphql";
 import { state_deleteMealPlanEntryMutation } from "./__generated__/state_deleteMealPlanEntryMutation.graphql";
 import { state_loginMutation } from "./__generated__/state_loginMutation.graphql";
-import { state_logoutMutation } from "./__generated__/state_logoutMutation.graphql";
+import {
+  state_logoutMutation,
+  state_logoutMutation$data,
+} from "./__generated__/state_logoutMutation.graphql";
 import {
   state_updateMealPlanMutation,
   state_updateMealPlanMutation$variables,
@@ -156,69 +163,111 @@ export const deleteMealFromPlan = (connectionID: string, mpeId: number) => {
   });
 };
 
-
-const loginMutation = graphql`
-mutation state_loginMutation($userEmail: String!, $password: String!) {
-  authenticate(input: {userEmail: $userEmail, password: $password}) {
-    jwtToken {
-      role
-      personId
+const currentUserQuery = graphql`
+  query state_CurrentUserQuery {
+    currentPerson {
+      person {
+        id
+        rowId
+      }
+      email
+      fullName
     }
   }
-}`
+`;
+
+export const fetchCurrentPerson = async () => {
+  let data = await fetchQuery<state_CurrentUserQuery>(
+    environment,
+    currentUserQuery,
+    {}
+  ).toPromise();
+  setCurrentUser(data);
+  return data;
+};
+
+function setCurrentUser(data: state_CurrentUserQuery$data | undefined) {
+  if (data?.currentPerson) {
+    commitLocalUpdate(environment, (store) => {
+      let localState = store.get(STATE_ID);
+      store.delete("client:currentUser");
+      let record = store.create("client:currentUser", "CurrentLoggedInUser");
+      record.setValue(data?.currentPerson?.person?.rowId, "personID");
+      localState?.setLinkedRecord(record, "currentUser");
+    });
+  }
+}
+
+const loginMutation = graphql`
+  mutation state_loginMutation($userEmail: String!, $password: String!) {
+    authenticate(input: { userEmail: $userEmail, password: $password }) {
+      jwtToken {
+        role
+        personId
+      }
+    }
+  }
+`;
 
 export const login = (username: string, password: string) => {
   commitMutation<state_loginMutation>(environment, {
     mutation: loginMutation,
     variables: {
       userEmail: username,
-      password: password
+      password: password,
     },
     onCompleted: (resp) => {
-      if(resp.authenticate != null && resp.authenticate.jwtToken != null) {
+      if (resp.authenticate != null && resp.authenticate.jwtToken != null) {
         commitLocalUpdate(environment, (store) => {
           console.log(resp);
           let localState = store.get(STATE_ID);
           store.delete("client:currentUser");
-          let record = store.create("client:currentUser", "CurrentLoggedInUser");
+          let record = store.create(
+            "client:currentUser",
+            "CurrentLoggedInUser"
+          );
           record.setValue(resp.authenticate?.jwtToken?.personId, "personID");
           localState?.setLinkedRecord(record, "currentUser");
-        })
+        });
       }
-    }
+    },
   });
-}
+};
 
 const logoutMutation = graphql`
-mutation state_logoutMutation {
-  logout {
-    status
-  }
-}`
-
-export const logout = () => {
-  commitMutation<state_logoutMutation>(environment, {
-    mutation: logoutMutation,
-    variables: {},
-    onCompleted: (resp) => {
-      if(resp.logout != null && resp.logout.status != null) {
-        commitLocalUpdate(environment, (store) => {
-          console.log(resp);
-          let localState = store.get(STATE_ID);
-          store.delete("client:currentUser");
-        })
-      }
+  mutation state_logoutMutation {
+    logout {
+      status
     }
+  }
+`;
+
+export const logout = async () => {
+  return new Promise<state_logoutMutation$data>((res, rej) => {
+    commitMutation<state_logoutMutation>(environment, {
+      mutation: logoutMutation,
+      variables: {},
+      onCompleted: (resp) => {
+        if (resp.logout != null && resp.logout.status != null) {
+          commitLocalUpdate(environment, (store) => {
+            store.delete("client:currentUser");
+            res(resp);
+          });
+        } else {
+          rej("unable to logout");
+        }
+      },
+    });
   });
-}
+};
 
 export const currentPersonID = (): string => {
   const store = environment.getStore();
   let record = store.getSource().get("client:currentUser");
-  if(record == null || record == undefined) {
-    return ""
+  if (record === null || record === undefined) {
+    return "";
   }
-  return record["personID"].toString()
+  return record["personID"].toString();
 };
 
 const updateMealPlan = graphql`

@@ -1,20 +1,19 @@
-import React, { Suspense } from "react";
-import "./App.css";
-import { RelayEnvironmentProvider } from "react-relay";
-import environment from "./relay/environment";
-import { Route, Routes } from "react-router-dom";
-import { useAuth } from "./auth/Auth";
-import { Layout } from "./layouts/Layout";
-import { MealPlan } from "./pages/MealPlans/MealPlan";
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { initState } from "./state/state";
-import { LoginPage } from "./pages/LoginPage";
+import React, { Suspense, useEffect, useState } from "react";
+import { RelayEnvironmentProvider } from "react-relay";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import { Layout } from "./layouts/Layout";
+import { LoggedIn } from "./LoggedIn";
+import { Login } from "./pages/Login";
+import { MealPlan } from "./pages/MealPlans/MealPlan";
+import environment from "./relay/environment";
+import { fetchCurrentPerson, initState } from "./state/state";
 
 const theme = createTheme({
   palette: {
     primary: {
-       light: "#8CD068",
+      light: "#8CD068",
       //light: "#E8F3DB",
       main: "#6AA64A",
       dark: "#436D2C",
@@ -31,40 +30,25 @@ const theme = createTheme({
     },
     info: {
       main: "#ffffff",
-    }
+    },
   },
 });
 
 //Initializing local state from state.ts
 initState();
 
+//fetchCurrentPerson();
+
 function App() {
-  const auth = useAuth();
-
-  //const {userEmail, signin, signout} = useAuth();
-  const userName = process.env.USERNAME || "";
-  const password = process.env.PASSWORD || "";
-
-  const login =
-    auth != null ? (
-      auth.userEmail != null ? (
-        <p>
-          Logged in as {auth.userEmail}.{" "}
-          <button onClick={auth.signout}>Logout</button>
-        </p>
-      ) : (
-        <button
-          onClick={() => {
-            auth.signin(userName, password);
-          }}
-        >
-          Login
-        </button>
-      )
-    ) : (
-      ""
-    );
-
+  let [intialized, setInitialized] = useState(false);
+  useEffect(() => {
+  fetchCurrentPerson().then(() => {
+    setInitialized(true);
+  })
+  }, []);
+  if(!intialized) {
+    return <h1>loading...</h1>;
+  }
   return (
     <RelayEnvironmentProvider environment={environment}>
       <ThemeProvider theme={theme}>
@@ -74,17 +58,33 @@ function App() {
               path="/mealplans/:id"
               element={
                 <Suspense fallback={"loading inner..."}>
-                  {" "}
+                  <LoggedIn>
                   <MealPlan />
+                  </LoggedIn>
+                  
+                </Suspense>
+              }
+            />
+            <Route
+              path="/mealplans"
+              element={
+                <Suspense fallback={"loading Mealplans list..."}>
+                  <LoggedIn>
+                  <h1> Meal Plans </h1>
+                  </LoggedIn> 
                 </Suspense>
               }
             />
             <Route
               path="/"
               element={
-                <Suspense fallback={"loading..."}>
-                  <LoginPage/>
+                <Suspense fallback={"loading Login..."}>
+                  <Login />
                 </Suspense>
+                // <h4>
+                //   This page is not yet implemented. Go to mealplans/:id Eg;
+                //   localhost/mealplans/3
+                // </h4>
               }
             >
               {" "}
