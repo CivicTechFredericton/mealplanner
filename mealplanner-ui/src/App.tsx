@@ -7,6 +7,7 @@ import { Layout } from "./layouts/Layout";
 import { LoggedIn } from "./LoggedIn";
 import { Login } from "./pages/Login";
 import { MealPlan } from "./pages/MealPlans/MealPlan";
+import { MealPlans } from "./pages/MealPlans/MealPlans";
 import environment from "./relay/environment";
 import { fetchCurrentPerson, initState } from "./state/state";
 
@@ -70,7 +71,7 @@ function App() {
               element={
                 <Suspense fallback={"loading Mealplans list..."}>
                   <LoggedIn>
-                  <h1> Meal Plans </h1>
+                  <MealPlans />
                   </LoggedIn> 
                 </Suspense>
               }
