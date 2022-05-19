@@ -15,6 +15,7 @@ type SelectedMeal {
 
 type CurrentLoggedInUser {
     personID: BigInt!
+    personName: String!
 }
 
 extend type Query {

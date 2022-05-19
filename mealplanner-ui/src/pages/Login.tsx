@@ -4,14 +4,13 @@ import {
   IconButton,
   InputAdornment,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
-import { wait } from "@testing-library/user-event/dist/utils";
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { Navigate } from "react-router";
-import { currentPersonID, login } from "../state/state";
+import { getCurrentPerson, login } from "../state/state";
 import { LoginQuery } from "./__generated__/LoginQuery.graphql";
 
 const query = graphql`
@@ -40,14 +39,14 @@ export const Login = () => {
     {},
     {
       fetchPolicy: "network-only",
-      fetchKey: currentPersonID(),
+      fetchKey: getCurrentPerson().personID,
       networkCacheConfig: {
         force: true,
       },
     }
   );
   if (data.gqLocalState.currentUser?.personID) {
-    return <Navigate to="/mealplans/3" replace />;
+    return <Navigate to="/mealplans/" replace />;
   }
   return (
     <main

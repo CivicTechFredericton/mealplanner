@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useNavigate } from "react-router";
-import { currentPersonID, logout } from "../state/state";
+import { getCurrentPerson, logout } from "../state/state";
 
 const pages = ["Home", "Meals", "Plans"];
 const settings = ["Logout"];
@@ -54,7 +54,7 @@ const ResponsiveAppBar = () => {
           >
             <img src="/images/logo.png" alt="MealPlanner" />
           </Typography>
-          {currentPersonID() !== "" ? (
+          {getCurrentPerson().personID !== "" ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
@@ -113,7 +113,7 @@ const ResponsiveAppBar = () => {
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Typography sx={{ display: "inline-block", mr: "12px" }}>
-                  Meal Designer
+                  {getCurrentPerson().personName}
                 </Typography>
                 <Tooltip title="Logout">
                   <IconButton

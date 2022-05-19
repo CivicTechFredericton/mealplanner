@@ -193,6 +193,7 @@ function setCurrentUser(data: state_CurrentUserQuery$data | undefined) {
       store.delete("client:currentUser");
       let record = store.create("client:currentUser", "CurrentLoggedInUser");
       record.setValue(data?.currentPerson?.person?.rowId, "personID");
+      record.setValue(data?.currentPerson?.fullName, "personName");
       localState?.setLinkedRecord(record, "currentUser");
     });
   }
@@ -218,17 +219,7 @@ export const login = (username: string, password: string) => {
     },
     onCompleted: (resp) => {
       if (resp.authenticate != null && resp.authenticate.jwtToken != null) {
-        commitLocalUpdate(environment, (store) => {
-          console.log(resp);
-          let localState = store.get(STATE_ID);
-          store.delete("client:currentUser");
-          let record = store.create(
-            "client:currentUser",
-            "CurrentLoggedInUser"
-          );
-          record.setValue(resp.authenticate?.jwtToken?.personId, "personID");
-          localState?.setLinkedRecord(record, "currentUser");
-        });
+        fetchCurrentPerson();
       }
     },
   });
@@ -261,13 +252,19 @@ export const logout = async () => {
   });
 };
 
-export const currentPersonID = (): string => {
+export const getCurrentPerson = (): {
+  personID: string;
+  personName: string;
+} => {
   const store = environment.getStore();
   let record = store.getSource().get("client:currentUser");
   if (record === null || record === undefined) {
-    return "";
+    return { personID: "", personName: "" };
   }
-  return record["personID"].toString();
+  return {
+    personID: record["personID"].toString(),
+    personName: record["personName"].toString(),
+  };
 };
 
 const updateMealPlan = graphql`
