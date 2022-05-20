@@ -333,7 +333,7 @@ INSERT INTO app.meal
       'Une recette de rasam simple, saine et savoureuse qui est idéalement servie avec du riz chaud à la vapeur.'
       ,
       '{"Lunch", "Dinner"}',
-      'hhttps://hebbarskitchen.com/wp-content/uploads/mainPhotos/lemon-rasam-recipe-nimbu-rasam-recipe-south-indian-lemon-rasam-2-1920x2558.jpeg'
+      'https://www.indianhealthyrecipes.com/wp-content/uploads/2022/02/lemon-rasam-recipe.jpg'
       ,
       'https://www.youtube.com/watch?v=gN-sfNnGH9A',
       '1. In a large vessel add tomatoes, ginger, chili, coriander, turmeric, curry leaves, and water.      2. Boil for 10 minutes or till tomatoes turn soft and mushy.      3. Add pressure cooked toor dal, and add salt to taste. Mix well.      4. Boil for 3 minutes, do not over boil after adding dal.      5. Prepare the tempering by heating up the ghee. Add mustard seeds, cumin, red chili, curry leaves, asafoetida, and pepper.      6. Once the tempering splutters, pour the tempering onto the prepared rasam. Serve hot with rice.'

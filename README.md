@@ -48,12 +48,14 @@ On Linux or MacOS:
 
 ```
 cat ./backend/seed.sql | docker-compose exec -T db /usr/bin/psql -U postgres -f -
+cat ./backend/meal_seed.sql | docker-compose exec -T db /usr/bin/psql -U postgres -f -
 ```
 
 On Windows (Powershell):
 
 ```
 Get-Content .\backend\seed.sql | docker-compose exec -T db /usr/bin/psql -U postgres -f -
+
 ```
 
 
