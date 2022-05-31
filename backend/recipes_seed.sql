@@ -1,4 +1,4 @@
-//GREENER VILLAGE RECIPES FOR THE TABLE MEAL:
+-- GREENER VILLAGE RECIPES FOR THE TABLE MEAL:
 INSERT INTO
       app.meal (code,      name_en,                     name_fr,                                  tags,
 	              description_en,
@@ -423,7 +423,7 @@ INSERT INTO
                 2. The number of sandwiches made will depend on the amount of filling placed on the bread.',
                 0,              '',                3);
 
-////GREENER VILLAGE RECIPES FOR THE TABLE PRODUCT:
+-- GREENER VILLAGE RECIPES FOR THE TABLE PRODUCT:
 INSERT INTO
  app.product (name_en,              name_fr,                code,     price,    quantity,   unit,     upc,
               source_link,
@@ -1189,7 +1189,7 @@ INSERT INTO
               'https://www.walmart.ca/en/ip/bens-holsum-fresh-100-whole-grain-wheat-bread/6000199144238',
               '{"grocery", "bakery", "bread"}');
 
-//GREENER VILLAGE RECIPES FOR THE TABLE MEASURE:
+-- GREENER VILLAGE RECIPES FOR THE TABLE MEASURE:
 INSERT INTO
       app.measure(unit,       quantity, product_id,                                      meal_id)
           VALUES ('oz',       6,        app_private.product_id_by_upc('62891582644'),    app_private.meal_id_by_code('sandwiches')),
