@@ -12,6 +12,7 @@ const currentPersonQuery = gql`
       rowId
       fullName
       email
+      role
     }
   }
 `;
@@ -21,6 +22,7 @@ interface CurrentPerson {
   rowId: string;
   fullName: string;
   email: string;
+  role: string;
 }
 
 //Define the interface with currentPerson, login and logout functions
@@ -147,14 +149,14 @@ class RAAuthProvider {
   async getIdentity() {
     let cp = await getCurrentPerson(this._client);
     if(cp !== null) {
-      return {id: cp.rowId, fullName: cp.fullName};
+      return {id: cp.rowId, fullName: cp.fullName, role: cp.role};
     }
     throw "invalid user"
   }
   async checkAuth() {
     let identity = await this.getIdentity();
-    if (identity) return Promise.resolve();
-    return Promise.reject();
+    if (identity && identity.role === "app_admin") return Promise.resolve();
+    return Promise.reject("User does not exist or does not have permissions");
   }
   checkError(e:Error) {
     console.log('check Error', e);
@@ -162,6 +164,7 @@ class RAAuthProvider {
   }
   getPermissions() {
     //noop - Doesn't do anything. Just implementing to satisfy the interface.
+
     return Promise.resolve();
   }
 }
