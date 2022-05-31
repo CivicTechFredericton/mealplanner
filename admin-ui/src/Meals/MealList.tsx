@@ -13,7 +13,7 @@ import {
   TabbedShowLayout,
   TextField,
   UrlField,
-  useRecordContext,
+  useRecordContext
 } from "react-admin";
 
 export const MealList = (props: ListProps) => {
@@ -67,8 +67,8 @@ const Details = () => {
           <NumberField source="totalCost" />
           <NumberField source="servingCost" />
           <TextField source="tips" />
-          <NumberField source="servingSize" />
-          <TextField source="servingSizeUnit" />
+          <NumberField source="servingsSize" />
+          <TextField source="servingsSizeUnit" />
           <NumberField source="serves" />
           <NumberField source="nutritionRating" />
           <UrlField source="photoUrl" />

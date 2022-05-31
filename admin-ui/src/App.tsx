@@ -12,6 +12,7 @@ import {
   TextField,
 } from "react-admin";
 import { useAuth } from "./Auth";
+import { MealCreate } from "./Meals/MealCreate";
 import { MealEdit } from "./Meals/MealEdit";
 import { MealList } from "./Meals/MealList";
 
@@ -54,7 +55,7 @@ function App() {
             layout={Layout}
             requireAuth
           >
-            <Resource name="meals" list={MealList} edit={MealEdit} />
+            <Resource name="meals" list={MealList} edit={MealEdit} create={MealCreate}/>
             <Resource name="products" list={ProductList} />
           </Admin>
         ) : (
