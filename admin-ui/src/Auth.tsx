@@ -2,7 +2,6 @@
 
 import { ApolloClient, gql, useApolloClient } from "@apollo/client";
 import React, { useContext, useEffect, useState } from "react";
-import { _renderMatches } from "react-router/lib/hooks";
 
 //We need to get CurrentPerson to check whether it is logged in
 //construct the graphql query for CurrentPerson
@@ -27,20 +26,14 @@ interface CurrentPerson {
 //Define the interface with currentPerson, login and logout functions
 interface AuthInfo {
   currentPerson: CurrentPerson | null;
-  login: (email: string, password: string) => Promise<CurrentPerson | null>;
-  logout: () => Promise<void>;
+  raAuthProvider: RAAuthProvider | null;
 }
 
 //For creating a react component AuthProvider
 //First Define the type context (type interface) to be used for return value
 const AuthContext = React.createContext<AuthInfo>({
   currentPerson: null,
-  login: (_e, _p) => {
-    throw "unimplemented";
-  },
-  logout: () => {
-    throw "unimplemented";
-  },
+  raAuthProvider: null
 });
 //Next Define the type of the props using interface
 interface AuthProviderProps {
@@ -67,19 +60,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     })();
   }, []);
+  const authObject = new RAAuthProvider(client);
 
   return (
     <AuthContext.Provider
       value={{
         currentPerson: currentPerson,
-        login: async (email, password) => {
-          let cu = await loginFn(client, email, password);
-          setCurrentPerson(cu);
-          return cu;
-        },
-        logout: () => {
-          throw "unimplemented";
-        },
+        raAuthProvider: authObject
       }}
     >
       {children}
@@ -129,4 +116,52 @@ const loginFn = async (client: ApolloClient<object>, userEmail: string, password
         return getCurrentPerson(client);
     }
     return null;
+}
+
+const logoutMutation = gql`
+mutation LogoutMutation {
+  logout {status
+  }
+
+}`;
+
+const logoutFn = async(client: ApolloClient<object>) => {
+  let result = await client.mutate({mutation: logoutMutation});
+  if(result.data["logout"] !== null){
+    return result.data["logout"];
+  }
+}
+
+class RAAuthProvider {
+  _client: ApolloClient<object>;
+  constructor(client: ApolloClient<object>){
+    this._client = client;
+  }
+  login({username, password}:{username: string, password: string}) {
+    return loginFn(this._client, username, password)
+  }
+  async logout(){
+    await logoutFn(this._client);
+    return Promise.resolve();
+  }
+  async getIdentity() {
+    let cp = await getCurrentPerson(this._client);
+    if(cp !== null) {
+      return {id: cp.rowId, fullName: cp.fullName};
+    }
+    throw "invalid user"
+  }
+  async checkAuth() {
+    let identity = await this.getIdentity();
+    if (identity) return Promise.resolve();
+    return Promise.reject();
+  }
+  checkError(e:Error) {
+    console.log('check Error', e);
+    return Promise.resolve();
+  }
+  getPermissions() {
+    //noop - Doesn't do anything. Just implementing to satisfy the interface.
+    return Promise.resolve();
+  }
 }

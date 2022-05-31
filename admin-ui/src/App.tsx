@@ -4,17 +4,16 @@ import { useEffect, useState } from "react";
 import {
   Admin,
   Datagrid,
-  DataProvider, Layout,
+  DataProvider,
+  Layout,
   List,
-  ListProps, Resource, TextField
+  ListProps,
+  Resource,
+  TextField,
 } from "react-admin";
-// import './App.css'
 import { useAuth } from "./Auth";
-import { Login } from "./Login";
 import { MealEdit } from "./Meals/MealEdit";
 import { MealList } from "./Meals/MealList";
-
-
 
 const ProductList = (props: ListProps) => {
   return (
@@ -36,7 +35,7 @@ function App() {
       typeMap: {
         Meal: { excludeFields: ["id"] },
         Product: { excludeFields: ["id"] },
-        Measure: { excludeFields: ["id"]}
+        Measure: { excludeFields: ["id"] },
       },
     })
       .then((resolvedValue) => setDataProvider(resolvedValue))
@@ -48,16 +47,18 @@ function App() {
   return (
     <div className="App">
       <main>
-        {auth.currentPerson === null ? (
-          <Login />
+        {dataProvider !== null && auth.raAuthProvider !== null ? (
+          <Admin
+            authProvider={auth.raAuthProvider}
+            dataProvider={dataProvider}
+            layout={Layout}
+            requireAuth
+          >
+            <Resource name="meals" list={MealList} edit={MealEdit} />
+            <Resource name="products" list={ProductList} />
+          </Admin>
         ) : (
-          dataProvider && (
-            <Admin dataProvider={dataProvider} layout={Layout}>
-              <Resource name="meals" list={MealList}  edit={MealEdit} />
-
-              <Resource name="products" list={ProductList} />
-            </Admin>
-          )
+          "loading..."
         )}
       </main>
     </div>
