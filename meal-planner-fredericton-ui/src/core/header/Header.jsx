@@ -25,7 +25,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { useTranslation } from "react-i18next";
 import { isAuthenticated, logout } from "../../utils/auth";
 
-import graphql from 'babel-plugin-relay/macro';
+import graphql from "babel-plugin-relay/macro";
 import { createRefetchContainer, QueryRenderer } from "react-relay";
 import environment from "../../relay-environment";
 
@@ -240,6 +240,7 @@ const Header = (props) => {
           </Grid>
           <Grid item md={10} xs={1}>
             <>
+              {/* button for dropdown menu */}
               <div className={styles.iconContainer}>
                 <IconButton
                   aria-controls="menu"
@@ -250,6 +251,7 @@ const Header = (props) => {
                 </IconButton>
               </div>
 
+              {/* Dropdown menu */}
               <Menu
                 id="menu"
                 anchorEl={anchorEl1}
@@ -276,7 +278,9 @@ const Header = (props) => {
                   );
                 })}
 
-                <MenuItem onClick={logout}>Logout</MenuItem>
+                <MenuItem onClick={logout}>
+                  {!isAuthenticated() ? "Login" : "Logout"}
+                </MenuItem>
               </Menu>
 
               <nav className={styles.menuContainer}>
@@ -330,15 +334,17 @@ const Header = (props) => {
                   ) : (
                     <>
                       <div
-                        // style={{
-                        //   height: 30,
-                        //   paddingTop: 7,
-                        //   boxSizing: "revert",
-                        //   // width: 80,
-                        // }}
+                      // style={{
+                      //   height: 30,
+                      //   paddingTop: 7,
+                      //   boxSizing: "revert",
+                      //   // width: 80,
+                      // }}
                       >
                         {" "}
-                        <span className={styles.username}>{props.currentPerson && props.currentPerson.fullName}</span>
+                        <span className={styles.username}>
+                          {props.currentPerson && props.currentPerson.fullName}
+                        </span>
                       </div>
 
                       <IconButton
@@ -411,7 +417,9 @@ export default function CurrentUserQuery() {
       environment={environment}
       query={query}
       variables={{}}
-      render={({error, props})=><CurrentUserContainer error={error} {...props} />}
+      render={({ error, props }) => (
+        <CurrentUserContainer error={error} {...props} />
+      )}
     />
   );
 }
