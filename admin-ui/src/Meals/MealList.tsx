@@ -81,7 +81,7 @@ const Details = () => {
   );
 };
 
-const ListField = (props: FieldProps) => {
+export const ListField = (props: FieldProps) => {
   const record = useRecordContext();
   return (
     <ul>

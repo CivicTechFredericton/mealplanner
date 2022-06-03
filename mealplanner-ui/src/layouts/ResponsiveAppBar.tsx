@@ -120,7 +120,7 @@ const ResponsiveAppBar = () => {
                     //  onClick={handleOpenUserMenu}
                     onClick={async () => {
                       await logout();
-                      navigate("/");
+                      navigate("");
                     }}
                     sx={{ p: 0, color: "#FFFF" }}
                   >
