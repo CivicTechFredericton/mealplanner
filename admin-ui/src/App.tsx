@@ -6,6 +6,7 @@ import { useAuth } from "./Auth";
 import { MealCreate } from "./Meals/MealCreate";
 import { MealEdit } from "./Meals/MealEdit";
 import { MealList } from "./Meals/MealList";
+import { MeasureCreate } from "./Measure/MeasureCreate";
 import { MeasureEdit } from "./Measure/MeasureEdit";
 import { MeasureList } from "./Measure/MeasureList";
 import { ProductCreate } from "./Products/ProductCreate";
@@ -23,6 +24,7 @@ function App() {
         Meal: { excludeFields: ["id"] },
         Product: { excludeFields: ["id"] },
         Measure: { excludeFields: ["id"] },
+        Person: { excludeFields: ["id"] },
       },
     })
       .then((resolvedValue) => setDataProvider(resolvedValue))
@@ -53,7 +55,12 @@ function App() {
               edit={ProductEdit}
               create={ProductCreate}
             />
-            <Resource name="measures" list={MeasureList} edit={MeasureEdit} />
+            <Resource
+              name="measures"
+              list={MeasureList}
+              edit={MeasureEdit}
+              create={MeasureCreate}
+            />
           </Admin>
         ) : (
           "loading..."
