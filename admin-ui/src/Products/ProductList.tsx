@@ -1,21 +1,30 @@
-import { CheckboxGroupInput, Datagrid, List, NumberField, TextField } from "react-admin"
+import {
+  BooleanField,
+  Datagrid,
+  EditButton,
+  List,
+  ListProps,
+  NumberField,
+  TextField,
+} from "react-admin";
 
-export const ProductList = () => {
-    return (
-        <List title="ProductList">
-            <Datagrid>
-                <TextField source="nameEn" fullWidth/>
-                <TextField source="nameFr" fullWidth/>
-                <TextField source="code" />
-                <NumberField source="price" />
-                <NumberField source="quantity" />
-                <TextField source="unit" />
-                <CheckboxGroupInput source="isArchived" />
-                
-            </Datagrid>
-        </List>
-    )
-}
+export const ProductList = (props: ListProps) => {
+  return (
+    <List {...props} title="ProductList">
+      <Datagrid>
+        <TextField source="id" fullWidth />
+        <TextField source="nameEn" fullWidth />
+        <TextField source="nameFr" fullWidth />
+        <TextField source="code" />
+        <NumberField source="price" />
+        <NumberField source="quantity" />
+        <TextField source="unit" />
+        <BooleanField source="isArchived" />
+        <EditButton />
+      </Datagrid>
+    </List>
+  );
+};
 
 // name_en text not null,
 //     name_fr text,

@@ -1,30 +1,16 @@
 import { useApolloClient } from "@apollo/client";
 import pgDataProvider from "ra-postgraphile";
 import { useEffect, useState } from "react";
-import {
-  Admin,
-  Datagrid,
-  DataProvider,
-  Layout,
-  List,
-  ListProps,
-  Resource,
-  TextField,
-} from "react-admin";
+import { Admin, DataProvider, Layout, Resource } from "react-admin";
 import { useAuth } from "./Auth";
 import { MealCreate } from "./Meals/MealCreate";
 import { MealEdit } from "./Meals/MealEdit";
 import { MealList } from "./Meals/MealList";
-
-const ProductList = (props: ListProps) => {
-  return (
-    <List {...props} title="Products List">
-      <Datagrid>
-        <TextField source="rowId"></TextField>
-      </Datagrid>
-    </List>
-  );
-};
+import { MeasureEdit } from "./Measure/MeasureEdit";
+import { MeasureList } from "./Measure/MeasureList";
+import { ProductCreate } from "./Products/ProductCreate";
+import { ProductEdit } from "./Products/ProductEdit";
+import { ProductList } from "./Products/ProductList";
 
 function App() {
   const auth = useAuth();
@@ -55,8 +41,19 @@ function App() {
             layout={Layout}
             requireAuth
           >
-            <Resource name="meals" list={MealList} edit={MealEdit} create={MealCreate}/>
-            <Resource name="products" list={ProductList} />
+            <Resource
+              name="meals"
+              list={MealList}
+              edit={MealEdit}
+              create={MealCreate}
+            />
+            <Resource
+              name="products"
+              list={ProductList}
+              edit={ProductEdit}
+              create={ProductCreate}
+            />
+            <Resource name="measures" list={MeasureList} edit={MeasureEdit} />
           </Admin>
         ) : (
           "loading..."

@@ -1,9 +1,9 @@
 import { RichTextInput } from "ra-input-rich-text";
 import {
-    CheckboxGroupInput,
-    NumberInput,
-    SimpleForm,
-    TextInput
+  CheckboxGroupInput,
+  NumberInput,
+  SimpleForm,
+  TextInput,
 } from "react-admin";
 
 export const MealForm = () => {
