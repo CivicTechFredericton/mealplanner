@@ -9,6 +9,11 @@ import { MealList } from "./Meals/MealList";
 import { MeasureCreate } from "./Measure/MeasureCreate";
 import { MeasureEdit } from "./Measure/MeasureEdit";
 import { MeasureList } from "./Measure/MeasureList";
+import { NutritionEdit } from "./Nutrition/NutritionEdit";
+import { NutritionList } from "./Nutrition/NutritionList";
+import { NutritionShow } from "./Nutrition/NutritionShow";
+import { PersonList } from "./People/PersonList";
+import { UserShow } from "./People/UserShow";
 import { ProductCreate } from "./Products/ProductCreate";
 import { ProductEdit } from "./Products/ProductEdit";
 import { ProductList } from "./Products/ProductList";
@@ -21,10 +26,14 @@ function App() {
   useEffect(() => {
     pgDataProvider(client, {
       typeMap: {
-        Meal: { excludeFields: ["id"] },
+        Meal: { excludeFields: ["id"], expand: true },
         Product: { excludeFields: ["id"] },
         Measure: { excludeFields: ["id"] },
         Person: { excludeFields: ["id"] },
+        CurrentPerson: { excludeFields: ["id"] },
+        CurrentUser: { excludeFields: ["id"] },
+        Nutrition: { excludeFields: ["id"] },
+        // AppPrivate.account: {excludeField: ["id"]}
       },
     })
       .then((resolvedValue) => setDataProvider(resolvedValue))
@@ -43,11 +52,13 @@ function App() {
             layout={Layout}
             requireAuth
           >
+            <Resource name="CurrentUser" show={UserShow} />
             <Resource
               name="meals"
               list={MealList}
               edit={MealEdit}
               create={MealCreate}
+              // show={NutritionShow}
             />
             <Resource
               name="products"
@@ -60,6 +71,13 @@ function App() {
               list={MeasureList}
               edit={MeasureEdit}
               create={MeasureCreate}
+            />
+            <Resource name="people" list={PersonList} />
+            <Resource
+              name="nutrition"
+              list={NutritionList}
+              edit={NutritionEdit}
+              show={NutritionShow}
             />
           </Admin>
         ) : (

@@ -15,6 +15,7 @@ import {
   UrlField,
   useRecordContext,
 } from "react-admin";
+import { NutritionShow } from "../Nutrition/NutritionShow";
 
 export const MealList = (props: ListProps) => {
   return (
@@ -75,6 +76,12 @@ const Details = () => {
           <UrlField source="videoUrl" />
           <DateField source="createdAt" showTime />
           <DateField source="updatedAt" showTime />
+        </Tab>
+        <Tab label="Nutrition">
+          {/* <FunctionField render={(rec) => {console.log("record", rec); return (<p>{rec.nutrition?.nutritionableType}</p>)}}/> */}
+          <ReferenceField reference="nutrition" source="id">
+            <NutritionShow />
+          </ReferenceField>
         </Tab>
       </TabbedShowLayout>
     </>
