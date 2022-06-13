@@ -2,19 +2,19 @@ import {
   Datagrid,
   DateField,
   EditButton,
-  FieldProps,
   List,
   ListProps,
   NumberField,
   ReferenceField,
   ReferenceManyField,
   RichTextField,
+  SingleFieldList,
   Tab,
   TabbedShowLayout,
   TextField,
   UrlField,
-  useRecordContext,
 } from "react-admin";
+import { ListField } from "../ListField";
 import { NutritionShow } from "../Nutrition/NutritionShow";
 
 export const MealList = (props: ListProps) => {
@@ -36,7 +36,6 @@ export const MealList = (props: ListProps) => {
 };
 
 const Details = () => {
-  const record = useRecordContext();
   return (
     <>
       <TabbedShowLayout syncWithLocation={false}>
@@ -48,7 +47,7 @@ const Details = () => {
             target="mealId"
           >
             <Datagrid>
-              <TextField source="rowId" />
+              {/* <TextField source="rowId" /> */}
               <TextField source="productId" label="Product ID" />
               <ReferenceField
                 label="Product Name"
@@ -78,23 +77,17 @@ const Details = () => {
           <DateField source="updatedAt" showTime />
         </Tab>
         <Tab label="Nutrition">
-          {/* <FunctionField render={(rec) => {console.log("record", rec); return (<p>{rec.nutrition?.nutritionableType}</p>)}}/> */}
-          <ReferenceField reference="nutrition" source="id">
-            <NutritionShow />
-          </ReferenceField>
+          <ReferenceManyField
+            reference="nutrition"
+            target="nutritionableId"
+            filter={{ nutritionableType: "meal" }}
+          >
+            <SingleFieldList>
+              <NutritionShow />
+            </SingleFieldList>
+          </ReferenceManyField>
         </Tab>
       </TabbedShowLayout>
     </>
-  );
-};
-
-export const ListField = (props: FieldProps) => {
-  const record = useRecordContext();
-  return (
-    <ul>
-      {record[props.source!].map((item: string) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
   );
 };

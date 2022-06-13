@@ -5,13 +5,18 @@ import {
   List,
   ListProps,
   NumberField,
+  ReferenceManyField,
+  SingleFieldList,
   TextField,
+  UrlField,
 } from "react-admin";
+import { ListField } from "../ListField";
+import { NutritionShow } from "../Nutrition/NutritionShow";
 
 export const ProductList = (props: ListProps) => {
   return (
     <List {...props} title="ProductList">
-      <Datagrid>
+      <Datagrid expand={NutritionDetails}>
         <TextField source="id" fullWidth />
         <TextField source="nameEn" fullWidth />
         <TextField source="nameFr" fullWidth />
@@ -20,19 +25,28 @@ export const ProductList = (props: ListProps) => {
         <NumberField source="quantity" />
         <TextField source="unit" />
         <BooleanField source="isArchived" />
+        <TextField source="upc" />
+        <UrlField source="sourceLink" />
+        <ListField source="tags" />
         <EditButton />
       </Datagrid>
     </List>
   );
 };
 
-// name_en text not null,
-//     name_fr text,
-//     code text not null,
-//     price numeric not null,
-//     quantity numeric not null,
-//     unit text not null,
-//     is_archived boolean not null default false,
-//     upc text,
-//     source_link text,
-//     tags text[],
+const NutritionDetails = () => {
+  return (
+    <>
+      <h3>Nutrition Information</h3>
+      <ReferenceManyField
+        reference="nutrition"
+        target="nutritionableId"
+        filter={{ nutritionableType: "product" }}
+      >
+        <SingleFieldList>
+          <NutritionShow />
+        </SingleFieldList>
+      </ReferenceManyField>
+    </>
+  );
+};

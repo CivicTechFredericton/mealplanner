@@ -10,7 +10,8 @@ export const ProductForm = () => {
       <NumberInput source="quantity" />
       <TextInput source="unit" />
       <BooleanInput source="isArchived" />
-      <TextInput source="source_link" />
+      <TextInput source="upc" />
+      <TextInput source="sourceLink" />
       <TextInput source="tags" />
     </SimpleForm>
   );

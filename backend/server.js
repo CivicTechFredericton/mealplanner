@@ -30,7 +30,7 @@ const postgraphileOptions = {
   dynamicJson: true,
   setofFunctionsContainNulls: false,
   ignoreRBAC: false,
-  ignoreIndexes: false,
+  ignoreIndexes: true,
   showErrorStack: "json",
   extendedErrors: ["hint", "detail", "errcode"],
   pluginHook: pluginHook,

@@ -9,9 +9,9 @@ import { MealList } from "./Meals/MealList";
 import { MeasureCreate } from "./Measure/MeasureCreate";
 import { MeasureEdit } from "./Measure/MeasureEdit";
 import { MeasureList } from "./Measure/MeasureList";
+import { NutritionCreate } from "./Nutrition/NutritionCreate";
 import { NutritionEdit } from "./Nutrition/NutritionEdit";
 import { NutritionList } from "./Nutrition/NutritionList";
-import { NutritionShow } from "./Nutrition/NutritionShow";
 import { PersonList } from "./People/PersonList";
 import { UserShow } from "./People/UserShow";
 import { ProductCreate } from "./Products/ProductCreate";
@@ -77,7 +77,7 @@ function App() {
               name="nutrition"
               list={NutritionList}
               edit={NutritionEdit}
-              show={NutritionShow}
+              create={NutritionCreate}
             />
           </Admin>
         ) : (
