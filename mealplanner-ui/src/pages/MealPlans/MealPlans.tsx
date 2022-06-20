@@ -1,4 +1,4 @@
-import { DeleteTwoTone, ShoppingCart } from "@mui/icons-material";
+import { DeleteTwoTone, Search, ShoppingCart } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
@@ -13,6 +13,8 @@ import {
   IconButtonProps,
   ImageList,
   ImageListItem,
+  InputBase,
+  Paper,
   styled,
   Typography,
 } from "@mui/material";
@@ -21,6 +23,7 @@ import React from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { useNavigate } from "react-router";
 import { MealPlanNode } from "../../state/types";
+import { CreateMealPlan } from "./CreateMealPlan";
 import { MealPlansQuery } from "./__generated__/MealPlansQuery.graphql";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -44,21 +47,26 @@ interface MealPlanCardProps {
 
 const mealPlansQuery = graphql`
   query MealPlansQuery {
-    mealPlans {
-      nodes {
-        id
-        rowId
-        nameEn
-        descriptionEn
-        person {
-          fullName
-        }
-        tags
-        mealPlanEntries {
-          nodes {
-            meal {
-              id
-              photoUrl
+    mealPlans(orderBy: [CREATED_AT_DESC], first: 1000)
+      @connection(key: "connection_mealPlans") {
+      __id
+      edges {
+        cursor
+        node {
+          id
+          rowId
+          nameEn
+          descriptionEn
+          person {
+            fullName
+          }
+          tags
+          mealPlanEntries {
+            nodes {
+              meal {
+                id
+                photoUrl
+              }
             }
           }
         }
@@ -179,9 +187,40 @@ export const MealPlans = () => {
   );
   return (
     <div>
+      <Grid
+        container
+        spacing={2}
+        columns={2}
+        justifyContent="right"
+        gap="2rem"
+        margin="1rem"
+        width="95%"
+      >
+        <Paper
+          component="form"
+          sx={{
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            width: "75%",
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search Meal plan"
+            inputProps={{ "aria-label": "Search Meal Plan" }}
+          />
+          <Search></Search>
+        </Paper>
+        {data.mealPlans ? (
+          <CreateMealPlan connection={data.mealPlans?.__id} />
+        ) : (
+          <></>
+        )}
+      </Grid>
       <Grid container spacing={2} margin="1rem" columns={4}>
-        {data.mealPlans?.nodes.map((mealplan) => (
-          <MealPlanCard mealplan={mealplan} />
+        {data.mealPlans?.edges.map(({ node }) => (
+          <MealPlanCard mealplan={node} />
         ))}
       </Grid>
     </div>

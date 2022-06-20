@@ -5,4 +5,10 @@ export type SearchedMeal = Exclude<
   null
 >[number];
 
-export type MealPlanNode = Exclude<Exclude<MealPlansQuery$data["mealPlans"], null>["nodes"], null>[number];
+export type MealPlanNode = Exclude<
+  Exclude<
+    Exclude<MealPlansQuery$data["mealPlans"], null>["edges"],
+    null
+  >[number]["node"],
+  null
+>;
