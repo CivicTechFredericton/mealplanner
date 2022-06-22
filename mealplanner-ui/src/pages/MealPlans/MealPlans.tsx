@@ -24,6 +24,7 @@ import { useLazyLoadQuery } from "react-relay";
 import { useNavigate } from "react-router";
 import { MealPlanNode } from "../../state/types";
 import { CreateMealPlan } from "./CreateMealPlan";
+import { deleteMealPlan } from "./DeleteMealPlan";
 import { MealPlansQuery } from "./__generated__/MealPlansQuery.graphql";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -43,6 +44,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 interface MealPlanCardProps {
   mealplan: MealPlanNode;
+  connection: string;
 }
 
 const mealPlansQuery = graphql`
@@ -91,6 +93,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
   const [expanded, setExpanded] = React.useState(false);
   const navigate = useNavigate();
   const mealplan = props.mealplan;
+  const connection = props.connection;
   const handleExpandClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setExpanded(!expanded);
@@ -121,7 +124,14 @@ const MealPlanCard = (props: MealPlanCardProps) => {
               <IconButton aria-label="shopping list">
                 <ShoppingCart />
               </IconButton>
-              <IconButton aria-label="delete">
+              <IconButton
+                aria-label="delete"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("meal plan id: ", typeof mealplan.rowId);
+                  deleteMealPlan(connection, mealplan.rowId);
+                }}
+              >
                 <DeleteTwoTone />
               </IconButton>
             </div>
@@ -218,11 +228,15 @@ export const MealPlans = () => {
           <></>
         )}
       </Grid>
-      <Grid container spacing={2} margin="1rem" columns={4}>
-        {data.mealPlans?.edges.map(({ node }) => (
-          <MealPlanCard mealplan={node} />
-        ))}
-      </Grid>
+      {data.mealPlans ? (
+        <Grid container spacing={2} margin="1rem" columns={4}>
+          {data.mealPlans?.edges.map(({ node }) => (
+            <MealPlanCard mealplan={node} connection={data.mealPlans!.__id} />
+          ))}
+        </Grid>
+      ) : (
+        "No mealplans"
+      )}
     </div>
   );
 };
