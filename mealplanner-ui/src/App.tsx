@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import React, { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
@@ -8,6 +8,7 @@ import { LoggedIn } from "./LoggedIn";
 import { Login } from "./pages/Login";
 import { MealPlan } from "./pages/MealPlans/MealPlan";
 import { MealPlans } from "./pages/MealPlans/MealPlans";
+import { ShoppingList } from "./pages/ShoppingList";
 import environment from "./relay/environment";
 import { fetchCurrentPerson, initState } from "./state/state";
 
@@ -43,11 +44,11 @@ initState();
 function App() {
   let [intialized, setInitialized] = useState(false);
   useEffect(() => {
-  fetchCurrentPerson().then(() => {
-    setInitialized(true);
-  })
+    fetchCurrentPerson().then(() => {
+      setInitialized(true);
+    });
   }, []);
-  if(!intialized) {
+  if (!intialized) {
     return <h1>loading...</h1>;
   }
   return (
@@ -60,9 +61,18 @@ function App() {
               element={
                 <Suspense fallback={"loading inner..."}>
                   <LoggedIn>
-                  <MealPlan />
+                    <MealPlan />
                   </LoggedIn>
-                  
+                </Suspense>
+              }
+            />
+            <Route
+              path="/mealplans/:id/shopping-list"
+              element={
+                <Suspense fallback={"loading inner..."}>
+                  <LoggedIn>
+                    <ShoppingList />
+                  </LoggedIn>
                 </Suspense>
               }
             />
@@ -71,8 +81,8 @@ function App() {
               element={
                 <Suspense fallback={"loading Mealplans list..."}>
                   <LoggedIn>
-                  <MealPlans />
-                  </LoggedIn> 
+                    <MealPlans />
+                  </LoggedIn>
                 </Suspense>
               }
             />
@@ -82,10 +92,6 @@ function App() {
                 <Suspense fallback={"loading Login..."}>
                   <Login />
                 </Suspense>
-                // <h4>
-                //   This page is not yet implemented. Go to mealplans/:id Eg;
-                //   localhost/mealplans/3
-                // </h4>
               }
             >
               {" "}

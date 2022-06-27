@@ -121,7 +121,14 @@ const MealPlanCard = (props: MealPlanCardProps) => {
           }
           action={
             <div>
-              <IconButton aria-label="shopping list">
+              <IconButton
+                aria-label="shopping list"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("stopped propagation");
+                  navigate(`/mealplans/${mealplan.rowId}/shopping-list`);
+                }}
+              >
                 <ShoppingCart />
               </IconButton>
               <IconButton

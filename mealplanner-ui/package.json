@@ -18,6 +18,7 @@
     "babel-jest": "^27.5.1",
     "babel-plugin-relay": "^13.0.2",
     "graphql": "^16.3.0",
+    "moment": "^2.29.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-relay": "^13.0.2",
@@ -58,7 +59,9 @@
   "relay": {
     "src": "./src",
     "schema": "../backend/schema.graphql",
-    "schemaExtensions": ["./src"],
+    "schemaExtensions": [
+      "./src"
+    ],
     "exclude": [
       "**/node_modules/**",
       "**/__mocks__/**",
