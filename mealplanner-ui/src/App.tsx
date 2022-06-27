@@ -8,6 +8,7 @@ import { LoggedIn } from "./LoggedIn";
 import { Login } from "./pages/Login";
 import { MealPlan } from "./pages/MealPlans/MealPlan";
 import { MealPlans } from "./pages/MealPlans/MealPlans";
+import { Meals } from "./pages/Meals/Meals";
 import { ShoppingList } from "./pages/ShoppingList";
 import environment from "./relay/environment";
 import { fetchCurrentPerson, initState } from "./state/state";
@@ -83,6 +84,16 @@ function App() {
                   <LoggedIn>
                     <MealPlans />
                   </LoggedIn>
+                </Suspense>
+              }
+            />
+            <Route
+              path="/meals"
+              element={
+                <Suspense fallback={"loading Meals list..."}>
+                  {/* <LoggedIn> */}
+                  <Meals />
+                  {/* </LoggedIn> */}
                 </Suspense>
               }
             />
