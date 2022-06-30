@@ -29,7 +29,7 @@ begin;
         VALUES ('cc_side', 'coriander coconut chutney', 'chutney de coriandre à la noix de coco', '{"side dish", "vegetarian", "vegan", "indian cuisine"}', 
                 'It can be used  to eat along with idli, dosa, vada, bonda or bajji', 
 		'Il peut être utilisé pour manger avec idli, dosa vada, bonda ou bajji', 
-                '{"Breakfast", "Snack", "Dinner"}', 'http://photo_url', 'http://video_url', 
+                '{"Breakfast", "Snack", "Dinner"}', null, null, 
                 '1. Clean the bunch of coriander leaves thoroughly.
 2. grind 1 cup of coconut chunks to powder in a mixie
 3. Then add 3/4th cup of roasted gram,  3 red chilli, 1 inch ginger and grind it
@@ -42,7 +42,7 @@ begin;
                ('cs_side', 'Cucumber Dill Salad',       '', '{"side dish", "vegetarian", "vegan", "salad"}', 
                 '', 
 		'', 
-                '{"Lunch", "Dinner"}', 'http://photo_url', 'http://video_url', 
+                '{"Lunch", "Dinner"}', null, null, 
                 '1. Wash and dry the cucumber. The skin can be left on or partially removed. If using field cucumbers, peel and remove seeds prior to slicing.
 2. Slice the cucumbers as thinly as possible (almost see through). Set aside
 3. Place the vinegar, sugar, salt and pepper in a mixing bowl and whisk until the sugar has dissolved completely
@@ -55,7 +55,7 @@ begin;
                ('bb_brkf', 'Breakfast Burrito',         '', '{"breakfast", "lunch", "school"}', 
                 '', 
 		'', 
-                '{"Lunch", "Breakfast"}', 'http://photo_url', 'http://video_url', 
+                '{"Lunch", "Breakfast"}', null, null, 
                 '1. Heat a frying pan or skillet over medium heat. Add the diced bacon and fry until just beginning to crisp. Add the peppers, onion and jalapeno if using and fry, stirring occasionally, until the bacon is cooked and the vegetables are softened. Remove bacon and vegetables from the pan and set aside. Pour off the fat from the pan and discard. Wipe out the pan with a paper towel.
 
 2. In a bowl, whisk the egg, milk salt and pepper together. Add 1 Tbsp. / 15 ml of oil to the pan and heat over medium to low heat. Add the egg mixture and stirring, cook the eggs until just set.
@@ -68,7 +68,7 @@ begin;
                ('mc_main', 'Macaroni and Cheese',       '', '{"dinner", "pasta", "stovetop"}', 
                 '', 
 		'', 
-                '{"Lunch", "Dinner"}', 'http://photo_url', 'http://video_url', 
+                '{"Lunch", "Dinner"}', null, null, 
                 'Preheat oven to 325 f 
 
 1. Bring 3 litres of water, with 1 Tsp. (5 ml) of salt to the boil. Add the macaroni noodles and cook following package directions. Stir occasionally during cooking. Drain and rinse well under cold water. Place in a colander and set aside.
