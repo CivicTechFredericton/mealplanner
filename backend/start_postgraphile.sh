@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # test for the presence of the schema
 export PGPASSWORD=${POSTGRES_PASSWORD}

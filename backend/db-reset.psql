@@ -11,3 +11,5 @@ drop schema if exists app_private, app cascade;
 \i 009-authorize-meal-designer.sql
 \i 010-shopping-list.sql
 \i 011-authorize-admin.sql
+\i 012-duplicate-meal-plan.sql
+\i 013-add-email-and-role-to-person.sql

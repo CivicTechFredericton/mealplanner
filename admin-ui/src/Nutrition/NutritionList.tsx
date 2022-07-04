@@ -1,13 +1,31 @@
 import {
   Datagrid,
   EditButton,
+  FieldProps,
   List,
   ListProps,
   NumberField,
+  ReferenceField,
   Tab,
   TabbedShowLayout,
   TextField,
+  useRecordContext
 } from "react-admin";
+
+export const NutritionReference = (props: FieldProps) => {
+  const record = useRecordContext();
+  if (!record) {
+    return <span>loading</span>;
+  }
+  return (
+    <ReferenceField
+      source="nutritionableId"
+      reference={`${record.nutritionableType}s`}
+    >
+      <TextField source="nameEn" />
+    </ReferenceField>
+  );
+};
 
 export const NutritionList = (props: ListProps) => {
   return (
@@ -17,7 +35,7 @@ export const NutritionList = (props: ListProps) => {
         <TextField source="servingSizeUnit" />
         <TextField source="servingSizeText" />
         <NumberField source="calories" />
-        <NumberField label="meal / product id" source="nutritionableId" />
+        <NutritionReference source="nutrionableId" />
         <TextField source="nutritionableType" />
         <EditButton />
       </Datagrid>

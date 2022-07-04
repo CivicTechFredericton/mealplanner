@@ -1,6 +1,7 @@
 //Reference: https://mui.com/components/app-bar/
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useTheme } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -13,13 +14,19 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { getCurrentPerson, logout } from "../state/state";
 
-const pages = ["Home", "Meals", "Plans"];
 const settings = ["Logout"];
 
 const ResponsiveAppBar = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const buttonStyle = {
+    textDecoration: "none",
+    color: theme.palette.primary.contrastText,
+  };
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -85,11 +92,16 @@ const ResponsiveAppBar = () => {
                     display: { xs: "block", md: "none" },
                   }}
                 >
-                  {pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page}</Typography>
-                    </MenuItem>
-                  ))}
+                  <MenuItem>
+                    <Link to="mealplans" onClick={handleCloseNavMenu}>
+                      <Typography>Meal Plans</Typography>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to="meals" onClick={handleCloseNavMenu}>
+                      <Typography>Meals</Typography>
+                    </Link>
+                  </MenuItem>
                 </Menu>
               </Box>
               <Typography
@@ -101,15 +113,24 @@ const ResponsiveAppBar = () => {
                 <img src="/images/logo.png" alt="MealPlanner" />
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                {pages.map((page) => (
-                  <Button
-                    key={page}
+                <Button color="info">
+                  <Link
+                    to="mealplans"
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    style={buttonStyle}
                   >
-                    {page}
-                  </Button>
-                ))}
+                    <Typography>Meal Plans</Typography>
+                  </Link>
+                </Button>
+                <Button>
+                  <Link
+                    to="meals"
+                    onClick={handleCloseNavMenu}
+                    style={buttonStyle}
+                  >
+                    <Typography>Meals</Typography>
+                  </Link>
+                </Button>
               </Box>
               <Box sx={{ flexGrow: 0 }}>
                 <Typography sx={{ display: "inline-block", mr: "12px" }}>

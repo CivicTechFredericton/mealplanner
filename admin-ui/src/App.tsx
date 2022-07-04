@@ -13,7 +13,6 @@ import { NutritionCreate } from "./Nutrition/NutritionCreate";
 import { NutritionEdit } from "./Nutrition/NutritionEdit";
 import { NutritionList } from "./Nutrition/NutritionList";
 import { PersonList } from "./People/PersonList";
-import { UserShow } from "./People/UserShow";
 import { ProductCreate } from "./Products/ProductCreate";
 import { ProductEdit } from "./Products/ProductEdit";
 import { ProductList } from "./Products/ProductList";
@@ -29,11 +28,8 @@ function App() {
         Meal: { excludeFields: ["id"], expand: true },
         Product: { excludeFields: ["id"] },
         Measure: { excludeFields: ["id"] },
-        Person: { excludeFields: ["id"] },
-        CurrentPerson: { excludeFields: ["id"] },
-        CurrentUser: { excludeFields: ["id"] },
         Nutrition: { excludeFields: ["id"] },
-        // AppPrivate.account: {excludeField: ["id"]}
+        Person: { excludeFields: ["id"] },
       },
     })
       .then((resolvedValue) => setDataProvider(resolvedValue))
@@ -52,13 +48,11 @@ function App() {
             layout={Layout}
             requireAuth
           >
-            <Resource name="CurrentUser" show={UserShow} />
             <Resource
               name="meals"
               list={MealList}
               edit={MealEdit}
               create={MealCreate}
-              // show={NutritionShow}
             />
             <Resource
               name="products"
@@ -72,12 +66,17 @@ function App() {
               edit={MeasureEdit}
               create={MeasureCreate}
             />
-            <Resource name="people" list={PersonList} />
+
             <Resource
               name="nutrition"
               list={NutritionList}
               edit={NutritionEdit}
               create={NutritionCreate}
+            />
+            <Resource
+              name="people"
+              options={{ label: "Users" }}
+              list={PersonList}
             />
           </Admin>
         ) : (
