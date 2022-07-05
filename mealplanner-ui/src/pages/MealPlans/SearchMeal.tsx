@@ -69,7 +69,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
           marginLeft="1rem"
           variant={"h5"}
         >
-          Meal Catalog
+          Select Meal from the list
         </Typography>
         <FormControl
           variant="filled"
