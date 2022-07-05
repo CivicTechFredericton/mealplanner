@@ -29,3 +29,32 @@ export const registerPerson = async (
        });
        return;
 }
+
+const resetPasswordMutation = gql`
+mutation ResetPassword($personId:BigInt, $passwd:String){
+  resetPassword(input:{
+    pId:$personId,
+    passwd:$passwd
+  }) {
+    person {
+      rowId
+      id
+      role
+      fullName
+      email
+    	updatedAt
+    }
+  }
+}`;
+
+export const resetPassword = async (
+    client: ApolloClient<object>,
+    personId: string, 
+    password: string
+) => {
+    const result = await client.mutate(
+        {mutation: resetPasswordMutation,
+            variables: {personId, passwd: password}
+        }
+    );
+}
