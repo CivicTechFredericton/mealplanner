@@ -19,6 +19,7 @@ import { MeasureList } from "./Measure/MeasureList";
 import { NutritionCreate } from "./Nutrition/NutritionCreate";
 import { NutritionEdit } from "./Nutrition/NutritionEdit";
 import { NutritionList } from "./Nutrition/NutritionList";
+import { PersonEdit } from "./People/PersonEdit";
 import { PersonList } from "./People/PersonList";
 import { Register } from "./People/Register";
 import { ResetPassword } from "./People/ResetPassword";
@@ -86,6 +87,7 @@ function App() {
               name="people"
               options={{ label: "Users" }}
               list={PersonList}
+              edit={PersonEdit}
             />
             <CustomRoutes>
               <Route path="people/register" element={<Register />} />

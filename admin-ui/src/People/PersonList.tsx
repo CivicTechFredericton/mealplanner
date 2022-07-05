@@ -2,6 +2,7 @@ import React from "react";
 import {
   Button,
   Datagrid,
+  EditButton,
   ExportButton,
   FieldProps,
   List,
@@ -77,6 +78,7 @@ export const PersonList = (props: ListProps) => {
           <TextField source="fullName" />
           <UserRole label="Role" />
           <TextField source="email" />
+          <EditButton />
           <ResetPassword />
         </Datagrid>
       </List>
