@@ -8,6 +8,7 @@ import { LoggedIn } from "./LoggedIn";
 import { Login } from "./pages/Login";
 import { MealPlan } from "./pages/MealPlans/MealPlan";
 import { MealPlans } from "./pages/MealPlans/MealPlans";
+import { Meal } from "./pages/Meals/Meal";
 import { Meals } from "./pages/Meals/Meals";
 import { ShoppingList } from "./pages/ShoppingList";
 import environment from "./relay/environment";
@@ -94,6 +95,16 @@ function App() {
                   {/* <LoggedIn> */}
                   <Meals />
                   {/* </LoggedIn> */}
+                </Suspense>
+              }
+            />
+            <Route
+              path="/meals/:id"
+              element={
+                <Suspense fallback={"loading inner..."}>
+                  <LoggedIn>
+                    <Meal />
+                  </LoggedIn>
                 </Suspense>
               }
             />
