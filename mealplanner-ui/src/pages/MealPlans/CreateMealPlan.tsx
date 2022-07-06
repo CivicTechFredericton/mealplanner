@@ -46,7 +46,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
     return { label: user.fullName, rowId: user.rowId, id: user.id };
   });
 
-  const [user, setUser] = useState<userType | null>(null);
+  const [userId, setUserId] = useState<userType | null>(null);
   const [nameEn, setNameEn] = useState<string>("");
   const [nameFr, setNameFr] = useState<string>("");
   const [descriptionEn, setDescriptionEn] = useState<string>("");
@@ -82,7 +82,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                   />
                 )}
                 onChange={(e, value) => {
-                  setUser(value?.rowId);
+                  setUserId(value?.rowId);
                 }}
               ></Autocomplete>
             </Grid>
@@ -176,7 +176,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                 nameFr: nameFr,
                 descEn: descriptionEn,
                 descFr: descriptionFr,
-                personId: user?.rowId || null,
+                personId: userId || null,
                 tags: tags,
                 connections: [connection],
               }).then(() => {

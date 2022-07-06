@@ -115,7 +115,6 @@ const MealPlanCard = (props: MealPlanCardProps) => {
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: "green", width: "fit" }} aria-label="user">
-              {/* {mealplan.person?.fullName} */}
               {getInitials(mealplan.person?.fullName || "")}
             </Avatar>
           }
