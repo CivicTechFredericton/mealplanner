@@ -1,34 +1,19 @@
 {
- "name": "jest-e2e",
- "version": "1.0.0",
- "description": "",
- "main": "index.js",
- "scripts": {
-  "test": "jest",
-  "test:e2e": "wait-on http://localhost:3000/testproject-demo/build/ && react-scripts test --testPathPattern=\"(\\.|/)e2e\\.(test|spec)\\.[jt]sx?$\" --testTimeout=30000 --runInBand --watchAll=false"
- },
- "type": "module",
- "jest": {
-  "collectCoverage": true,
-  "coverageReporters": [
-   "lcov"
-  ],
-  "coverageDirectory": "./output/code-coverage/",
-  "reporters": [
-   "default",
-   "./node_modules/jest-html-reporter"
-  ]
- },
- "author": "",
- "license": "ISC",
- "dependencies": {
-  "botbuilder": "^3.13.1",
-  "builder": "^5.0.0",
-  "jest": "^28.1.0"
- },
- "devDependencies": {
-  "@tpio/javascript-opensdk": "^0.1.1",
-  "jest-html-reporter": "^3.5.0",
-  "selenium-webdriver": "^4.2.0"
- }
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --transformIgnorePatterns \"node_modules/(?!your-module-name)/\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.18.6",
+    "jest": "^28.1.1"
+  },
+  "dependencies": {
+    "react-test-renderer": "^18.2.0",
+    "selenium-webdriver": "^4.3.0"
+  }
 }
