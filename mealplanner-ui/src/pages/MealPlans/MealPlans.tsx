@@ -1,4 +1,4 @@
-import { DeleteTwoTone, ShoppingCart } from "@mui/icons-material";
+import { DeleteTwoTone, Search, ShoppingCart } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
@@ -13,6 +13,8 @@ import {
   IconButtonProps,
   ImageList,
   ImageListItem,
+  InputBase,
+  Paper,
   styled,
   Typography,
 } from "@mui/material";
@@ -21,6 +23,8 @@ import React from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { useNavigate } from "react-router";
 import { MealPlanNode } from "../../state/types";
+import { CreateMealPlan } from "./CreateMealPlan";
+import { deleteMealPlan } from "./DeleteMealPlan";
 import { MealPlansQuery } from "./__generated__/MealPlansQuery.graphql";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -40,25 +44,31 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 interface MealPlanCardProps {
   mealplan: MealPlanNode;
+  connection: string;
 }
 
 const mealPlansQuery = graphql`
   query MealPlansQuery {
-    mealPlans {
-      nodes {
-        id
-        rowId
-        nameEn
-        descriptionEn
-        person {
-          fullName
-        }
-        tags
-        mealPlanEntries {
-          nodes {
-            meal {
-              id
-              photoUrl
+    mealPlans(orderBy: [CREATED_AT_DESC], first: 1000)
+      @connection(key: "connection_mealPlans") {
+      __id
+      edges {
+        cursor
+        node {
+          id
+          rowId
+          nameEn
+          descriptionEn
+          person {
+            fullName
+          }
+          tags
+          mealPlanEntries {
+            nodes {
+              meal {
+                id
+                photoUrl
+              }
             }
           }
         }
@@ -83,6 +93,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
   const [expanded, setExpanded] = React.useState(false);
   const navigate = useNavigate();
   const mealplan = props.mealplan;
+  const connection = props.connection;
   const handleExpandClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setExpanded(!expanded);
@@ -104,16 +115,29 @@ const MealPlanCard = (props: MealPlanCardProps) => {
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: "green", width: "fit" }} aria-label="user">
-              {/* {mealplan.person?.fullName} */}
               {getInitials(mealplan.person?.fullName || "")}
             </Avatar>
           }
           action={
             <div>
-              <IconButton aria-label="shopping list">
+              <IconButton
+                aria-label="shopping list"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("stopped propagation");
+                  navigate(`/mealplans/${mealplan.rowId}/shopping-list`);
+                }}
+              >
                 <ShoppingCart />
               </IconButton>
-              <IconButton aria-label="delete">
+              <IconButton
+                aria-label="delete"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("meal plan id: ", typeof mealplan.rowId);
+                  deleteMealPlan(connection, mealplan.rowId);
+                }}
+              >
                 <DeleteTwoTone />
               </IconButton>
             </div>
@@ -179,11 +203,46 @@ export const MealPlans = () => {
   );
   return (
     <div>
-      <Grid container spacing={2} margin="1rem" columns={4}>
-        {data.mealPlans?.nodes.map((mealplan) => (
-          <MealPlanCard mealplan={mealplan} />
-        ))}
+      <Grid
+        container
+        spacing={2}
+        columns={2}
+        justifyContent="right"
+        gap="2rem"
+        margin="1rem"
+        width="95%"
+      >
+        <Paper
+          component="form"
+          sx={{
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            width: "75%",
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search Meal plan"
+            inputProps={{ "aria-label": "Search Meal Plan" }}
+          />
+          <Search></Search>
+        </Paper>
+        {data.mealPlans ? (
+          <CreateMealPlan connection={data.mealPlans?.__id} />
+        ) : (
+          <></>
+        )}
       </Grid>
+      {data.mealPlans ? (
+        <Grid container spacing={2} margin="1rem" columns={4}>
+          {data.mealPlans?.edges.map(({ node }) => (
+            <MealPlanCard mealplan={node} connection={data.mealPlans!.__id} />
+          ))}
+        </Grid>
+      ) : (
+        "No mealplans"
+      )}
     </div>
   );
 };

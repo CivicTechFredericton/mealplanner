@@ -69,7 +69,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
           marginLeft="1rem"
           variant={"h5"}
         >
-          Meal Catalog
+          Select Meal from the list
         </Typography>
         <FormControl
           variant="filled"
@@ -83,11 +83,6 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
               backgroundColor: theme.palette.primary.main,
               color: `${theme.palette.primary.contrastText}`,
             }}
-            label={
-              <h4 style={{ color: `${theme.palette.primary.contrastText}` }}>
-                Search for Meals
-              </h4>
-            }
             notched={false}
             startAdornment={
               <InputAdornment position="start">

@@ -1,13 +1,50 @@
+import { useState } from "react";
 import {
   NumberInput,
   RadioButtonGroupInput,
+  ReferenceInput,
+  SelectInput,
   SimpleForm,
   TextInput,
+  useCreateContext,
+  useEditContext,
 } from "react-admin";
+import { useParams } from "react-router-dom";
 
 export const NutritionForm = () => {
+  const params = useParams();
+
+  let record;
+  if (!params.id) {
+    record = useCreateContext();
+  } else {
+    record = useEditContext().record;
+    if (!record) {
+      return <div>"loading..."</div>;
+    }
+  }
+
+  const [nType, setNType] = useState(record.nutritionableType || "meal");
+
   return (
     <SimpleForm>
+      <RadioButtonGroupInput
+        label="Choose One"
+        source="nutritionableType"
+        choices={[{ name: "meal" }, { name: "product" }]}
+        optionValue="name"
+        defaultValue={"meal"}
+        onChange={(e) => {
+          setNType(e.target.value);
+        }}
+      />
+      <ReferenceInput
+        source="nutritionableId"
+        reference={`${nType}s`}
+        sort={{ field: "nameEn", order: "ASC" }}
+      >
+        <SelectInput label="Name" optionText="nameEn" />
+      </ReferenceInput>
       <NumberInput source="servingSize" />
       <TextInput source="servingSizeUnit" />
       <TextInput source="servingSizeText" />
@@ -49,12 +86,6 @@ export const NutritionForm = () => {
       <NumberInput source="calcium" />
       <NumberInput source="iron" />
       <NumberInput source="potassium" />
-      <NumberInput label="meal / product id" source="nutritionableId" />
-      <RadioButtonGroupInput
-        source="nutritionableType"
-        choices={[{ name: "meal" }, { name: "product" }]}
-        optionValue="name"
-      />
     </SimpleForm>
   );
 };
