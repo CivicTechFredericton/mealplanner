@@ -56,13 +56,13 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
     disableButton: true,
   }
 
-  const [userId, setUserId] = useState<userType | null>(null);
-  const [nameEn, setNameEn] = useState<string>("");
-  const [nameFr, setNameFr] = useState<string>("");
-  const [descriptionEn, setDescriptionEn] = useState<string>("");
-  const [descriptionFr, setDescriptionFr] = useState<string>("");
-  const [tags, setTags] = useState<string[]>([]);
-  const [disableButton, setDisableButton] = useState(true);
+  const [userId, setUserId] = useState<userType | null>(initState.userId);
+  const [nameEn, setNameEn] = useState<string>(initState.nameEn);
+  const [nameFr, setNameFr] = useState<string>(initState.nameFr);
+  const [descriptionEn, setDescriptionEn] = useState<string>(initState.descriptionEn);
+  const [descriptionFr, setDescriptionFr] = useState<string>(initState.descriptionFr);
+  const [tags, setTags] = useState<string[]>(initState.tags);
+  const [disableButton, setDisableButton] = useState(initState.disableButton);
 
   const isValid = nameEn !== "";
 
