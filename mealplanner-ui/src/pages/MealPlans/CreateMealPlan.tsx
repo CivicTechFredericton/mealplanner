@@ -33,13 +33,6 @@ type userType = {
 export const CreateMealPlan = ({ connection }: { connection: string }) => {
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const users = useLazyLoadQuery<CreateMealPlanAllUsersQuery>(query, {});
 
   const allUsers = users.people?.nodes.map((user) => {
@@ -65,6 +58,21 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
   const [disableButton, setDisableButton] = useState(initState.disableButton);
 
   const isValid = nameEn !== "";
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  
+  const handleClose = () => {
+    setUserId(initState.userId);
+    setNameEn(initState.nameEn);
+    setNameFr(initState.nameFr);
+    setDescriptionEn(initState.descriptionEn);
+    setDescriptionFr(initState.descriptionFr);
+    setTags(initState.tags);
+    setDisableButton(initState.disableButton);
+    setOpen(false);
+  };
 
   return (
     <>
