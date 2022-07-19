@@ -46,6 +46,16 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
     return { label: user.fullName, rowId: user.rowId, id: user.id };
   });
 
+  const initState = {
+    userId: null,
+    nameEn: "",
+    nameFr: "",
+    descriptionEn: "",
+    descriptionFr: "",
+    tags: [],
+    disableButton: true,
+  }
+
   const [userId, setUserId] = useState<userType | null>(null);
   const [nameEn, setNameEn] = useState<string>("");
   const [nameFr, setNameFr] = useState<string>("");
