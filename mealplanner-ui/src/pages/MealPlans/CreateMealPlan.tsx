@@ -30,6 +30,7 @@ type userType = {
   rowId: number;
   id: number;
 };
+
 export const CreateMealPlan = ({ connection }: { connection: string }) => {
   const [open, setOpen] = useState(false);
 
@@ -199,7 +200,6 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                 connections: [connection],
               }).then(() => {
                 handleClose();
-                setDisableButton(false);
               });
             }}
           >
