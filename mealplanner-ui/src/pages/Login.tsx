@@ -4,7 +4,7 @@ import {
   IconButton,
   InputAdornment,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
@@ -57,6 +57,7 @@ export const Login = () => {
         display: "flex",
         justifyContent: "center",
       }}
+      data-cy="login-page"
     >
       <section
         style={{
@@ -76,6 +77,7 @@ export const Login = () => {
         <TextField
           variant="filled"
           placeholder="user name"
+          data-cy="username-input"
           onChange={(e) => setUsername(e.target.value)}
         ></TextField>
 
@@ -83,6 +85,7 @@ export const Login = () => {
           type={showPassword ? "text" : "password"}
           placeholder="password"
           variant="filled"
+          data-cy="password-input"
           onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             endAdornment: (
@@ -106,6 +109,7 @@ export const Login = () => {
           onClick={(e) => {
             login(username, password);
           }}
+          data-cy="login-submit"
         >
           Login
         </Button>

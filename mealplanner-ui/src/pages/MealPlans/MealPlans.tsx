@@ -202,7 +202,7 @@ export const MealPlans = () => {
     { fetchPolicy: "store-or-network" }
   );
   return (
-    <div>
+    <div data-cy="mealplans-page">
       <Grid
         container
         spacing={2}
