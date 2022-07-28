@@ -109,7 +109,7 @@ export const Login = () => {
           onClick={(e) => {
             login(username, password);
           }}
-          data-cy="login-submit"
+          data-cy="submit-button"
         >
           Login
         </Button>
