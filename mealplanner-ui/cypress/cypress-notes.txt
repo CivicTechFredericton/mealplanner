@@ -1,0 +1,35 @@
+Once docker containers running, use 
+	$npm run cy:open
+to start cypress
+
+cy.dataCy function added to the commands.ts file in cypress
+	Cypress.Commands.add("dataCy", (value) => {
+	  return cy.get(`[data-cy=${value}]`);
+	});
+
+
+To select use cy.dataCy("example") to select given element.
+	the 'data-cy="example"' can be found in the given tags
+	
+<tag> represents the tag used in the JSX/TSX. 
+	Capitalized tags (ex <TextField> or <Button> are custom or Material UI React components). Lowercase tags are HTML.
+
+
+Login.tsx page found in Login.tsx in "mealplanner-ui/src/pages" (url path = "/")
+
+	<main> content on front page without header and footer
+		data-cy="login-page"
+
+	<TextField> for username input on front page
+		data-cy="username-input"
+
+	<TextField> for password input on front page
+		data-cy="password-input"
+
+	<Button> for login submit on front page
+		data-cy="login-submit"
+
+Mealplan.tsx Page found in "mealplanner-ui/src/pages/MealPlans" ( url path = "/mealplans" (showing /#/mealplans on my computer))
+
+	<div> content on meal plans page without header and footer
+		data-cy="mealplans-page"
