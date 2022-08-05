@@ -48,13 +48,17 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
     descriptionFr: "",
     tags: [],
     disableButton: true,
-  }
+  };
 
   const [userId, setUserId] = useState<userType | null>(initState.userId);
   const [nameEn, setNameEn] = useState<string>(initState.nameEn);
   const [nameFr, setNameFr] = useState<string>(initState.nameFr);
-  const [descriptionEn, setDescriptionEn] = useState<string>(initState.descriptionEn);
-  const [descriptionFr, setDescriptionFr] = useState<string>(initState.descriptionFr);
+  const [descriptionEn, setDescriptionEn] = useState<string>(
+    initState.descriptionEn
+  );
+  const [descriptionFr, setDescriptionFr] = useState<string>(
+    initState.descriptionFr
+  );
   const [tags, setTags] = useState<string[]>(initState.tags);
   const [disableButton, setDisableButton] = useState(initState.disableButton);
 
@@ -63,7 +67,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
   const handleOpen = () => {
     setOpen(true);
   };
-  
+
   const handleClose = () => {
     setUserId(initState.userId);
     setNameEn(initState.nameEn);
@@ -77,7 +81,11 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
 
   return (
     <>
-      <Button variant="contained" onClick={handleOpen}>
+      <Button
+        variant="contained"
+        onClick={handleOpen}
+        data-testid="create-new-mealplan-button"
+      >
         Create Meal plan
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -108,6 +116,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
             <Grid item xs={3}>
               <TextField
                 id="nameEn"
+                data-testid="nameEn"
                 label="Meal Plan Name*"
                 autoFocus
                 margin="dense"
@@ -202,6 +211,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                 handleClose();
               });
             }}
+            data-testid="submit-new-mealplan-button"
           >
             Create
           </Button>

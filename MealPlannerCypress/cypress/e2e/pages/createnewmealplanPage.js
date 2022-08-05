@@ -1,31 +1,30 @@
 class createnewmealplanPage {
+  createnewmealplanBtn() {
+    return cy.get('[data-testid="create-new-mealplan-button"');
+  }
 
-    createnewmealplanBtn() {
-        return cy.xpath('//*[@id="root"]/div/div/div[1]/button')
-    }
+  mealplannameEnInput() {
+    return cy.get('[id="nameEn" ]input');
+  }
 
-    mealplannameEnInput() {
-        return cy.get('[id="nameEn"]')
-    }
+  mealplannameFrInput() {
+    return cy.get('[id="nameFr"]');
+  }
 
-    mealplannameFrInput() {
-        return cy.get('[id="nameFr"]')
-    }
+  mealplandescriptionEnInput() {
+    return cy.get('[id="descriptionEn"]');
+  }
 
-    mealplandescriptionEnInput() {
-        return cy.get('[id="descriptionEn"]')
-    }
+  mealplandescriptionFrInput() {
+    return cy.get('[id="descriptionFr"]');
+  }
 
-    mealplandescriptionFrInput() {
-        return cy.get('[id="descriptionFr"]')
-    }
+  addTagInput() {
+    return cy.get('[placeholder="add tag"]');
+  }
 
-    addTagInput() {
-        return cy.get('[placeholder="add tag"]')
-    }
-
-    clickcreateBtn() {
-        return cy.get('.MuiDialogActions-root > .MuiButton-contained')
-    }
+  clickcreateBtn() {
+    return cy.get('[data-testid="submit-new-mealplan-button"]');
+  }
 }
-export default createnewmealplanPage
+export default createnewmealplanPage;
