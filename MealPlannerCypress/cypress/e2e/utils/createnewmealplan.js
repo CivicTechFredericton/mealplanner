@@ -16,5 +16,7 @@ Cypress.Commands.add("createnewmealplan", (data) => {
     .mealplandescriptionFrInput()
     .type(data.mealplandescriptionFr);
   createnewmealplan.addTagInput().type(data.addTag);
-  createnewmealplan.clickcreateBtn().click();
+  createnewmealplan.clickcreateBtn().click({ multiple: true });
+  cy.wait(500);
+  cy.contains("Keto Meal Plan");
 });
