@@ -131,6 +131,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
                 <ShoppingCart />
               </IconButton>
               <IconButton
+                data-testid={`${mealplan.nameEn}-delete`}
                 aria-label="delete"
                 onClick={(e) => {
                   e.stopPropagation();
