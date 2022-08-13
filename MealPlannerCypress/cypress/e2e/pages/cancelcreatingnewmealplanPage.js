@@ -1,4 +1,4 @@
-class createnewmealplanPage {
+class cancelcreatingnewmealplanPage {
 
     createnewmealplanBtn() {
 
@@ -29,8 +29,8 @@ class createnewmealplanPage {
         return cy.get('[data-testid="add-tag"]')
     }
 
-    clickcreateBtn() {
-        return cy.get('[data-testid="submit-new-mealplan-button"]')
+    clickcancelBtn() {
+        return cy.get('[data-testid="cancel-new-mealplan-button"]')
     }
 }
-export default createnewmealplanPage
+export default cancelcreatingnewmealplanPage

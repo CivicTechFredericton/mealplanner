@@ -6,12 +6,9 @@ import shoppinglistPage from '../pages/shoppinglistPage.js'
 const shoppinglist = new shoppinglistPage();
 
 
-// import shoppinglistPage from '../pages/shoppinglistPage.js'
-// const shoppinglist = new shoppinglistPage();
-
 Cypress.Commands.add('shoppinglist', () => {
     
 
-    shoppinglist.shoppinglistIcon().click({ multiple: true })
-    cy.url().should('include', '/shopping-list')
+    shoppinglist.shoppinglistIcon().click({multiple:true})
+     cy.url().should('include', '/shopping-list')
 })

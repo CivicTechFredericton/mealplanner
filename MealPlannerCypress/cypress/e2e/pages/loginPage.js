@@ -1,15 +1,15 @@
 class loginPage {
 
     usernameInput() {
-        return cy.get('[id="mui-1"]')
+        return cy.get('[data-testid="username-textField"] input')
     }
 
     passwordInput() {
-        return cy.get('[id="mui-2"]')
+        return cy.get('[data-testid="password-textField"] input')
     }
 
     loginBtn() {
-        return cy.get('[type="button"]')
+        return cy.get('[data-testid="login-button"]')
     }
 }
 export default loginPage
