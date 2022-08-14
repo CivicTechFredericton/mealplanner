@@ -14,13 +14,14 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-require('cypress-xpath')
+import "./commands";
+require("cypress-xpath");
 
-import '../e2e/utils/login.js'
-import '../e2e/utils/logout.js'
-import '../e2e/utils/createnewmealplan.js'
-import '../e2e/utils/shoppinglist.js'
+import "../e2e/utils/login.js";
+import "../e2e/utils/logout.js";
+import "../e2e/utils/createnewmealplan.js";
+import "../e2e/utils/shoppinglist.js";
+import "../e2e/utils/deletenewmealplan.js";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

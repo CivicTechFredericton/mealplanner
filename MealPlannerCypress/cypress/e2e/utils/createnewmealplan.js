@@ -5,9 +5,9 @@ const logout = new logoutPage();
 import createnewmealplanPage from "../pages/createnewmealplanPage.js";
 const createnewmealplan = new createnewmealplanPage();
 
-Cypress.Commands.add("createnewmealplan", (data) => {
+Cypress.Commands.add("createnewmealplan", (data, uniqueId) => {
   createnewmealplan.createnewmealplanBtn().click();
-  createnewmealplan.mealplannameEnInput().type(data.mealplannameEn);
+  createnewmealplan.mealplannameEnInput().type(uniqueId);
   createnewmealplan.mealplannameFrInput().type(data.mealplannameFr);
   createnewmealplan
     .mealplandescriptionEnInput()
@@ -16,7 +16,5 @@ Cypress.Commands.add("createnewmealplan", (data) => {
     .mealplandescriptionFrInput()
     .type(data.mealplandescriptionFr);
   createnewmealplan.addTagInput().type(data.addTag);
-  createnewmealplan.clickcreateBtn().click({ multiple: true });
-  cy.wait(500);
-  cy.contains("Keto Meal Plan");
+  createnewmealplan.clickcreateBtn().click();
 });
