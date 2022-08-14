@@ -1,15 +1,21 @@
 import testdata from "../fixtures/testdata.json";
 import createmealplantestdata from "../fixtures/createmealplantestdata.json";
+import { v4 as uuidv4 } from "uuid";
 
 describe("createnewmealplan", () => {
-  it("Validate successful Login", function () {
+  const uniqueId = uuidv4();
+  beforeEach(function () {
     cy.login(testdata);
-    cy.createnewmealplan(createmealplantestdata);
+  });
 
-    cy.contains(createmealplantestdata.mealplannameEn)
-      .get(`[data-testid="${createmealplantestdata.mealplannameEn}-delete"]`)
-      .click({ multiple: true });
-    cy.contains(createmealplantestdata.mealplannameEn).should("not.exist");
+  it("Create Meal", function () {
+    cy.createnewmealplan(createmealplantestdata, uniqueId);
+    cy.contains(uniqueId);
+  });
+
+  it("Delete Meal", function () {
+    cy.deletenewmealplan(uniqueId);
+    cy.contains(uniqueId).should("not.exist");
   });
 
   it("Validate successful Logout", function () {
