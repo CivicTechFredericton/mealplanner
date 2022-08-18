@@ -121,6 +121,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
           action={
             <div>
               <IconButton
+                data-testid={`${mealplan.nameEn}-shoppingListIcon`}
                 aria-label="shopping list"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -223,6 +224,7 @@ export const MealPlans = () => {
           }}
         >
           <InputBase
+            data-testid="search-meal"
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search Meal plan"
             inputProps={{ "aria-label": "Search Meal Plan" }}
