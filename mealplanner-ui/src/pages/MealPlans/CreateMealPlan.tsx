@@ -36,8 +36,15 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
 
   const users = useLazyLoadQuery<CreateMealPlanAllUsersQuery>(query, {});
 
+  console.log(users);
+
   const allUsers = users.people?.nodes.map((user) => {
-    return { label: user.fullName, rowId: user.rowId, id: user.id };
+    return {
+      label: user.fullName,
+      rowId: user.rowId,
+      id: user.id,
+      aria: user.fullName,
+    };
   });
 
   const initState = {
@@ -102,6 +109,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                 options={allUsers || []}
                 renderInput={(params) => (
                   <TextField
+                    data-testid="assign-user"
                     {...params}
                     label="Assign user"
                     id="user"

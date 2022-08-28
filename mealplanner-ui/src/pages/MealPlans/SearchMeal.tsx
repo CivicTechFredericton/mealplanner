@@ -74,6 +74,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
         <FormControl
           variant="filled"
           sx={{ width: "100%", color: `${theme.palette.primary.contrastText}` }}
+          data-testid="search-for-meals"
         >
           <InputLabel sx={{ color: `${theme.palette.primary.contrastText}` }}>
             Search for meals

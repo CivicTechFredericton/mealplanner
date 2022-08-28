@@ -22,6 +22,7 @@ import "../e2e/utils/logout.js";
 import "../e2e/utils/createnewmealplan.js";
 import "../e2e/utils/shoppinglist.js";
 import "../e2e/utils/deletenewmealplan.js";
+import "../e2e/utils/editMealPlanNameUser.js";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

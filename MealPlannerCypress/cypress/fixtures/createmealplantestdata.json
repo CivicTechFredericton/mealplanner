@@ -1,9 +1,8 @@
 {
-
-    "mealplannameEn":"Keto Meal Plan",
-    "mealplannameFr":"Plan de repas Keto",
-    "mealplandescriptionEn":"Focus on high fat, low carb foods like eggs, meats",
-    "mealplandescriptionFr":"Concentrez-vous sur les aliments riches en graisses et faibles en glucides comme les œufs, la viande",
-    "addTag":"low-carbs{enter}"
-
+  "mealplannameEn": "Keto Meal Plan",
+  "mealplannameFr": "Plan de repas Keto",
+  "mealplandescriptionEn": "Focus on high fat, low carb foods like eggs, meats",
+  "mealplandescriptionFr": "Concentrez-vous sur les aliments riches en graisses et faibles en glucides comme les œufs, la viande",
+  "addTag": "low-carbs{enter}",
+  "user": "Admin"
 }

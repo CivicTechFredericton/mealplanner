@@ -5,8 +5,12 @@ const logout = new logoutPage();
 import createnewmealplanPage from "../pages/createnewmealplanPage.js";
 const createnewmealplan = new createnewmealplanPage();
 
-Cypress.Commands.add("createnewmealplan", (data, uniqueId) => {
+Cypress.Commands.add("createnewmealplan", (data, uniqueId, userOption) => {
+  let user;
+  userOption ? (user = userOption) : (user = data.user);
+
   createnewmealplan.createnewmealplanBtn().click();
+
   createnewmealplan.mealplannameEnInput().type(uniqueId);
   createnewmealplan.mealplannameFrInput().type(data.mealplannameFr);
   createnewmealplan
@@ -16,5 +20,7 @@ Cypress.Commands.add("createnewmealplan", (data, uniqueId) => {
     .mealplandescriptionFrInput()
     .type(data.mealplandescriptionFr);
   createnewmealplan.addTagInput().type(data.addTag);
+  createnewmealplan.assignUserInput().click();
+  cy.get(".css-bckmzb-MuiAutocomplete-popper").contains(user).click();
   createnewmealplan.clickcreateBtn().click();
 });

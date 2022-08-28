@@ -23,6 +23,10 @@ class createnewmealplanPage {
     return cy.get('[placeholder="add tag"]');
   }
 
+  assignUserInput() {
+    return cy.get('[data-testid="assign-user"]');
+  }
+
   clickcreateBtn() {
     return cy.get('[data-testid="submit-new-mealplan-button"]');
   }

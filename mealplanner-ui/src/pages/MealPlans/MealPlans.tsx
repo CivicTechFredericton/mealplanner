@@ -102,6 +102,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
   return (
     <Grid item xs="auto">
       <Card
+        data-testid={`${mealplan.nameEn}-card`}
         sx={{ maxWidth: 332 }}
         onClick={(e) => {
           e.preventDefault();
