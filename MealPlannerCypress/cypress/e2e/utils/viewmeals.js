@@ -1,0 +1,22 @@
+import viewmealsPage from "../pages/viewmealsPage";
+const viewmeals = new viewmealsPage();
+
+Cypress.Commands.add('viewMeals', () => {
+
+    viewmeals.clickonmealsmenu().click();
+    cy.url().should('include', '/meals')
+    cy.wait(2000)
+    cy.contains('Hamburger Soup').scrollIntoView()
+    cy.wait(3000)
+    cy.contains('Tuna Salad Sandwich').scrollIntoView()
+    cy.wait(2000)
+
+    viewmeals.clickonmealplansmenu().click();
+    cy.url().should('include', '/mealplans')
+    cy.contains('Meal Designer').scrollIntoView()
+    cy.wait(3000)
+    cy.contains('Admin').scrollIntoView()
+    cy.wait(2000)
+
+})
+

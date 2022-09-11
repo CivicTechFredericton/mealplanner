@@ -1,6 +1,8 @@
 class logoutPage {
-  logoutButton() {
-    return cy.get('[data-testid="LogoutIcon"]');
-  }
+
+    logoutButton() {
+        return cy.get('[data-testid="LogoutIcon"]')
+    }
+
 }
-export default logoutPage;
+export default logoutPage

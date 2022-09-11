@@ -1,4 +1,4 @@
-class loginPage {
+class multipleusersloginPage {
 
     usernameInput() {
         return cy.get('[data-testid="username-textField"] input')
@@ -17,4 +17,4 @@ class loginPage {
     }
 
 }
-export default loginPage
+export default multipleusersloginPage

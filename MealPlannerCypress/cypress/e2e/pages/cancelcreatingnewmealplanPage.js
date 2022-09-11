@@ -1,4 +1,4 @@
-class createnewmealplanPage {
+class cancelcreatingnewmealplanPage {
 
     createnewmealplanBtn() {
 
@@ -8,6 +8,7 @@ class createnewmealplanPage {
     assignuser(){
         return cy.get('[data-testid="assign-user"]')
     }
+
     selectoption(){
         return cy.get('[id="mui-5-option-0"]')
     }
@@ -32,13 +33,8 @@ class createnewmealplanPage {
         return cy.get('[data-testid="add-tag"]')
     }
 
-    clickcreateBtn() {
-        return cy.get('[data-testid="submit-new-mealplan-button"]')
-    }
-
-    userinitials()
-    {
-        return cy.get('[data-testid="user-initials"]')
+    clickcancelBtn() {
+        return cy.get('[data-testid="cancel-new-mealplan-button"]')
     }
 }
-export default createnewmealplanPage
+export default cancelcreatingnewmealplanPage
