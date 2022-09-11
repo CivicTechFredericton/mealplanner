@@ -1,26 +1,24 @@
 import testdata from "../fixtures/testdata.json";
 
-describe("Validate Login", function () {
-  beforeEach(function () {
-    cy.fixture("testdata").then(function (testdata) {
-      this.testdata = testdata;
+describe("Shopping list functionality", function () {
+    beforeEach(function () {
+        cy.login(testdata);
     });
-  });
 
-  it("Validate successful Login", function () {
-    cy.login(this.testdata);
-  });
+    it("view shopping list", function () {
+        const string = "Vegetarian";
+        cy.shoppinglist(string);
+        cy.contains(string).should("exist");
+        cy.contains("Shopping List").should("exist");
 
-  it("view shopping list", function () {
-    cy.shoppinglist();
+         cy.url().should("include", "/shopping-list");
 
-    //    cy.contains("Vegetarian Meal Plan").get('[data-testid="ShoppingCartIcon"]').click({ multiple: true })
+    });
 
-    //     cy.get('[data-testid="ShoppingCartIcon"]').click({ multiple: true })
-    //    cy.url().should('include', '/shopping-list')
-  });
+    it('Validate successful Logout', function () {
+        cy.logout()
+    })
 
-  // it('Validate successful Logout', function () {
-  //     cy.logout()
-  // })
+
 });
+

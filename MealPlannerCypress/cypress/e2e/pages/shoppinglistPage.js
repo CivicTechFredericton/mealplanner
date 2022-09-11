@@ -1,14 +1,6 @@
 class shoppinglistPage {
-
-    
-    shoppinglistIcon() {
-
-        cy.contains("Vegetarian Meal Plan")
-        return cy.get('[data-testid="ShoppingCartIcon"]')
+    shoppinglistIcon(string) {
+      return cy.get(`[data-testid="${string}-shoppingListIcon"]`);
     }
-
-
-
-   
-}
-export default shoppinglistPage
+  }
+  export default shoppinglistPage;

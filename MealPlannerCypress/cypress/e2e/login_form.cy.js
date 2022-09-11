@@ -1,11 +1,5 @@
 import testdata from '../fixtures/testdata.json';
 
-
-// describe('Validate Login', function () {
-//     beforeEach(function () {
-//         cy.visit('/')
-//     });
-
 describe('Validate Login', function () {
     beforeEach(function () {
         cy.fixture("testdata").then(function (testdata) {
