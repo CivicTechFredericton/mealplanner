@@ -1,0 +1,12 @@
+*THIS IS A TEMPORARY FILE TO BE SOLVED IN THE FUTURE*
+
+ADD THESE TO THE RESPECTIVE OBJECTS IN multipleuserslogintestdata.json 
+Since the test data passwords are different on each machine, you must add manually.
+
+
+
+ "user": "Admin", "avatar": "A" 
+ "user": "Meal Designer", "avatar": "MD" 
+ "user": "User One", "avatar": "UO" 
+ "user": "User Two", "avatar": "UT" 
+
