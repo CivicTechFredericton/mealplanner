@@ -1,50 +1,46 @@
 class editmealplanHeaderPage {
+  selectmealPlan(uniqueId) {
+    return cy.get(`[data-testid="${uniqueId}-mealcard"]`);
+  }
 
-    selectmealPlan(uniqueId) {
+  mealPlanHeader() {
+    return cy.get('[data-testid="meal-plans-header"]');
+  }
 
-        return cy.get(`[data-testid="${uniqueId}-mealcard"]`)
+  editmealPlanName() {
+    return cy.get('[data-testid="edit-meal-name-input"]');
+  }
 
-    }
+  editmealPlanUser() {
+    return cy.get('[data-testid="edit-meal-user-input"]');
+  }
 
-    mealPlanHeader() {
-        return cy.get('[data-testid="meal-plans-header"]');
-    }
+  clickkeyboardarrowdownIcon() {
+    return cy.get('[data-testid="KeyboardArrowDownIcon"]');
+  }
 
-    editmealPlanName() {
-        return cy.get('[data-testid="edit-meal-name-input"]');
-    }
+  editDescription() {
+    return cy.get('[data-testid="Edit-Description"]');
+  }
 
-    editmealPlanUser() {
-        return cy.get('[data-testid="edit-meal-user-input"]');
-    }
+  clickcancelIconofaddtag() {
+    return cy.get('[data-testid="CancelIcon"]');
+  }
 
-    clickkeyboardarrowdownIcon() {
-        return cy.get('[data-testid="KeyboardArrowDownIcon"]')
-    }
+  editaddtag() {
+    return cy.get('[data-testid="edit-add-tag"]');
+  }
 
-    editDescription() {
-        return cy.get('[data-testid="Edit-Description"]')
-    }
+  clickkeyboardarrowupIcon() {
+    return cy.get('[data-testid="KeyboardArrowUpIcon"]');
+  }
 
-    clickcancelIconofaddtag() {
-        return cy.get('[data-testid="CancelIcon"]')
-    }
+  clickmealplansmenu() {
+    return cy.get('[data-testid="mealplans-menu"]');
+  }
 
-    editaddtag() {
-        return cy.get('[data-testid="edit-add-tag"]')
-    }
-
-    clickkeyboardarrowupIcon() {
-        return cy.get('[data-testid="KeyboardArrowUpIcon"]')
-    }
-
-    clickmealplansmenu() {
-        return cy.get('[data-testid="mealplans-menu"]')
-    }
-
-    clickexpandIcononmealplan() {
-        return cy.get('[data-testid="ExpandMoreIcon"]')
-    }
-
+  clickexpandIcononmealplan() {
+    return cy.get('[data-testid="ExpandMoreIcon"]');
+  }
 }
-export default editmealplanHeaderPage
+export default editmealplanHeaderPage;
