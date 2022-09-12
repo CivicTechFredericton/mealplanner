@@ -10,7 +10,7 @@ import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
 import { useFragment, useLazyLoadQuery } from "react-relay";
 import { updateMealPlanName } from "../../state/state";
-import { MealPlanHeaderAllUsersQuery} from "./__generated__/MealPlanHeaderAllUsersQuery.graphql";
+import { MealPlanHeaderAllUsersQuery } from "./__generated__/MealPlanHeaderAllUsersQuery.graphql";
 import { MealPlanHeader_mealPlan$key } from "./__generated__/MealPlanHeader_mealPlan.graphql";
 
 const fragment = graphql`
@@ -48,7 +48,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
 
   let users = useLazyLoadQuery<MealPlanHeaderAllUsersQuery>(query, {});
 
-  let allUsers = users.people?.nodes.map(user => {return {label: user.fullName, id: user.rowId}});
+  let allUsers = users.people?.nodes.map(user => { return { label: user.fullName, id: user.rowId } });
   const theme = useTheme();
   const [editHeader, setEditHeader] = useState(false);
   const [isEditName, setIsEditName] = useState(false);
@@ -56,6 +56,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
 
   return (
     <section
+      data-testid="meal-plans-header"
       style={{
         border: `2px solid ${theme.palette.primary.main}`,
         borderRadius: "10px",
@@ -71,11 +72,12 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         <Box display="inline-flex" justifyContent={"space-between"}>
           {isEditName ? (
             <TextField
+              data-testid="Edit-Meal-Plan-Name"
               id="filled-basic"
               label="Edit Meal Plan Name"
               variant="filled"
               color="info"
-              style={{ backgroundColor: theme.palette.primary.light}}
+              style={{ backgroundColor: theme.palette.primary.light }}
               defaultValue={data.nameEn}
               onBlur={(e) => {
                 updateMealPlanName(data.rowId, {
@@ -90,6 +92,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             />
           ) : (
             <Typography
+              data-testid="edit-meal-name-input"
               padding="0.5rem 0"
               marginLeft="1rem"
               color="primary.contrastText"
@@ -105,6 +108,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
           <Typography padding="0.75rem 1rem"></Typography>
           {isEditUser ? (
             <Autocomplete
+              data-testid="edit-meal-user-input"
               // options={[
               //   { label: "Admin", id: 1 },
               //   { label: "Meal Designer", id: 2 },
@@ -131,7 +135,6 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                   label="Select user"
                   style={{ backgroundColor: theme.palette.primary.contrastText, width: '200%' }}
                   variant="filled"
-
                 />
               )}
             ></Autocomplete>
@@ -149,6 +152,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         </Box>
         <Box display="inline-flex">
           <IconButton
+           data-testid="arrow-button"
             sx={{ minWidth: "1.5em" }}
             onClick={(e) => {
               e.stopPropagation();
@@ -186,6 +190,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             minRows={1}
             aria-label="Description"
             placeholder="Description"
+            data-testid="Edit-Description"
             style={{
               fontFamily: "Roboto",
               width: "100%",
@@ -227,6 +232,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 variant="outlined"
                 label="tags"
                 placeholder="add tag"
+                data-testid="edit-add-tag"
               />
             )}
           />
