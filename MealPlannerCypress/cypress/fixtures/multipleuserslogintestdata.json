@@ -1,25 +1,25 @@
 [
   {
     "username": "admin@example.com",
-    "password": "273fa5d6302a4ac",
+    "password": "ba7c51282320843",
     "user": "Admin",
     "avatar": "A"
   },
   {
     "username": "mealdesigner@example.com",
-    "password": "090c66da7cc47f6",
+    "password": "53a347e4cdc1f83",
     "user": "Meal Designer",
     "avatar": "MD"
   },
   {
     "username": "user1@example.com",
-    "password": "88b70df4515ebd1",
+    "password": "596ce56d3e005a9",
     "user": "User One",
     "avatar": "UO"
   },
   {
     "username": "user2@example.com",
-    "password": "465d3a147b40744",
+    "password": "530bac09080b5d0",
     "user": "User Two",
     "avatar": "UT"
   }
