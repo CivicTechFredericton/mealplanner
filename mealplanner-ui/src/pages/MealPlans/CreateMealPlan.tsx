@@ -106,6 +106,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                     label="Assign user"
                     id="user"
                     variant="filled"
+                    data-testid="assign-user"
                   />
                 )}
                 onChange={(e, value) => {
@@ -184,6 +185,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                     variant="filled"
                     label="tags"
                     placeholder="add tag"
+                    data-testid="add-tag"
                   />
                 )}
                 onChange={(e, value) => {
@@ -215,7 +217,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
           >
             Create
           </Button>
-          <Button onClick={handleClose} variant="outlined">
+          <Button onClick={handleClose} variant="outlined" data-testid="cancel-new-mealplan-button">
             Cancel
           </Button>
         </DialogActions>
