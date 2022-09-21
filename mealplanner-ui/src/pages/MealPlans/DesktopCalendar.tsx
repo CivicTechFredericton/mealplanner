@@ -90,7 +90,8 @@ export const DesktopCalendar: React.FC<DataProps> = ({ mealplan }) => {
             {arr.map((colarr: CellType[], idx) => (
               <tr key={idx} style={{ margin: 0 }}>
                 {colarr.map((cell, idx) => (
-                  <td key={idx}
+                  <td
+                    key={idx}
                     onMouseOver={(e) => {
                       e.currentTarget.style.cursor = "pointer";
                       e.currentTarget.style.backgroundColor = `${theme.palette.primary.light}`;
