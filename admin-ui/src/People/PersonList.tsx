@@ -74,7 +74,7 @@ export const PersonList = (props: ListProps) => {
     <React.Fragment>
       <List {...props} title="List People" actions={<PersonActions />}>
         <Datagrid>
-          <TextField source="rowId" />
+          <TextField source="id" />
           <TextField source="fullName" />
           <UserRole label="Role" />
           <TextField source="email" />
