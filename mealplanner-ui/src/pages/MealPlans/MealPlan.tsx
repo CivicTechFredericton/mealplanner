@@ -40,6 +40,7 @@ export const MealPlan = () => {
               backgroundColor: `${theme.palette.primary.dark}`,
               padding: "1em",
             }}
+            sx={{displayPrint: 'none'}}
           >
             <Typography>
               <SearchMeal data={data} />

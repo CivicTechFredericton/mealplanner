@@ -13,8 +13,12 @@ export const MealForm = () => {
       <TextInput source="nameEn" fullWidth />
       <TextInput source="nameFr" fullWidth />
       <TextInput
+        defaultValue={null}
         fullWidth
-        parse={(values) => values.split(",").map((s: string) => s.trim())}
+        parse={(values) => {
+          if(values == '') return null;
+          return values.split(",").map((s: string) => s.trim())
+        }}
         source="tags"
       />
       <TextInput source="descriptionEn" fullWidth />

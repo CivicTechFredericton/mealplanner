@@ -1,7 +1,14 @@
 import { useApolloClient } from "@apollo/client";
 import pgDataProvider from "ra-postgraphile";
 import { useEffect, useState } from "react";
-import { Admin, DataProvider, Layout, Resource } from "react-admin";
+import {
+  Admin,
+  CustomRoutes,
+  DataProvider,
+  Layout,
+  Resource,
+} from "react-admin";
+import { Route } from "react-router-dom";
 import { useAuth } from "./Auth";
 import { MealCreate } from "./Meals/MealCreate";
 import { MealEdit } from "./Meals/MealEdit";
@@ -12,7 +19,10 @@ import { MeasureList } from "./Measure/MeasureList";
 import { NutritionCreate } from "./Nutrition/NutritionCreate";
 import { NutritionEdit } from "./Nutrition/NutritionEdit";
 import { NutritionList } from "./Nutrition/NutritionList";
+import { PersonEdit } from "./People/PersonEdit";
 import { PersonList } from "./People/PersonList";
+import { Register } from "./People/Register";
+import { ResetPassword } from "./People/ResetPassword";
 import { ProductCreate } from "./Products/ProductCreate";
 import { ProductEdit } from "./Products/ProductEdit";
 import { ProductList } from "./Products/ProductList";
@@ -77,7 +87,12 @@ function App() {
               name="people"
               options={{ label: "Users" }}
               list={PersonList}
+              edit={PersonEdit}
             />
+            <CustomRoutes>
+              <Route path="people/register" element={<Register />} />
+              <Route path="people/:rowId/reset" element={<ResetPassword />} />
+            </CustomRoutes>
           </Admin>
         ) : (
           "loading..."
