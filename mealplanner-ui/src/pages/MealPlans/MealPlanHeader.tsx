@@ -1,16 +1,19 @@
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import {
   Autocomplete,
-  Box, IconButton, TextareaAutosize,
+  Box,
+  IconButton,
+  TextareaAutosize,
   TextField,
   Typography,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
 import { useFragment, useLazyLoadQuery } from "react-relay";
 import { updateMealPlanName } from "../../state/state";
-import { MealPlanHeaderAllUsersQuery} from "./__generated__/MealPlanHeaderAllUsersQuery.graphql";
+import { MealPlanHeaderAllUsersQuery } from "./__generated__/MealPlanHeaderAllUsersQuery.graphql";
 import { MealPlanHeader_mealPlan$key } from "./__generated__/MealPlanHeader_mealPlan.graphql";
 
 const fragment = graphql`
@@ -29,15 +32,15 @@ const fragment = graphql`
 
 const query = graphql`
   query MealPlanHeaderAllUsersQuery {
-  people {
-    nodes {
-      id
-      rowId
-      fullName
+    people {
+      nodes {
+        id
+        rowId
+        fullName
+      }
     }
   }
-}
-`
+`;
 
 interface HeaderProps {
   mealPlan: MealPlanHeader_mealPlan$key;
@@ -48,7 +51,9 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
 
   let users = useLazyLoadQuery<MealPlanHeaderAllUsersQuery>(query, {});
 
-  let allUsers = users.people?.nodes.map(user => {return {label: user.fullName, id: user.rowId}});
+  let allUsers = users.people?.nodes.map((user) => {
+    return { label: user.fullName, id: user.rowId };
+  });
   const theme = useTheme();
   const [editHeader, setEditHeader] = useState(false);
   const [isEditName, setIsEditName] = useState(false);
@@ -69,13 +74,16 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         bgcolor="primary.main"
       >
         <Box display="inline-flex" justifyContent={"space-between"}>
+          <IconButton onClick={() => window.history.back()} color="info">
+            <ArrowBackIosNewIcon />
+          </IconButton>
           {isEditName ? (
             <TextField
               id="filled-basic"
               label="Edit Meal Plan Name"
               variant="filled"
               color="info"
-              style={{ backgroundColor: theme.palette.primary.light}}
+              style={{ backgroundColor: theme.palette.primary.light }}
               defaultValue={data.nameEn}
               onBlur={(e) => {
                 updateMealPlanName(data.rowId, {
@@ -129,9 +137,11 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 <TextField
                   {...params}
                   label="Select user"
-                  style={{ backgroundColor: theme.palette.primary.contrastText, width: '200%' }}
+                  style={{
+                    backgroundColor: theme.palette.primary.contrastText,
+                    width: "200%",
+                  }}
                   variant="filled"
-
                 />
               )}
             ></Autocomplete>

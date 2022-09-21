@@ -1,9 +1,10 @@
+import { ArrowBack } from "@mui/icons-material";
 import {
   Container,
   Grid,
+  IconButton,
   Paper,
   Rating,
-  Table,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -98,6 +99,13 @@ export const Meal = () => {
           backgroundImage: `url(${meal?.photoUrl || "/images/Logo_Meal.png"})`,
         }}
       >
+        <IconButton
+          onClick={() => window.history.back()}
+          color="inherit"
+          sx={{ top: 30, left: 50, bgcolor: "white", opacity: "0.9" }}
+        >
+          <ArrowBack />
+        </IconButton>
         <Paper
           sx={{
             textAlign: "center",
@@ -154,15 +162,22 @@ export const Meal = () => {
           ))}
         </Typography>
       </Box>
-      <Container maxWidth="lg" sx={{ marginTop: "1em"}}>
+      <Container maxWidth="lg" sx={{ marginTop: "1em" }}>
         <Grid container spacing={2} rowSpacing={4}>
-          <Grid item xs={3} style={{ textAlign: "center" }} bgcolor= {theme.palette.grey[200]}>
+          <Grid
+            item
+            xs={3}
+            style={{ textAlign: "center" }}
+            bgcolor={theme.palette.grey[200]}
+          >
             {meal?.videoUrl ? (
               //  Showing youtube video only if it exists
               <div className="video-responsive">
                 <iframe
                   width="250px"
-                  src={'https://youtube.com/embed/'.concat(meal?.videoUrl.slice(meal?.videoUrl.search('=')+1))}
+                  src={"https://youtube.com/embed/".concat(
+                    meal?.videoUrl.slice(meal?.videoUrl.search("=") + 1)
+                  )}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -178,24 +193,23 @@ export const Meal = () => {
             )}
           </Grid>
 
-          <Grid item xs={9} bgcolor= {theme.palette.grey[200]}>
+          <Grid item xs={9} bgcolor={theme.palette.grey[200]}>
             <Typography variant="h3">{meal?.nameEn}</Typography>
             <Typography variant="h4">{meal?.nameFr}</Typography>
-            <Typography variant="body1">{meal?.categories?.map((category)=>
-            <span>
-              <span style={tagStyle}>{category}</span>
-              &nbsp;
-            </span>
-            )}
+            <Typography variant="body1">
+              {meal?.categories?.map((category) => (
+                <span>
+                  <span style={tagStyle}>{category}</span>
+                  &nbsp;
+                </span>
+              ))}
             </Typography>
             <Typography variant="caption">
-              Meal Code: {meal?.code} &nbsp;
-              Cooking Duration: {meal?.cookingDuration} mins &nbsp;
-              Serves: {meal?.serves} &nbsp;
+              Meal Code: {meal?.code} &nbsp; Cooking Duration:{" "}
+              {meal?.cookingDuration} mins &nbsp; Serves: {meal?.serves} &nbsp;
               Serving Size: {meal?.servingsSize} {meal?.servingsSizeUnit} &nbsp;
               Serving Cost: {meal?.servingCost}$
             </Typography>
-
 
             {/* Explicitly indicate meal description is not available*/}
             {meal?.descriptionEn ? (
@@ -206,27 +220,31 @@ export const Meal = () => {
               </Typography>
             )}
             <Typography paddingBottom="1em">{meal?.descriptionFr}</Typography>
-            
           </Grid>
           <Grid item xs={3}>
-          <Typography variant="h6"> Ingredients </Typography>
-          <Typography>
+            <Typography variant="h6"> Ingredients </Typography>
+            <Typography>
               {meal?.measures.nodes.map((ingredient) => (
                 <div>
-                    {ingredient.product?.nameEn} - {ingredient.quantity}{" "}
-                    {ingredient.unit}{" "}
+                  {ingredient.product?.nameEn} - {ingredient.quantity}{" "}
+                  {ingredient.unit}{" "}
                 </div>
-                  
               ))}
             </Typography>
           </Grid>
           <Grid item xs={9}>
             <Typography variant="h6"> Method of preparation </Typography>
-            <Typography><div dangerouslySetInnerHTML={{__html: meal?.method || 'no method description'}} /></Typography>
+            <Typography>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: meal?.method || "no method description",
+                }}
+              />
+            </Typography>
           </Grid>
           <Grid item xs={12}>
-          <Typography variant="h6">Tips</Typography>
-          <Typography variant="body1"> {meal?.tips}</Typography>
+            <Typography variant="h6">Tips</Typography>
+            <Typography variant="body1"> {meal?.tips}</Typography>
             Nutrition Details is available with the admin.
           </Grid>
         </Grid>
