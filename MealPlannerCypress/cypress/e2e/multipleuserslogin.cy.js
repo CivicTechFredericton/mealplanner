@@ -11,7 +11,7 @@ describe('Validate Multiple UsersLogin', function () {
             cy.get('[data-testid="password-textField"] input').type(param.password)
             cy.get('[data-testid="login-button"]').click({ multiple: true })
             cy.url().should('include', '/mealplans')
-
+            cy.get('[data-testid="current-user"]').contains(param.user);
             cy.logout()
             cy.wait(1000)
 

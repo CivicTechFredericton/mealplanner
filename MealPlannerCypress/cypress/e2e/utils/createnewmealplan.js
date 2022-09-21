@@ -31,8 +31,5 @@ Cypress.Commands.add('createnewmealplan', (data, uniqueId) => {
     createnewmealplan.clickcreateBtn().click()
     cy.wait(1000)
     cy.contains(uniqueId).should("exist");
-  //  cy.contains(uniqueId).should('have.value', 'A')
-  //  createnewmealplan.userinitials().should('have.value', 'UO')
-
     
 })

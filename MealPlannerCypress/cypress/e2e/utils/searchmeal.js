@@ -13,10 +13,6 @@ Cypress.Commands.add('searchMeal', (uniqueId, data) => {
      searchmeal.clearselectedMeal().click();
      searchmeal.clearselectedMeal().should("not.exist")
 
-     //searh meal with numbers and symbols shouldn't accept
-     searchmeal.searchmealInput().type(data.searchnumberandsymbols)
-     cy.contains("Invalid data entered").should('be.visible');
-     
      searchmeal.clickonmealplansmenu().click();
      cy.url().should('include', '/mealplans')
      cy.contains('Meal Designer').scrollIntoView()

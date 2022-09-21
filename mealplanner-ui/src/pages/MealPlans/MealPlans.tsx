@@ -115,7 +115,11 @@ const MealPlanCard = (props: MealPlanCardProps) => {
       >
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: "green", width: "fit" }} aria-label="user" data-testid="user-initials">
+            <Avatar
+              sx={{ bgcolor: "green", width: "fit" }}
+              aria-label="user"
+              data-testid="user-initials"
+            >
               {getInitials(mealplan.person?.fullName || "")}
             </Avatar>
           }
@@ -145,6 +149,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
               </IconButton>
             </div>
           }
+          data-testid="mealcard-header"
           title={mealplan.nameEn}
           subheader={mealplan.person?.fullName}
         />
@@ -172,7 +177,10 @@ const MealPlanCard = (props: MealPlanCardProps) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" data-testid="add-to-favorites">
+          <IconButton
+            aria-label="add to favorites"
+            data-testid="add-to-favorites"
+          >
             <FavoriteIcon />
           </IconButton>
 

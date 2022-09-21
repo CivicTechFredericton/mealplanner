@@ -39,12 +39,13 @@ const Details = () => {
   return (
     <>
       <TabbedShowLayout syncWithLocation={false}>
-        <Tab label="Method">
+        <Tab label="Method" data-testid="Method">
           <RichTextField source="method" />
           <ReferenceManyField
             label="Measures"
             reference="measures"
             target="mealId"
+           
           >
             <Datagrid>
               {/* <TextField source="rowId" /> */}
@@ -53,16 +54,17 @@ const Details = () => {
                 label="Product Name"
                 reference="products"
                 source="productId"
+                
               >
                 <TextField source="nameEn" />
               </ReferenceField>
-              <TextField label="Nom du Produit" source="nameFr" />
+              <TextField label="Nom du Produit" source="nameFr"/>
               <TextField source="unit" />
               <TextField source="quantity" />
             </Datagrid>
           </ReferenceManyField>
         </Tab>
-        <Tab label="Summary">
+        <Tab label="Summary" data-testid="Summary">
           <NumberField source="cookingDuration" />
           <NumberField source="totalCost" />
           <NumberField source="servingCost" />
@@ -76,7 +78,7 @@ const Details = () => {
           <DateField source="createdAt" showTime />
           <DateField source="updatedAt" showTime />
         </Tab>
-        <Tab label="Nutrition">
+        <Tab label="Nutrition" data-testid="Nutrition">
           <ReferenceManyField
             reference="nutrition"
             target="nutritionableId"

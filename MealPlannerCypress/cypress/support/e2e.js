@@ -32,6 +32,7 @@ import '../e2e/utils/viewmeals.js'
 import "../e2e/utils/mealplancalendar.js"
 import "../e2e/utils/multipleuserslogin.js"
 import "../e2e/utils/editMealPlanNameUser.js"
+import "../e2e/utils/createMealPlanQuick.js"
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
