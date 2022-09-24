@@ -31,6 +31,7 @@ export const NutritionList = (props: ListProps) => {
   return (
     <List {...props} title="List Nutrition entries">
       <Datagrid expand={Details}>
+         <TextField source="id" />
         <NumberField source="servingSize" />
         <TextField source="servingSizeUnit" />
         <TextField source="servingSizeText" />

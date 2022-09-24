@@ -16,7 +16,7 @@ export const MeasureList = (props: ListProps) => {
   return (
     <List {...props} title="List measure">
       <Datagrid>
-        <TextField source="rowId" />
+        <TextField source="id" />
         <TextField source="quantity" />
         <TextField source="unit" />
         <ReferenceField label="Product" source="productId" reference="products">

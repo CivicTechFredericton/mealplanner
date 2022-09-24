@@ -59,6 +59,7 @@ export const DesktopCalendar: React.FC<DataProps> = ({ mealplan }) => {
   return (
     <React.Fragment>
       <div
+      data-testid="mealplancalendar"
         style={{
           border: `2px solid ${theme.palette.primary.main}`,
           borderRadius: "10px",
@@ -120,6 +121,7 @@ export const DesktopCalendar: React.FC<DataProps> = ({ mealplan }) => {
                     </h6>
                     {cell.items.map((mpe) => (
                       <Box
+                        data-testid="onmouse-hover"
                         key={mpe.rowId}
                         sx={{ display: "inline-flex" }}
                         onMouseOver={(e) => setDisplayDelete(mpe.id)}
@@ -133,6 +135,7 @@ export const DesktopCalendar: React.FC<DataProps> = ({ mealplan }) => {
                         {displayDelete === mpe.id ? (
                           <IconButton
                             size="small"
+                            data-testid="display-deleteIcon"
                             onClick={(e) => {
                               e.stopPropagation();
                               deleteMealFromPlan(connectionID, mpe.rowId);

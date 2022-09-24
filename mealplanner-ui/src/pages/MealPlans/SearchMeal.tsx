@@ -74,6 +74,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
         <FormControl
           variant="filled"
           sx={{ width: "100%", color: `${theme.palette.primary.contrastText}` }}
+          data-testid="search-meal"
         >
           <InputLabel sx={{ color: `${theme.palette.primary.contrastText}` }}>
             Search for meals
@@ -83,6 +84,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
               backgroundColor: theme.palette.primary.main,
               color: `${theme.palette.primary.contrastText}`,
             }}
+           
             notched={false}
             startAdornment={
               <InputAdornment position="start">
@@ -109,6 +111,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
                   size="small"
                   color="primary"
                   sx={{ margin: "0 1em", padding: "0 0", minWidth: "2em" }}
+                  data-testid="clearSelectedMeal"
                   onClick={(e) => {
                     e.preventDefault();
                     clearSelectedMeal();
@@ -132,6 +135,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
                 flexDirection: "column",
                 alignItems: "flex-start",
               }}
+              data-testid="select-meal"
               variant="contained"
               color="primary"
               key={m.id}

@@ -46,6 +46,8 @@ interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
+
+
 const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -67,6 +69,14 @@ const MealCard = (props: MealProps) => {
     setExpanded(!expanded);
   };
   const theme = useTheme();
+  const tagStyle = {
+    color: "white",
+    backgroundColor: `${theme.palette.primary.main}`,
+    padding: "0 0.5em",
+    borderRadius: "1em",
+    margin: "0.3em 0",
+    display: "inline-block",
+  };
   return (
     <Grid item xs="auto">
       <Card
@@ -106,14 +116,7 @@ const MealCard = (props: MealProps) => {
             {meal.tags?.map((tag) => (
               <span>
                 <span
-                  style={{
-                    color: "white",
-                    backgroundColor: `${theme.palette.primary.main}`,
-                    padding: "0 0.5em",
-                    borderRadius: "1em",
-                    margin: "0.3em 0",
-                    display: "inline-block",
-                  }}
+                  style={tagStyle}
                 >
                   {tag}
                 </span>

@@ -1,4 +1,4 @@
-import { KeyboardArrowDown, KeyboardArrowUp, Print } from "@mui/icons-material";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import {
   Autocomplete,
@@ -51,9 +51,13 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
 
   let users = useLazyLoadQuery<MealPlanHeaderAllUsersQuery>(query, {});
 
+<<<<<<< HEAD
   let allUsers = users.people?.nodes.map((user) => {
     return { label: user.fullName, id: user.rowId };
   });
+=======
+  let allUsers = users.people?.nodes.map(user => { return { label: user.fullName, id: user.rowId } });
+>>>>>>> 93cd5b3 (updated tsx files)
   const theme = useTheme();
   const [editHeader, setEditHeader] = useState(false);
   const [isEditName, setIsEditName] = useState(false);
@@ -68,18 +72,11 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         marginBottom: "1rem",
       }}
     >
-      <Typography variant="h4" sx={{ displayPrint: "block", display: "none" }}>
-        {data.nameEn} - {data.nameFr}
-      </Typography>
-      <Typography variant="h5" sx={{ displayPrint: "block", display: "none" }}>
-        {data.person?.fullName}
-      </Typography>
       <Box
         display="flex"
         flexDirection="row"
         justifyContent={"space-between"}
         bgcolor="primary.main"
-        displayPrint={"none"}
       >
         <Box display="inline-flex" justifyContent={"space-between"}>
           <IconButton onClick={() => window.history.back()} color="info">
@@ -168,16 +165,9 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             </Typography>
           )}
         </Box>
-
         <Box display="inline-flex">
           <IconButton
-            onClick={() => window.print()}
-            sx={{ displayPrint: "none" }}
-          >
-            <Print htmlColor={`${theme.palette.primary.contrastText}`}></Print>
-          </IconButton>
-          <IconButton
-            data-testid="arrow-button"
+           data-testid="arrow-button"
             sx={{ minWidth: "1.5em" }}
             onClick={(e) => {
               e.stopPropagation();

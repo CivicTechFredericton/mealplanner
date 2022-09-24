@@ -4,25 +4,25 @@ import environment from "../relay/environment";
 import { SearchedMeal } from "./types";
 import {
   CategoryT,
-  state_createMealPlanEntryMutation
+  state_createMealPlanEntryMutation,
 } from "./__generated__/state_createMealPlanEntryMutation.graphql";
 import {
   state_createMealPlanMutation,
-  state_createMealPlanMutation$variables
+  state_createMealPlanMutation$variables,
 } from "./__generated__/state_createMealPlanMutation.graphql";
 import {
   state_CurrentUserQuery,
-  state_CurrentUserQuery$data
+  state_CurrentUserQuery$data,
 } from "./__generated__/state_CurrentUserQuery.graphql";
 import { state_deleteMealPlanEntryMutation } from "./__generated__/state_deleteMealPlanEntryMutation.graphql";
 import { state_loginMutation } from "./__generated__/state_loginMutation.graphql";
 import {
   state_logoutMutation,
-  state_logoutMutation$data
+  state_logoutMutation$data,
 } from "./__generated__/state_logoutMutation.graphql";
 import {
   state_updateMealPlanMutation,
-  state_updateMealPlanMutation$variables
+  state_updateMealPlanMutation$variables,
 } from "./__generated__/state_updateMealPlanMutation.graphql";
 const STATE_ID = `client:GQLLocalState:21`;
 
@@ -372,6 +372,7 @@ const createMealPlanGQL = graphql`
 type createMealPlanInput = state_createMealPlanMutation$variables;
 
 export const createMealPlan = (input: createMealPlanInput) => {
+  console.log(input);
   return new Promise((res, rej) => {
     commitMutation<state_createMealPlanMutation>(environment, {
       mutation: createMealPlanGQL,

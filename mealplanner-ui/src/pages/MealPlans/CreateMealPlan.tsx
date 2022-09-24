@@ -30,15 +30,9 @@ type userType = {
   rowId: number;
   id: number;
 };
+
 export const CreateMealPlan = ({ connection }: { connection: string }) => {
   const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const users = useLazyLoadQuery<CreateMealPlanAllUsersQuery>(query, {});
 
@@ -46,19 +40,52 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
     return { label: user.fullName, rowId: user.rowId, id: user.id };
   });
 
-  const [userId, setUserId] = useState<userType | null>(null);
-  const [nameEn, setNameEn] = useState<string>("");
-  const [nameFr, setNameFr] = useState<string>("");
-  const [descriptionEn, setDescriptionEn] = useState<string>("");
-  const [descriptionFr, setDescriptionFr] = useState<string>("");
-  const [tags, setTags] = useState<string[]>([]);
-  const [disableButton, setDisableButton] = useState(true);
+  const initState = {
+    userId: null,
+    nameEn: "",
+    nameFr: "",
+    descriptionEn: "",
+    descriptionFr: "",
+    tags: [],
+    disableButton: true,
+  };
+
+  const [userId, setUserId] = useState<userType | null>(initState.userId);
+  const [nameEn, setNameEn] = useState<string>(initState.nameEn);
+  const [nameFr, setNameFr] = useState<string>(initState.nameFr);
+  const [descriptionEn, setDescriptionEn] = useState<string>(
+    initState.descriptionEn
+  );
+  const [descriptionFr, setDescriptionFr] = useState<string>(
+    initState.descriptionFr
+  );
+  const [tags, setTags] = useState<string[]>(initState.tags);
+  const [disableButton, setDisableButton] = useState(initState.disableButton);
 
   const isValid = nameEn !== "";
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setUserId(initState.userId);
+    setNameEn(initState.nameEn);
+    setNameFr(initState.nameFr);
+    setDescriptionEn(initState.descriptionEn);
+    setDescriptionFr(initState.descriptionFr);
+    setTags(initState.tags);
+    setDisableButton(initState.disableButton);
+    setOpen(false);
+  };
+
   return (
     <>
-      <Button variant="contained" onClick={handleOpen}>
+      <Button
+        variant="contained"
+        onClick={handleOpen}
+        data-testid="create-new-mealplan-button"
+      >
         Create Meal plan
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -79,6 +106,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                     label="Assign user"
                     id="user"
                     variant="filled"
+                    data-testid="assign-user"
                   />
                 )}
                 onChange={(e, value) => {
@@ -89,6 +117,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
             <Grid item xs={3}>
               <TextField
                 id="nameEn"
+                data-testid="nameEn"
                 label="Meal Plan Name*"
                 autoFocus
                 margin="dense"
@@ -156,6 +185,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                     variant="filled"
                     label="tags"
                     placeholder="add tag"
+                    data-testid="add-tag"
                   />
                 )}
                 onChange={(e, value) => {
@@ -181,13 +211,13 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                 connections: [connection],
               }).then(() => {
                 handleClose();
-                setDisableButton(false);
               });
             }}
+            data-testid="submit-new-mealplan-button"
           >
             Create
           </Button>
-          <Button onClick={handleClose} variant="outlined">
+          <Button onClick={handleClose} variant="outlined" data-testid="cancel-new-mealplan-button">
             Cancel
           </Button>
         </DialogActions>
