@@ -1,7 +1,6 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
-  Avatar,
   Card,
   CardActions,
   CardContent,
@@ -46,8 +45,6 @@ interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
-
-
 const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -60,6 +57,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 type MealProps = { node: MealNode };
+
 const MealCard = (props: MealProps) => {
   const [expanded, setExpanded] = React.useState(false);
   const meal = props.node;
@@ -91,15 +89,6 @@ const MealCard = (props: MealProps) => {
         }}
       >
         <CardHeader
-          avatar={
-            <Avatar
-              sx={{ bgcolor: `${theme.palette.primary.main}`, width: "fit" }}
-              aria-label="meal"
-            >
-              {/* {getInitials(meal.nameEn || "")} */}
-              {meal.rowId}
-            </Avatar>
-          }
           action={<div></div>}
           title={meal.nameEn}
           subheader={meal.nameFr}
@@ -115,11 +104,7 @@ const MealCard = (props: MealProps) => {
           <Typography variant="body2" color="text.secondary" lineHeight="2rem">
             {meal.tags?.map((tag) => (
               <span>
-                <span
-                  style={tagStyle}
-                >
-                  {tag}
-                </span>
+                <span style={tagStyle}>{tag}</span>
                 &nbsp;
               </span>
             ))}
