@@ -1,3 +1,4 @@
+import { Search } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
@@ -10,6 +11,7 @@ import {
   Grid,
   IconButton,
   IconButtonProps,
+  InputBase,
   Paper,
   styled,
   Typography,
@@ -148,20 +150,23 @@ export const Meals = () => {
       spacing={2}
       columns={2}
       justifyContent="center"
-      gap="2rem"
       marginTop="1rem"
     >
       <Paper
         component="form"
         sx={{
-          p: "2px 4px",
           display: "flex",
           alignItems: "center",
-          width: "95%",
+          width: "75%",
           justifyContent: "center",
         }}
       >
-        <Typography sx={{ padding: "0 1rem" }}> &lt; 1 of 5 &gt; </Typography>
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="Search Meal plan"
+          inputProps={{ "aria-label": "Search Meal" }}
+        />
+        <Search></Search>
       </Paper>
       {data.meals ? (
         <Grid
