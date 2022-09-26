@@ -1,4 +1,5 @@
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { KeyboardArrowDown, KeyboardArrowUp, Print } from "@mui/icons-material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import {
   Autocomplete,
   Box, IconButton, TextareaAutosize,
@@ -63,11 +64,18 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         marginBottom: "1rem",
       }}
     >
+      <Typography variant="h4" sx={{ displayPrint: "block", display: "none" }}>
+        {data.nameEn} - {data.nameFr}
+      </Typography>
+      <Typography variant="h5" sx={{ displayPrint: "block", display: "none" }}>
+        {data.person?.fullName}
+      </Typography>
       <Box
         display="flex"
         flexDirection="row"
         justifyContent={"space-between"}
         bgcolor="primary.main"
+        displayPrint={"none"}
       >
         <Box display="inline-flex" justifyContent={"space-between"}>
           {isEditName ? (
@@ -150,9 +158,15 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             </Typography>
           )}
         </Box>
+
         <Box display="inline-flex">
           <IconButton
-           data-testid="arrow-button"
+            onClick={() => window.print()}
+            sx={{ displayPrint: "none" }}
+          >
+            <Print htmlColor={`${theme.palette.primary.contrastText}`}></Print>
+          </IconButton>
+          <IconButton
             sx={{ minWidth: "1.5em" }}
             onClick={(e) => {
               e.stopPropagation();
