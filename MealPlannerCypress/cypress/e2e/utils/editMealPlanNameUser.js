@@ -17,8 +17,11 @@ Cypress.Commands.add(
     cy.contains("Select Meal from the list").dblclick();
 
     // To change user
-    editMealPlan.mealPlanHeader().contains(oldUser).click();
+    editMealPlan
+      .mealPlanHeader()
+      .get(`[data-testid="current-meal-user-input"]`)
+      .click();
     editMealPlan.editmealPlanUser().click();
-    cy.contains("Meal Designer").click();
+    cy.contains(newUser).click();
   }
 );

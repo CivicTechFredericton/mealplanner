@@ -2,10 +2,12 @@ import { KeyboardArrowDown, KeyboardArrowUp, Print } from "@mui/icons-material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import {
   Autocomplete,
-  Box, IconButton, TextareaAutosize,
+  Box,
+  IconButton,
+  TextareaAutosize,
   TextField,
   Typography,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
@@ -30,15 +32,15 @@ const fragment = graphql`
 
 const query = graphql`
   query MealPlanHeaderAllUsersQuery {
-  people {
-    nodes {
-      id
-      rowId
-      fullName
+    people {
+      nodes {
+        id
+        rowId
+        fullName
+      }
     }
   }
-}
-`
+`;
 
 interface HeaderProps {
   mealPlan: MealPlanHeader_mealPlan$key;
@@ -49,7 +51,9 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
 
   let users = useLazyLoadQuery<MealPlanHeaderAllUsersQuery>(query, {});
 
-  let allUsers = users.people?.nodes.map(user => { return { label: user.fullName, id: user.rowId } });
+  let allUsers = users.people?.nodes.map((user) => {
+    return { label: user.fullName, id: user.rowId };
+  });
   const theme = useTheme();
   const [editHeader, setEditHeader] = useState(false);
   const [isEditName, setIsEditName] = useState(false);
@@ -141,13 +145,17 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 <TextField
                   {...params}
                   label="Select user"
-                  style={{ backgroundColor: theme.palette.primary.contrastText, width: '200%' }}
+                  style={{
+                    backgroundColor: theme.palette.primary.contrastText,
+                    width: "200%",
+                  }}
                   variant="filled"
                 />
               )}
             ></Autocomplete>
           ) : (
             <Typography
+              data-testid="current-meal-user-input"
               padding="0.75rem 0"
               color="primary.contrastText"
               textTransform={"capitalize"}
