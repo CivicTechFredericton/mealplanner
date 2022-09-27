@@ -85,5 +85,10 @@ class mealplancalendarPage {
         return cy.get('[data-testid="display-deleteIcon"]')
     }
 
+    clickPrintIcon()
+    {
+        return cy.get('[data-testid="PrintIcon"]')
+    }
+
 }
 export default mealplancalendarPage

@@ -4,14 +4,23 @@ const searchmeal = new searchmealPage();
 
 Cypress.Commands.add('searchMeal', (uniqueId, data) => {
 
-
      searchmeal.selectmealPlan(uniqueId).click();
-     
+
      searchmeal.searchmealInput().type(data.searchmealbreakfast)
      searchmeal.selectMeal().click({ multiple: true })
      searchmeal.selectMeal().should("exist")
      searchmeal.clearselectedMeal().click();
      searchmeal.clearselectedMeal().should("not.exist")
+
+     //scrollintoview for selecting meal
+     searchmeal.searchmealInput().clear().type(data.searchmeallunch)
+     cy.contains('Baked Potatoes').scrollIntoView()
+     cy.wait(2000)
+     searchmeal.selectMeal().contains('Baked Potatoes').click()
+     searchmeal.selectMeal().should("exist")
+     searchmeal.clearselectedMeal().click();
+     searchmeal.clearselectedMeal().should("not.exist")
+
 
      searchmeal.clickonmealplansmenu().click();
      cy.url().should('include', '/mealplans')

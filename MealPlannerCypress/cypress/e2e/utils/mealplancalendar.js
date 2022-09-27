@@ -71,4 +71,7 @@ Cypress.Commands.add('mealCalendar', (uniqueId, data) => {
     mealcalendar.clickDeleteIcon().should("not.exist")
     mealcalendar.deleteSaturdayLunch2().should("not.exist")
 
+    //Print Meal Calendar
+    mealcalendar.clickPrintIcon().click()
+
 })

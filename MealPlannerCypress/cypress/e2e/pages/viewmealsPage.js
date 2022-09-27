@@ -9,5 +9,15 @@ class viewmealsPage {
     {
         return cy.get('[data-testid="mealplans-menu"]')
     }
+
+    clickPrintMeal()
+    {
+        return cy.get('[data-testid="PrintIcon"]')
+    }
+    
+    clickArrowBackIcon()
+    {
+        return cy.get('[data-testid="ArrowBackIcon"]')
+    }
 }
 export default viewmealsPage

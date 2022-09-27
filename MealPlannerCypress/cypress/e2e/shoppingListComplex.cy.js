@@ -63,4 +63,9 @@ describe("Shopping list functionality", function () {
     cy.deletenewmealplan(uniqueId);
     cy.contains(uniqueId).should("not.exist");
   });
+
+  it('Validate successful Logout', function () {
+    cy.logout()
+  })
+
 });

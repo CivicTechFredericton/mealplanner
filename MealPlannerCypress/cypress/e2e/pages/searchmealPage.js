@@ -8,7 +8,7 @@ class searchmealPage {
 
     searchmealInput() {
 
-        return cy.get('[data-testid="search-meal"]')
+        return cy.get('[data-testid="search-meal"] input')
     }
 
     selectMeal() {

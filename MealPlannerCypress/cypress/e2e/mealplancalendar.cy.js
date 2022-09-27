@@ -25,13 +25,13 @@ describe('createmealplancalendar', function () {
         
     });
 
-    // it("Deletes Created Mealplan", function () {
-    //     cy.deletenewmealplan(uniqueId);
-    //     cy.contains(uniqueId).should("not.exist");
-    //   });
+    it("Deletes Created Mealplan", function () {
+        cy.deletenewmealplan(uniqueId);
+        cy.contains(uniqueId).should("not.exist");
+      });
 
-    // it('Validate successful Logout', function () {
-    //     cy.logout()
-    // })
+    it('Validate successful Logout', function () {
+        cy.logout()
+    })
 
 })

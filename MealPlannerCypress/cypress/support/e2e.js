@@ -14,26 +14,26 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import "./commands";
-require("cypress-xpath");
+import './commands'
+require('cypress-xpath')
 
-import "cypress-real-events/support";
-import "@4tw/cypress-drag-drop";
+import "cypress-real-events/support"
+import '@4tw/cypress-drag-drop'
 
-import "../e2e/utils/login.js";
-import "../e2e/utils/logout.js";
-import "../e2e/utils/createnewmealplan.js";
-import "../e2e/utils/cancelcreatingnewmealplan.js";
-import "../e2e/utils/deletenewmealplan.js";
-import "../e2e/utils/shoppinglist.js";
-import "../e2e/utils/searchmeal.js";
-import "../e2e/utils/editmealplanHeader.js";
-import "../e2e/utils/viewmeals.js";
-import "../e2e/utils/mealplancalendar.js";
-import "../e2e/utils/multipleuserslogin.js";
-import "../e2e/utils/editMealPlanNameUser.js";
-import "../e2e/utils/createMealPlanQuick.js";
-import "../e2e/utils/checkDescriptionandTags.js";
+import '../e2e/utils/login.js'
+import '../e2e/utils/logout.js'
+import '../e2e/utils/createnewmealplan.js'
+import '../e2e/utils/cancelcreatingnewmealplan.js'
+import '../e2e/utils/deletenewmealplan.js'
+import '../e2e/utils/shoppinglist.js'
+import '../e2e/utils/searchmeal.js'
+import '../e2e/utils/editmealplanHeader.js'
+import '../e2e/utils/viewmeals.js'
+import "../e2e/utils/mealplancalendar.js"
+import "../e2e/utils/multipleuserslogin.js"
+import "../e2e/utils/editMealPlanNameUser.js"
+import "../e2e/utils/createMealPlanQuick.js"
+
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

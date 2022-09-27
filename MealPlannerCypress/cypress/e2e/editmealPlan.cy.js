@@ -29,4 +29,8 @@ describe("Edit Meal Plan Name and User", () => {
     cy.deletenewmealplan(uniqueId2);
     cy.contains(uniqueId2).should("not.exist");
   });
+
+  it('Validate successful Logout', function () {
+    cy.logout()
+  })
 });
