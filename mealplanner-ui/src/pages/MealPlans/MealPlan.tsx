@@ -39,8 +39,10 @@ export const MealPlan = () => {
             style={{
               backgroundColor: `${theme.palette.primary.dark}`,
               padding: "1em",
+              height: "calc(100vh - 3em)",
+              overflow: "scroll",
             }}
-            sx={{displayPrint: 'none'}}
+            sx={{ displayPrint: "none" }}
           >
             <Typography>
               <SearchMeal data={data} />
