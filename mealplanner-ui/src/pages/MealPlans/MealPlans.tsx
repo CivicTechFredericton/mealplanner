@@ -199,7 +199,7 @@ export const MealPlans = () => {
   const data = useLazyLoadQuery<MealPlansQuery>(
     mealPlansQuery,
     {},
-    { fetchPolicy: "store-or-network" }
+    { fetchPolicy: "network-only" }
   );
   return (
     <div>
