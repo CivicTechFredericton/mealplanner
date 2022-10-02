@@ -14,22 +14,23 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-require('cypress-xpath')
+import './commands';
+require('cypress-xpath');
 
 Cypress.on('uncaught:exception', (err, runnable) => {
-    // returning false here prevents Cypress from
-    // failing the test
-    return false
-    })
+  // returning false here prevents Cypress from
+  // failing the test
+  return false;
+});
 
-import '../e2e/Utils/login.js'
-import '../e2e/Utils/logout.js'
-import '../e2e/Utils/createmeal.js'
-import '../e2e/Utils/editmeal.js'
-import '../e2e/Utils/viewMethodSummaryofMeal.js'
-import '../e2e/Utils/createProduct.js'
-import '../e2e/Utils/viewNutritionofaProduct.js'
+import '../e2e/Utils/login.js';
+import '../e2e/Utils/logout.js';
+import '../e2e/Utils/createmeal.js';
+import '../e2e/Utils/editmeal.js';
+import '../e2e/Utils/viewMethodSummaryofMeal.js';
+import '../e2e/Utils/createProduct.js';
+import '../e2e/Utils/viewNutritionofaProduct.js';
+import '../e2e/Utils/checkPagination.js';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
