@@ -12,6 +12,7 @@ import {
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
 import { useFragment, useLazyLoadQuery } from "react-relay";
+import { useNavigate } from "react-router";
 import { updateMealPlanName } from "../../state/state";
 import { MealPlanHeaderAllUsersQuery } from "./__generated__/MealPlanHeaderAllUsersQuery.graphql";
 import { MealPlanHeader_mealPlan$key } from "./__generated__/MealPlanHeader_mealPlan.graphql";
@@ -58,6 +59,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
   const [editHeader, setEditHeader] = useState(false);
   const [isEditName, setIsEditName] = useState(false);
   const [isEditUser, setIsEditUser] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <section
@@ -81,7 +83,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         displayPrint={"none"}
       >
         <Box display="inline-flex" justifyContent={"space-between"}>
-          <IconButton onClick={() => window.history.back()} color="info">
+          <IconButton onClick={() => navigate("/mealplans")} color="info">
             <ArrowBackIosNewIcon />
           </IconButton>
           {isEditName ? (
