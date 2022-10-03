@@ -3,15 +3,19 @@ import createProducttestdata from "../fixtures/createProducttestdata.json";
 
 describe('createProductsforameal', () => {
 
-    beforeEach(function() {
+    beforeEach(function () {
         cy.login(testdata)
     });
 
-    it('createProductsforameal', function() {
+    it('createProductsforameal', function () {
         cy.createProductlist(createProducttestdata)
     })
 
-    it('Validate successful Logout', function() {
+    it('DownloadProducts', function () {
+        cy.exportProducts()
+    })
+
+    it('Validate successful Logout', function () {
         cy.logout()
     })
 })

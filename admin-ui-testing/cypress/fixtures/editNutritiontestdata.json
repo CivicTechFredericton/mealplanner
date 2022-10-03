@@ -1,0 +1,19 @@
+{
+    "editServingsize": "15",
+    "editServingSizeUnit": "g",
+    "editServingSizeText": "grams",
+    "editCalories": "51.8",
+    "editTotalFat": "0.1",
+    "editTotalFatUnit": "g",
+    "editTotalFatPercent": "0.1%",
+    "editSaturatedFat": "0.02",
+    "editSaturatedFatUnit": "g",
+    "editSaturatedFatPercent": "0.08%",
+    "editCholestrol": "0",
+    "editCholestrolUnit": "mg",
+    "editDietaryFibre": "2g",
+    "editProtein": "7.8g",
+    "editVitaminA": "0%",
+    "editVitaminC": "52.5mg",
+    "editIron": "3mg" 
+}

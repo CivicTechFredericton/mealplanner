@@ -1,0 +1,19 @@
+{
+    "Servingsize": "15",
+    "ServingSizeUnit": "g",
+    "ServingSizeText": "grams",
+    "Calories": "51.8",
+    "TotalFat": "0.1",
+    "TotalFatUnit": "g",
+    "TotalFatPercent": "0.1%",
+    "SaturatedFat": "0.02",
+    "SaturatedFatUnit": "g",
+    "SaturatedFatPercent": "0.08%",
+    "Cholestrol": "0",
+    "CholestrolUnit": "mg",
+    "DietaryFibre": "2g",
+    "Protein": "7.8g",
+    "VitaminA": "0%",
+    "VitaminC": "52.5mg",
+    "Iron": "3mg"
+}

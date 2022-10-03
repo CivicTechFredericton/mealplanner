@@ -1,18 +1,37 @@
 import viewMethodSummaryofMealPage from "../Pages/viewMethodSummaryofMealPage";
 const viewMethodSummaryofMeal = new viewMethodSummaryofMealPage();
 
-// import createmealPage from "../Pages/createmealPage";
-// const createmeal = new createmealPage();
+
 
 Cypress.Commands.add('viewMethodandSummary', () => {
 
-    viewMethodSummaryofMeal.clickexpandmoreIcon().click()
 
-    viewMethodSummaryofMeal.viewSummary().click()
+    cy.get("table tbody tr").contains('tr', 'Banana Bread').within(() => {
 
-    viewMethodSummaryofMeal.viewNutrition().click()
+        //click on ExpandMoreIcon to view the Nutrition information of a meal
+        // viewMethodSummaryofMeal.clickexpandmoreIcon().click()
+        
+        // viewMethodSummaryofMeal.viewMethod().click()
+        // cy.wait(1000)
+        // viewMethodSummaryofMeal.viewSummary().click()
+
+        // viewMethodSummaryofMeal.viewNutrition().click()
+
+        // viewMethodSummaryofMeal.clickexpandmoreIcon().click()
+
+        viewMethodSummaryofMeal.selectcheckbox().click({force:true})
+
+       
+
+    })
+
+    // cy.get("table tbody tr").contains('tr', 'Millet Dosa').within(() => {
+
+       
+
+       
+
+    // })
+
     
-    viewMethodSummaryofMeal.viewMethod().click()
-
-    viewMethodSummaryofMeal.clickexpandmoreIcon().click()
 })

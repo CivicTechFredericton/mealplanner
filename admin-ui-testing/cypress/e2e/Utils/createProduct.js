@@ -5,7 +5,7 @@ Cypress.Commands.add('createProductlist', (data) => {
     createProduct.clickproductsMenu().click()
 
     createProduct.clickCreateBtn().click()
-
+    cy.url().should('include', '/create')
     createProduct.InputProductNameEn().type(data.ProductNameEn)
     createProduct.InputProductNameFr().type(data.ProductNameFr)
     createProduct.InputProductCode().type(data.ProductCode)
@@ -16,6 +16,12 @@ Cypress.Commands.add('createProductlist', (data) => {
     createProduct.InputProductSourceLink().type(data.ProductSourceLink)
     createProduct.InputProductTags().type(data.ProductTags)
     createProduct.clickSaveBtn().click()
+    cy.contains("Element created").should("be.visible")
 
-    
-})
+
+});
+
+Cypress.Commands.add('exportProducts', (data) => {
+    createmeal.clickExport().click()
+
+});

@@ -1,19 +1,17 @@
 import testdata from "../fixtures/testdata.json";
 
-describe('clickEpandMoretoViewNutritionofaProduct', () => {
+describe('clickEpandMoretoViewMicroandMacroNutrients', () => {
 
     beforeEach(function () {
         cy.login(testdata);
     });
 
-    it('clickEpandMoretoViewNutritionofaProduct', function () {
-        cy.nutritionofaProduct()
+    it('clickEpandMoretoViewMicroandMacroNutrients', function () {
+        cy.viewMicroMacroNutrientsList()
 
     });
 
     it('Validate successful Logout', function () {
         cy.logout()
     })
-
-    
 })

@@ -34,10 +34,11 @@ Cypress.Commands.add('createMeal', (data, uniqueId) => {
   //   cy.contains("Please fill the required fields")
   // }
 
-  Cypress.Commands.add('exportMeals', (data) => {
-    createmeal.clickExport().click()
-  })
+});
 
-
+//Export meals file
+Cypress.Commands.add('exportMeals', (data) => {
+  createmeal.clickExport().click()
+ 
 })
 

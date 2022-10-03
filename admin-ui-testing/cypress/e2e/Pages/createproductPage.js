@@ -50,18 +50,20 @@ class createProductsPage {
     return cy.get('[data-testid="SaveIcon"]')
   }
 
-  clickKeyboardLeftArrowBtn()
-  {
+  clickKeyboardLeftArrowBtn() {
     //return cy.xpath('//*[@data-testid="KeyboardArrowLeftIcon"]')
 
     return cy.get('[data-testid="KeyboardArrowLeftIcon"]')
   }
 
-  clickKeyboardRightArrowBtn()
-  {
-   // return cy.xpath('//*[@data-testid="KeyboardArrowRightIcon"]')
+  clickKeyboardRightArrowBtn() {
+    // return cy.xpath('//*[@data-testid="KeyboardArrowRightIcon"]')
 
     return cy.get('[data-testid="KeyboardArrowRightIcon"]')
+  }
+
+  clickExport() {
+    return cy.get('[data-testid="GetAppIcon"]')
   }
 
 }

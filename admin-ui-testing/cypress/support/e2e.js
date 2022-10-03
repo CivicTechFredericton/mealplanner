@@ -26,10 +26,18 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 import '../e2e/Utils/login.js'
 import '../e2e/Utils/logout.js'
 import '../e2e/Utils/createmeal.js'
-import '../e2e/Utils/editmeal.js'
 import '../e2e/Utils/viewMethodSummaryofMeal.js'
 import '../e2e/Utils/createProduct.js'
 import '../e2e/Utils/viewNutritionofaProduct.js'
+import '../e2e/Utils/editandDeletetheMeal.js'
+import '../e2e/Utils/editandDeletetheProduct.js'
+import '../e2e/Utils/createMeasures.js'
+import '../e2e/Utils/editandDeleteMeasures.js'
+import '../e2e/Utils/createNutrition.js'
+import '../e2e/Utils/viewMicroandMacroNutrients.js'
+import '../e2e/Utils/editandDeleteNutrition.js'
+
+
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
