@@ -14,14 +14,14 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-require('cypress-xpath')
+import './commands';
+require('cypress-xpath');
 
 Cypress.on('uncaught:exception', (err, runnable) => {
-    // returning false here prevents Cypress from
-    // failing the test
-    return false
-    })
+  // returning false here prevents Cypress from
+  // failing the test
+  return false;
+});
 
 import '../e2e/Utils/login.js'
 import '../e2e/Utils/logout.js'
