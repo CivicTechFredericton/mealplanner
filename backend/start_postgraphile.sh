@@ -15,4 +15,4 @@ for sql in migrations/*.sql
 do
 	psql -U postgres -h db  -f "${sql}"
 done
-npm start
+node server.js

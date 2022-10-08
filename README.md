@@ -48,12 +48,14 @@ On Linux or MacOS:
 
 ```
 cat ./backend/seed.sql | docker-compose exec -T db /usr/bin/psql -U postgres -f -
+cat ./backend/meal_seed.sql | docker-compose exec -T db /usr/bin/psql -U postgres -f -
 ```
 
 On Windows (Powershell):
 
 ```
 Get-Content .\backend\seed.sql | docker-compose exec -T db /usr/bin/psql -U postgres -f -
+
 ```
 
 
@@ -68,6 +70,17 @@ psql:<stdin>:114: NOTICE:     User2 login: user2@example.com        10d3b4cba908
 DO
 COMMIT
 ```
+
+## For v2
+
+After the database and the graphQL servers are up and running, under `mealplanner-ui` folder run the following command.
+
+```
+$ npm i
+$ npm start
+```
+
+This should start the server on http://localhost:3333/
 
 ## To add some automatic linting on your commits:
 

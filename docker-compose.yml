@@ -30,26 +30,18 @@ services:
       - db
   frontend:
     build:
-      context: meal-planner-fredericton-ui
+      context: mealplanner-ui
     ports:
-      - "3000:3000"
-    volumes:
-      - ./meal-planner-fredericton-ui:/app:z
-      - /app/node_modules
-      - ./backend:/backend:z
-    environment:
-      REACT_APP_GRAPHQL_URL: http://localhost:4000/graphql
+      - "3000:80"
     depends_on:
       - graphql
     links:
       - graphql
   admin:
     build:
-      context: admin-interface
+      context: admin-ui
     ports:
-      - "2000:2000"
-    volumes:
-      - /app/node_modules
+      - "2000:80"
     depends_on:
       - graphql
     links:
