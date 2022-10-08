@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Describe a new desired feature or function
-title: "[FEATURE]"
+title: "[FEATURE] "
 labels: feature
 assignees: ''
 

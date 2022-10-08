@@ -1,7 +1,7 @@
 ---
 name: Documentation request
 about: Use to point out errors in documentation, or request ehnacement
-title: "[DOCS]"
+title: "[DOCS] "
 labels: documentation
 assignees: ''
 

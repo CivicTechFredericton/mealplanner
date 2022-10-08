@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Use to desribe a defect that needs fixing
-title: "[BUG]"
+title: "[BUG] "
 labels: bug
 assignees: ''
 
