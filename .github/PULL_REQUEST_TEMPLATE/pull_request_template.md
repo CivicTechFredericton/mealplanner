@@ -11,9 +11,9 @@ Describe how product behaviour is altered by this change
 List issue numbers using the "Fixes #xxx" syntax
 
 **Have the following been addressed?**
-- [] Have test cases been created for all of the changes?
-- [] Do all of the test cases pass?
-- [] Has the testing been done using the default docker-compose environment?
-- [] Are documentation changes required?
-- [] Does this change break or alter existing behaviour?
+- [ ] Have test cases been created for all of the changes?
+- [ ] Do all of the test cases pass?
+- [ ] Has the testing been done using the default docker-compose environment?
+- [ ] Are documentation changes required?
+- [ ] Does this change break or alter existing behaviour?
 
