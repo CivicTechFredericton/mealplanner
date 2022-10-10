@@ -1,70 +1,62 @@
 class editandDeleteUsersPage {
-    clickonUsersMenu() {
-        return cy.xpath('(//*[@data-testid="ViewListIcon"])[5]')
-    }
+  clickonUsersMenu() {
+    return cy.xpath('(//*[@data-testid="ViewListIcon"])[5]')
+  }
 
-    selectcheckbox() {
-        return cy.get('[data-testid="CheckBoxOutlineBlankIcon"]')
+  selectcheckbox() {
+    return cy.get('[data-testid="CheckBoxOutlineBlankIcon"]')
+  }
 
-    }
+  clickeditIcon() {
+    return cy.get('[data-testid="CreateIcon"]')
+  }
 
-    clickeditIcon() {
+  InputFullName() {
+    return cy.xpath('//*[text()="Full Name"]')
+  }
 
-        return cy.get('[data-testid="CreateIcon"]')
-    }
+  InputEmail() {
+    return cy.xpath('//*[text()="Email"]').closest('div').find('input')
+  }
 
-    InputFullName() {
-        return cy.xpath('//*[text()="Full Name"]')
-    }
-
-    InputEmail() {
-        return cy.xpath('//*[text()="Email"]')
-    }
-
-   AssignRole()
-   {
+  AssignRole() {
     return cy.get('[id="role"]')
-   }
+  }
 
-   selectRoleClient()
-   {
+  selectRoleClient() {
     return cy.get('[data-value="APP_USER"]')
-   }
+  }
 
-   clickSaveBtn()
-   {
-    return cy.get('[data-testid="SaveIcon"]')
-   }
+  roleDropdown() {
+    return cy.get('[role="listbox"]')
+  }
 
-   clickDeleteIcon()
-   {
+  clickSaveBtn() {
+    return cy.get('button[aria-label="Save"]')
+  }
+
+  clickDeleteIcon() {
     return cy.get('[data-testid="DeleteIcon"]')
-   }
+  }
 
-   clickResetPassword()
-   {
+  clickResetPassword() {
     return cy.xpath('//*[text()="Reset password"]')
-   }
+  }
 
-   InputNewPassword()
-   {
-    return cy.xpath('//*[text()="New Password"]')
-   }
+  InputNewPassword() {
+    return cy.xpath('//*[text()="New Password"]').closest('div').find('input')
+  }
 
-   clickNewPasswordVisibilityIcon()
-   {
+  clickNewPasswordVisibilityIcon() {
     return cy.get('[data-testid="VisibilityIcon"]')
-   }
+  }
 
-   clickToSaveResetPassword()
-   {
+  clickToSaveResetPassword() {
     return cy.xpath('//*[text()="Reset Password"]')
-   }
+  }
 
-   clickcloseIcon()
-   {
+  clickcloseIcon() {
     return cy.get('[data-testid="CloseIcon"]')
-   }
-
+  }
 }
 export default editandDeleteUsersPage
