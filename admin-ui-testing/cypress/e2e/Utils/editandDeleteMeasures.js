@@ -1,4 +1,4 @@
-import editandDeleteMeasuresPage from "../Pages/editandDeleteMeasuresPage.js"
+import editandDeleteMeasuresPage from '../Pages/editandDeleteMeasuresPage.js';
 const editandDeleteMeasures = new editandDeleteMeasuresPage();
 
 // Opens the Measures Edit
