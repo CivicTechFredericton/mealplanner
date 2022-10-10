@@ -14,12 +14,22 @@ class editandDeletetheNutritionPage
         return cy.get('[data-testid="CreateIcon"]')
     }
     
-    selectMeal() {
-        return cy.get('[data-testid="RadioButtonUncheckedIcon"]')
+    selectNutritionTypeMeal() {
+        return cy.get('[id="nutritionableType_meal"]')
     }
 
-    selectProduct() {
-        return cy.get('[data-testid="RadioButtonUncheckedIcon"]')
+    selectNutritionTypeProduct() {
+        return cy.get('[id="nutritionableType_product"]')
+    }
+
+    InputNutritionableID()
+    {
+        return cy.get('[id="nutritionableId"]')
+    }
+
+    SelectNutritionableID()
+    {
+        return cy.get('[data-value="56"]')
     }
 
     clickArrowDownIcon() {
@@ -195,5 +205,15 @@ class editandDeletetheNutritionPage
     clickSaveBtn() {
         return cy.get('[data-testid="SaveIcon"]')
     }
+
+    clickcloseIcon()
+   {
+    return cy.get('[data-testid="CloseIcon"]')
+   }
+
+   clickDeleteIcon()
+   {
+    return cy.get('[data-testid="DeleteIcon"]')
+   }
 }
 export default editandDeletetheNutritionPage

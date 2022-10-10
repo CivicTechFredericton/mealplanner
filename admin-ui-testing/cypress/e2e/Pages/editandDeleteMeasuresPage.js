@@ -21,17 +21,35 @@ class editandDeleteMeasuresPage {
         return cy.get('[id="unit"]')
     }
 
-    SelectProduct() {
+    InputProduct() {
         return cy.get('[id="productId"]')
+    }
+    
+    selectProduct() {
+        return cy.get('[data-value="296"]')
+    }
+
+    InputMeal() {
+        return cy.get('[id="mealId"]')
     }
 
     SelectMeal() {
-        return cy.get('[id="mealId"]')
+        return cy.get('[data-value="49"]')
     }
 
     clickSaveBtn() {
         return cy.get('[data-testid="SaveIcon"]')
     }
+
+    clickcloseIcon()
+   {
+    return cy.get('[data-testid="CloseIcon"]')
+   }
+
+   clickDeleteIcon()
+   {
+    return cy.get('[data-testid="DeleteIcon"]')
+   }
 
 
 }

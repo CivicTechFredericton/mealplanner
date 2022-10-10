@@ -8,12 +8,23 @@ class createNutritionPage {
 
         return cy.xpath('//*[text()="Create"]')
     }
-    selectMeal() {
-        return cy.get('[data-testid="RadioButtonUncheckedIcon"]')
+
+    selectNutritionTypeMeal() {
+        return cy.get('[id="nutritionableType_meal"]')
     }
 
-    selectProduct() {
-        return cy.get('[data-testid="RadioButtonUncheckedIcon"]')
+    selectNutritionTypeProduct() {
+        return cy.get('[id="nutritionableType_product"]')
+    }
+
+    InputNutritionableID()
+    {
+        return cy.get('[id="nutritionableId"]')
+    }
+
+    SelectNutritionableID()
+    {
+        return cy.get('[data-value="56"]')
     }
 
     clickArrowDownIcon() {

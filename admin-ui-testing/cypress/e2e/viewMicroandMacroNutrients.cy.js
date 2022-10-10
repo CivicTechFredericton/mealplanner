@@ -7,6 +7,7 @@ describe('clickEpandMoretoViewMicroandMacroNutrients', () => {
     });
 
     it('clickEpandMoretoViewMicroandMacroNutrients', function () {
+        cy.ClickOnExpandMoreIconOfaNutritionList()
         cy.viewMicroMacroNutrientsList()
 
     });

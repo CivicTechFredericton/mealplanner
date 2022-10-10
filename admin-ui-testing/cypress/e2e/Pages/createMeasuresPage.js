@@ -16,12 +16,20 @@ class createMeasuresPage {
         return cy.get('[id="unit"]')
     }
 
-    SelectProduct() {
+    InputProduct() {
         return cy.get('[id="productId"]')
     }
 
-    SelectMeal() {
+    selectProduct() {
+        return cy.get('[data-value="296"]')
+    }
+
+    InputMeal() {
         return cy.get('[id="mealId"]')
+    }
+
+    SelectMeal() {
+        return cy.get('[data-value="49"]')
     }
 
     clickSaveBtn() {

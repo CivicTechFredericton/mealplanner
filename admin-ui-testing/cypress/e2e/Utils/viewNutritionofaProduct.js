@@ -1,7 +1,8 @@
 import viewNutritionofaProductPage from "../Pages/viewNutritionofaProductPage";
 const viewNutritionofaProduct = new viewNutritionofaProductPage();
 
-Cypress.Commands.add('nutritionofaProduct', () => {
+//Click On ExpandMoreIcon of a Product
+Cypress.Commands.add('ClickOnExpandMoreIconOfaProduct', () => {
 
     viewNutritionofaProduct.clickproductsMenu().click()
 
@@ -15,14 +16,14 @@ Cypress.Commands.add('nutritionofaProduct', () => {
        
         //click on the link to view the product
         //cy.get("a").click({ force: true });
-
-        //Delete the Product
-        viewNutritionofaProduct.selectcheckbox().click({force:true})
-
-        //click 'Edit' of product
-       // cy.contains("Edit").click({ force: true });
-
     })
+
+});
+
+//View Nutrition Of a Selected Product
+Cypress.Commands.add('ViewNutritionOfaProduct', () => {
+
+   cy.contains("Nutrition Information").should('be.visible')
 
 })
 

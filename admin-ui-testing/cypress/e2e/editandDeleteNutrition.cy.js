@@ -8,12 +8,19 @@ describe('EditNutritionforaProduct', () => {
     });
 
     it('EditNutritionListforaProduct', function () {
+        cy.OpenNutritionToEdit()
         cy.EditNutritionList(editNutritiontestdata)
     })
 
-    it('DeleteNutritionList', function () {
-        cy.DeleteNutitionList()
+    it('DoNotDeleteNutritionList', function() {
+        cy.SelectCheckboxToDeleteaNutitionList()
+        cy.UnSelectCheckboxOfaNutitionList()
     })
+
+    // it('DeleteNutritionList', function () {
+    //     cy.SelectCheckboxToDeleteaNutitionList()
+    //     cy.ClickDeleteIconToDeleteaNutitionList()
+    // })
 
     it('Validate successful Logout', function () {
         cy.logout()

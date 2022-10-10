@@ -1,14 +1,21 @@
 import editandDeletetheMealPage from "../Pages/editandDeletetheMealPage";
 const editandDeleteMeal = new editandDeletetheMealPage();
 
-Cypress.Commands.add('EditMeal', (data) => {
-
+//Open the Meal Edit
+Cypress.Commands.add('OpenMealToEdit', (data) => {
+    
     cy.get("table tbody tr").wait(1000).contains('tr', 'Cucumber Dill Salad').within(() => {
 
         //click 'Edit' of meal
         cy.contains("Edit").click({ force: true });
         cy.url().should('include', "/meals/")
-        cy.wait(1000)
+
+    })
+});
+
+//Changes the Meal details
+Cypress.Commands.add('EditMeal', (data) => {
+
         editandDeleteMeal.InputMealCode().clear().type(data.editMealcode)
         editandDeleteMeal.InputMealNameEn().clear().type(data.editMealNameEn)
         editandDeleteMeal.InputMealNameFr().type(data.editnameFr)
@@ -19,15 +26,31 @@ Cypress.Commands.add('EditMeal', (data) => {
         editandDeleteMeal.clickSave().click()
         cy.contains("Element updated").should('be.visible')
 
-    })
 });
 
-Cypress.Commands.add('DeleteMeal', (data) => {
+//Select Checkbox to Delete Meal
+Cypress.Commands.add('SelectCheckboxToDeleteMeal', (data) => {
 
     cy.get("table tbody tr").wait(1000).contains('tr', 'Cucumber Dill Salad').within(() => {
-
-        //Delete the meal
-        editandDeleteMeal.selectcheckbox().click({ force: true })
+        
+         //Select checkbox of User and click Delete
+         editandDeleteMeal.selectcheckbox().click({ force: true })
 
     })
 })
+
+//Click CloseIcon To Select UnSelect Checkbox of a Selected Nutrition
+Cypress.Commands.add('UnSelectCheckboxOfaMeal', (data) => {
+        
+         //clear(UnSelect) Delete Users
+         editandDeleteMeal.clickcloseIcon().click()
+});
+
+//Click DeleteIcon To Delete the Selected Meal
+Cypress.Commands.add('ClickDeleteIconToDeleteaMeal', (data) => {
+
+         editandDeleteMeal.clickDeleteIcon().click()
+         cy.contains("Element deleted").should('be.visible')
+
+});
+

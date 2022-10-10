@@ -8,13 +8,21 @@ describe('testEditandDeleteMeasuresofaProductforMeal', () => {
     });
 
     it('edittheproductdetails', function () {
+
+        cy.OpenMeasureToEdit();
         cy.EditMeasure(editMeasurestestdata)
 
     });
 
-    it('deletetheproductdetails', function() {
-        cy.DeleteMeasure()
+    it('DoNotDeleteTheMeasures', function() {
+        cy.SelectCheckboxToDeleteMeasure()
+        cy.UnSelectCheckboxOfaMeasure()
     })
+
+    // it('deletetheMeasures', function() {
+    //     cy.SelectCheckboxToDeleteMeasure()
+    //     cy.ClickDeleteIconToDeleteaMeasure()
+    // })
 
     it('Validate successful Logout', function () {
         cy.logout()

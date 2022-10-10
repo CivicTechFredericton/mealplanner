@@ -110,5 +110,14 @@ class editandDeletetheMealPage
        // return cy.xpath('(//*[@data-testid="CheckBoxOutlineBlankIcon"])[2]')
     }
 
+    clickcloseIcon()
+   {
+    return cy.get('[data-testid="CloseIcon"]')
+   }
+
+   clickDeleteIcon()
+   {
+    return cy.get('[data-testid="DeleteIcon"]')
+   }
 }
 export default editandDeletetheMealPage

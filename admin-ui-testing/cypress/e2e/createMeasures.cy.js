@@ -9,6 +9,7 @@ describe('createMeasuresOfaProductforMeal', () => {
 
     it('createMeasuresOfaProductforMeal', function () {
         cy.createMeasureOfProduct(createMeasurestestdata)
+    
     })
 
     it('DownloadProducts', function () {

@@ -7,7 +7,8 @@ describe('clickEpandMoretoViewNutritionofaProduct', () => {
     });
 
     it('clickEpandMoretoViewNutritionofaProduct', function () {
-        cy.nutritionofaProduct()
+        cy.ClickOnExpandMoreIconOfaProduct()
+        cy.ViewNutritionOfaProduct()
 
     });
 

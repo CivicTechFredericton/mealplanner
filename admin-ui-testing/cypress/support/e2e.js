@@ -14,14 +14,15 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands';
-require('cypress-xpath');
+import './commands'
+require('cypress-xpath')
+require('cy-verify-downloads').addCustomCommand();
 
 Cypress.on('uncaught:exception', (err, runnable) => {
-  // returning false here prevents Cypress from
-  // failing the test
-  return false;
-});
+    // returning false here prevents Cypress from
+    // failing the test
+    return false
+    })
 
 import '../e2e/Utils/login.js'
 import '../e2e/Utils/logout.js'
@@ -36,6 +37,9 @@ import '../e2e/Utils/editandDeleteMeasures.js'
 import '../e2e/Utils/createNutrition.js'
 import '../e2e/Utils/viewMicroandMacroNutrients.js'
 import '../e2e/Utils/editandDeleteNutrition.js'
+import '../e2e/Utils/registerUsers.js'
+import '../e2e/Utils/editandDeleteUsers.js'
+import '../e2e/Utils/checkPagination.js'
 
 
 

@@ -8,13 +8,21 @@ describe('editandDeletetheMeal', () => {
     });
 
     it('editthemealdetails', function () {
+
+        cy.OpenMealToEdit()
         cy.EditMeal(editmealtestdata)
 
     });
-    
-    it('deletethemeal', function() {
-        cy.DeleteMeal()
+
+    it('DoNotDeletetheMeal', function() {
+        cy.SelectCheckboxToDeleteMeal()
+        cy.UnSelectCheckboxOfaMeal()
     })
+    
+    // it('deletethemeal', function() {
+    //     cy.SelectCheckboxToDeleteMeal()
+    //     cy.ClickDeleteIconToDeleteaMeal()
+    // })
 
     it('Validate successful Logout', function () {
         cy.logout()

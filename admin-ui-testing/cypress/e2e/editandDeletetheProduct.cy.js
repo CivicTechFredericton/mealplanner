@@ -8,13 +8,20 @@ describe('testEditandDeleteofaProdut', () => {
     });
 
     it('edittheproductdetails', function () {
+        cy.OpenProductToEdit()
         cy.EditProduct(editProducttestdata)
 
     });
 
-    it('deletetheproduct', function() {
-        cy.DeleteProduct()
+    it('DoNotDeleteTheProduct', function() {
+        cy.SelectCheckboxToDeleteProduct()
+        cy.UnSelectCheckboxOfaProduct()
     })
+
+    // it('deletetheproduct', function() {
+    //     cy.SelectCheckboxToDeleteProduct()
+    //     cy.ClickDelectIconToDeleteaProduct()
+    // })
 
     it('Validate successful Logout', function () {
         cy.logout()

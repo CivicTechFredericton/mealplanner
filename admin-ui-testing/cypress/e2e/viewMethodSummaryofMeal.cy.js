@@ -7,9 +7,13 @@ describe('viewMethodandSummaryofaMeal', () => {
     });
 
     it('viewMethodandSummaryofaMeal', function () {
-        cy.viewMethodandSummary();
+        cy.ClickOnExpandMoreIconOfaMeal();
+        cy.ViewMethodSummaryNutritionOfaMeal();
 
     });
 
+    it('Validate successful Logout', function () {
+        cy.logout()
+    })
     
 })

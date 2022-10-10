@@ -34,6 +34,11 @@ class createProductsPage {
     return cy.get('[id="unit"]')
   }
 
+  clickIsArchived()
+  {
+    return cy.get('[id="isArchived"]')
+  }
+
   InputProductUPC() {
     return cy.get('[id="upc"]')
   }
