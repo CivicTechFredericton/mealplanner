@@ -1,7 +1,6 @@
 import {
   Button,
   Checkbox,
-  Container,
   Grid,
   Table,
   TableCell,
@@ -13,11 +12,10 @@ import {
 import { graphql } from "babel-plugin-relay/macro";
 import { useLazyLoadQuery } from "react-relay";
 import { useParams } from "react-router";
-import ResponsiveAppBar from "../layouts/ResponsiveAppBar";
 import { ShoppingListQuery } from "./__generated__/ShoppingListQuery.graphql";
-
-import moment from "moment";
 import { Print } from "@mui/icons-material";
+import moment from "moment";
+
 const query = graphql`
   query ShoppingListQuery($rowId: BigInt!) {
     # mealPlan (id:"WyJtZWFscyIsMV0="){
@@ -60,9 +58,9 @@ export const ShoppingList = () => {
 
   return (
     <>
-      <Grid container spacing="5" sx={{padding: "2rem"}}>
+      <Grid container spacing="5" sx={{ padding: "2rem" }}>
         <Grid xs={12}>
-          <Typography variant="caption" sx={{mr: 5}}>
+          <Typography variant="caption" sx={{ mr: 5 }}>
             {mealPlan.person && `Prepared for ${mealPlan.person.fullName}`}
           </Typography>
           <Typography variant="caption">
@@ -70,7 +68,7 @@ export const ShoppingList = () => {
             {moment().endOf("week").format("MMMM DD")}
           </Typography>
         </Grid>
-        
+
         <Grid item xs={8}>
           <Typography variant="h4">
             {mealPlan.nameEn} <br />
@@ -85,8 +83,9 @@ export const ShoppingList = () => {
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          <Typography sx={{textAlign: "center"}}>
-            Estimate<Typography variant="h2">${totalPrice.toFixed(2)}</Typography>
+          <Typography sx={{ textAlign: "center" }}>
+            Estimate
+            <Typography variant="h2">${totalPrice.toFixed(2)}</Typography>
           </Typography>
         </Grid>
         <Grid item xs={12}>

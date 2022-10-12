@@ -135,11 +135,8 @@ const ResponsiveAppBar = () => {
                   </Link>
                 </Button>
               </Box>
-              <Box sx={{ flexGrow: 0 }}>
-                <Typography
-                  data-testid="current-user"
-                  sx={{ display: "inline-block", mr: "12px" }}
-                >
+              <Box sx={{ flexGrow: 0, displayPrint: "none" }}>
+                <Typography data-testid="current-user" sx={{ display: "inline-block", mr: "12px" }}>
                   {getCurrentPerson().personName}
                 </Typography>
                 <Tooltip title="Logout">

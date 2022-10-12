@@ -42,7 +42,7 @@ const NutritionDetails = () => {
         reference="nutrition"
         target="nutritionableId"
         filter={{ nutritionableType: "product" }}
-      >
+      > 
         <SingleFieldList>
           <NutritionShow />
         </SingleFieldList>

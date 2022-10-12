@@ -1,4 +1,4 @@
-import { ArrowBack } from "@mui/icons-material";
+import { ArrowBack, Print } from "@mui/icons-material";
 import {
   Container,
   Grid,
@@ -77,20 +77,25 @@ export const Meal = () => {
     margin: "0.3em 0",
     display: "inline-block",
   };
+
+  const displayCost = () => {
+    return meal?.totalCost > 0 ? meal?.totalCost + "$" : "Not available";
+  };
+
+  const displayTags = () => {
+    return meal!.tags?.map((tag) => (
+      <span>
+        <span style={tagStyle}>{tag}</span>
+        &nbsp;
+        {/* For the space between tags */}
+      </span>
+    ));
+  };
   return (
-    // <main
-    //   style={{
-    //     position: "relative",
-    //     display: "flex",
-    //     flexDirection: "column",
-    //     flexWrap: "wrap",
-    //     margin: "1rem 1rem",
-    //     alignContent: "center"
-    //   }}
-    // >
     <>
       <Box
         sx={{
+          displayPrint: "none",
           width: "100%",
           height: "300px",
           backgroundSize: "cover",
@@ -121,7 +126,7 @@ export const Meal = () => {
             Estimated price
           </Typography>
           <Typography variant="h5" color="whitesmoke">
-            {meal?.totalCost > 0 ? meal?.totalCost + "$" : "Not available"}
+            {displayCost()}
           </Typography>
         </Paper>
         <Paper
@@ -153,13 +158,7 @@ export const Meal = () => {
           top="300px"
           left="50px"
         >
-          {meal!.tags?.map((tag) => (
-            <span>
-              <span style={tagStyle}>{tag}</span>
-              &nbsp;
-              {/* For the space between tags */}
-            </span>
-          ))}
+          {displayTags()}
         </Typography>
       </Box>
       <Container maxWidth="lg" sx={{ marginTop: "1em" }}>
@@ -167,7 +166,7 @@ export const Meal = () => {
           <Grid
             item
             xs={3}
-            style={{ textAlign: "center" }}
+            sx={{ textAlign: "center", displayPrint: "none" }}
             bgcolor={theme.palette.grey[200]}
           >
             {meal?.videoUrl ? (
@@ -194,7 +193,16 @@ export const Meal = () => {
           </Grid>
 
           <Grid item xs={9} bgcolor={theme.palette.grey[200]}>
-            <Typography variant="h3">{meal?.nameEn}</Typography>
+            <Typography variant="h3">
+              {meal?.nameEn}
+              <IconButton
+                onClick={() => window.print()}
+                sx={{ marginLeft: "1rem", displayPrint: "none" }}
+              >
+                <Print htmlColor={`${theme.palette.primary.dark}`}></Print>
+              </IconButton>
+            </Typography>
+
             <Typography variant="h4">{meal?.nameFr}</Typography>
             <Typography variant="body1">
               {meal?.categories?.map((category) => (
@@ -203,6 +211,19 @@ export const Meal = () => {
                   &nbsp;
                 </span>
               ))}
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ display: "none", displayPrint: "block" }}
+            >
+              {displayTags()}
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ display: "none", displayPrint: "block" }}
+            >
+              Estimated Price: {displayCost()} Nutrition Rating:{" "}
+              {meal?.nutritionRating}
             </Typography>
             <Typography variant="caption">
               Meal Code: {meal?.code} &nbsp; Cooking Duration:{" "}
@@ -213,7 +234,10 @@ export const Meal = () => {
 
             {/* Explicitly indicate meal description is not available*/}
             {meal?.descriptionEn ? (
-              <Typography paddingTop="1em"> {meal.descriptionEn} </Typography>
+              <Typography paddingTop="1em">
+                <b>Description: </b>
+                {meal.descriptionEn}{" "}
+              </Typography>
             ) : (
               <Typography color="gray">
                 No meal description available
