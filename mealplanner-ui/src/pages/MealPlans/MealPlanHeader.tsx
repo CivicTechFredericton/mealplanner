@@ -2,14 +2,17 @@ import { KeyboardArrowDown, KeyboardArrowUp, Print } from "@mui/icons-material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import {
   Autocomplete,
-  Box, IconButton, TextareaAutosize,
+  Box,
+  IconButton,
+  TextareaAutosize,
   TextField,
   Typography,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
 import { useFragment, useLazyLoadQuery } from "react-relay";
+import { useNavigate } from "react-router";
 import { updateMealPlanName } from "../../state/state";
 import { MealPlanHeaderAllUsersQuery } from "./__generated__/MealPlanHeaderAllUsersQuery.graphql";
 import { MealPlanHeader_mealPlan$key } from "./__generated__/MealPlanHeader_mealPlan.graphql";
@@ -30,15 +33,15 @@ const fragment = graphql`
 
 const query = graphql`
   query MealPlanHeaderAllUsersQuery {
-  people {
-    nodes {
-      id
-      rowId
-      fullName
+    people {
+      nodes {
+        id
+        rowId
+        fullName
+      }
     }
   }
-}
-`
+`;
 
 interface HeaderProps {
   mealPlan: MealPlanHeader_mealPlan$key;
@@ -49,15 +52,17 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
 
   let users = useLazyLoadQuery<MealPlanHeaderAllUsersQuery>(query, {});
 
-  let allUsers = users.people?.nodes.map(user => { return { label: user.fullName, id: user.rowId } });
+  let allUsers = users.people?.nodes.map((user) => {
+    return { label: user.fullName, id: user.rowId };
+  });
   const theme = useTheme();
   const [editHeader, setEditHeader] = useState(false);
   const [isEditName, setIsEditName] = useState(false);
   const [isEditUser, setIsEditUser] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <section
-      data-testid="meal-plans-header"
       style={{
         border: `2px solid ${theme.palette.primary.main}`,
         borderRadius: "10px",
@@ -78,9 +83,11 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         displayPrint={"none"}
       >
         <Box display="inline-flex" justifyContent={"space-between"}>
+          <IconButton onClick={() => navigate("/mealplans")} color="info">
+            <ArrowBackIosNewIcon />
+          </IconButton>
           {isEditName ? (
             <TextField
-              data-testid="Edit-Meal-Plan-Name"
               id="filled-basic"
               label="Edit Meal Plan Name"
               variant="filled"
@@ -100,7 +107,6 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             />
           ) : (
             <Typography
-              data-testid="edit-meal-name-input"
               padding="0.5rem 0"
               marginLeft="1rem"
               color="primary.contrastText"
@@ -113,10 +119,9 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               {data.nameEn}
             </Typography>
           )}
-          <Typography data-testid="edit-meal-user-input" padding="0.75rem 1rem"></Typography>
+          <Typography padding="0.75rem 1rem"></Typography>
           {isEditUser ? (
             <Autocomplete
-              //data-testid="edit-meal-user-input"
               // options={[
               //   { label: "Admin", id: 1 },
               //   { label: "Meal Designer", id: 2 },
@@ -141,14 +146,16 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 <TextField
                   {...params}
                   label="Select user"
-                  style={{ backgroundColor: theme.palette.primary.contrastText, width: '200%' }}
+                  style={{
+                    backgroundColor: theme.palette.primary.contrastText,
+                    width: "200%",
+                  }}
                   variant="filled"
                 />
               )}
             ></Autocomplete>
           ) : (
             <Typography
-              data-testid="current-meal-user-input"
               padding="0.75rem 0"
               color="primary.contrastText"
               textTransform={"capitalize"}
@@ -168,7 +175,6 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             <Print htmlColor={`${theme.palette.primary.contrastText}`}></Print>
           </IconButton>
           <IconButton
-            data-testid="arrow-button"
             sx={{ minWidth: "1.5em" }}
             onClick={(e) => {
               e.stopPropagation();
@@ -206,7 +212,6 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             minRows={1}
             aria-label="Description"
             placeholder="Description"
-            data-testid="Edit-Description"
             style={{
               fontFamily: "Roboto",
               width: "100%",
@@ -248,7 +253,6 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 variant="outlined"
                 label="tags"
                 placeholder="add tag"
-                data-testid="edit-add-tag"
               />
             )}
           />

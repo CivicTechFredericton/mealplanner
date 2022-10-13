@@ -61,7 +61,7 @@ INSERT INTO app.meal
       'Le pain aux bananes peut être fait avec des ingrédients simples disponibles à la maison'
       ,
       '{"Breakfast", "Snack"}',
-      'http://picturetherecipe.com/wp-content/uploads/2018/09/Banana-Bread-with-Honey-Oats-Walnuts-by-PictureTheRecipe-Featured.jpg'
+      'https://picturetherecipe.com/wp-content/uploads/2018/09/Banana-Bread-with-Honey-Oats-Walnuts-by-PictureTheRecipe-Featured.jpg'
       ,
       'https://youtu.be/fzrX32nSvZ4',
       '1. Preheat oven to 350F. In a bowl add ripened or mashed bananas, a stick of butter, honey, brown sugar, vanilla, eggs, baking soda, baking powder, cinnamon powder, and salt.      2. Mix all the ingredients together until its all combined. Add the flour and oats and mix them together.      3. Add 3/4 cup of the chopped walnuts and fold in with a spatula or wooden spoon. Do not overheat the batter.      4. Pour the batter into a loaf tin and sprinkle the leftover nuts and oats over the top.      5. Bake at 350F for 45-55 minutes. Use a toothpick to check whether the bread is cooked or not.      6. Take the bread from the oven and bring it to room temperature and slice it and enjoy.'
@@ -100,7 +100,7 @@ INSERT INTO app.meal
       'The sauce can be eaten along with bread, roti or chips.',
       'La sauce peut être consommée avec du pain, du roti ou des frites',
       '{"Breakfast", "Snack", "Dinner"}',
-      'http://picturetherecipe.com/wp-content/uploads/2018/01/Mint-Chimichurri-PictureTheRecipe-Featured.jpg'
+      'https://picturetherecipe.com/wp-content/uploads/2018/01/Mint-Chimichurri-PictureTheRecipe-Featured.jpg'
       ,
       'https://youtu.be/Uqa7WNzxR28',
       '1. Finely chop the parsley, mint, cilantro, shallots, and garlic.      2. Mix all the ingredients together in a bowl with olive oil and red wine vinegar.      3. Let the sauce sit out for at least 15 - 20 minutes at room temperature to let all the flavors meld.'
@@ -138,7 +138,7 @@ INSERT INTO app.meal
       'The salad is rich in nutrients and contains antioxidants',
       'La salade est riche en nutriments et contient des antioxydants',
       '{"Snack", "Dinner"}',
-      'http://picturetherecipe.com/wp-content/uploads/2017/08/Smashed-Cucumber-Salad-1.jpg'
+      'https://picturetherecipe.com/wp-content/uploads/2017/08/Smashed-Cucumber-Salad-1.jpg'
       ,
       'https://youtu.be/TFUULnSmUFc',
       '1.  Smash the cucumber using the rolling pin or you can use the flat side of a clever if you have one.    2. Chop the cucumber into bite-size pieces.      3. Place the chopped cucumber in a strainer/colander over a bowl and sprinkle with salt and sugar.    4. Mix and allow the cucumber to drain for at least 15-30 mins in the fridge or until almost ready to serve.    5. For the dressing: Add the Rice Vinegar, Sesame Oil, Light Soy & remaining sugar. Grate in two garlic cloves and whisk it all together.    6. Add the drained cucumber to the dressing and mix well to coat all the pieces.    7. Sprinkle with crushed red pepper, lightly toasted sesame seeds and chopped fresh cilantro.    8. Mix, plate & garnish with more cilantro & sesame seeds. ',
@@ -256,7 +256,7 @@ INSERT INTO app.meal
       'Un condiment à loignon sucré et acidulé qui est parfait sur les sandwichs, les tacos, les hamburgers, les nachos, les salades ou tout ce qui a besoin dun peu plus de piquant!'
       ,
       '{"Breakfast", "Snack", "Dinner"}',
-      'http://picturetherecipe.com/wp-content/uploads/2017/09/Featured-2-1.jpg',
+      'https://picturetherecipe.com/wp-content/uploads/2017/09/Featured-2-1.jpg',
       'https://www.youtube.com/watch?v=Y0_9Y_rWCPk',
       '1. Peel and thinly slice the red onion, and add white wine vinegar, water, sugar, salt, garlic, allspice, black peppercorns & bay leaves to a saucepan.      2. Bring to a boil on medium-high heat, stirring to dissolve the sugar.      3. When the pickling liquid comes to a boil switch off and pour the hot liquid over the sliced onions in a heat-proof bowl/dish.      4. Add the lime juice and make sure all the onions are submerged in the liquid. Allow it to cool on the counter.      5. You will notice the onions turning a bright vibrant pinkish color within a few minutes. You can eat them within an hour or two.'
       ,

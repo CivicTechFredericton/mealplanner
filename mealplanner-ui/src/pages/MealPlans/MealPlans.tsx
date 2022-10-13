@@ -102,7 +102,6 @@ const MealPlanCard = (props: MealPlanCardProps) => {
   return (
     <Grid item xs="auto">
       <Card
-        data-testid={`${mealplan.nameEn}-mealcard`}
         sx={{ maxWidth: 332 }}
         onClick={(e) => {
           e.preventDefault();
@@ -115,18 +114,13 @@ const MealPlanCard = (props: MealPlanCardProps) => {
       >
         <CardHeader
           avatar={
-            <Avatar
-              sx={{ bgcolor: "green", width: "fit" }}
-              aria-label="user"
-              data-testid="user-initials"
-            >
+            <Avatar sx={{ bgcolor: "green", width: "fit" }} aria-label="user">
               {getInitials(mealplan.person?.fullName || "")}
             </Avatar>
           }
           action={
             <div>
               <IconButton
-                data-testid={`${mealplan.nameEn}-shoppingListIcon`}
                 aria-label="shopping list"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -137,7 +131,6 @@ const MealPlanCard = (props: MealPlanCardProps) => {
                 <ShoppingCart />
               </IconButton>
               <IconButton
-                data-testid={`${mealplan.nameEn}-delete`}
                 aria-label="delete"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -149,7 +142,6 @@ const MealPlanCard = (props: MealPlanCardProps) => {
               </IconButton>
             </div>
           }
-          data-testid="mealcard-header"
           title={mealplan.nameEn}
           subheader={mealplan.person?.fullName}
         />
@@ -177,10 +169,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            data-testid="add-to-favorites"
-          >
+          <IconButton aria-label="add to favorites">
             <FavoriteIcon />
           </IconButton>
 
@@ -189,7 +178,6 @@ const MealPlanCard = (props: MealPlanCardProps) => {
             onClick={handleExpandClick}
             aria-expanded={expanded}
             aria-label="show more"
-            data-testid="show-more"
           >
             <ExpandMoreIcon />
           </ExpandMore>
@@ -211,7 +199,7 @@ export const MealPlans = () => {
   const data = useLazyLoadQuery<MealPlansQuery>(
     mealPlansQuery,
     {},
-    { fetchPolicy: "store-or-network" }
+    { fetchPolicy: "network-only" }
   );
   return (
     <div>
@@ -236,7 +224,6 @@ export const MealPlans = () => {
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search Meal plan"
-            data-testid="Search-Meal-Plan"
             inputProps={{ "aria-label": "Search Meal Plan" }}
           />
           <Search></Search>

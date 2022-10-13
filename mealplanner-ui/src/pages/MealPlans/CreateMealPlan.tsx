@@ -48,17 +48,13 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
     descriptionFr: "",
     tags: [],
     disableButton: true,
-  };
+  }
 
   const [userId, setUserId] = useState<userType | null>(initState.userId);
   const [nameEn, setNameEn] = useState<string>(initState.nameEn);
   const [nameFr, setNameFr] = useState<string>(initState.nameFr);
-  const [descriptionEn, setDescriptionEn] = useState<string>(
-    initState.descriptionEn
-  );
-  const [descriptionFr, setDescriptionFr] = useState<string>(
-    initState.descriptionFr
-  );
+  const [descriptionEn, setDescriptionEn] = useState<string>(initState.descriptionEn);
+  const [descriptionFr, setDescriptionFr] = useState<string>(initState.descriptionFr);
   const [tags, setTags] = useState<string[]>(initState.tags);
   const [disableButton, setDisableButton] = useState(initState.disableButton);
 
@@ -67,7 +63,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
   const handleOpen = () => {
     setOpen(true);
   };
-
+  
   const handleClose = () => {
     setUserId(initState.userId);
     setNameEn(initState.nameEn);
@@ -81,11 +77,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
 
   return (
     <>
-      <Button
-        variant="contained"
-        onClick={handleOpen}
-        data-testid="create-new-mealplan-button"
-      >
+      <Button variant="contained" onClick={handleOpen}>
         Create Meal plan
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -106,7 +98,6 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                     label="Assign user"
                     id="user"
                     variant="filled"
-                    data-testid="assign-user"
                   />
                 )}
                 onChange={(e, value) => {
@@ -117,7 +108,6 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
             <Grid item xs={3}>
               <TextField
                 id="nameEn"
-                data-testid="nameEn"
                 label="Meal Plan Name*"
                 autoFocus
                 margin="dense"
@@ -185,7 +175,6 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                     variant="filled"
                     label="tags"
                     placeholder="add tag"
-                    data-testid="add-tag"
                   />
                 )}
                 onChange={(e, value) => {
@@ -213,11 +202,10 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                 handleClose();
               });
             }}
-            data-testid="submit-new-mealplan-button"
           >
             Create
           </Button>
-          <Button onClick={handleClose} variant="outlined" data-testid="cancel-new-mealplan-button">
+          <Button onClick={handleClose} variant="outlined">
             Cancel
           </Button>
         </DialogActions>

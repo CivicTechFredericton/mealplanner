@@ -71,7 +71,6 @@ const ResponsiveAppBar = () => {
                   aria-haspopup="true"
                   onClick={handleOpenNavMenu}
                   color="inherit"
-                  data-testid="account-of-current-user"
                 >
                   <MenuIcon />
                 </IconButton>
@@ -119,7 +118,6 @@ const ResponsiveAppBar = () => {
                     to="mealplans"
                     onClick={handleCloseNavMenu}
                     style={buttonStyle}
-                    data-testid="mealplans-menu"
                   >
                     <Typography>Meal Plans</Typography>
                   </Link>
@@ -129,14 +127,13 @@ const ResponsiveAppBar = () => {
                     to="meals"
                     onClick={handleCloseNavMenu}
                     style={buttonStyle}
-                    data-testid="meals-menu"
                   >
                     <Typography>Meals</Typography>
                   </Link>
                 </Button>
               </Box>
               <Box sx={{ flexGrow: 0, displayPrint: "none" }}>
-                <Typography data-testid="current-user" sx={{ display: "inline-block", mr: "12px" }}>
+                <Typography sx={{ display: "inline-block", mr: "12px" }}>
                   {getCurrentPerson().personName}
                 </Typography>
                 <Tooltip title="Logout">
