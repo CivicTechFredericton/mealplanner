@@ -1,0 +1,32 @@
+{
+    "username": "admin@example.com",
+    "password": "ba7c51282320843",
+
+    "userassignedformealplan":"a",
+    "mealplannameEn":"Keto Meal Plan4",
+    "mealplannameFr":"Plan de repas Keto",
+    "mealplandescriptionEn":"Focus on high fat, low carb foods like eggs, meats",
+    "mealplandescriptionFr":"Concentrez-vous sur les aliments riches en graisses et faibles en glucides comme les œufs, la viande",
+    "addTag":"low-carbs{enter}",
+
+    "editmealplanname":"Healthy Diet Meal Plan",
+    "edituserformealplan":"a",
+    "editmealplandescription":"A healthy eating plan: Emphasizes vegetables, fruits, whole grains, and fat-free or low-fat dairy products.",
+    "editaddtag":"whole grains, vegetables{enter}",
+    "tag":"whole grains, vegetables",
+
+    "searchmealbreakfast":"cucumber",
+    "searchmeallunch":"B",
+
+    "TuesdayBreakfast":"break",
+    "MondayLunch":"salad",
+    "WednesdayDinner":"cu",
+    "FridaySnack":"po",
+    "ThurdaySnack":"ba",
+    "SaturdayLunch":"chi",
+    "ThurdaySnack2":"co",
+    "SaturdayLunch2":"ba",
+    "TuesdayDinner":"ma"
+
+
+}

@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "cy-verify-downloads": "^0.1.11",
+    "cypress": "^10.7.0",
+    "cypress-xpath": "^2.0.1"
+  },
+
+  "scripts": {
+    "start": "cypress open"
+  }
+}
