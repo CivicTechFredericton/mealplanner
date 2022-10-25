@@ -15,7 +15,7 @@ import {
   state_CurrentUserQuery$data
 } from "./__generated__/state_CurrentUserQuery.graphql";
 import { state_deleteMealPlanEntryMutation } from "./__generated__/state_deleteMealPlanEntryMutation.graphql";
-import { state_loginMutation } from "./__generated__/state_loginMutation.graphql";
+import { state_loginMutation, state_loginMutation$data } from "./__generated__/state_loginMutation.graphql";
 import {
   state_logoutMutation,
   state_logoutMutation$data
@@ -214,19 +214,26 @@ const loginMutation = graphql`
   }
 `;
 
-export const login = (username: string, password: string) => {
-  commitMutation<state_loginMutation>(environment, {
-    mutation: loginMutation,
-    variables: {
-      userEmail: username,
-      password: password,
-    },
-    onCompleted: (resp) => {
-      if (resp.authenticate != null && resp.authenticate.jwtToken != null) {
-        fetchCurrentPerson();
-      }
-    },
-  });
+export const login = async (username: string, password: string) => {
+  return new Promise<state_loginMutation$data>((res, rej) => {
+    commitMutation<state_loginMutation>(environment, {
+      mutation: loginMutation,
+      variables: {
+        userEmail: username,
+        password: password,
+      },
+      onCompleted: (resp) => {
+        if (resp.authenticate != null && resp.authenticate.jwtToken != null) {
+          fetchCurrentPerson();
+          res(resp);
+        }
+        else {
+          console.log('resp:', resp);
+          rej('invalid user credentials');
+        }
+      },
+    });
+  })
 };
 
 const logoutMutation = graphql`
