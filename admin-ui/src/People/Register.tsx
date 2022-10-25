@@ -20,7 +20,7 @@ export const Register = () => {
   const client = useApolloClient();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  const isValid = password && password === cPassword && fullName && email;
   const handleVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -81,7 +81,7 @@ export const Register = () => {
             setCPassword(e.target.value);
           }}
         />
-        {password && fullName && email && password === cPassword ? (
+        {isValid ? (
           <></>
         ) : (
           <Typography variant="body2" color="red">
@@ -89,7 +89,7 @@ export const Register = () => {
           </Typography>
         )}
         <Button
-          disabled={!(password && password === cPassword && fullName && email)}
+          disabled={!isValid}
           onClick={(e) => {
             e.stopPropagation();
             registerPerson(client, fullName, email, password).then(() => {
