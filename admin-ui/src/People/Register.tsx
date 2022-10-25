@@ -6,6 +6,7 @@ import {
   IconButton,
   InputAdornment,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +20,7 @@ export const Register = () => {
   const client = useApolloClient();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
   const handleVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -26,6 +28,7 @@ export const Register = () => {
     <Grid container>
       <Grid xs={12}>
         <TextField
+          required
           fullWidth
           label="Full Name"
           value={fullName}
@@ -34,6 +37,7 @@ export const Register = () => {
           }}
         />
         <TextField
+          required
           fullWidth
           label="Email"
           value={email}
@@ -42,6 +46,7 @@ export const Register = () => {
           }}
         />
         <TextField
+          required
           fullWidth
           label="Password"
           type={showPassword ? "text" : "password"}
@@ -67,6 +72,7 @@ export const Register = () => {
           }}
         />
         <TextField
+          required
           fullWidth
           label="Confirm Password"
           type={showPassword ? "text" : "password"}
@@ -75,7 +81,15 @@ export const Register = () => {
             setCPassword(e.target.value);
           }}
         />
+        {password && fullName && email && password === cPassword ? (
+          <></>
+        ) : (
+          <Typography variant="body2" color="red">
+            Passwords should match and all fields are required
+          </Typography>
+        )}
         <Button
+          disabled={!(password && password === cPassword && fullName && email)}
           onClick={(e) => {
             e.stopPropagation();
             registerPerson(client, fullName, email, password).then(() => {
