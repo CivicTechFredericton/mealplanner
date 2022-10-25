@@ -132,7 +132,7 @@ const ResponsiveAppBar = () => {
                   </Link>
                 </Button>
               </Box>
-              <Box sx={{ flexGrow: 0 }}>
+              <Box sx={{ flexGrow: 0, displayPrint: "none" }}>
                 <Typography sx={{ display: "inline-block", mr: "12px" }}>
                   {getCurrentPerson().personName}
                 </Typography>

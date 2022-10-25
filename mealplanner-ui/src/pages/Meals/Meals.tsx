@@ -1,7 +1,7 @@
+import { Search } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
-  Avatar,
   Card,
   CardActions,
   CardContent,
@@ -11,6 +11,7 @@ import {
   Grid,
   IconButton,
   IconButtonProps,
+  InputBase,
   Paper,
   styled,
   Typography,
@@ -58,6 +59,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 type MealProps = { node: MealNode };
+
 const MealCard = (props: MealProps) => {
   const [expanded, setExpanded] = React.useState(false);
   const meal = props.node;
@@ -67,6 +69,14 @@ const MealCard = (props: MealProps) => {
     setExpanded(!expanded);
   };
   const theme = useTheme();
+  const tagStyle = {
+    color: "white",
+    backgroundColor: `${theme.palette.primary.main}`,
+    padding: "0 0.5em",
+    borderRadius: "1em",
+    margin: "0.3em 0",
+    display: "inline-block",
+  };
   return (
     <Grid item xs="auto">
       <Card
@@ -81,15 +91,6 @@ const MealCard = (props: MealProps) => {
         }}
       >
         <CardHeader
-          avatar={
-            <Avatar
-              sx={{ bgcolor: `${theme.palette.primary.main}`, width: "fit" }}
-              aria-label="meal"
-            >
-              {/* {getInitials(meal.nameEn || "")} */}
-              {meal.rowId}
-            </Avatar>
-          }
           action={<div></div>}
           title={meal.nameEn}
           subheader={meal.nameFr}
@@ -105,18 +106,7 @@ const MealCard = (props: MealProps) => {
           <Typography variant="body2" color="text.secondary" lineHeight="2rem">
             {meal.tags?.map((tag) => (
               <span>
-                <span
-                  style={{
-                    color: "white",
-                    backgroundColor: `${theme.palette.primary.main}`,
-                    padding: "0 0.5em",
-                    borderRadius: "1em",
-                    margin: "0.3em 0",
-                    display: "inline-block",
-                  }}
-                >
-                  {tag}
-                </span>
+                <span style={tagStyle}>{tag}</span>
                 &nbsp;
               </span>
             ))}
@@ -160,20 +150,23 @@ export const Meals = () => {
       spacing={2}
       columns={2}
       justifyContent="center"
-      gap="2rem"
       marginTop="1rem"
     >
       <Paper
         component="form"
         sx={{
-          p: "2px 4px",
           display: "flex",
           alignItems: "center",
-          width: "95%",
+          width: "75%",
           justifyContent: "center",
         }}
       >
-        <Typography sx={{ padding: "0 1rem" }}> &lt; 1 of 5 &gt; </Typography>
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="Search Meal plan"
+          inputProps={{ "aria-label": "Search Meal" }}
+        />
+        <Search></Search>
       </Paper>
       {data.meals ? (
         <Grid
