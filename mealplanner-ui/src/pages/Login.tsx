@@ -59,6 +59,12 @@ export const Login = () => {
       }}
     >
       <section
+        onKeyPress={(ev) => {
+          if (ev.key === 'Enter') {
+            login(username, password);
+            ev.preventDefault();
+          }
+        }}
         style={{
           width: "30%",
           height: "400px",
