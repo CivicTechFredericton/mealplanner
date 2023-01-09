@@ -1,0 +1,11 @@
+__typename,id,rowId,fullName,createdAt,updatedAt,email,role
+Person,1,1,Admin,2023-01-04T00:04:46.837173,2023-01-04T00:04:46.837173,admin@example.com,APP_ADMIN
+Person,2,2,Meal Designer,2023-01-04T00:04:46.837173,2023-01-04T00:04:46.837173,mealdesigner@example.com,APP_MEAL_DESIGNER
+Person,3,3,User One,2023-01-04T00:04:46.837173,2023-01-04T00:04:46.837173,user1@example.com,APP_USER
+Person,4,4,User Two,2023-01-04T00:04:46.837173,2023-01-04T00:04:46.837173,user2@example.com,APP_USER
+Person,5,5,User Three,2023-01-06T19:45:05.700392,2023-01-06T19:45:05.700392,UserThree@example.com,APP_USER
+Person,6,6,User Three,2023-01-09T17:21:25.009203,2023-01-09T17:21:25.009203,UserThree@example.com,APP_USER
+Person,7,7,User Three,2023-01-09T17:35:53.889096,2023-01-09T17:35:53.889096,UserThree@example.com,APP_USER
+Person,8,8,User Three,2023-01-09T17:51:04.702832,2023-01-09T17:51:04.702832,UserThree@example.com,APP_USER
+Person,9,9,User Three,2023-01-09T18:12:21.964994,2023-01-09T18:12:21.964994,UserThree@example.com,APP_USER
+Person,10,10,User Three,2023-01-09T18:30:40.911988,2023-01-09T18:30:40.911988,UserThree@example.com,APP_USER

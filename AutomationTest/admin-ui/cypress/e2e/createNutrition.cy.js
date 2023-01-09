@@ -1,13 +1,13 @@
 import testdata from "../fixtures/testdata.json";
 import createNutritiontestdata from "../fixtures/createNutritiontestdata.json";
 
-describe('createNutritionforaProduct', () => {
+describe('createNutritionforaMeal', () => {
 
     beforeEach(function () {
         cy.login(testdata)
     });
 
-    it('createNutritionListforaProduct', function () {
+    it('createNutritionListforaMeal', function () {
         cy.createNutritionList(createNutritiontestdata)
     })
 

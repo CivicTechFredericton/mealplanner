@@ -6,12 +6,13 @@ describe("Shopping list functionality", function () {
     });
 
     it("view shopping list", function () {
-        const string = "Vegetarian";
+        const string = "Vegetarian Meal Plan";
         cy.shoppinglist(string);
         cy.contains(string).should("exist");
         cy.contains("Shopping List").should("exist");
 
          cy.url().should("include", "/shopping-list");
+         
 
     });
 

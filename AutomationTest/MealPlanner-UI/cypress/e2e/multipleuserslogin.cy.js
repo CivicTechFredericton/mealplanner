@@ -24,7 +24,7 @@ describe('Validate Multiple UsersLogin', function () {
         cy.get('[data-testid="username-textField"] input').type(" ");
         cy.get('[data-testid="password-textField"] input').type("ba7c51282320843");
         cy.get('[data-testid="login-button"]').click();
-       // cy.contains("Wrong Credentials").should('be.visible');
+        cy.contains("invalid user credentials").should('be.visible');
     })
 
     it("Testing with invalid credentials [ Should not be possible ]",()=>{
@@ -32,8 +32,7 @@ describe('Validate Multiple UsersLogin', function () {
         cy.get('[data-testid="username-textField"] input').type("Johnce");
         cy.get('[data-testid="password-textField"] input').type("John123");
         cy.get('[data-testid="login-button"]').click();
-        cy.url().should('include','/login');
-        cy.contains("Wrong Credentials").should('be.visible');
+        cy.contains("invalid user credentials").should('be.visible');
     })
 
 

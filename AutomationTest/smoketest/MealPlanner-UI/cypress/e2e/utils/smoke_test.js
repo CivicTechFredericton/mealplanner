@@ -18,6 +18,8 @@ import mealplancalendarPage from '../pages/mealplancalendarPage';
 const mealcalendar = new mealplancalendarPage();
 import viewmealsPage from "../pages/viewmealsPage";
 const viewmeals = new viewmealsPage();
+import shoppinglistPage from "../pages/shoppinglistPage.js";
+const shoppinglist = new shoppinglistPage();
 
 
 
@@ -89,9 +91,9 @@ Cypress.Commands.add('smoketest', (data, uniqueId) => {
 
     //scrollintoview for selecting meal
     searchmeal.searchmealInput().clear().type(data.searchmeallunch)
-    cy.contains('Baked Potatoes').scrollIntoView()
-    cy.wait(2000)
-    searchmeal.selectMeal().contains('Baked Potatoes').click()
+    cy.contains('Macaroni and Cheese').scrollIntoView()
+    cy.wait(1000)
+    searchmeal.selectMeal().contains('Macaroni and Cheese').click()
     searchmeal.selectMeal().should("exist")
     searchmeal.clearselectedMeal().click();
     searchmeal.clearselectedMeal().should("not.exist")
@@ -108,7 +110,7 @@ Cypress.Commands.add('smoketest', (data, uniqueId) => {
     cy.wait(1000)
 
     mealcalendar.searchmealInput().clear().type(data.MondayLunch);
-    mealcalendar.selectMeal().contains("Chicken Salad Sandwich").click();
+    mealcalendar.selectMeal().contains("Macaroni and Cheese").click();
     mealcalendar.selectMeal().should("exist")
     mealcalendar.addMondayLunch().click({ multiple: true });
     mealcalendar.clearselectedMeal().click();
@@ -118,7 +120,7 @@ Cypress.Commands.add('smoketest', (data, uniqueId) => {
 
 
     mealcalendar.searchmealInput().clear().type(data.ThurdaySnack);
-    mealcalendar.selectMeal().contains("Battered Fish").click();
+    mealcalendar.selectMeal().contains("Cucumber Dill Salad").click();
     mealcalendar.selectMeal().should("exist")
     mealcalendar.addThurdaySnack().click({ multiple: true });
     mealcalendar.clearselectedMeal().click();
@@ -128,7 +130,7 @@ Cypress.Commands.add('smoketest', (data, uniqueId) => {
 
     //add meal to mealplan calendar
     mealcalendar.searchmealInput().clear().type(data.SaturdayLunch);
-    mealcalendar.selectMeal().contains("Chicken Fajita Wraps").click();
+    mealcalendar.selectMeal().contains("coriander coconut chutney").click();
     mealcalendar.selectMeal().should("exist")
     mealcalendar.addSaturdayLunch().click({ multiple: true });
     mealcalendar.clearselectedMeal().click();
@@ -152,7 +154,7 @@ Cypress.Commands.add('smoketest', (data, uniqueId) => {
     mealcalendar.deleteThursdaySnack2().should("not.exist")
 
     mealcalendar.searchmealInput().clear().type(data.SaturdayLunch2);
-    mealcalendar.selectMeal().contains("Baked Beans").click()
+    mealcalendar.selectMeal().contains("Breakfast Burrito").click()
     mealcalendar.selectMeal().should("exist")
     mealcalendar.addSaturdayLunch2().click({ multiple: true });
     mealcalendar.clearselectedMeal().click();
@@ -165,49 +167,45 @@ Cypress.Commands.add('smoketest', (data, uniqueId) => {
     mealcalendar.deleteSaturdayLunch2().should("not.exist")
 
     //Print Meal Calendar
-    mealcalendar.clickPrintIcon().click()
+   // mealcalendar.clickPrintIcon().click()
 
     //click on meals menu
     viewmeals.clickonmealsmenu().click();
     cy.url().should('include', '/meals')
-    cy.wait(2000)
-    cy.contains('Hamburger Soup').scrollIntoView()
-    cy.wait(3000)
-    cy.contains('Tuna Salad Sandwich').scrollIntoView()
-    cy.wait(2000)
+    cy.wait(1000)
+    cy.contains('Macaroni and Cheese').scrollIntoView()
+    cy.wait(1000)
+    cy.contains('Cucumber Dill Salad').scrollIntoView()
+    cy.wait(1000)
 
-    cy.contains('Pickled Red Onions').scrollIntoView()
-    cy.wait(2000)
-    cy.contains('Pickled Red Onions').click()
+    cy.contains('coriander coconut chutney').scrollIntoView()
+    cy.wait(1000)
+    cy.contains(' coriander coconut chutney').click()
     cy.contains('Tips').scrollIntoView()
     cy.wait(1000)
-    viewmeals.clickPrintMeal().click()
+  //  viewmeals.clickPrintMeal().click()
 
     //click on mealplans menu
     viewmeals.clickonmealplansmenu().click();
     cy.url().should('include', '/mealplans')
-    // cy.contains('Meal Designer').scrollIntoView()
-    // cy.wait(3000)
+    cy.contains('Meal Designer').scrollIntoView()
+    cy.wait(1000)
     cy.contains('Admin').scrollIntoView()
-    cy.wait(2000)
+    cy.wait(1000)
 
-    // //add meal to the plan
-    // cy.contains(uniqueId).click();
-    // // Searchs for a meal and selects it
-    // cy.contains("coriander coconut chutney").click();
-    // // Searches for the Elements with BREAKFAST, selects the first one and adds it to the meal plan
-    // cy.contains("BREAKFAST").first().click();
-
-    // //view shopping list
-    // cy.shoppinglist(uniqueId);
-    // // Ensures the page includes the english name and "shopping list" of the meal plan
-    // cy.contains(uniqueId).should("exist");
-    // cy.contains("Shopping List").should("exist");
-    // // Ensures ingredients from the meal are on the shopping list.
-    // cy.contains("COCONUT chunks").should("exist");
-    // cy.contains("2 tbsp").should("exist");
-    // cy.contains("200 g").should("exist");
-    // cy.contains("3.47").should("exist");
+     //view shopping list
+     cy.shoppinglist(uniqueId);
+     // Ensures the page includes the english name and "shopping list" of the meal plan
+     cy.contains(uniqueId).should("exist");
+     cy.contains("Shopping List").should("exist");
+     // Ensures ingredients from the meal are on the shopping list.
+     cy.contains("COCONUT chunks").should("exist");
+     cy.contains("2 tbsp").should("exist");
+     cy.contains("200 g").should("exist");
+     cy.contains("3.47").should("exist");
+    // shoppinglist.clickPrintIcon().click()
+     cy.go('back')
+     cy.wait(1000)
 
     //delete the new mealplan
     cy.contains(uniqueId).get(`[data-testid="${uniqueId}-delete"]`).click();
@@ -215,23 +213,6 @@ Cypress.Commands.add('smoketest', (data, uniqueId) => {
 
     //cancel creating new mealplan
     cancelcreatingnewmealplan.createnewmealplanBtn().click()
-
-    cancelcreatingnewmealplan.assignuser().type(data.userassignedformealplan)
-
-    cancelcreatingnewmealplan.selectoption().each(function ($ele, index, $list) {
-
-
-
-        if ($ele.text().includes("Admin")) {
-
-            cy.wrap($ele).click()
-           // cy.wait(2000)
-
-        }
-        else {
-            cy.log($ele.text())
-        }
-    })
     cancelcreatingnewmealplan.mealplannameEnInput().type(data.mealplannameEn)
     cancelcreatingnewmealplan.mealplannameFrInput().type(data.mealplannameFr)
     cancelcreatingnewmealplan.mealplandescriptionEnInput().type(data.mealplandescriptionEn)

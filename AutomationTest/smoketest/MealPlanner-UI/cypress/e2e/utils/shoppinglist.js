@@ -1,8 +1,10 @@
 import shoppinglistPage from "../pages/shoppinglistPage.js";
-const shoppinglist = new shoppinglistPage();
+const shoppingList = new shoppinglistPage();
 
 
 Cypress.Commands.add("shoppinglist", (string) => {
-  shoppinglist.shoppinglistIcon(string).click();
+  shoppingList.shoppinglistIcon(string).click();
   cy.url().should("include", "/shopping-list");
+ // shoppingList.clickPrintIcon().click()
+
 });

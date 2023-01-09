@@ -56,6 +56,7 @@ describe("Shopping list functionality", function () {
     cy.contains("2 tbsp").should("exist");
     cy.contains("200 g").should("exist");
     cy.contains("3.47").should("exist");
+    
   });
 
   // Deletes the created meal plan to clear up the database.

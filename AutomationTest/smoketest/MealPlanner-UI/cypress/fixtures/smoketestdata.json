@@ -1,6 +1,6 @@
 {
     "username": "admin@example.com",
-    "password": "ba7c51282320843",
+    "password": "e6fcb3f1aeb40a3",
 
     "userassignedformealplan":"a",
     "mealplannameEn":"Keto Meal Plan4",
@@ -10,23 +10,21 @@
     "addTag":"low-carbs{enter}",
 
     "editmealplanname":"Healthy Diet Meal Plan",
-    "edituserformealplan":"a",
+    "edituserformealplan":"M",
     "editmealplandescription":"A healthy eating plan: Emphasizes vegetables, fruits, whole grains, and fat-free or low-fat dairy products.",
     "editaddtag":"whole grains, vegetables{enter}",
     "tag":"whole grains, vegetables",
 
     "searchmealbreakfast":"cucumber",
-    "searchmeallunch":"B",
+    "searchmeallunch":"Ma",
 
     "TuesdayBreakfast":"break",
-    "MondayLunch":"salad",
+    "MondayLunch":"Ma",
     "WednesdayDinner":"cu",
-    "FridaySnack":"po",
-    "ThurdaySnack":"ba",
-    "SaturdayLunch":"chi",
-    "ThurdaySnack2":"co",
-    "SaturdayLunch2":"ba",
-    "TuesdayDinner":"ma"
+    "ThurdaySnack":"cu",
+    "SaturdayLunch":"co",
+    "ThurdaySnack2":"Ma",
+    "SaturdayLunch2":"break"
 
 
 }

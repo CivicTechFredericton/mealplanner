@@ -15,17 +15,17 @@ Cypress.Commands.add('mealCalendar', (uniqueId, data) => {
     cy.wait(1000)
 
     mealcalendar.searchmealInput().clear().type(data.MondayLunch);
-    mealcalendar.selectMeal().contains("Chicken Salad Sandwich").click();
+    mealcalendar.selectMeal().contains("Macaroni and Cheese").click();
     mealcalendar.selectMeal().should("exist")
     mealcalendar.addMondayLunch().click({ multiple: true });
     mealcalendar.clearselectedMeal().click();
     mealcalendar.clearselectedMeal().should("not.exist")
     mealcalendar.mousehover().invoke('show')
-    cy.wait(1000)
+    cy.wait(1000) 
 
 
     mealcalendar.searchmealInput().clear().type(data.ThurdaySnack);
-    mealcalendar.selectMeal().contains("Battered Fish").click();
+    mealcalendar.selectMeal().contains("Cucumber Dill Salad").click();
     mealcalendar.selectMeal().should("exist")
     mealcalendar.addThurdaySnack().click({ multiple: true });
     mealcalendar.clearselectedMeal().click();
@@ -35,7 +35,7 @@ Cypress.Commands.add('mealCalendar', (uniqueId, data) => {
 
     //add meal to mealplan calendar
     mealcalendar.searchmealInput().clear().type(data.SaturdayLunch);
-    mealcalendar.selectMeal().contains("Chicken Fajita Wraps").click();
+    mealcalendar.selectMeal().contains("coriander coconut chutney").click();
     mealcalendar.selectMeal().should("exist")
     mealcalendar.addSaturdayLunch().click({ multiple: true });
     mealcalendar.clearselectedMeal().click();
@@ -59,7 +59,7 @@ Cypress.Commands.add('mealCalendar', (uniqueId, data) => {
     mealcalendar.deleteThursdaySnack2().should("not.exist")
 
     mealcalendar.searchmealInput().clear().type(data.SaturdayLunch2);
-    mealcalendar.selectMeal().contains("Baked Beans").click()
+    mealcalendar.selectMeal().contains("Breakfast Burrito").click()
     mealcalendar.selectMeal().should("exist")
     mealcalendar.addSaturdayLunch2().click({ multiple: true });
     mealcalendar.clearselectedMeal().click();
@@ -72,6 +72,6 @@ Cypress.Commands.add('mealCalendar', (uniqueId, data) => {
     mealcalendar.deleteSaturdayLunch2().should("not.exist")
 
     //Print Meal Calendar
-    mealcalendar.clickPrintIcon().click()
+   // mealcalendar.clickPrintIcon().click()
 
 })

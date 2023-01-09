@@ -14,12 +14,12 @@ Cypress.Commands.add('searchMeal', (uniqueId, data) => {
 
      //scrollintoview for selecting meal
      searchmeal.searchmealInput().clear().type(data.searchmeallunch)
-     cy.contains('Baked Potatoes').scrollIntoView()
+    cy.contains('Macaroni and Cheese').scrollIntoView()
      cy.wait(2000)
-     searchmeal.selectMeal().contains('Baked Potatoes').click()
+     searchmeal.selectMeal().contains('Macaroni and Cheese').click()
      searchmeal.selectMeal().should("exist")
-     searchmeal.clearselectedMeal().click();
-     searchmeal.clearselectedMeal().should("not.exist")
+    searchmeal.clearselectedMeal().click();
+     searchmeal.clearselectedMeal().should("not.exist") 
 
 
      searchmeal.clickonmealplansmenu().click();
@@ -43,9 +43,9 @@ Cypress.Commands.add('clickonmealsinsearchMeal', (uniqueId, data) => {
      searchmeal.clickonmealsmenu().click();
      cy.url().should('include', '/meals')
      cy.wait(2000)
-     cy.contains('Hamburger Soup').scrollIntoView()
+     cy.contains('Macaroni and Cheese').scrollIntoView()
      cy.wait(3000)
-     cy.contains('Tuna Salad Sandwich').scrollIntoView()
+     cy.contains('Cucumber Dill Salad').scrollIntoView()
      cy.wait(2000)
 
 

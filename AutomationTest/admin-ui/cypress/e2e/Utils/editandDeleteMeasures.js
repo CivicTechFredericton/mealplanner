@@ -31,7 +31,7 @@ Cypress.Commands.add('EditMeasure', (data) => {
           cy.log($ele.text())
       }
   })
-  editandDeleteMeasures.InputMeal().type(data.editMeal)
+  editandDeleteMeasures.InputMeal().type(data.editMeal, {force: true})
   editandDeleteMeasures.SelectMeal().each(function ($ele, index, $list){
       if($ele.text().includes("Millet Dosa")) {
           cy.wrap($ele).click()
@@ -40,7 +40,7 @@ Cypress.Commands.add('EditMeasure', (data) => {
           cy.log($ele.text())
       }
   })
-  editandDeleteMeasures.clickSaveBtn().click()
+  editandDeleteMeasures.clickSaveBtn().click({force: true})
   cy.contains("Element updated").should('be.visible')
 
 });

@@ -5,7 +5,7 @@ const viewMethodSummaryofMeal = new viewMethodSummaryofMealPage();
 //Click On ExpandMoreIcon of a meal
 Cypress.Commands.add('ClickOnExpandMoreIconOfaMeal', () => {
 
-   cy.get("table tbody tr").contains('tr', 'Banana Bread').within(() => {
+   cy.get("table tbody tr").contains('tr', 'coriander coconut chutney').within(() => {
 
         //click on ExpandMoreIcon to view the Nutrition information of a meal
          viewMethodSummaryofMeal.clickexpandmoreIcon().click()

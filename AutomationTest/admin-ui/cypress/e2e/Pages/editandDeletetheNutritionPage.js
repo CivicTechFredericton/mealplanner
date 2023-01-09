@@ -29,7 +29,7 @@ class editandDeletetheNutritionPage
 
     SelectNutritionableID()
     {
-        return cy.get('[data-value="56"]')
+        return cy.get('[data-value="2"]')
     }
 
     clickArrowDownIcon() {

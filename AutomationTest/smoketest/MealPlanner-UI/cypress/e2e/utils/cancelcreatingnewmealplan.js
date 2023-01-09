@@ -18,7 +18,7 @@ Cypress.Commands.add('cancelcreatingnewmealplan', (data, uniqueId) => {
         if ($ele.text().includes("Admin")) {
 
             cy.wrap($ele).click()
-           // cy.wait(2000)
+            cy.wait(2000)
 
         }
         else {

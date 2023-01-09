@@ -17,17 +17,17 @@ Cypress.Commands.add('OpenNutritionToEdit', () => {
 //Changes Nutrition information
 Cypress.Commands.add('EditNutritionList', (data) => {
 
-    editandDeleteNutrition.selectNutritionTypeProduct().click()
-    // editandDeleteNutrition.InputNutritionableID().type(data.editNutritionable)
+    editandDeleteNutrition.selectNutritionTypeMeal().click()
+    editandDeleteNutrition.InputNutritionableID().type(data.editNutritionable)
     
-    // editandDeleteNutrition.SelectNutritionableID().each(function ($ele, index, $list) {
-    //     if($ele.text().includes("Bread")) {
-    //         cy.wrap($ele).click()
-    //     }
-    //     else {
-    //         cy.log($ele.text())
-    //     }
-    // })
+    editandDeleteNutrition.SelectNutritionableID().each(function ($ele, index, $list) {
+        if($ele.text().includes("Cucumber Dill Salad")) {
+            cy.wrap($ele).click()
+        }
+        else {
+            cy.log($ele.text())
+        }
+    })
     editandDeleteNutrition.InputServingSize().clear().type(data.editServingsize)
     editandDeleteNutrition.InputCalories().clear().type(data.editCalories)   
     editandDeleteNutrition.clickSaveBtn().click()

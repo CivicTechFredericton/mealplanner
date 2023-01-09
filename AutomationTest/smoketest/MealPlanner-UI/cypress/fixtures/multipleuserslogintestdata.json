@@ -1,8 +1,8 @@
 [
-   { "username": "admin@example.com","password": "ba7c51282320843", "user":"Admin", "avatar":"A"},
-   { "username":"mealdesigner@example.com", "password":"53a347e4cdc1f83", "user":"Meal Designer", "avatar":"MD"},
-   {"username":"user1@example.com", "password":"596ce56d3e005a9","user":"User One", "avatar":"UO"},
-   {"username":"user2@example.com", "password":"530bac09080b5d0", "user":"User Two", "avatar":"UT"}
+   { "username": "admin@example.com","password": "e6fcb3f1aeb40a3", "user":"Admin", "avatar":"A"},
+   { "username":"mealdesigner@example.com", "password":"50eb90d2f3a1426", "user":"Meal Designer", "avatar":"MD"},
+   {"username":"user1@example.com", "password":"aef649a63b6e97a","user":"User One", "avatar":"UO"},
+   {"username":"user2@example.com", "password":"ba9f5c71aba82ad", "user":"User Two", "avatar":"UT"}
 ]
     
    

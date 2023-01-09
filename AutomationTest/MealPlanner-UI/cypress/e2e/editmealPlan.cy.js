@@ -22,6 +22,7 @@ describe("Edit Meal Plan Name and User", () => {
     // Added wait as Cypress can test before it can take snapshot
     cy.wait(1000);
     cy.contains(uniqueId).should("not.exist");
+    cy.wait(3000)
     cy.get(`[data-testid="${uniqueId2}-mealcard"]`).contains("Meal Designer");
   });
 

@@ -21,7 +21,7 @@ class createMeasuresPage {
     }
 
     selectProduct() {
-        return cy.get('[data-value="296"]')
+        return cy.get('[data-value="24"]')
     }
 
     InputMeal() {
@@ -29,7 +29,7 @@ class createMeasuresPage {
     }
 
     SelectMeal() {
-        return cy.get('[data-value="49"]')
+        return cy.get('[data-value="1"]')
     }
 
     clickSaveBtn() {

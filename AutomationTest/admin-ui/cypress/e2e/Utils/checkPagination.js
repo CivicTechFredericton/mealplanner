@@ -13,7 +13,9 @@ Cypress.Commands.add('checkPagination', (itemsPerPage) => {
       // This assumes coriander coconut chutney will always be on first page.
       // We should find a better way to validate
       cy.contains('coriander coconut chutney').should('exist');
-  
+      cy.contains('Rows per page').scrollIntoView();
+
+      cy.wait(1000)
       // Previous button should be disabled
       checkPagination.prevBtn().should('be.disabled');
   

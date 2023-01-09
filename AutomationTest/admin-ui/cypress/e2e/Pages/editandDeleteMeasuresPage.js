@@ -26,7 +26,7 @@ class editandDeleteMeasuresPage {
     }
     
     selectProduct() {
-        return cy.get('[data-value="296"]')
+        return cy.get('[data-value="24"]')
     }
 
     InputMeal() {
@@ -34,7 +34,7 @@ class editandDeleteMeasuresPage {
     }
 
     SelectMeal() {
-        return cy.get('[data-value="49"]')
+        return cy.get('[data-value="4"]')
     }
 
     clickSaveBtn() {
