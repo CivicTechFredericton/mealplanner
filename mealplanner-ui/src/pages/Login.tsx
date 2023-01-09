@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { Navigate } from "react-router";
 import { getCurrentPerson, login } from "../state/state";
@@ -31,6 +31,7 @@ export const Login = () => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [result, setResult] = useState("");
   const handleVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -77,7 +78,6 @@ export const Login = () => {
           variant="filled"
           placeholder="user name"
           onChange={(e) => setUsername(e.target.value)}
-          data-testid="username-textField"
         ></TextField>
 
         <TextField
@@ -85,7 +85,6 @@ export const Login = () => {
           placeholder="password"
           variant="filled"
           onChange={(e) => setPassword(e.target.value)}
-          data-testid="password-textField"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -103,12 +102,23 @@ export const Login = () => {
             ),
           }}
         ></TextField>
+        {result ? (
+          <Typography variant="body2" color={"red"}>
+            {result}
+          </Typography>
+        ) : (
+          <></>
+        )}
         <Button
           variant="contained"
-          onClick={(e) => {
-            login(username, password);
+          onClick={async (e) => {
+            try {
+              await login(username, password);
+            } catch (err: any) {
+              console.log("login error", err);
+              setResult(err);
+            }
           }}
-          data-testid="login-button"
         >
           Login
         </Button>
