@@ -4,10 +4,10 @@ import {
   IconButton,
   InputAdornment,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { Navigate } from "react-router";
 import { getCurrentPerson, login } from "../state/state";
@@ -31,9 +31,21 @@ export const Login = () => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [result, setResult] = useState("");
+
   const handleVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleLogin = async () => {
+    try {
+      await login(username, password);
+    } catch (err: any) {
+      console.log("login error", err);
+      setResult(err);
+    }
+  };
+
   let data = useLazyLoadQuery<LoginQuery>(
     query,
     {},
@@ -48,6 +60,7 @@ export const Login = () => {
   if (data.gqLocalState.currentUser?.personID) {
     return <Navigate to="mealplans" replace />;
   }
+
   return (
     <main
       style={{
@@ -59,6 +72,12 @@ export const Login = () => {
       }}
     >
       <section
+        onKeyPress={(ev) => {
+          if (ev.key === "Enter") {
+            handleLogin();
+            ev.preventDefault();
+          }
+        }}
         style={{
           width: "30%",
           height: "400px",
@@ -101,12 +120,14 @@ export const Login = () => {
             ),
           }}
         ></TextField>
-        <Button
-          variant="contained"
-          onClick={(e) => {
-            login(username, password);
-          }}
-        >
+        {result ? (
+          <Typography variant="body2" color={"red"}>
+            {result}
+          </Typography>
+        ) : (
+          <></>
+        )}
+        <Button variant="contained" onClick={handleLogin}>
           Login
         </Button>
         <Typography fontSize="small" marginTop={"3rem"}>

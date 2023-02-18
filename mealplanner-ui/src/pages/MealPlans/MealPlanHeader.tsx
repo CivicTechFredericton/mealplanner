@@ -95,13 +95,15 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               style={{ backgroundColor: theme.palette.primary.light }}
               defaultValue={data.nameEn}
               onBlur={(e) => {
-                updateMealPlanName(data.rowId, {
-                  mealPlanId: data.rowId,
-                  descriptionEn: data.descriptionEn,
-                  personId: data.person?.rowId,
-                  tags: data.tags,
-                  mealPlanName: e.target.value,
-                });
+                e.target.value
+                  ? updateMealPlanName(data.rowId, {
+                      mealPlanId: data.rowId,
+                      descriptionEn: data.descriptionEn,
+                      personId: data.person?.rowId,
+                      tags: data.tags,
+                      mealPlanName: e.target.value,
+                    })
+                  : (e.target.value = data.nameEn);
                 setIsEditName(false);
               }}
             />
