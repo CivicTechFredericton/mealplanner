@@ -77,7 +77,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
 
   return (
     <>
-      <Button variant="contained" onClick={handleOpen}>
+      <Button variant="contained" onClick={handleOpen} data-testid="create-new-mealplan-button">
         Create Meal plan
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -98,6 +98,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                     label="Assign user"
                     id="user"
                     variant="filled"
+                    data-testid="assign-user"
                   />
                 )}
                 onChange={(e, value) => {
@@ -108,6 +109,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
             <Grid item xs={3}>
               <TextField
                 id="nameEn"
+                data-testid="nameEn"
                 label="Meal Plan Name*"
                 autoFocus
                 margin="dense"
@@ -175,6 +177,7 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                     variant="filled"
                     label="tags"
                     placeholder="add tag"
+                    data-testid="add-tag"
                   />
                 )}
                 onChange={(e, value) => {
@@ -202,10 +205,11 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                 handleClose();
               });
             }}
+            data-testid="submit-new-mealplan-button"
           >
             Create
           </Button>
-          <Button onClick={handleClose} variant="outlined">
+          <Button onClick={handleClose} variant="outlined" data-testid="cancel-new-mealplan-button">
             Cancel
           </Button>
         </DialogActions>

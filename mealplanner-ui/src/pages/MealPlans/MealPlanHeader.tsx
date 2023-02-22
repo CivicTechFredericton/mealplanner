@@ -63,6 +63,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
 
   return (
     <section
+    data-testid="meal-plans-header"
       style={{
         border: `2px solid ${theme.palette.primary.main}`,
         borderRadius: "10px",
@@ -88,6 +89,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
           </IconButton>
           {isEditName ? (
             <TextField
+            data-testid="Edit-Meal-Plan-Name"
               id="filled-basic"
               label="Edit Meal Plan Name"
               variant="filled"
@@ -109,6 +111,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             />
           ) : (
             <Typography
+            data-testid="edit-meal-name-input"
               padding="0.5rem 0"
               marginLeft="1rem"
               color="primary.contrastText"
@@ -124,6 +127,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
           <Typography padding="0.75rem 1rem"></Typography>
           {isEditUser ? (
             <Autocomplete
+            data-testid="edit-meal-user-input"
               // options={[
               //   { label: "Admin", id: 1 },
               //   { label: "Meal Designer", id: 2 },
@@ -158,6 +162,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             ></Autocomplete>
           ) : (
             <Typography
+            data-testid="current-meal-user-input"
               padding="0.75rem 0"
               color="primary.contrastText"
               textTransform={"capitalize"}
@@ -177,6 +182,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             <Print htmlColor={`${theme.palette.primary.contrastText}`}></Print>
           </IconButton>
           <IconButton
+          data-testid="arrow-button"
             sx={{ minWidth: "1.5em" }}
             onClick={(e) => {
               e.stopPropagation();
@@ -214,6 +220,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             minRows={1}
             aria-label="Description"
             placeholder="Description"
+            data-testid="Edit-Description"
             style={{
               fontFamily: "Roboto",
               width: "100%",
@@ -255,6 +262,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 variant="outlined"
                 label="tags"
                 placeholder="add tag"
+                data-testid="edit-add-tag"
               />
             )}
           />

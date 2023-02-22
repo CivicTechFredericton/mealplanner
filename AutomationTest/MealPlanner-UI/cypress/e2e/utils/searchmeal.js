@@ -42,11 +42,11 @@ Cypress.Commands.add('clickonmealsinsearchMeal', (uniqueId, data) => {
 
      searchmeal.clickonmealsmenu().click();
      cy.url().should('include', '/meals')
-     cy.wait(2000)
+     cy.wait(1000)
      cy.contains('Macaroni and Cheese').scrollIntoView()
-     cy.wait(3000)
+     cy.wait(1000)
      cy.contains('Cucumber Dill Salad').scrollIntoView()
-     cy.wait(2000)
+     cy.wait(1000)
 
 
 

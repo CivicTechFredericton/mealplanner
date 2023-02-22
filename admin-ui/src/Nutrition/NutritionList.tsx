@@ -47,7 +47,7 @@ export const NutritionList = (props: ListProps) => {
 const Details = () => {
   return (
     <TabbedShowLayout syncWithLocation={false}>
-      <Tab label="Macro Nutrients">
+      <Tab label="Macro Nutrients" data-testid="Macro-Nutrients">
         <NumberField source="totalFat" />
         <TextField source="totalFatUnit" />
         <NumberField source="totalFatPercent" />
@@ -76,7 +76,7 @@ const Details = () => {
         <TextField source="proteinUnit" />
         <NumberField source="proteinPercent" />
       </Tab>
-      <Tab label="Micro Nutrients">
+      <Tab label="Micro Nutrients" data-testid="Micro-Nutrients">
         <NumberField source="vitA" />
         <NumberField source="vitC" />
         <NumberField source="vitD" />
