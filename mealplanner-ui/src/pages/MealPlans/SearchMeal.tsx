@@ -124,8 +124,17 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
         </p>
 
         <Box>
-          {search(searchText).map((m) => (
-            <Button
+          {
+          search(searchText).slice().sort((a, b) => {
+            if (a.nameEn < b.nameEn) {
+              return -1;
+            }
+            if (a.nameEn > b.nameEn) {
+              return 1;
+            }
+            return 0;
+          }).map((m) => {
+            return <Button
               sx={{
                 textTransform: "capitalize",
                 width: "100%",
@@ -142,7 +151,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
               <Typography fontWeight={"500"}>{m.nameEn} </Typography>
               <Typography fontSize={"0.8em"}>{m.tags?.join(", ")}</Typography>
             </Button>
-          ))}
+            })};
         </Box>
       </Grid>
     </React.Fragment>
