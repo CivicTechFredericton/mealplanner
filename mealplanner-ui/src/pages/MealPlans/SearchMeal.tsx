@@ -45,12 +45,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
   let [searchText, setSearchText] = useState("");
 
   let search = (searchText: string) => {
-    if (searchText === "") {
-      return searchData.meals!.nodes;
-    }
-    return searchData.meals!.nodes.filter((m) =>
-      m.nameEn.match(new RegExp(searchText, "i"))
-    ).slice().sort((a, b) => {
+    let sortedMeals = searchData.meals!.nodes.slice().sort((a, b) => {
       if (a.nameEn < b.nameEn) {
         return -1;
       }
@@ -59,6 +54,13 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
       }
       return 0;
     })
+
+    if (searchText === "") {
+      return sortedMeals;
+    }
+    return sortedMeals.filter((m) =>
+      m.nameEn.match(new RegExp(searchText, "i"))
+    ).slice()
   };
 
   const selectMeal = (meal: SearchedMeal) => {
