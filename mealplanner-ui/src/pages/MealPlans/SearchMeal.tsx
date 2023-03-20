@@ -50,7 +50,15 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
     }
     return searchData.meals!.nodes.filter((m) =>
       m.nameEn.match(new RegExp(searchText, "i"))
-    );
+    ).slice().sort((a, b) => {
+      if (a.nameEn < b.nameEn) {
+        return -1;
+      }
+      if (a.nameEn > b.nameEn) {
+        return 1;
+      }
+      return 0;
+    })
   };
 
   const selectMeal = (meal: SearchedMeal) => {
@@ -125,15 +133,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
 
         <Box>
           {
-          search(searchText).slice().sort((a, b) => {
-            if (a.nameEn < b.nameEn) {
-              return -1;
-            }
-            if (a.nameEn > b.nameEn) {
-              return 1;
-            }
-            return 0;
-          }).map((m) => {
+          search(searchText).map((m) => {
             return <Button
               sx={{
                 textTransform: "capitalize",
