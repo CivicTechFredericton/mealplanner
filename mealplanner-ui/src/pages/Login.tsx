@@ -32,9 +32,20 @@ export const Login = () => {
   let [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [result, setResult] = useState("");
+
   const handleVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleLogin = async () => {
+    try {
+      await login(username, password);
+    } catch (err: any) {
+      console.log("login error", err);
+      setResult(err);
+    }
+  };
+
   let data = useLazyLoadQuery<LoginQuery>(
     query,
     {},
@@ -49,6 +60,7 @@ export const Login = () => {
   if (data.gqLocalState.currentUser?.personID) {
     return <Navigate to="mealplans" replace />;
   }
+
   return (
     <main
       style={{
@@ -60,6 +72,12 @@ export const Login = () => {
       }}
     >
       <section
+        onKeyPress={(ev) => {
+          if (ev.key === "Enter") {
+            handleLogin();
+            ev.preventDefault();
+          }
+        }}
         style={{
           width: "30%",
           height: "400px",
@@ -109,17 +127,7 @@ export const Login = () => {
         ) : (
           <></>
         )}
-        <Button
-          variant="contained"
-          onClick={async (e) => {
-            try {
-              await login(username, password);
-            } catch (err: any) {
-              console.log("login error", err);
-              setResult(err);
-            }
-          }}
-        >
+        <Button variant="contained" onClick={handleLogin}>
           Login
         </Button>
         <Typography fontSize="small" marginTop={"3rem"}>
