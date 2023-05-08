@@ -227,7 +227,7 @@ export const MealPlans = () => {
             placeholder="Search Meal plan"
             inputProps={{ "aria-label": "Search Meal Plan" }}
             onChange={(e) => {
-              setSearched(e.target.value);
+              setSearched(e.target.value.toLowerCase());
             }}
           />
           <Search></Search>
