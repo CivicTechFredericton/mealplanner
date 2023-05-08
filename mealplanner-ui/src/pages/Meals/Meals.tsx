@@ -171,20 +171,18 @@ export const Meals = () => {
         <Search />
       </Paper>
       {data.meals ? (
-        <>
-          <Grid
-            container
-            spacing={2}
-            justifyContent="center"
-            marginTop="1rem"
-            columns={4}
-          >
-            {data.meals?.nodes.map((node) => {
-              if (node.nameEn.toLowerCase().includes(searchMeal))
-                return <MealCard node={node} />;
-            })}
-          </Grid>
-        </>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          marginTop="1rem"
+          columns={4}
+        >
+          {data.meals?.nodes.map((node) => {
+            if (node.nameEn.toLowerCase().includes(searchMeal))
+              return <MealCard node={node} />;
+          })}
+        </Grid>
       ) : (
         "No meals"
       )}
