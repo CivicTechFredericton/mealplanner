@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: graphql-config
+  labels:
+    app: graphql
+data:
+  POSTGRES_PASSWORD: password
+  DATABASE_URL: postgres://postgres:password@postgres/?sslmode=disable
+  ENABLE_SSH: "false"
+  OWNER_DATABASE_URL: postgres://postgres:postgres@postgres/?sslmode=disable
+  PG_HOST: postgres
+  JWT_SECRET: apples
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphql
+spec:
+  selector:
+    matchLabels:
+      run: graphql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: graphql
+    spec:
+      containers:
+      - name: graphql
+        image: 10.42.0.1:5000/mealplanner_graphql:latest
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 4000
+        envFrom:
+        - configMapRef:
+            name: graphql-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphql
+  labels:
+    run: graphql
+spec:
+  type: ClusterIP
+  ports:
+  - port: 4000
+    protocol: TCP
+  selector:
+    run: graphql
+
