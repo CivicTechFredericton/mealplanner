@@ -19,7 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
-import React from "react";
+import React, { useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { useNavigate } from "react-router";
 import { MealPlanNode } from "../../state/types";
@@ -196,6 +196,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
 };
 
 export const MealPlans = () => {
+  const [searched, setSearched] = useState<string>("");
   const data = useLazyLoadQuery<MealPlansQuery>(
     mealPlansQuery,
     {},
@@ -225,6 +226,9 @@ export const MealPlans = () => {
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search Meal plan"
             inputProps={{ "aria-label": "Search Meal Plan" }}
+            onChange={(e) => {
+              setSearched(e.target.value.toLowerCase());
+            }}
           />
           <Search></Search>
         </Paper>
@@ -236,9 +240,15 @@ export const MealPlans = () => {
       </Grid>
       {data.mealPlans ? (
         <Grid container spacing={2} margin="1rem" columns={4}>
-          {data.mealPlans?.edges.map(({ node }) => (
-            <MealPlanCard mealplan={node} connection={data.mealPlans!.__id} />
-          ))}
+          {data.mealPlans?.edges.map(({ node }) => {
+            if (node.nameEn.toLowerCase().includes(searched))
+              return (
+                <MealPlanCard
+                  mealplan={node}
+                  connection={data.mealPlans!.__id}
+                />
+              );
+          })}
         </Grid>
       ) : (
         "No mealplans"

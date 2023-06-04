@@ -45,12 +45,22 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
   let [searchText, setSearchText] = useState("");
 
   let search = (searchText: string) => {
+    let sortedMeals = searchData.meals!.nodes.slice().sort((a, b) => {
+      if (a.nameEn < b.nameEn) {
+        return -1;
+      }
+      if (a.nameEn > b.nameEn) {
+        return 1;
+      }
+      return 0;
+    })
+
     if (searchText === "") {
-      return searchData.meals!.nodes;
+      return sortedMeals;
     }
-    return searchData.meals!.nodes.filter((m) =>
+    return sortedMeals.filter((m) =>
       m.nameEn.match(new RegExp(searchText, "i"))
-    );
+    ).slice()
   };
 
   const selectMeal = (meal: SearchedMeal) => {
@@ -124,8 +134,9 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
         </p>
 
         <Box>
-          {search(searchText).map((m) => (
-            <Button
+          {
+          search(searchText).map((m) => {
+            return <Button
               sx={{
                 textTransform: "capitalize",
                 width: "100%",
@@ -142,7 +153,7 @@ export const SearchMeal: React.FC<Props> = ({ data }) => {
               <Typography fontWeight={"500"}>{m.nameEn} </Typography>
               <Typography fontSize={"0.8em"}>{m.tags?.join(", ")}</Typography>
             </Button>
-          ))}
+            })};
         </Box>
       </Grid>
     </React.Fragment>
