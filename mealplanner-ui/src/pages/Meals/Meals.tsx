@@ -1,6 +1,7 @@
 import { Search } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import {
   Card,
   CardActions,
@@ -35,6 +36,7 @@ const mealsQuery = graphql`
         descriptionFr
         categories
         tags
+        favorite
         code
         photoUrl
         videoUrl
@@ -61,12 +63,17 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 type MealProps = { node: MealNode };
 
 const MealCard = (props: MealProps) => {
-  const [expanded, setExpanded] = React.useState(false);
   const meal = props.node;
+  const [expanded, setExpanded] = React.useState(false);
+  const [favorite, setFavorite] = React.useState(meal.favorite);
   const navigate = useNavigate();
   const handleExpandClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setExpanded(!expanded);
+  };
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setFavorite(!favorite);
   };
   const theme = useTheme();
   const tagStyle = {
@@ -79,17 +86,15 @@ const MealCard = (props: MealProps) => {
   };
   return (
     <Grid item xs="auto">
-      <Card
-        sx={{ width: 300 }}
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          navigate(`/meals/${meal.rowId}`);
-        }}
-        onMouseOver={(e) => {
-          e.currentTarget.style.cursor = "pointer";
-        }}
-      >
+      <Card sx={{ width: 300 }}>
+        <div onClick={(e: any) => {
+            e.preventDefault();
+            e.stopPropagation();
+            navigate(`/meals/${meal.rowId}`);
+          }}
+          onMouseOver={(e: any) => {
+            e.currentTarget.style.cursor = "pointer";
+          }}>
         <CardHeader
           action={<div></div>}
           title={meal.nameEn}
@@ -102,6 +107,7 @@ const MealCard = (props: MealProps) => {
           alt={meal.nameEn}
           style={{ objectFit: meal.photoUrl ? "cover" : "contain" }}
         />
+        </div>
         <CardContent>
           <Typography variant="body2" color="text.secondary" lineHeight="2rem">
             {meal.tags?.map((tag) => (
@@ -112,9 +118,9 @@ const MealCard = (props: MealProps) => {
             ))}
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
+        <CardActions disableSpacing onClick={handleFavoriteClick} >
           <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+            {favorite ? <FavoriteIcon color="primary"/> : <FavoriteBorder/>}
           </IconButton>
           <ExpandMore
             expand={expanded}
