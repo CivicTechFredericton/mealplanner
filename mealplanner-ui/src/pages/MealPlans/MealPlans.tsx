@@ -1,4 +1,9 @@
-import { DeleteTwoTone, Search, ShoppingCart } from "@mui/icons-material";
+import {
+  Check,
+  DeleteTwoTone,
+  Search,
+  ShoppingCart,
+} from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
@@ -7,7 +12,10 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Checkbox,
   Collapse,
+  FormGroup,
+  FormControlLabel,
   Grid,
   IconButton,
   IconButtonProps,
@@ -17,6 +25,7 @@ import {
   Paper,
   styled,
   Typography,
+  Button,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
@@ -195,8 +204,189 @@ const MealPlanCard = (props: MealPlanCardProps) => {
   );
 };
 
+interface tagFilterProps {
+  tags: string[];
+  setTags: Function;
+}
+
+const TagFilter = ({ tags, setTags }: tagFilterProps) => {
+  const defaultTags = [
+    "vegetarian",
+    "vegan",
+    "gluten-free",
+    "keto",
+    "paleo",
+    "dairy-free",
+    "eggs-free",
+    "nuts-free",
+  ];
+  const filterIn = (tag: string, tags: string[]) => {
+    return tags.filter((currentTag: string) => currentTag !== tag);
+  };
+  const filterOut = (tag: string, tags: string[]) => {
+    return tags.concat([tag]);
+  };
+
+  return (
+    <Grid container justifyContent="space-around" gap="2rem" width="95%">
+      <FormGroup>
+        <Grid
+          container
+          item
+          margin=".5rem"
+          justifyContent="space-evenly"
+          width="100%"
+          columns={{ md: 5 }}
+        >
+          <Grid item md={1}>
+            {" "}
+            <Button variant="contained" onClick={() => setTags(defaultTags)}>
+              Check All
+            </Button>
+          </Grid>
+          <Grid item md={1}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={(e) => {
+                    e.target.checked
+                      ? setTags(filterOut("vegetarian", tags))
+                      : setTags(filterIn("vegetarian", tags));
+                  }}
+                  checked={tags.includes("vegetarian")}
+                />
+              }
+              label="vegetarian"
+            />
+          </Grid>
+          <Grid item md={1}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={(e) => {
+                    e.target.checked
+                      ? setTags(filterOut("vegan", tags))
+                      : setTags(filterIn("vegan", tags));
+                  }}
+                  checked={tags.includes("vegan")}
+                />
+              }
+              label="vegan"
+            />
+          </Grid>
+          <Grid item md={1}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={(e) => {
+                    e.target.checked
+                      ? setTags(filterOut("gluten-free", tags))
+                      : setTags(filterIn("gluten-free", tags));
+                  }}
+                  checked={tags.includes("gluten-free")}
+                />
+              }
+              label="gluten-free"
+            />
+          </Grid>
+          <Grid item md={1}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={(e) => {
+                    e.target.checked
+                      ? setTags(filterOut("keto", tags))
+                      : setTags(filterIn("keto", tags));
+                  }}
+                  checked={tags.includes("keto")}
+                />
+              }
+              label="keto"
+            />
+          </Grid>
+          <Grid item md={1}>
+            <Button variant="contained" onClick={() => setTags([""])}>
+              Uncheck All
+            </Button>
+          </Grid>
+          <Grid item md={1}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={(e) => {
+                    e.target.checked
+                      ? setTags(filterOut("paleo", tags))
+                      : setTags(filterIn("paleo", tags));
+                  }}
+                  checked={tags.includes("paleo")}
+                />
+              }
+              label="paleo"
+            />{" "}
+          </Grid>
+          <Grid item md={1}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={(e) => {
+                    e.target.checked
+                      ? setTags(filterOut("dairy-free", tags))
+                      : setTags(filterIn("dairy-free", tags));
+                  }}
+                  checked={tags.includes("dairy-free")}
+                />
+              }
+              label="dairy-free"
+            />{" "}
+          </Grid>
+          <Grid item md={1}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={(e) => {
+                    e.target.checked
+                      ? setTags(filterOut("eggs-free", tags))
+                      : setTags(filterIn("eggs-free", tags));
+                  }}
+                  checked={tags.includes("eggs-free")}
+                />
+              }
+              label="eggs-free"
+            />{" "}
+          </Grid>
+          <Grid item md={1}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={(e) => {
+                    e.target.checked
+                      ? setTags(filterOut("nuts-free", tags))
+                      : setTags(filterIn("nuts-free", tags));
+                  }}
+                  checked={tags.includes("nuts-free")}
+                />
+              }
+              label="nuts-free"
+            />{" "}
+          </Grid>
+        </Grid>
+      </FormGroup>
+    </Grid>
+  );
+};
+
 export const MealPlans = () => {
   const [searched, setSearched] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([
+    "vegetarian",
+    "vegan",
+    "gluten-free",
+    "keto",
+    "paleo",
+    "dairy-free",
+    "eggs-free",
+    "nuts-free",
+  ]);
   const data = useLazyLoadQuery<MealPlansQuery>(
     mealPlansQuery,
     {},
@@ -238,16 +428,25 @@ export const MealPlans = () => {
           <></>
         )}
       </Grid>
+      {tags && <TagFilter tags={tags} setTags={setTags} />}
+
       {data.mealPlans ? (
         <Grid container spacing={2} margin="1rem" columns={4}>
           {data.mealPlans?.edges.map(({ node }) => {
-            if (node.nameEn.toLowerCase().includes(searched))
-              return (
-                <MealPlanCard
-                  mealplan={node}
-                  connection={data.mealPlans!.__id}
-                />
-              );
+            if (node.tags) {
+              if (
+                (node.tags !== null &&
+                  tags.some((tag) => node.tags.includes(tag))) ||
+                node.tags.length === 0
+              )
+                if (node.nameEn.toLowerCase().includes(searched))
+                  return (
+                    <MealPlanCard
+                      mealplan={node}
+                      connection={data.mealPlans!.__id}
+                    />
+                  );
+            }
           })}
         </Grid>
       ) : (
