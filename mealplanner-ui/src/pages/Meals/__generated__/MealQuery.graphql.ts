@@ -20,6 +20,7 @@ export type MealQuery$data = {
     readonly nameEn: string;
     readonly nameFr: string | null;
     readonly tags: ReadonlyArray<string | null> | null;
+    readonly favorite: boolean | null;
     readonly descriptionEn: string | null;
     readonly descriptionFr: string | null;
     readonly categories: ReadonlyArray<CategoryT | null> | null;

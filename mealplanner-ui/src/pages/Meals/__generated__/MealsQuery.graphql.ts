@@ -21,6 +21,7 @@ export type MealsQuery$data = {
       readonly descriptionFr: string | null;
       readonly categories: ReadonlyArray<CategoryT | null> | null;
       readonly tags: ReadonlyArray<string | null> | null;
+      readonly favorite: boolean | null;
       readonly code: string;
       readonly photoUrl: string | null;
       readonly videoUrl: string | null;
