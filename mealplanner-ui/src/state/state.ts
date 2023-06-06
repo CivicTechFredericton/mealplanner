@@ -396,3 +396,24 @@ export const createMealPlan = (input: createMealPlanInput) => {
     });
   });
 };
+
+
+// export const addToFavorite = (input: addToFavoriteInput) => {
+//   return null
+  // return new Promise((res, rej) => {
+  //   commitMutation<state_createMealPlanMutation>(environment, {
+  //     mutation: createMealPlanGQL,
+  //     variables: input,
+  //     onCompleted: (response) => {
+  //       console.log(
+  //         JSON.stringify(response.createMealPlan?.mealPlanEdge?.node)
+  //       );
+  //       res(response.createMealPlan?.mealPlanEdge?.node);
+  //     },
+  //     onError: (error) => {
+  //       console.log(error);
+  //       rej(error);
+  //     },
+  //   });
+  // });
+// };
