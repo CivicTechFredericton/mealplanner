@@ -170,7 +170,7 @@ export const Meals = () => {
       >
         <InputBase
           sx={{ ml: 1, flex: 1 }}
-          placeholder="Search Meal plan"
+          placeholder="Search Meal"
           inputProps={{ "aria-label": "Search Meal" }}
           onChange={(e) => setSearchMeal(e.target.value.toLowerCase())}
         />
