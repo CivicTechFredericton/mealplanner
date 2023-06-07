@@ -270,6 +270,10 @@ begin;
       app.meal_plan ( person_id, name_en,                description_en,                                                               tags) 
              VALUES ( user1.id,  'Vegetarian Meal Plan', 'This meal plan will cater to egg-free vegetarian meals with diary products', '{"vegetarian","egg-free"}');
 
+  
+  INSERT INTO app.favorite_meal ( person_id, meal_id)
+    VALUES ( user1.id, app_private.meal_id_by_code('cc_side'));
+
   end;
   $$;
 

@@ -64,8 +64,9 @@ type MealProps = { node: MealNode };
 
 const MealCard = (props: MealProps) => {
   const meal = props.node;
+  console.log('meal props:', meal)
   const [expanded, setExpanded] = React.useState(false);
-  const [favorite, setFavorite] = React.useState(meal.favorite);
+  const [favorite, setFavorite] = React.useState(false);
   const navigate = useNavigate();
   const handleExpandClick = (e: React.MouseEvent) => {
     e.stopPropagation();
