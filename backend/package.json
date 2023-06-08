@@ -18,7 +18,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "md5": "^2.2.1",
-    "postgraphile": "^4.12",
+    "postgraphile": "^4.13",
     "postgraphile-plugin-connection-filter": "^2.3.0"
   }
 }
