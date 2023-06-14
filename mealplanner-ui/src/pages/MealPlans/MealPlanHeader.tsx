@@ -166,7 +166,6 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             > 
             {data.person?.fullName ? data.person.fullName : "No User Assigned"}
               
-
             </Typography> 
           )}
         </Box>
