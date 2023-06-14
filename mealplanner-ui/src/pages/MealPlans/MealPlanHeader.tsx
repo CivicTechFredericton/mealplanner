@@ -163,9 +163,11 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               textTransform={"capitalize"}
               fontStyle="normal"
               onClick={(e) => setIsEditUser(true)}
-            >
-              {data.person?.fullName}
-            </Typography>
+            > 
+            {data.person?.fullName ? data.person.fullName : "No User Assigned"}
+              
+
+            </Typography> 
           )}
         </Box>
 
