@@ -142,10 +142,6 @@ begin;
 		   'https://www.walmart.ca/en/ip/pepper-green-bell/6000191286438',
 		   '{"produce","vegetable","vegan"}'),
 
-                  ('Green Bell Pepper',          '',                         'gp_f',  '1.03', 1,        'single','4065', 
-		   'https://www.walmart.ca/en/ip/pepper-green-bell/6000191286438',
-		   '{"produce","vegetable","vegan"}'),
-
                   ('Pickled Sliced Jalapeños',   '',                         'pj_c',  '3.27', 250,      'mL',    '4600085234', 
 		   'https://www.walmart.ca/en/ip/old-el-paso-pickled-sliced-jalapeos/6000188866193',
 		   '{"produce","vegetable","vegan"}'),
