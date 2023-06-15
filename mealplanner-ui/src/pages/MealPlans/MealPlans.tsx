@@ -127,6 +127,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
                   console.log("stopped propagation");
                   navigate(`/mealplans/${mealplan.rowId}/shopping-list`);
                 }}
+                sx={{ "& :hover": { color: "#6AA64A" } }}
               >
                 <ShoppingCart />
               </IconButton>
@@ -137,8 +138,9 @@ const MealPlanCard = (props: MealPlanCardProps) => {
                   console.log("meal plan id: ", typeof mealplan.rowId);
                   deleteMealPlan(connection, mealplan.rowId);
                 }}
+                sx={{ "& :hover": { color: "#6AA64A" } }}
               >
-                <DeleteTwoTone />
+                <DeleteTwoTone/>
               </IconButton>
             </div>
           }
