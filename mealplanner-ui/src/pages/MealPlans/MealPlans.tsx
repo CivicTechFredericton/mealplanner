@@ -140,7 +140,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
                 }}
                 sx={{ "& :hover": { color: "#6AA64A" } }}
               >
-                <DeleteTwoTone/>
+                <DeleteTwoTone />
               </IconButton>
             </div>
           }
