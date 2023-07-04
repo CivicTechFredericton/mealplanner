@@ -127,7 +127,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
                   console.log("stopped propagation");
                   navigate(`/mealplans/${mealplan.rowId}/shopping-list`);
                 }}
-                sx={{ "& :hover": { color: "#6AA64A" } }}
+                sx= {{ "& :hover": { color: "#6AA64A" } }}
               >
                 <ShoppingCart />
               </IconButton>
