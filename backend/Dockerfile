@@ -1,4 +1,4 @@
-from node:17
+from node:18
 run apt-get update && apt-get install -y wget gnupg2
 run echo "deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 run wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -

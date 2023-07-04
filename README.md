@@ -18,11 +18,26 @@ In the main project directory there is a docker-compose.yml file that will build
 
 Before composing the application you must ensure that Docker is installed and functioning. A quick check is to run `docker version` on the command line to see if you get any output. If you get an error, see the Docker set up for your platfrom.
 
- - Ubuntu - this should be as simple as `sudo apt install docker docker-compose docker.io python3-docker python3-dockerpty` 
+ - Ubuntu - this should be as simple as `sudo apt install docker docker-compose docker.io python3-docker python3-dockerpty` . To enable Docker access for the current user, run the following command in the terminal: `sudo usermod -a -G docker $USER`. It's important to note that after running the command, you need to log out and log back in for the changes to take effect.
  - MacOS [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
  - Windows 10 [Docker Desktop for Windows 10](https://docs.docker.com/docker-for-windows/install/)
 
 It is recomended to perform the install and "getting started" steps for Docker Desktop before proceeding.
+
+## Important Notice
+
+**Please Read Before Installing Docker Desktop and KVM on Linux**
+
+If you are using a Linux-based operating system, such as Ubuntu, it is important to note that Docker Desktop and KVM (Kernel-based Virtual Machine) are already included in the Linux kernel and installing them separately can lead to conflicts and issues with your environment.
+
+**DO NOT INSTALL Docker Desktop or KVM ON LINUX**
+
+Installing Docker Desktop or KVM separately on a Linux system can cause conflicts with the existing Docker and virtualization components, leading to unexpected behavior and instability. It is recommended to use the native Linux tools for Docker and virtualization.
+
+If you are running a Linux distribution, Docker can be installed directly from the package manager or official Docker repositories. Similarly, KVM and related tools are available as part of the Linux kernel.
+
+Please refer to the official documentation or community resources specific to your Linux distribution for guidance on installing and managing Docker and KVM.
+
 
 Now that Docker is available, set up the environment for the composed applications.  In the main project folder, where the `docker-compose.yml` file is, create a file named `.env` and add two variables to it. These are a databse password and a token secret. Both should be treated like passwords and should be reasonably unique and random.  This is and example (please don't use these passwords, create your own):
 
