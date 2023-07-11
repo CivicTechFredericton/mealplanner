@@ -3,11 +3,17 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
   Avatar,
+  Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
   Collapse,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Grid,
   IconButton,
   IconButtonProps,
@@ -17,6 +23,8 @@ import {
   Paper,
   styled,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
@@ -91,12 +99,32 @@ const getInitials = (name: string) => {
 
 const MealPlanCard = (props: MealPlanCardProps) => {
   const [expanded, setExpanded] = React.useState(false);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const theme = useTheme();
+  const fullScreenDialog = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const mealplan = props.mealplan;
   const connection = props.connection;
   const handleExpandClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setExpanded(!expanded);
+  };
+
+  const handleClickOpen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setOpenDialog(true);
+  };
+
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setOpenDialog(false);
+  };
+
+  const handleDelete =(e: React.MouseEvent) => {
+    e.stopPropagation();
+    console.log("meal plan id: ", typeof mealplan.rowId);
+    deleteMealPlan(connection, mealplan.rowId);
+    setOpenDialog(false);
   };
 
   return (
@@ -130,16 +158,46 @@ const MealPlanCard = (props: MealPlanCardProps) => {
               >
                 <ShoppingCart />
               </IconButton>
+
               <IconButton
                 aria-label="delete"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  console.log("meal plan id: ", typeof mealplan.rowId);
-                  deleteMealPlan(connection, mealplan.rowId);
-                }}
+                onClick = {handleClickOpen}
               >
                 <DeleteTwoTone />
               </IconButton>
+              <Dialog
+                fullScreen={fullScreenDialog}
+                open={openDialog}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                onClose={handleClose}
+                aria-labelledby="delete-dialog"
+              >
+                <DialogTitle id="delete-dialog">
+                  {"Delete this meal plan?"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Are you sure you want to delete this meal plan?
+                  </DialogContentText>
+                </DialogContent>
+                    
+                <DialogActions>
+                  <Button 
+                    onClick={handleDelete}
+                    autoFocus
+                    startIcon={<DeleteTwoTone />}
+                    color = "error"
+                  >
+                    Delete
+                  </Button>
+                  <Button autoFocus onClick={handleClose}>
+                    Cancel
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </div>
           }
           title={mealplan.nameEn}
