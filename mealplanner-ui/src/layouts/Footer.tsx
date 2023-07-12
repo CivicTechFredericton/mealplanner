@@ -19,7 +19,7 @@ export function Footer() {
       <Container maxWidth="xl">
       <Box display= "flex" alignItems= "center" justifyContent="center">
           <Typography variant="body1" align="center">
-            For Greener Village. Developed by
+            For Greener Village.Developed by
           </Typography>
           <img src={Logo} alt="Logo" style={{width: "10%", height: "auto", marginLeft: 1}} /> 
         </Box>
