@@ -169,7 +169,6 @@ const MealPlanCard = (props: MealPlanCardProps) => {
                 fullScreen={fullScreenDialog}
                 open={openDialog}
                 onClick={(e) => {
-                  e.preventDefault();
                   e.stopPropagation();
                 }}
                 onClose={handleClose}
