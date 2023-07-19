@@ -17,6 +17,7 @@ import { updateMealPlanName } from "../../state/state";
 import { MealPlanHeaderAllUsersQuery } from "./__generated__/MealPlanHeaderAllUsersQuery.graphql";
 import { MealPlanHeader_mealPlan$key } from "./__generated__/MealPlanHeader_mealPlan.graphql";
 
+
 const fragment = graphql`
   fragment MealPlanHeader_mealPlan on MealPlan {
     rowId
@@ -60,7 +61,19 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
   const [isEditName, setIsEditName] = useState(false);
   const [isEditUser, setIsEditUser] = useState(false);
   const navigate = useNavigate();
+const mealplans= {
+ };
 
+
+
+
+  const printStyles = `
+  @media print {
+    @page {
+      size: landscape;
+    }
+  }
+`;
   return (
     <section
       style={{
@@ -263,6 +276,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
       ) : (
         <></>
       )}
+      <style>{printStyles}</style>
     </section>
   );
 };
