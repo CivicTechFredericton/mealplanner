@@ -72,7 +72,8 @@ const mealplans= {
     @page {
       size: landscape;
     }
-  }`;
+  }
+`;
 
   return (
     <section
