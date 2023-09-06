@@ -12,7 +12,14 @@ export const ProductForm = () => {
       <BooleanInput source="isArchived" />
       <TextInput source="upc" />
       <TextInput source="sourceLink" />
-      <TextInput source="tags" />
+      <TextInput 
+        defaultValue={null}
+        fullWidth
+        parse={(values) => {
+          if(values == '') return null;
+          return values.split(",").map((s: string) => s.trim())
+        }}
+        source="tags" />
     </SimpleForm>
   );
 };
