@@ -659,8 +659,8 @@ INSERT INTO
              ('Red Pepper',         'Poivron rouge',        'rp',     '2.34',   '200',      'g',      '20472200000',
               'https://www.walmart.ca/en/ip/pepper-red-bell/6000195506337',
               '{"grocery", "fresh", "vegetable"}'),
-             ('Lettuce',            'Salade',               'lt',     '4.97',   '3',        'pack',   '7266860100',
-              'https://www.walmart.ca/en/ip/romaine-lettuce-hearts/6000198345037',
+             ('Lettuce',            'Salade',               'lt',     '1.97',   '1',        'ea',   '33383651415',
+              'https://www.walmart.ca/en/ip/lettuce-green-leaf/6000196006949',
               '{"grocery", "fresh", "vegetable"}'),
 
              ('Pork Chops',         'Côtes de porc',        'pc',     '7.90',   '600',      'g',      '22132600000',
