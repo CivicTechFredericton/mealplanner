@@ -14,9 +14,9 @@ services:
       context: backend
     ports:
       - "4000:4000"
-    volumes:
-      - ./backend:/app:z
-      - /app/node_modules
+#   volumes:
+#     - ./backend:/app:z
+#     - /app/node_modules
     env_file:
       - .env
     environment:
