@@ -915,7 +915,7 @@ INSERT INTO
                  ('ea',       1,        app_private.product_id_by_upc('7315015201'),     app_private.meal_id_by_code('s_vegetable')),
                  ('ea',       0.5,      app_private.product_id_by_upc('20472200000'),    app_private.meal_id_by_code('s_vegetable')),
                  ('cup',      0.25,     app_private.product_id_by_upc('3338360102'),     app_private.meal_id_by_code('s_vegetable')),
-                 ('heart',    1,        app_private.product_id_by_upc('7266860100'),     app_private.meal_id_by_code('s_vegetable')),
+                 ('ea',    1,        app_private.product_id_by_upc('33383651415'),     app_private.meal_id_by_code('s_vegetable')),
                 
                  ('ml',       15,       app_private.product_id_by_upc('62773501730'),    app_private.meal_id_by_code('mm_pork_side')),
                  ('ea',       4,        app_private.product_id_by_upc('22132600000'),    app_private.meal_id_by_code('mm_pork_side')),
@@ -964,7 +964,7 @@ INSERT INTO
                  ('ea',       1,        app_private.product_id_by_upc('68113175984'),    app_private.meal_id_by_code('mm_beef_mix')),
                  ('ea',       1,        app_private.product_id_by_upc('67929500217'),    app_private.meal_id_by_code('mm_beef_mix')),
                  ('pack',     1,        app_private.product_id_by_upc('5830019684'),     app_private.meal_id_by_code('mm_beef_mix')),
-                 ('count',    1,        app_private.product_id_by_upc('7266860100'),     app_private.meal_id_by_code('mm_beef_mix')),
+                 ('ea',    1,        app_private.product_id_by_upc('33383651415'),     app_private.meal_id_by_code('mm_beef_mix')),
                  ('can',      1,        app_private.product_id_by_upc('5880766561'),     app_private.meal_id_by_code('mm_beef_mix')),
                  ('count',    1,        app_private.product_id_by_upc('3338360102'),     app_private.meal_id_by_code('mm_beef_mix')),
                  ('tbsp',     2,        app_private.product_id_by_upc('68113171310'),    app_private.meal_id_by_code('mm_beef_mix')),
