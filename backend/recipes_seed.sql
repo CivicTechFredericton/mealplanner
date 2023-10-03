@@ -669,7 +669,7 @@ INSERT INTO
              ('Onion Soup Mix',     'Mélange pour soupe à loignon', 'osm', '1.97', '113',   'g',      '62891567011',
               'https://www.walmart.ca/en/ip/great-value-onion-soup-and-recipe-mix/6000200127717',
               '{"grocery", "pantry", "soup"}'),
-             ('Mushroom',           'Champignon',           'mr',     '2.47',   '8',        'oz',     '3338345080',
+             ('Mushroom',           'Champignon',           'mr',     '2.47',   '227',        'g',     '3338345080',
               'https://www.walmart.ca/en/ip/mushrooms-whole-white-your-fresh-market/6000196142665',
               '{"grocery", "meal"}'),
 
