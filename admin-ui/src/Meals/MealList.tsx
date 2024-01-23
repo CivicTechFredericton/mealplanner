@@ -20,13 +20,13 @@ import { ListField } from '../ListField';
 import { NutritionShow } from '../Nutrition/NutritionShow';
 
 const postFilters = [
-  // <TextInput label="Search" source={'code'} alwaysOn />,
+  <TextInput label="Search" source={'code'} alwaysOn />,
   <TextInput source='tags' />,
   <TextInput source='code' />,
   <TextInput source='nameEn' />,
   <TextInput source='nameFr' />,
-  <TextInput source='descriptionEn' alwaysOn />,
-  <TextInput source='descriptionFr' alwaysOn />,
+  <TextInput source='descriptionEn' />,
+  <TextInput source='descriptionFr' />,
   <TextInput source='Categories' />,
 ];
 
