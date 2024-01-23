@@ -8,7 +8,6 @@ import {
   ReferenceField,
   ReferenceManyField,
   RichTextField,
-  SearchInput,
   SingleFieldList,
   Tab,
   TabbedShowLayout,
@@ -16,21 +15,19 @@ import {
   TextInput,
   UrlField,
 } from 'react-admin';
-import { MySearchInput } from "./MySearchInput";
 import { useEffect } from "react";
 import { ListField } from '../ListField';
 import { NutritionShow } from '../Nutrition/NutritionShow';
 
 const postFilters = [
-  <SearchInput source={'q'} alwaysOn />,
-  <MySearchInput source={'q'} alwaysOn  />,
-  // <TextInput source='tags' />,
+  <TextInput label="Search" source={'q'} alwaysOn />,
+  <TextInput source='tags' />,
   <TextInput source='code' />,
   <TextInput source='nameEn' />,
   <TextInput source='nameFr' />,
   <TextInput source='descriptionEn' />,
   <TextInput source='descriptionFr' />,
-  // <TextInput source='Categories' />,
+  <TextInput source='Categories' />,
 ];
 
 export const MealList = (props: ListProps) => {
