@@ -8,6 +8,7 @@ import {
   ReferenceField,
   ReferenceManyField,
   RichTextField,
+  SearchInput,
   SingleFieldList,
   Tab,
   TabbedShowLayout,
@@ -15,12 +16,14 @@ import {
   TextInput,
   UrlField,
 } from 'react-admin';
-import { useEffect } from "react";
+import CustomSearchInput from './CustomSearchInput';
+import { useEffect } from 'react';
 import { ListField } from '../ListField';
 import { NutritionShow } from '../Nutrition/NutritionShow';
 
 const postFilters = [
-  <TextInput label="Search" source={'q'} alwaysOn />,
+  <SearchInput source={'q'} alwaysOn />,
+  <TextInput label='Search' source={'q'} alwaysOn />,
   <TextInput source='tags' />,
   <TextInput source='code' />,
   <TextInput source='nameEn' />,
@@ -32,19 +35,22 @@ const postFilters = [
 
 export const MealList = (props: ListProps) => {
   return (
-    <List {...props} title='Meals List' filters={postFilters}>
-      <Datagrid expand={Details}>
-        <TextField source='id' />
-        <TextField source='code' />
-        <TextField source='nameEn' />
-        <TextField source='nameFr' />
-        <ListField label='tags' source='tags' />
-        <TextField source='descriptionEn' />
-        <TextField source='descriptionFr' />
-        <ListField source='categories' />
-        <EditButton />
-      </Datagrid>
-    </List>
+    <>
+      <CustomSearchInput />
+      <List {...props} title='Meals List' filters={postFilters}>
+        <Datagrid expand={Details}>
+          <TextField source='id' />
+          <TextField source='code' />
+          <TextField source='nameEn' />
+          <TextField source='nameFr' />
+          <ListField label='tags' source='tags' />
+          <TextField source='descriptionEn' />
+          <TextField source='descriptionFr' />
+          <ListField source='categories' />
+          <EditButton />
+        </Datagrid>
+      </List>
+    </>
   );
 };
 
