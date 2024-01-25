@@ -22,8 +22,6 @@ import { ListField } from '../ListField';
 import { NutritionShow } from '../Nutrition/NutritionShow';
 
 const postFilters = [
-  <SearchInput source={'q'} alwaysOn />,
-  <TextInput label='Search' source={'q'} alwaysOn />,
   <TextInput source='tags' />,
   <TextInput source='code' />,
   <TextInput source='nameEn' />,

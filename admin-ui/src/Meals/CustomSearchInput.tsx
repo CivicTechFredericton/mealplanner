@@ -1,18 +1,29 @@
 import { useApolloClient } from '@apollo/client';
-import { TextField } from '@mui/material';
+import { List, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { getSearchByString, MealType } from './service';
+import { MealCreate } from './MealCreate';
+import { Datagrid } from 'react-admin';
 
 const CustomSearchInput = () => {
   const client = useApolloClient();
   const [searchString, setSearchString] = useState('');
+  const [searchStringResult, setSearchStringResult] = useState<MealType[]>([]);
 
   useEffect(() => {
-     console.log(searchString);
+    getSearchByString(client, searchString).then((result) => {
+      const meals = result?.data?.query?.meals?.edges || [];
+      type EdgeType = { node: MealType };
+      const extractedMeals: MealType[] = meals.map((edge: EdgeType) => edge.node);
+      setSearchStringResult(extractedMeals);
+    });
 
-    // return () => {
-    //  console.log(searchString);
-    // }
-  }, [searchString])
+  }, [searchString]);
+
+  useEffect(() => {
+    console.log(searchStringResult);
+  
+  }, [searchStringResult])
   
 
   return (

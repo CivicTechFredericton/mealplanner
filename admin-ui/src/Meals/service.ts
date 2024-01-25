@@ -26,13 +26,19 @@ const searchStringQuery = gql`
   }
 `;
 
-export const searchString = async (
+export const getSearchByString = async (
   client: ApolloClient<object>,
   searchString: string
-): Promise<void> => {
-  let result = client.query({
+): Promise<any> => {
+  let result = await client.query({
     query: searchStringQuery,
     variables: { searchString },
   });
-  return;
+  return result;
+};
+
+export type MealType = {
+  id: string;
+  code: string;
+  nameEn: string;
 };
