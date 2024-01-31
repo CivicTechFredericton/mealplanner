@@ -46,7 +46,7 @@ export const MealList = (props: ListProps) => {
 
   useEffect(() => {
     console.log(data);
-    const listContext = useList({ data });
+    //const listContext = useList({ data });
     
   }, [data]);
 
