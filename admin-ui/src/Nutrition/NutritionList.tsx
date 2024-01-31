@@ -9,6 +9,7 @@ import {
   Tab,
   TabbedShowLayout,
   TextField,
+  TextInput,
   useRecordContext
 } from "react-admin";
 
@@ -27,9 +28,20 @@ export const NutritionReference = (props: FieldProps) => {
   );
 };
 
+
+const postFilters = [
+  // <TextInput source='id' />, //not working
+  <TextInput source='servingSize' />,
+  <TextInput source='servingSizeUnit' />,
+  <TextInput source='servingSizeText' />,
+  <TextInput source='calories' />,
+  // <TextInput source='nutrionableId' />,
+  <TextInput source='nutritionableType' />,
+];
+
 export const NutritionList = (props: ListProps) => {
   return (
-    <List {...props} title="List Nutrition entries">
+    <List {...props} title="List Nutrition entries" filters={postFilters}>
       <Datagrid expand={Details}>
          <TextField source="id" />
         <NumberField source="servingSize" />
