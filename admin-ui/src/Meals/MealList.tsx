@@ -3,6 +3,7 @@ import {
   DateField,
   EditButton,
   List,
+  ListContextProvider,
   ListProps,
   NumberField,
   ReferenceField,
@@ -18,13 +19,14 @@ import {
   UseListOptions,
   useDataProvider,
   useList,
+  useListContext,
 } from 'react-admin';
 import CustomSearchInput from './CustomSearchInput';
 import { useEffect, useState } from 'react';
 import { ListField } from '../ListField';
 import { NutritionShow } from '../Nutrition/NutritionShow';
 import { MealType } from './service';
-import { ListItemButton } from '@mui/material';
+import SearchResults from './SearchResults';
 
 const postFilters = [
   <TextInput source='tags' />,
@@ -43,16 +45,30 @@ export const MealList = (props: ListProps) => {
     setData(data);
   };
 
+  const listContext = useList({ data });
 
   useEffect(() => {
-    console.log(data);
-    const listContext = useList({ data });
-    
+    listContext.data = data;
+    console.log(listContext.data);
   }, [data]);
 
   return (
     <>
       <CustomSearchInput onSearch={handleSearchResult} />
+      {/* <SearchResults searchData={data} /> */}
+        <ListContextProvider {...props} value={listContext}>
+          <Datagrid expand={Details}>
+            <TextField source='id' />
+            <TextField source='code' />
+            <TextField source='nameEn' />
+            <TextField source='nameFr' />
+            {/* <ListField label='tags' source='tags' /> */}
+            <TextField source='descriptionEn' />
+            <TextField source='descriptionFr' />
+            {/* <ListField source='categories' /> */}
+            <EditButton />
+          </Datagrid>
+        </ListContextProvider>
       <List {...props} title='Meals List' filters={postFilters}>
         <Datagrid expand={Details}>
           <TextField source='id' />
