@@ -19,6 +19,9 @@ const searchStringQuery = gql`
             id
             code
             nameEn
+            nameFr
+            descriptionEn
+            descriptionFr
           }
         }
       }
@@ -41,4 +44,7 @@ export type MealType = {
   id: string;
   code: string;
   nameEn: string;
+  nameFr: string;
+  descriptionEn: string;
+  descriptionFr: string;
 };
