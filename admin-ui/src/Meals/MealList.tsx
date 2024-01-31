@@ -15,11 +15,16 @@ import {
   TextField,
   TextInput,
   UrlField,
+  UseListOptions,
+  useDataProvider,
+  useList,
 } from 'react-admin';
 import CustomSearchInput from './CustomSearchInput';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ListField } from '../ListField';
 import { NutritionShow } from '../Nutrition/NutritionShow';
+import { MealType } from './service';
+import { ListItemButton } from '@mui/material';
 
 const postFilters = [
   <TextInput source='tags' />,
@@ -32,9 +37,22 @@ const postFilters = [
 ];
 
 export const MealList = (props: ListProps) => {
+  const [data, setData] = useState<MealType[]>([]);
+
+  const handleSearchResult = (data: MealType[]) => {
+    setData(data);
+  };
+
+
+  useEffect(() => {
+    console.log(data);
+    const listContext = useList({ data });
+    
+  }, [data]);
+
   return (
     <>
-      <CustomSearchInput />
+      <CustomSearchInput onSearch={handleSearchResult} />
       <List {...props} title='Meals List' filters={postFilters}>
         <Datagrid expand={Details}>
           <TextField source='id' />
