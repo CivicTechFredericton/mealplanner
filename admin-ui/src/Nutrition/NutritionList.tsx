@@ -37,6 +37,7 @@ const postFilters = [
   <TextInput source='calories' />,
   // <TextInput source='nutrionableId' />,
   <TextInput source='nutritionableType' />,
+  
 ];
 
 export const NutritionList = (props: ListProps) => {

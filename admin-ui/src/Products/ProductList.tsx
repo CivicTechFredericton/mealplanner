@@ -22,6 +22,7 @@ const postFilters = [
   <TextInput source='nameFr' />,
   <TextInput source='quantity' />,
   <TextInput source='tags' />,
+  
 ];
 
 
