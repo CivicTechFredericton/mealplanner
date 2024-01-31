@@ -1,4 +1,4 @@
-import { DeleteTwoTone, Search, ShoppingCart } from "@mui/icons-material";
+import { DeleteTwoTone, Search, ShoppingCart, ContentCopy } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
@@ -33,6 +33,8 @@ import { useNavigate } from "react-router";
 import { MealPlanNode } from "../../state/types";
 import { CreateMealPlan } from "./CreateMealPlan";
 import { deleteMealPlan } from "./DeleteMealPlan";
+import { duplicateMealPlan } from "./DuplicateMealPlan";
+import {getCurrentPerson} from "../../state/state";
 import { MealPlansQuery } from "./__generated__/MealPlansQuery.graphql";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -170,33 +172,24 @@ const MealPlanCard = (props: MealPlanCardProps) => {
                 open={openDialog}
                 onClick={(e) => {
                   e.stopPropagation();
+                  console.log("meal plan id: ", typeof mealplan.rowId);
+                  deleteMealPlan(connection, mealplan.rowId);
                 }}
-                onClose={handleClose}
-                aria-labelledby="delete-dialog"
               >
-                <DialogTitle id="delete-dialog">
-                  {"Delete this meal plan?"}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    Are you sure you want to delete this meal plan?
-                  </DialogContentText>
-                </DialogContent>
-                    
-                <DialogActions>
-                  <Button 
-                    onClick={handleDelete}
-                    autoFocus
-                    startIcon={<DeleteTwoTone />}
-                    color = "error"
-                  >
-                    Delete
-                  </Button>
-                  <Button autoFocus onClick={handleClose}>
-                    Cancel
-                  </Button>
-                </DialogActions>
-              </Dialog>
+                <DeleteTwoTone />
+              </IconButton>
+              {getCurrentPerson().personName === "Admin" || getCurrentPerson().personName === "Meal Designer" ? (
+                <IconButton
+                  aria-label="duplicate"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    console.log("meal plan id: ", typeof mealplan.rowId);
+                    duplicateMealPlan(connection, mealplan.rowId);
+                  }}
+                >
+                  <ContentCopy />
+                </IconButton>
+              ):null}
             </div>
           }
           title={mealplan.nameEn}
