@@ -19,9 +19,9 @@ const CustomSearchInput = ({ onSearch }: CustomSearchInputProps) => {
       const meals = result?.data?.query?.meals?.edges || [];
       type EdgeType = { node: MealType };
       const extractedMeals: MealType[] = meals.map((edge: EdgeType) => edge.node);
+      const idsArray = extractedMeals.map((id) => id.rowId);
       // setSearchStringResult(extractedMeals);
-      onSearch(extractedMeals);
-
+      onSearch(idsArray);
     });
   }, [searchString]);
 

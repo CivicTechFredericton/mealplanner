@@ -40,35 +40,27 @@ const postFilters = [
 
 export const MealList = (props: ListProps) => {
   const [data, setData] = useState<MealType[]>([]);
+  // const [searchResultIds, setSearchResultIds] = useState<string[]>([]);
 
   const handleSearchResult = (data: MealType[]) => {
     setData(data);
   };
 
-  const listContext = useList({ data });
+  // const getSearchIds = (searchIds: string[]) => {
+  //   setSearchResultIds(searchIds);
+  // }
+
+  // const listContext = useList({data});
 
   useEffect(() => {
-    listContext.data = data;
-    console.log(listContext.data);
+    // listContext.data = data;
+    console.log(data);
   }, [data]);
 
   return (
     <>
       <CustomSearchInput onSearch={handleSearchResult} />
-      {/* <SearchResults searchData={data} /> */}
-        <ListContextProvider {...props} value={listContext}>
-          <Datagrid expand={Details}>
-            <TextField source='id' />
-            <TextField source='code' />
-            <TextField source='nameEn' />
-            <TextField source='nameFr' />
-            {/* <ListField label='tags' source='tags' /> */}
-            <TextField source='descriptionEn' />
-            <TextField source='descriptionFr' />
-            {/* <ListField source='categories' /> */}
-            <EditButton />
-          </Datagrid>
-        </ListContextProvider>
+      {/* <SearchResults searchData={data} onGetIds={getSearchIds} /> */}
       <List {...props} title='Meals List' filters={postFilters}>
         <Datagrid expand={Details}>
           <TextField source='id' />
