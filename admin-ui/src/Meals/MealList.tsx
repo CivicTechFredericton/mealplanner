@@ -21,7 +21,7 @@ import {
   useList,
   useListContext,
 } from 'react-admin';
-import CustomSearchInput from './CustomSearchInput';
+import CustomSearchInput from '../components/CustomSearchInput';
 import { useEffect, useState } from 'react';
 import { ListField } from '../ListField';
 import { NutritionShow } from '../Nutrition/NutritionShow';
