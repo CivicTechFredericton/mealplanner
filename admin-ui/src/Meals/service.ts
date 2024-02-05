@@ -17,11 +17,6 @@ const searchStringQuery = gql`
         edges {
           node {
             rowId
-            code
-            nameEn
-            nameFr
-            descriptionEn
-            descriptionFr
           }
         }
       }
@@ -42,9 +37,4 @@ export const getSearchByString = async (
 
 export type MealType = {
   rowId: string;
-  code: string;
-  nameEn: string;
-  nameFr: string;
-  descriptionEn: string;
-  descriptionFr: string;
 };
