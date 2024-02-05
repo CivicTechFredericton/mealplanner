@@ -51,7 +51,6 @@ export const MealList = (props: ListProps) => {
   return (
     <>
       <CustomSearchInput onSearch={handleSearchResult} />
-      {/* <SearchResults searchData={data} onGetIds={getSearchIds} /> */}
       <List
         {...props}
         title='Meals List'
