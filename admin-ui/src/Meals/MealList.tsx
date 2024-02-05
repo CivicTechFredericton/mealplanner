@@ -3,23 +3,17 @@ import {
   DateField,
   EditButton,
   List,
-  ListContextProvider,
   ListProps,
   NumberField,
   ReferenceField,
   ReferenceManyField,
   RichTextField,
-  SearchInput,
   SingleFieldList,
   Tab,
   TabbedShowLayout,
   TextField,
   TextInput,
   UrlField,
-  UseListOptions,
-  useDataProvider,
-  useList,
-  useListContext,
 } from 'react-admin';
 import CustomSearchInput from '../components/CustomSearchInput';
 import { useEffect, useState } from 'react';
