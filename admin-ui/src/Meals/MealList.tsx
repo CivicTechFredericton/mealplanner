@@ -26,7 +26,6 @@ import { useEffect, useState } from 'react';
 import { ListField } from '../ListField';
 import { NutritionShow } from '../Nutrition/NutritionShow';
 import { MealType } from './service';
-import SearchResults from './SearchResults';
 
 const postFilters = [
   <TextInput source='tags' />,
@@ -40,20 +39,12 @@ const postFilters = [
 
 export const MealList = (props: ListProps) => {
   const [data, setData] = useState<MealType[]>([]);
-  // const [searchResultIds, setSearchResultIds] = useState<string[]>([]);
 
   const handleSearchResult = (data: MealType[]) => {
     setData(data);
   };
 
-  // const getSearchIds = (searchIds: string[]) => {
-  //   setSearchResultIds(searchIds);
-  // }
-
-  // const listContext = useList({data});
-
   useEffect(() => {
-    // listContext.data = data;
     console.log(data);
   }, [data]);
 
@@ -61,7 +52,18 @@ export const MealList = (props: ListProps) => {
     <>
       <CustomSearchInput onSearch={handleSearchResult} />
       {/* <SearchResults searchData={data} onGetIds={getSearchIds} /> */}
-      <List {...props} title='Meals List' filters={postFilters}>
+      <List
+        {...props}
+        title='Meals List'
+        filters={postFilters}
+        filter={{
+          rowId: data,
+          order: 'ASC',
+          page: 1,
+          perPage: 10,
+          sort: 'id',
+        }}
+      >
         <Datagrid expand={Details}>
           <TextField source='id' />
           <TextField source='code' />
