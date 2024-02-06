@@ -11,6 +11,7 @@ const searchStringQuery = gql`
             { nameFr: { includes: $searchString } }
             { descriptionEn: { includes: $searchString } }
             { descriptionFr: { includes: $searchString } }
+            { tags: { contains: [$searchString] } }
           ]
         }
       ) {
