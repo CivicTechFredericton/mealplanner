@@ -15,20 +15,9 @@ import { ListField } from "../ListField";
 import { NutritionShow } from "../Nutrition/NutritionShow";
 
 
-const postFilters = [
-  <TextInput source='id' />,
-  <TextInput source='code' alwaysOn />,
-  <TextInput source='nameEn' />,
-  <TextInput source='nameFr' />,
-  <TextInput source='quantity' />,
-  <TextInput source='tags' />,
-  
-];
-
-
 export const ProductList = (props: ListProps) => {
   return (
-    <List {...props} title="ProductList" filters={postFilters}>
+    <List {...props} title="ProductList" >
       <Datagrid expand={NutritionDetails}>
         <TextField source="id" fullWidth />
         <TextField source="nameEn" fullWidth />

@@ -21,16 +21,6 @@ import { ListField } from '../ListField';
 import { NutritionShow } from '../Nutrition/NutritionShow';
 import { MealType } from './service';
 
-const postFilters = [
-  <TextInput source='tags' />,
-  <TextInput source='code' />,
-  <TextInput source='nameEn' />,
-  <TextInput source='nameFr' />,
-  <TextInput source='descriptionEn' />,
-  <TextInput source='descriptionFr' />,
-  <TextInput source='Categories' />,
-];
-
 export const MealList = (props: ListProps) => {
   const [data, setData] = useState<MealType[]>([]);
 
@@ -48,7 +38,6 @@ export const MealList = (props: ListProps) => {
       <List
         {...props}
         title='Meals List'
-        filters={postFilters}
         filter={{
           rowId: data,
           order: 'ASC',
