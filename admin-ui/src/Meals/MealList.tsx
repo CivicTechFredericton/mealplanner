@@ -3,30 +3,23 @@ import {
   DateField,
   EditButton,
   List,
-  ListContextProvider,
   ListProps,
   NumberField,
   ReferenceField,
   ReferenceManyField,
   RichTextField,
-  SearchInput,
   SingleFieldList,
   Tab,
   TabbedShowLayout,
   TextField,
   TextInput,
   UrlField,
-  UseListOptions,
-  useDataProvider,
-  useList,
-  useListContext,
 } from 'react-admin';
-import CustomSearchInput from './CustomSearchInput';
+import CustomSearchInput from '../components/CustomSearchInput';
 import { useEffect, useState } from 'react';
 import { ListField } from '../ListField';
 import { NutritionShow } from '../Nutrition/NutritionShow';
 import { MealType } from './service';
-import SearchResults from './SearchResults';
 
 const postFilters = [
   <TextInput source='tags' />,
@@ -45,31 +38,25 @@ export const MealList = (props: ListProps) => {
     setData(data);
   };
 
-  const listContext = useList({ data });
-
   useEffect(() => {
-    listContext.data = data;
-    console.log(listContext.data);
+    console.log(data);
   }, [data]);
 
   return (
     <>
       <CustomSearchInput onSearch={handleSearchResult} />
-      {/* <SearchResults searchData={data} /> */}
-        <ListContextProvider {...props} value={listContext}>
-          <Datagrid expand={Details}>
-            <TextField source='id' />
-            <TextField source='code' />
-            <TextField source='nameEn' />
-            <TextField source='nameFr' />
-            {/* <ListField label='tags' source='tags' /> */}
-            <TextField source='descriptionEn' />
-            <TextField source='descriptionFr' />
-            {/* <ListField source='categories' /> */}
-            <EditButton />
-          </Datagrid>
-        </ListContextProvider>
-      <List {...props} title='Meals List' filters={postFilters}>
+      <List
+        {...props}
+        title='Meals List'
+        filters={postFilters}
+        filter={{
+          rowId: data,
+          order: 'ASC',
+          page: 1,
+          perPage: 10,
+          sort: 'id',
+        }}
+      >
         <Datagrid expand={Details}>
           <TextField source='id' />
           <TextField source='code' />

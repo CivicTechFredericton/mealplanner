@@ -74,24 +74,10 @@ const PersonActions = () => {
 };
 
 
-const postFilters = [
-  <TextInput source='id' />,
-  <TextInput source='fullName' />,
-  <TextInput source='Role' />,
-  <TextInput source='email' />,
-];
-
-const CustomFilter = ({ context, ...props }: any) => (
-  <Filter {...props}>
-    {postFilters}
-  </Filter>
-);
-
-
 export const PersonList = (props: ListProps) => {
   return (
     <React.Fragment>
-      <List {...props} title='List People' filters={postFilters} actions={<PersonActions />}  >
+      <List {...props} title='List People' actions={<PersonActions />}  >
         <Datagrid>
           <TextField source='id' />
           <TextField source='fullName' />

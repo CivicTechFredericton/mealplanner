@@ -11,17 +11,13 @@ const searchStringQuery = gql`
             { nameFr: { includes: $searchString } }
             { descriptionEn: { includes: $searchString } }
             { descriptionFr: { includes: $searchString } }
+            { tags: { contains: [$searchString] } }
           ]
         }
       ) {
         edges {
           node {
-            id
-            code
-            nameEn
-            nameFr
-            descriptionEn
-            descriptionFr
+            rowId
           }
         }
       }
@@ -29,22 +25,52 @@ const searchStringQuery = gql`
   }
 `;
 
+const searchStringCategoryQuery = gql`
+  query searchCategory($searchString: CategoryT!) {
+    query {
+      meals(filter: { categories: { anyEqualTo: $searchString } }) {
+        edges {
+          node {
+            rowId
+          }
+        }
+      }
+    }
+  }
+`;
+
+const extractIdsFromResult = (result: any) => {
+  const meals = result?.data?.query?.meals?.edges || [];
+  type EdgeType = { node: MealType };
+  const extractedMeals: MealType[] = meals.map((edge: EdgeType) => edge.node);
+  return extractedMeals.map((id) => id.rowId);
+};
+
 export const getSearchByString = async (
   client: ApolloClient<object>,
   searchString: string
 ): Promise<any> => {
-  let result = await client.query({
-    query: searchStringQuery,
-    variables: { searchString },
-  });
-  return result;
+  const isCategory = ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK'].includes(searchString.toUpperCase());
+
+  if (isCategory) {
+    return await client
+      .query({
+        query: searchStringCategoryQuery,
+        variables: { searchString },
+      })
+      .then((result) => extractIdsFromResult(result));
+  }
+  return await client
+    .query({
+      query: searchStringQuery,
+      variables: { searchString },
+    })
+    .then((result) => extractIdsFromResult(result));
 };
 
+
 export type MealType = {
-  id: string;
-  code: string;
-  nameEn: string;
-  nameFr: string;
-  descriptionEn: string;
-  descriptionFr: string;
+  rowId: string;
 };
+
+export type CategoryT = 'BREAKFAST' | 'LUNCH' | 'DINNER' | 'SNACK' | null;
