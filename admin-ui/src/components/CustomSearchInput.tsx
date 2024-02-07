@@ -1,10 +1,10 @@
 import { useApolloClient } from '@apollo/client';
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { getSearchByString, MealType } from '../Meals/service';
+import { getSearchByString } from '../Meals/service';
 
 interface CustomSearchInputProps {
-  onSearch: (data: any) => void;  
+  onSearch: (data: any) => void;
 }
 
 const CustomSearchInput = ({ onSearch }: CustomSearchInputProps) => {
@@ -12,9 +12,13 @@ const CustomSearchInput = ({ onSearch }: CustomSearchInputProps) => {
   const [searchString, setSearchString] = useState('');
 
   useEffect(() => {
-    getSearchByString(client, searchString).then((idsArray) => {
-      onSearch(idsArray);
-    }).catch((err) => {console.error(err);});
+    getSearchByString(client, searchString)
+      .then((idsArray) => {
+        onSearch(idsArray);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, [searchString]);
 
   return (
