@@ -29,11 +29,16 @@ export const getSearchByString = async (
   client: ApolloClient<object>,
   searchString: string
 ): Promise<any> => {
-  let result = await client.query({
+  return await client.query({
     query: searchStringQuery,
     variables: { searchString },
+  }).then(result => {
+    const meals = result?.data?.query?.meals?.edges || [];
+    type EdgeType = { node: MealType };
+    const extractedMeals: MealType[] = meals.map((edge: EdgeType) => edge.node);
+    const idsArray = extractedMeals.map((id) => id.rowId);
+    return idsArray; // Return only the needed ids
   });
-  return result;
 };
 
 export type MealType = {

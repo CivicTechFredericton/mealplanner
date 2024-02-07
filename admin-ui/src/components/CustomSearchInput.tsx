@@ -12,13 +12,9 @@ const CustomSearchInput = ({ onSearch }: CustomSearchInputProps) => {
   const [searchString, setSearchString] = useState('');
 
   useEffect(() => {
-    getSearchByString(client, searchString).then((result) => {
-      const meals = result?.data?.query?.meals?.edges || [];
-      type EdgeType = { node: MealType };
-      const extractedMeals: MealType[] = meals.map((edge: EdgeType) => edge.node);
-      const idsArray = extractedMeals.map((id) => id.rowId);
+    getSearchByString(client, searchString).then((idsArray) => {
       onSearch(idsArray);
-    });
+    }).catch((err) => {console.error(err);});
   }, [searchString]);
 
   return (
