@@ -68,31 +68,31 @@ const Details = () => {
               <ReferenceField label="Product Name" reference="products" source="productId">
                 <TextField source="nameEn" />
               </ReferenceField>
-              <TextField label="Nom du Produit" source="nameFr" />
-              <TextField source="unit" />
-              <TextField source="quantity" />
+              <TextField label='Nom du Produit' source='nameFr' />
+              <TextField source='unit' />
+              <TextField source='quantity' />
             </Datagrid>
           </ReferenceManyField>
         </Tab>
-        <Tab label="Summary">
-          <NumberField source="cookingDuration" />
-          <NumberField source="totalCost" />
-          <NumberField source="servingCost" />
-          <TextField source="tips" />
-          <NumberField source="servingsSize" />
-          <TextField source="servingsSizeUnit" />
-          <NumberField source="serves" />
-          <NumberField source="nutritionRating" />
-          <UrlField source="photoUrl" />
-          <UrlField source="videoUrl" />
-          <DateField source="createdAt" showTime />
-          <DateField source="updatedAt" showTime />
+        <Tab label='Summary'>
+          <NumberField source='cookingDuration' />
+          <NumberField source='totalCost' />
+          <NumberField source='servingCost' />
+          <TextField source='tips' />
+          <NumberField source='servingsSize' />
+          <TextField source='servingsSizeUnit' />
+          <NumberField source='serves' />
+          <NumberField source='nutritionRating' />
+          <UrlField source='photoUrl' />
+          <UrlField source='videoUrl' />
+          <DateField source='createdAt' showTime />
+          <DateField source='updatedAt' showTime />
         </Tab>
-        <Tab label="Nutrition">
+        <Tab label='Nutrition'>
           <ReferenceManyField
-            reference="nutrition"
-            target="nutritionableId"
-            filter={{ nutritionableType: "meal" }}
+            reference='nutrition'
+            target='nutritionableId'
+            filter={{ nutritionableType: 'meal' }}
           >
             <SingleFieldList>
               <NutritionShow />
