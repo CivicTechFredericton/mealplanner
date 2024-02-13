@@ -22,10 +22,6 @@ export const ProductList = (props: ListProps) => {
     setData(data);
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data])
-  
   return (
     <>
       <CustomSearchInput onSearch={handleSearchResult} />
