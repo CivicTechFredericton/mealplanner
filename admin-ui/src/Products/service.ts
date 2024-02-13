@@ -1,4 +1,4 @@
-import { ApolloClient, gql } from '@apollo/client';
+import { ApolloClient, gql } from "@apollo/client";
 
 const searchStringQuery = gql`
   query SearchStrings($searchString: String!) {
