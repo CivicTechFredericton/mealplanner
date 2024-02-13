@@ -6,10 +6,10 @@ const searchStringQuery = gql`
       products(
         filter: {
           or: [
-            { code: { includes: $searchString } }
-            { nameEn: { includes: $searchString } }
-            { nameFr: { includes: $searchString } }
-            { upc: { includes: $searchString } }
+            { code: { includesInsensitive: $searchString } }
+            { nameEn: { includesInsensitive: $searchString } }
+            { nameFr: { includesInsensitive: $searchString } }
+            { upc: { includesInsensitive: $searchString } }
             { tags: { contains: [$searchString] } }
           ]
         }
