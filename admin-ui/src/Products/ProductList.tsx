@@ -9,12 +9,12 @@ import {
   SingleFieldList,
   TextField,
   UrlField,
-} from 'react-admin';
-import { ListField } from '../ListField';
-import { NutritionShow } from '../Nutrition/NutritionShow';
-import CustomSearchInput from '../components/CustomSearchInput';
-import { useEffect, useState } from 'react';
-import { ProductType } from './service';
+} from "react-admin";
+import { ListField } from "../ListField";
+import { NutritionShow } from "../Nutrition/NutritionShow";
+import CustomSearchInput from "../components/CustomSearchInput";
+import { useEffect, useState } from "react";
+import { ProductType } from "./service";
 
 export const ProductList = (props: ListProps) => {
   const [data, setData] = useState<ProductType[]>([]);
@@ -32,27 +32,27 @@ export const ProductList = (props: ListProps) => {
       <CustomSearchInput onSearch={handleSearchResult} />
       <List
         {...props}
-        title='ProductList'
+        title="ProductList"
         filter={{
           rowId: data,
-          order: 'ASC',
+          order: "ASC",
           page: 1,
           perPage: 10,
-          sort: 'id',
+          sort: "id",
         }}
       >
         <Datagrid expand={NutritionDetails}>
-          <TextField source='id' fullWidth />
-          <TextField source='nameEn' fullWidth />
-          <TextField source='nameFr' fullWidth />
-          <TextField source='code' />
-          <NumberField source='price' />
-          <NumberField source='quantity' />
-          <TextField source='unit' />
-          <BooleanField source='isArchived' />
-          <TextField source='upc' />
-          <UrlField source='sourceLink' />
-          <ListField source='tags' />
+          <TextField source="id" fullWidth />
+          <TextField source="nameEn" fullWidth />
+          <TextField source="nameFr" fullWidth />
+          <TextField source="code" />
+          <NumberField source="price" />
+          <NumberField source="quantity" />
+          <TextField source="unit" />
+          <BooleanField source="isArchived" />
+          <TextField source="upc" />
+          <UrlField source="sourceLink" />
+          <ListField source="tags" />
           <EditButton />
         </Datagrid>
       </List>
@@ -65,9 +65,9 @@ const NutritionDetails = () => {
     <>
       <h3>Nutrition Information</h3>
       <ReferenceManyField
-        reference='nutrition'
-        target='nutritionableId'
-        filter={{ nutritionableType: 'product' }}
+        reference="nutrition"
+        target="nutritionableId"
+        filter={{ nutritionableType: "product" }}
       >
         <SingleFieldList>
           <NutritionShow />
