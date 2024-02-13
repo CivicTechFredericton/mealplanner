@@ -1,5 +1,5 @@
 
-import { ApolloClient, gql } from '@apollo/client';
+import { ApolloClient, gql } from "@apollo/client";
 
 const searchStringQuery = gql`
   query SearchStrings($searchString: String!) {
@@ -51,7 +51,7 @@ export const getSearchByString = async (
   client: ApolloClient<object>,
   searchString: string
 ): Promise<any> => {
-  const isCategory = ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK'].includes(searchString.toUpperCase());
+  const isCategory = ["BREAKFAST", "LUNCH", "DINNER", "SNACK"].includes(searchString.toUpperCase());
 
   if (isCategory) {
     return await client
@@ -74,4 +74,4 @@ export type MealType = {
   rowId: string;
 };
 
-export type CategoryT = 'BREAKFAST' | 'LUNCH' | 'DINNER' | 'SNACK' | null;
+export type CategoryT = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK" | null;
