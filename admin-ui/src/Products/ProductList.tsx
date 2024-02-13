@@ -14,12 +14,11 @@ import { ListField } from "../ListField";
 import { NutritionShow } from "../Nutrition/NutritionShow";
 import CustomSearchInput from "../components/CustomSearchInput";
 import { useEffect, useState } from "react";
-import { ProductType } from "./service";
 
 export const ProductList = (props: ListProps) => {
-  const [data, setData] = useState<ProductType[]>([]);
+  const [data, setData] = useState<String[]>([]);
 
-  const handleSearchResult = (data: ProductType[]) => {
+  const handleSearchResult = (data: String[]) => {
     setData(data);
   };
 
