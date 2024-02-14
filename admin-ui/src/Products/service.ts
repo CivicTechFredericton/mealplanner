@@ -25,7 +25,6 @@ const searchStringQuery = gql`
 `;
 
 const extractIdsFromResult = (result: any) => {
-  console.log(result);
   const products = result?.data?.query?.products?.edges || [];
   type EdgeType = { node: ProductType };
   const extractedProducts: ProductType[] = products.map((edge: EdgeType) => edge.node);
