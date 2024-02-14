@@ -6,6 +6,7 @@ const userQuery = graphql`
         currentPerson{
             fullName
             email
+            role
         }
     }
 `;
