@@ -144,12 +144,11 @@ const MealPlanCard = (props: MealPlanCardProps) => {
               >
                 <DeleteTwoTone />
               </IconButton>
-              {getCurrentPerson().personName === "Admin" || getCurrentPerson().personName === "Meal Designer" ? (
+              {getCurrentPerson().personRole === "app_admin" || getCurrentPerson().personRole === "app_meal_designer" ? (
                 <IconButton
                   aria-label="duplicate"
                   onClick={(e) => {
                     e.stopPropagation();
-                    console.log("meal plan id: ", typeof mealplan.rowId);
                     duplicateMealPlan(connection, mealplan.rowId);
                   }}
                 >
