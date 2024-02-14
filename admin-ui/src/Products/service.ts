@@ -36,12 +36,13 @@ export const getSearchByString = async (
   client: ApolloClient<object>,
   searchString: string
 ): Promise<any> => {
-  return await client
+  const result =  await client
     .query({
       query: searchStringQuery,
       variables: { searchString },
-    })
-    .then((result) => extractIdsFromResult(result));
+    });
+    const ids = await extractIdsFromResult(result);
+    return ids;
 };
 
 export type ProductType = {
