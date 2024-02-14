@@ -24,10 +24,8 @@ const searchStringQuery = gql`
   }
 `;
 
-const extractIdsFromResult = (result: any) => {
-  const products = result?.data?.query?.products?.edges || [];
-  type EdgeType = { node: ProductType };
-  const extractedProducts: ProductType[] = products.map((edge: EdgeType) => edge.node);
+const extractIdsFromResult = (result: QueryResponse) => {
+  const extractedProducts: ProductResultType[] = result.data.query.products.edges.map((edge) => edge.node);
   return extractedProducts.map((id) => id.rowId);
 };
 
@@ -35,15 +33,23 @@ export const getSearchByString = async (
   client: ApolloClient<object>,
   searchString: string
 ): Promise<string[]> => {
-  const result =  await client
-    .query({
-      query: searchStringQuery,
-      variables: { searchString },
-    });
-    const ids = await extractIdsFromResult(result);
-    return ids;
+  const result = await client.query({
+    query: searchStringQuery,
+    variables: { searchString },
+  });
+  const ids = await extractIdsFromResult(result);
+  return ids;
 };
 
-export type ProductType = {
+export type ProductResultType = {
   rowId: string;
+};
+type QueryResponse = {
+  data: {
+    query: {
+      products: {
+        edges: [{ node: ProductResultType }];
+      };
+    };
+  };
 };
