@@ -176,6 +176,7 @@ const currentUserQuery = graphql`
       }
       email
       fullName
+      role
     }
   }
 `;
@@ -198,6 +199,7 @@ function setCurrentUser(data: state_CurrentUserQuery$data | undefined) {
       let record = store.create("client:currentUser", "CurrentLoggedInUser");
       record.setValue(data?.currentPerson?.person?.rowId, "personID");
       record.setValue(data?.currentPerson?.fullName, "personName");
+      record.setValue(data?.currentPerson?.role, "personRole");
       localState?.setLinkedRecord(record, "currentUser");
     });
   }
@@ -266,15 +268,17 @@ export const logout = async () => {
 export const getCurrentPerson = (): {
   personID: string;
   personName: string;
+  personRole: string;
 } => {
   const store = environment.getStore();
   let record = store.getSource().get("client:currentUser");
   if (record === null || record === undefined) {
-    return { personID: "", personName: "" };
+    return { personID: "", personName: "",personRole: "" };
   }
   return {
     personID: record["personID"].toString(),
     personName: record["personName"].toString(),
+    personRole: record["personRole"].toString()
   };
 };
 
