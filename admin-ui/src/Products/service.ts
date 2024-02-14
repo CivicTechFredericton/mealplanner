@@ -35,7 +35,7 @@ const extractIdsFromResult = (result: any) => {
 export const getSearchByString = async (
   client: ApolloClient<object>,
   searchString: string
-): Promise<any> => {
+): Promise<string[]> => {
   const result =  await client
     .query({
       query: searchStringQuery,
