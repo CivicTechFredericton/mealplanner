@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getSearchByString } from "../Meals/service";
 
 interface CustomSearchInputProps {
-  onSearch: (data: any) => void;
+  onSearch: (data: string[]) => void;
 }
 
 const CustomSearchInput = ({ onSearch }: CustomSearchInputProps) => {
