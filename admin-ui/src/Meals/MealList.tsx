@@ -21,8 +21,8 @@ import { MealType } from "./service";
 import CustomSearchInput from "../components/CustomSearchInput";
 
 export const MealList = (props: ListProps) => {
-  const [data, setData] = useState<MealType[]>([]);
-  const handleSearchResult = (data: MealType[]) => {
+  const [data, setData] = useState<string[]>([]);
+  const handleSearchResult = (data: string[]) => {
     setData(data);
   };
 
