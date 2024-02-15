@@ -1,25 +1,23 @@
-
 import { ApolloClient, gql } from "@apollo/client";
 
 const searchStringQuery = gql`
-  query SearchStrings($searchString: String!) {
-    query {
-      meals(
-        filter: {
-          or: [
-            { code: { includes: $searchString } }
-            { nameEn: { includes: $searchString } }
-            { nameFr: { includes: $searchString } }
-            { descriptionEn: { includes: $searchString } }
-            { descriptionFr: { includes: $searchString } }
-            { tags: { contains: [$searchString] } }
-          ]
-        }
-      ) {
-        edges {
-          node {
-            rowId
-          }
+  query searchMeal($searchString: String, $category: [CategoryT]) {
+    meals(
+      filter: {
+        or: [
+          { code: { includes: $searchString } }
+          { nameEn: { includes: $searchString } }
+          { nameFr: { includes: $searchString } }
+          { descriptionEn: { includes: $searchString } }
+          { descriptionFr: { includes: $searchString } }
+          { tags: { contains: [$searchString] } }
+          { categories: { overlaps: $category } }
+        ]
+      }
+    ) {
+      edges {
+        node {
+          rowId
         }
       }
     }
@@ -49,29 +47,18 @@ const extractIdsFromResult = (result: any) => {
 
 export const getSearchByString = async (
   client: ApolloClient<object>,
-  searchString: string
+  searchString: string,
 ): Promise<any> => {
-  const isCategory = ["BREAKFAST", "LUNCH", "DINNER", "SNACK"].includes(searchString.toUpperCase());
-
-  if (isCategory) {
-    return await client
-      .query({
-        query: searchStringCategoryQuery,
-        variables: { searchString },
-      })
-      .then((result) => extractIdsFromResult(result));
-  }
-  return await client
-    .query({
-      query: searchStringQuery,
-      variables: { searchString },
-    })
-    .then((result) => extractIdsFromResult(result));
+  const response = await client.query({
+    query: searchStringQuery,
+    variables: { searchString },
+  });
+  console.log(response);
+  const ids = await extractIdsFromResult(response);
+  console.log(ids);
+  return ids;
 };
-
 
 export type MealType = {
   rowId: string;
 };
-
-export type CategoryT = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK" | null;
