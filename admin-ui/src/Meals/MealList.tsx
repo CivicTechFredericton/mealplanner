@@ -20,8 +20,8 @@ import { useState } from "react";
 import CustomSearchInput from "../components/CustomSearchInput";
 
 export const MealList = (props: ListProps) => {
-  const [data, setData] = useState<String[]>([]);
-  const handleSearchResult = (data: String[]) => {
+  const [data, setData] = useState<string[]>([]);
+  const handleSearchResult = (data: string[]) => {
     setData(data);
   };
 
