@@ -5,11 +5,11 @@ const searchStringQuery = gql`
     meals(
       filter: {
         or: [
-          { code: { includes: $searchString } }
-          { nameEn: { includes: $searchString } }
-          { nameFr: { includes: $searchString } }
-          { descriptionEn: { includes: $searchString } }
-          { descriptionFr: { includes: $searchString } }
+          { code: { includesInsensitive: $searchString } }
+          { nameEn: { includesInsensitive: $searchString } }
+          { nameFr: { includesInsensitive: $searchString } }
+          { descriptionEn: { includesInsensitive: $searchString } }
+          { descriptionFr: { includesInsensitive: $searchString } }
           { tags: { contains: [$searchString] } }
           { categories: { overlaps: $category } }
         ]
@@ -24,41 +24,44 @@ const searchStringQuery = gql`
   }
 `;
 
-const searchStringCategoryQuery = gql`
-  query searchCategory($searchString: CategoryT!) {
-    query {
-      meals(filter: { categories: { anyEqualTo: $searchString } }) {
-        edges {
-          node {
-            rowId
-          }
-        }
-      }
-    }
-  }
-`;
-
-const extractIdsFromResult = (result: any) => {
-  const meals = result?.data?.query?.meals?.edges || [];
-  type EdgeType = { node: MealType };
-  const extractedMeals: MealType[] = meals.map((edge: EdgeType) => edge.node);
+const extractIdsFromResult = (result: QueryResponse) => {
+  const extractedMeals: MealResultType[] = result.data.meals.edges.map((edge) => edge.node);
   return extractedMeals.map((id) => id.rowId);
 };
 
 export const getSearchByString = async (
   client: ApolloClient<object>,
   searchString: string,
-): Promise<any> => {
-  const response = await client.query({
+  category: string[] = []
+): Promise<string[]> => {
+  let isCategory: boolean = ["BREAKFAST", "LUNCH", "DINNER", "SNACK"].includes(
+    searchString.toUpperCase()
+  );
+
+  if (isCategory) {
+    category.push(searchString.toUpperCase());
+    const result = await client.query({
+      query: searchStringQuery,
+      variables: { searchString, category },
+    });
+    const ids = extractIdsFromResult(result);
+    return ids;
+  }
+  const result = await client.query({
     query: searchStringQuery,
-    variables: { searchString },
+    variables: { searchString, category },
   });
-  console.log(response);
-  const ids = await extractIdsFromResult(response);
-  console.log(ids);
+  const ids = extractIdsFromResult(result);
   return ids;
 };
 
-export type MealType = {
+export type MealResultType = {
   rowId: string;
+};
+type QueryResponse = {
+  data: {
+    meals: {
+      edges: [{ node: MealResultType }];
+    };
+  };
 };
