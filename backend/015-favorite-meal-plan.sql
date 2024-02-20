@@ -1,30 +1,47 @@
--- Create the favorite_meal_plan table if it doesn't exist
-CREATE TABLE IF NOT EXISTS app.favorite_meal_plan (
-    id SERIAL PRIMARY KEY,
-    meal_id TEXT NOT NULL,
-    user_id TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+BEGIN;
+CREATE TABLE IF NOT EXISTS app.favorite_meals (
+    id BIGSERIAL PRIMARY KEY,
+    meal_id BIGINT NOT NULL,
+    user_id BIGINT,
+    created_at TIMESTAMP DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP DEFAULT NOW() NOT NULL
 );
 
+-- Create triggers to set created_at and updated_at timestamps
+CREATE TRIGGER tg_favorite_meals_set_updated_at BEFORE UPDATE
+ON app.favorite_meals 
+FOR EACH ROW EXECUTE PROCEDURE app.set_updated_at();
+
+CREATE TRIGGER tg_favorite_meals_set_created_at BEFORE INSERT
+ON app.favorite_meals 
+FOR EACH ROW EXECUTE PROCEDURE app.set_created_at();
+
 -- Function to add a meal plan to favorites
-CREATE OR REPLACE FUNCTION app.favorite_meal_plan(meal_id TEXT, user_id TEXT) RETURNS app.meal_plan AS $$
+CREATE OR REPLACE FUNCTION app.create_favorite_meal(meal_id_param BIGINT) RETURNS VOID AS $$
 BEGIN
-    -- Check if the meal plan is already favorited by the user
-    IF EXISTS (SELECT 1 FROM app.favorite_meal_plan WHERE meal_id = meal_id AND user_id = user_id) THEN
-        -- If the meal plan is already favorited, you may choose to handle this case according to your requirements
-        -- For example, you might throw an exception or do nothing
-        -- RAISE EXCEPTION 'Meal plan is already favorited by the user';
-        RETURN;
-    ELSE
-        -- If the meal plan is not favorited by the user, insert a new entry
-        INSERT INTO app.favorite_meal_plan (meal_id, user_id) VALUES (meal_id, user_id);
-    END IF;
+    -- Fetch the person_id from the current session
+    INSERT INTO app.favorite_meals (meal_id, person_id)
+    SELECT meal_id_param, NULLIF(current_setting('jwt.claims.person_id', true), '')::BIGINT;
 END;
 $$ LANGUAGE plpgsql;
 
-COMMENT ON FUNCTION app.favorite_meal_plan(TEXT, TEXT) IS 'Add a meal plan to favorites for a user';
+
+-- Function to delete a meal plan from favorites
+CREATE OR REPLACE FUNCTION app.delete_favorite_meal(meal_id_param BIGINT) RETURNS VOID AS $$
+DECLARE
+    person_id_param BIGINT;
+BEGIN
+    -- Fetch the person_id from the current session
+    person_id_param := NULLIF(current_setting('jwt.claims.person_id', true), '')::BIGINT;
+
+    -- Delete from favorite_meals table based on meal_id and person_id
+    DELETE FROM app.favorite_meals
+    WHERE meal_id = meal_id_param AND person_id = person_id_param;
+END;
+$$ LANGUAGE plpgsql;
 
 -- Grant execute permission to appropriate roles
-GRANT EXECUTE,SELECT ON FUNCTION app.favorite_meal_plan(TEXT, TEXT) TO app_anonymous, app_user, app_meal_designer, app_admin;
+GRANT select, insert, delete, update on app.favorite_meals to app_user, app_meal_designer, app_admin;
+GRANT usage on SEQUENCE app.favorite_meals_id_seq to app_user, app_meal_designer, app_admin;
 
 COMMIT;
