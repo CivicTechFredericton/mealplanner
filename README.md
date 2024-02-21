@@ -54,7 +54,16 @@ docker-compose down -v --rmi all
 docker system prune
 docker volume prune
 ```
-After this, `docker-compose up --build` will rebuild containers from scratch.
+After this, 
+For production or testing:
+`docker-compose up --build` will rebuild containers from scratch 
+
+For development, use 
+
+```
+export COMPOSE_FILE=docker-compose-dev.yml
+docker-compose up --build
+```
 
 ### populating sample data
 On the initial build and startup, the database will be completely empty. There won't even be an account created for logging in. To populate the databse with a handful of users and some recipe material run the appropriate version of the following docker-compose commands to seed the database.
