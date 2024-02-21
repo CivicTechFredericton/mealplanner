@@ -1,0 +1,53 @@
+version: '3.7'
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - .env
+  graphql:
+    build:
+      context: backend
+    ports:
+      - "4000:4000"
+    # This is required for schema.graphql to get updated with new migrations
+    volumes:
+       - ./backend:/app:z
+       - /app/node_modules
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@db/?sslmode=disable
+      ENABLE_SSH: "false"
+      OWNER_DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@db/?sslmode=disable
+      PG_HOST: db
+    depends_on:
+      - db
+    links:
+      - db
+  frontend:
+    build:
+      context: mealplanner-ui
+    ports:
+      - "3000:80"
+    depends_on:
+      - graphql
+    links:
+      - graphql
+  admin:
+    build:
+      context: admin-ui
+    ports:
+      - "2000:80"
+    depends_on:
+      - graphql
+    links:
+      - graphql
+
+volumes:
+  pgdata:
+
