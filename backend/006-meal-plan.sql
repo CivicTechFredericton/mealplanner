@@ -36,6 +36,12 @@ create or replace function app.set_meal_plan_new_person_id() returns trigger as 
   end;
   $$ language plpgsql;
 
+-- returns set of meal plan tags
+create or replace function app.all_meal_plan_tags() returns SETOF text as $$
+  select distinct unnest(tags) AS tag FROM app.meal_plan;
+ $$ language sql stable;
+comment on function app.all_meal_plan_tags() is 'Unique tags from all meal plans';
+
 create trigger tg_meal_plan_set_app_user_person_id before insert
   on app.meal_plan
   for each row execute procedure app.set_meal_plan_new_person_id();
@@ -44,6 +50,7 @@ create index idx_meal_plan_person_id on app.meal_plan(person_id);
 
 GRANT select, insert, delete, update on app.meal_plan to app_user, app_meal_designer, app_admin;
 GRANT usage on SEQUENCE app.meal_plan_id_seq to app_user, app_meal_designer, app_admin;
+grant execute on function app.all_meal_plan_tags() to app_anonymous, app_user, app_meal_designer, app_admin;
 
 alter table app.meal_plan enable row level security;
 
