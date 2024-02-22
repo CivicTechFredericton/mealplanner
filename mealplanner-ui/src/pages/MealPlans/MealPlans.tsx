@@ -79,6 +79,11 @@ const mealPlansQuery = graphql`
         }
       }
     }
+    allMealPlanTags(first:10) {
+      edges {
+        node
+      }
+    }
   }
 `;
 
