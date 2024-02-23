@@ -1,4 +1,4 @@
-import { DeleteTwoTone, Search, ShoppingCart } from "@mui/icons-material";
+import { DeleteTwoTone, Search, ShoppingCart, ContentCopy } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
@@ -25,6 +25,8 @@ import { useNavigate } from "react-router";
 import { MealPlanNode } from "../../state/types";
 import { CreateMealPlan } from "./CreateMealPlan";
 import { deleteMealPlan } from "./DeleteMealPlan";
+import { duplicateMealPlan } from "./DuplicateMealPlan";
+import {getCurrentPerson} from "../../state/state";
 import { MealPlansQuery } from "./__generated__/MealPlansQuery.graphql";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -140,6 +142,17 @@ const MealPlanCard = (props: MealPlanCardProps) => {
               >
                 <DeleteTwoTone />
               </IconButton>
+              {getCurrentPerson().personRole === "app_admin" || getCurrentPerson().personRole === "app_meal_designer" ? (
+                <IconButton
+                  aria-label="duplicate"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    duplicateMealPlan(connection, mealplan.rowId);
+                  }}
+                >
+                  <ContentCopy />
+                </IconButton>
+              ):null}
             </div>
           }
           title={mealplan.nameEn}

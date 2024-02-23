@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<82bd5b46cad060ab1dd9670833f58ca8>>
+ * @generated SignedSource<<2a1482329ae00a0a530cc74ec254602e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,6 +18,7 @@ export type state_CurrentUserQuery$data = {
     } | null;
     readonly email: string | null;
     readonly fullName: string | null;
+    readonly role: string | null;
   } | null;
 };
 export type state_CurrentUserQuery = {
@@ -73,6 +74,13 @@ var v0 = [
         "kind": "ScalarField",
         "name": "fullName",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "role",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -96,16 +104,16 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "eaf642213dfed784a6a57b77ef8be1f4",
+    "cacheID": "ad6c25c014e537f7be0822a008dc3c59",
     "id": null,
     "metadata": {},
     "name": "state_CurrentUserQuery",
     "operationKind": "query",
-    "text": "query state_CurrentUserQuery {\n  currentPerson {\n    person {\n      id\n      rowId\n    }\n    email\n    fullName\n  }\n}\n"
+    "text": "query state_CurrentUserQuery {\n  currentPerson {\n    person {\n      id\n      rowId\n    }\n    email\n    fullName\n    role\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "acffc15db375e4ad9a4a05eb45fe5a81";
+(node as any).hash = "658925a637e6c08cf61239a420825299";
 
 export default node;
