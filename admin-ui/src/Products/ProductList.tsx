@@ -12,25 +12,46 @@ import {
 } from "react-admin";
 import { ListField } from "../ListField";
 import { NutritionShow } from "../Nutrition/NutritionShow";
+import CustomSearchInput from "../components/CustomSearchInput";
+import { useEffect, useState } from "react";
 
 export const ProductList = (props: ListProps) => {
+  const [data, setData] = useState<String[]>([]);
+
+  const handleSearchResult = (data: String[]) => {
+    setData(data);
+  };
+
   return (
-    <List {...props} title="ProductList">
-      <Datagrid expand={NutritionDetails}>
-        <TextField source="id" fullWidth />
-        <TextField source="nameEn" fullWidth />
-        <TextField source="nameFr" fullWidth />
-        <TextField source="code" />
-        <NumberField source="price" />
-        <NumberField source="quantity" />
-        <TextField source="unit" />
-        <BooleanField source="isArchived" />
-        <TextField source="upc" />
-        <UrlField source="sourceLink" />
-        <ListField source="tags" />
-        <EditButton />
-      </Datagrid>
-    </List>
+    <>
+      <CustomSearchInput onSearch={handleSearchResult} />
+      <List
+        {...props}
+        title="ProductList"
+        filter={{
+          rowId: data,
+          order: "ASC",
+          page: 1,
+          perPage: 10,
+          sort: "id",
+        }}
+      >
+        <Datagrid expand={NutritionDetails}>
+          <TextField source="id" fullWidth />
+          <TextField source="nameEn" fullWidth />
+          <TextField source="nameFr" fullWidth />
+          <TextField source="code" />
+          <NumberField source="price" />
+          <NumberField source="quantity" />
+          <TextField source="unit" />
+          <BooleanField source="isArchived" />
+          <TextField source="upc" />
+          <UrlField source="sourceLink" />
+          <ListField source="tags" />
+          <EditButton />
+        </Datagrid>
+      </List>
+    </>
   );
 };
 
