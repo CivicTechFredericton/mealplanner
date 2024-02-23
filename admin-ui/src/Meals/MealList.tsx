@@ -16,22 +16,42 @@ import {
 } from "react-admin";
 import { ListField } from "../ListField";
 import { NutritionShow } from "../Nutrition/NutritionShow";
+import { useState } from "react";
+import CustomSearchInput from "../components/CustomSearchInput";
 
 export const MealList = (props: ListProps) => {
+  const [data, setData] = useState<string[]>([]);
+  const handleSearchResult = (data: string[]) => {
+    setData(data);
+  };
+
   return (
-    <List {...props} title="Meals List">
-      <Datagrid expand={Details}>
-        <TextField source="id" />
-        <TextField source="code" />
-        <TextField source="nameEn" />
-        <TextField source="nameFr" />
-        <ListField label="Tags" source="tags" />
-        <TextField source="descriptionEn" />
-        <TextField source="descriptionFr" />
-        <ListField source="categories" />
-        <EditButton />
-      </Datagrid>
-    </List>
+    <>
+      <CustomSearchInput onSearch={handleSearchResult} />
+      <List
+        {...props}
+        title="Meals List"
+        filter={{
+          rowId: data,
+          order: "ASC",
+          page: 1,
+          perPage: 10,
+          sort: "id",
+        }}
+      >
+        <Datagrid expand={Details}>
+          <TextField source="id" />
+          <TextField source="code" />
+          <TextField source="nameEn" />
+          <TextField source="nameFr" />
+          <ListField label="Tags" source="tags" />
+          <TextField source="descriptionEn" />
+          <TextField source="descriptionFr" />
+          <ListField source="categories" />
+          <EditButton />
+        </Datagrid>
+      </List>
+    </>
   );
 };
 
@@ -41,19 +61,11 @@ const Details = () => {
       <TabbedShowLayout syncWithLocation={false}>
         <Tab label="Method">
           <RichTextField source="method" />
-          <ReferenceManyField
-            label="Measures"
-            reference="measures"
-            target="mealId"
-          >
+          <ReferenceManyField label="Measures" reference="measures" target="mealId">
             <Datagrid>
               {/* <TextField source="rowId" /> */}
               <TextField source="productId" label="Product ID" />
-              <ReferenceField
-                label="Product Name"
-                reference="products"
-                source="productId"
-              >
+              <ReferenceField label="Product Name" reference="products" source="productId">
                 <TextField source="nameEn" />
               </ReferenceField>
               <TextField label="Nom du Produit" source="nameFr" />
