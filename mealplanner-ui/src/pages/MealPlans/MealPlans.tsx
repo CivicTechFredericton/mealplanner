@@ -30,7 +30,7 @@ import {
   Radio
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { useNavigate } from "react-router";
 import { MealPlanNode } from "../../state/types";
@@ -89,9 +89,9 @@ const mealPlansQuery = graphql`
     }
     allMealPlanTags(first:10) {
       edges {
-        node
+      node
       }
-    }
+  } 
   }
 `;
 
@@ -256,22 +256,17 @@ export const MealPlans = () => {
   const [searched, setSearched] = useState<string>("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [searchType, setSearchType] = useState('name');
+  const [fetchKey, setFetchKey] = useState(0);
+
+  const refresh = useCallback(() => {
+    setFetchKey(prevFetchKey => prevFetchKey + 1);
+  }, []);
+
   const data = useLazyLoadQuery<MealPlansQuery>(
     mealPlansQuery,
     {},
-    { fetchPolicy: "network-only" }
+    { fetchPolicy: "network-only", fetchKey }
   );
-
-  const options=[
-    "vegetarian",
-    "vegan",
-    "gluten-free",
-    "keto",
-    "paleo",
-    "diary-free",
-    "egg-free",
-    "nuts-free",
-  ]
 
   const handleTagClick = (tag: string) => {
     if (selectedTags.includes(tag)) {
@@ -280,6 +275,10 @@ export const MealPlans = () => {
       setSelectedTags([...selectedTags, tag]);
     }
   };
+
+  useEffect(() => {
+    refresh();
+  }, [searchType]);
 
   return (
     <div>
@@ -350,16 +349,20 @@ export const MealPlans = () => {
         {searchType === 'tags' &&
             <Grid container direction="column" margin="0rem 2rem">
               <div>
-              {options.map((option, index) => (
-                <Chip
-                  key={index}
-                  label={option}
-                  clickable
-                  color={selectedTags.includes(option) ? "primary" : "default"}
-                  onClick={() => handleTagClick(option)}
-                  onDelete={selectedTags.includes(option) ? () => handleTagClick(option) : undefined}
-                />
-              ))}
+              {data.allMealPlanTags?.edges.map((edge, index) => {
+                const node = edge?.node;
+                if(node !== null) {
+                  return (
+                  <Chip
+                    key={index}
+                    label={node}
+                    clickable
+                    color={selectedTags.includes(node) ? "primary" : "default"}
+                    onClick={() => handleTagClick(node)}
+                    onDelete={selectedTags.includes(node) ? () => handleTagClick(node) : undefined}
+                  />
+                  );
+                }})}
               </div>
             </Grid>
           }
