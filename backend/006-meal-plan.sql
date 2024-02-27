@@ -36,6 +36,7 @@ create or replace function app.set_meal_plan_new_person_id() returns trigger as 
   end;
   $$ language plpgsql;
 
+
 create trigger tg_meal_plan_set_app_user_person_id before insert
   on app.meal_plan
   for each row execute procedure app.set_meal_plan_new_person_id();

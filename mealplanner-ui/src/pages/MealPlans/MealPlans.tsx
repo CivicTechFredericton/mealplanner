@@ -17,9 +17,14 @@ import {
   Paper,
   styled,
   Typography,
+  Chip,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { useNavigate } from "react-router";
 import { MealPlanNode } from "../../state/types";
@@ -76,6 +81,11 @@ const mealPlansQuery = graphql`
         }
       }
     }
+    allMealPlanTags(first:10) {
+      edges {
+      node
+      }
+  } 
   }
 `;
 
@@ -182,7 +192,7 @@ const MealPlanCard = (props: MealPlanCardProps) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites">
             <FavoriteIcon />
           </IconButton>
 
@@ -210,58 +220,129 @@ const MealPlanCard = (props: MealPlanCardProps) => {
 
 export const MealPlans = () => {
   const [searched, setSearched] = useState<string>("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [searchType, setSearchType] = useState('name');
+  const [fetchKey, setFetchKey] = useState(0);
+
+  const refresh = useCallback(() => {
+    setFetchKey(prevFetchKey => prevFetchKey + 1);
+  }, []);
+
   const data = useLazyLoadQuery<MealPlansQuery>(
     mealPlansQuery,
     {},
-    { fetchPolicy: "network-only" }
+    { fetchPolicy: "network-only", fetchKey }
   );
+
+  const handleTagClick = (tag: string) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter(item => item !== tag));
+    } else {
+      setSelectedTags([...selectedTags, tag]);
+    }
+  };
+
+  useEffect(() => {
+    refresh();
+  }, [searchType]);
+
   return (
     <div>
       <Grid
         container
         spacing={2}
         columns={2}
-        justifyContent="right"
         gap="2rem"
-        margin="1rem"
+        margin="1rem 2rem"
         width="95%"
+        justifyContent="space-between"
       >
-        <Paper
-          component="form"
-          sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            width: "75%",
-          }}
-        >
-          <InputBase
-            sx={{ ml: 1, flex: 1 }}
-            placeholder="Search Meal plan"
-            inputProps={{ "aria-label": "Search Meal Plan" }}
+           <FormControl component="fieldset">
+          <RadioGroup
+            row
+            aria-label="searchType"
+            name="searchType"
+            value={searchType}
             onChange={(e) => {
-              setSearched(e.target.value.toLowerCase());
+              setSearchType(e.target.value);
             }}
-          />
-          <Search></Search>
-        </Paper>
+          >
+           <FormControlLabel
+              value="name"
+              control={
+                <Radio 
+                  checked={searchType === 'name'}
+                />
+              }
+              label={
+                <InputBase
+                  placeholder="Search Name"
+                  inputProps={{ "aria-label": "Search By Name" }}
+                  readOnly={searchType !== 'name'}
+                  value={searched}
+                  onChange={(e) => {
+                    if (searchType === 'name') {
+                      setSearched(e.target.value.toLowerCase());
+                    }
+                  }}
+                  style={{ cursor: 'text',
+                          borderBottom: '1px solid black', width: '40vw' }}
+                  />
+              }
+            />
+            <FormControlLabel
+              value="favorites"
+              control={<Radio />}
+              label="Favorites"
+              checked={searchType === 'favorites'}
+            />
+            <FormControlLabel
+              value="tags"
+              control={<Radio />}
+              label="Tags"
+              checked={searchType === 'tags'}
+            /> 
+          </RadioGroup>
+        </FormControl>
+        <span>
         {data.mealPlans ? (
           <CreateMealPlan connection={data.mealPlans?.__id} />
         ) : (
           <></>
         )}
-      </Grid>
+        </span>
+        </Grid>
+        {searchType === 'tags' &&
+            <Grid container direction="column" margin="0rem 2rem">
+              <div>
+              {data.allMealPlanTags?.edges.map((edge, index) => {
+                const node = edge?.node;
+                if(node !== null) {
+                  return (
+                  <Chip
+                    key={index}
+                    label={node}
+                    clickable
+                    color={selectedTags.includes(node) ? "primary" : "default"}
+                    onClick={() => handleTagClick(node)}
+                    onDelete={selectedTags.includes(node) ? () => handleTagClick(node) : undefined}
+                  />
+                  );
+                }})}
+              </div>
+            </Grid>
+          }
       {data.mealPlans ? (
         <Grid container spacing={2} margin="1rem" columns={4}>
           {data.mealPlans?.edges.map(({ node }) => {
-            if (node.nameEn.toLowerCase().includes(searched))
+          if ((searchType === 'name' && node.nameEn.toLowerCase().includes(searched)) || (searchType === 'tags' && selectedTags.every(tag => node.tags?.includes(tag)))) {
               return (
                 <MealPlanCard
                   mealplan={node}
                   connection={data.mealPlans!.__id}
                 />
               );
-          })}
+          }})}
         </Grid>
       ) : (
         "No mealplans"
