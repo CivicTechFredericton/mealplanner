@@ -1,6 +1,7 @@
 import { DeleteTwoTone, Search, ShoppingCart, ContentCopy } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ContentCopyTwoToneIcon from '@mui/icons-material/ContentCopyTwoTone';
 import {
   Avatar,
   Card,
@@ -194,6 +195,10 @@ const MealPlanCard = (props: MealPlanCardProps) => {
         <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
             <FavoriteIcon />
+          </IconButton>
+
+          <IconButton aria-label="duplicate mealplan">
+            <ContentCopyTwoToneIcon />
           </IconButton>
 
           <ExpandMore
