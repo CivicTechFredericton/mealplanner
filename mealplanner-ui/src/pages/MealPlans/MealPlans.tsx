@@ -7,7 +7,10 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Checkbox,
   Collapse,
+  FormGroup,
+  FormControlLabel,
   Grid,
   IconButton,
   IconButtonProps,
@@ -17,6 +20,7 @@ import {
   Paper,
   styled,
   Typography,
+  Button,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import React, { useState } from "react";
@@ -195,8 +199,100 @@ const MealPlanCard = (props: MealPlanCardProps) => {
   );
 };
 
+interface tagFilterProps {
+  tags: string[];
+  setTags: Function;
+}
+
+const TagFilter = ({ tags, setTags }: tagFilterProps) => {
+  // All tags
+  const defaultTags = [
+    "vegetarian",
+    "vegan",
+    "gluten-free",
+    "keto",
+    "paleo",
+    "dairy-free",
+    "eggs-free",
+    "nuts-free",
+  ];
+
+  const filterIn = (tag: string, tags: string[]) => {
+    return tags.filter((currentTag: string) => currentTag !== tag);
+  };
+  const filterOut = (tag: string, tags: string[]) => {
+    return tags.concat([tag]);
+  };
+
+  return (
+    <div style={{ width: "100%", margin: "auto" }}>
+      <FormGroup>
+        <Grid container width="85%" style={{ margin: "auto" }} columns={5}>
+          <Grid xs={1}>
+            <Grid item container columns={1} gap={1}>
+              <Grid item xs={1}>
+                {" "}
+                <Button
+                  variant="contained"
+                  onClick={() => setTags(defaultTags)}
+                >
+                  Check All
+                </Button>
+              </Grid>
+              <Grid item xs={1}>
+                {" "}
+                <Button variant="contained" onClick={() => setTags([""])}>
+                  Uncheck All
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid xs={4}>
+            <Grid
+              item
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              columns={4}
+            >
+              {defaultTags.map((tag) => (
+                <Grid item xs={1}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={(e) => {
+                          e.target.checked
+                            ? setTags(filterOut(tag, tags))
+                            : setTags(filterIn(tag, tags));
+                        }}
+                        checked={tags.includes(tag)}
+                      />
+                    }
+                    label={tag}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+      </FormGroup>
+    </div>
+  );
+};
+
 export const MealPlans = () => {
   const [searched, setSearched] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([
+    "vegetarian",
+    "vegan",
+    "gluten-free",
+    "keto",
+    "paleo",
+    "dairy-free",
+    "eggs-free",
+    "nuts-free",
+  ]);
   const data = useLazyLoadQuery<MealPlansQuery>(
     mealPlansQuery,
     {},
@@ -238,16 +334,27 @@ export const MealPlans = () => {
           <></>
         )}
       </Grid>
+      {tags && <TagFilter tags={tags} setTags={setTags} />}
+
       {data.mealPlans ? (
         <Grid container spacing={2} margin="1rem" columns={4}>
           {data.mealPlans?.edges.map(({ node }) => {
-            if (node.nameEn.toLowerCase().includes(searched))
-              return (
-                <MealPlanCard
-                  mealplan={node}
-                  connection={data.mealPlans!.__id}
-                />
-              );
+            if (node.tags) {
+              if (
+                (node.tags !== null &&
+                  node.tags.some((tag) => {
+                    if (tag !== null) return tags.includes(tag);
+                  })) ||
+                node.tags.length === 0
+              )
+                if (node.nameEn.toLowerCase().includes(searched))
+                  return (
+                    <MealPlanCard
+                      mealplan={node}
+                      connection={data.mealPlans!.__id}
+                    />
+                  );
+            }
           })}
         </Grid>
       ) : (
