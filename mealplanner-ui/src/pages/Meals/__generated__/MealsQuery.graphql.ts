@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<09041e94dc85ca5b10bee8ed6546d1ab>>
+ * @generated SignedSource<<2402e5bbc5b7cd8ee62da53fa5263e56>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,6 +24,11 @@ export type MealsQuery$data = {
       readonly code: string;
       readonly photoUrl: string | null;
       readonly videoUrl: string | null;
+    }>;
+  } | null;
+  readonly allMealTags: {
+    readonly edges: ReadonlyArray<{
+      readonly node: string | null;
     }>;
   } | null;
 };
@@ -116,6 +121,41 @@ v10 = {
   "kind": "ScalarField",
   "name": "videoUrl",
   "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": [
+    {
+      "kind": "Literal",
+      "name": "first",
+      "value": 10
+    }
+  ],
+  "concreteType": "AllMealTagsConnection",
+  "kind": "LinkedField",
+  "name": "allMealTags",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "AllMealTagEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "node",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": "allMealTags(first:10)"
 };
 return {
   "fragment": {
@@ -155,7 +195,8 @@ return {
           }
         ],
         "storageKey": "meals(first:1000,orderBy:[\"ID_DESC\"])"
-      }
+      },
+      (v11/*: any*/)
     ],
     "type": "Query",
     "abstractKey": null
@@ -204,20 +245,21 @@ return {
           }
         ],
         "storageKey": "meals(first:1000,orderBy:[\"ID_DESC\"])"
-      }
+      },
+      (v11/*: any*/)
     ]
   },
   "params": {
-    "cacheID": "146cfbf3599982b9e1159ae65c60f39a",
+    "cacheID": "d671063f5586b491ffcd3913b199e9c1",
     "id": null,
     "metadata": {},
     "name": "MealsQuery",
     "operationKind": "query",
-    "text": "query MealsQuery {\n  meals(orderBy: [ID_DESC], first: 1000) {\n    nodes {\n      rowId\n      nameEn\n      nameFr\n      descriptionEn\n      descriptionFr\n      categories\n      tags\n      code\n      photoUrl\n      videoUrl\n      id\n    }\n  }\n}\n"
+    "text": "query MealsQuery {\n  meals(orderBy: [ID_DESC], first: 1000) {\n    nodes {\n      rowId\n      nameEn\n      nameFr\n      descriptionEn\n      descriptionFr\n      categories\n      tags\n      code\n      photoUrl\n      videoUrl\n      id\n    }\n  }\n  allMealTags(first: 10) {\n    edges {\n      node\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d3ce343b40931b542f7a72303f4e7f26";
+(node as any).hash = "c614abe3034413feeb361f859e1e3557";
 
 export default node;

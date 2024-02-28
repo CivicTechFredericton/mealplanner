@@ -9,6 +9,11 @@ import {
   CardMedia,
   Collapse,
   Grid,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Chip,
   IconButton,
   IconButtonProps,
   InputBase,
@@ -40,6 +45,11 @@ const mealsQuery = graphql`
         videoUrl
       }
     }
+    allMealTags(first:10) {
+      edges {
+      node
+      }
+  }
   }
 `;
 
@@ -140,37 +150,101 @@ const MealCard = (props: MealProps) => {
 };
 export const Meals = () => {
   const [searchMeal, setSearchMeal] = useState<string>("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [searchType, setSearchType] = useState('name');
   const data = useLazyLoadQuery<MealsQuery>(
     mealsQuery,
     {},
     { fetchPolicy: "store-or-network" }
   );
+  const handleTagClick = (tag: string) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter(item => item !== tag));
+    } else {
+      setSelectedTags([...selectedTags, tag]);
+    }
+  };
   return (
+    <div>
     <Grid
-      container
-      spacing={2}
-      columns={2}
-      justifyContent="center"
-      marginTop="1rem"
-    >
-      <Paper
-        component="form"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          width: "75%",
-          justifyContent: "center",
+    container
+    spacing={2}
+    columns={2}
+    gap="2rem"
+    margin="1rem 2rem"
+    width="95%"
+    justifyContent="space-between"
+  >
+       <FormControl component="fieldset">
+      <RadioGroup
+        row
+        aria-label="searchType"
+        name="searchType"
+        value={searchType}
+        onChange={(e) => {
+          setSearchType(e.target.value);
         }}
       >
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="Search Meal"
-          inputProps={{ "aria-label": "Search Meal" }}
-          onChange={(e) => setSearchMeal(e.target.value.toLowerCase())}
+       <FormControlLabel
+          value="name"
+          control={
+            <Radio 
+              checked={searchType === 'name'}
+            />
+          }
+          label={
+            <InputBase
+              placeholder="Search Name"
+              inputProps={{ "aria-label": "Search By Name" }}
+              readOnly={searchType !== 'name'}
+              value={searchMeal}
+              onChange={(e) => {
+                if (searchType === 'name') {
+                  setSearchMeal(e.target.value.toLowerCase());
+                }
+              }}
+              style={{ cursor: 'text',
+                      borderBottom: '1px solid black', width: '40vw' }}
+              />
+          }
         />
-        <Search />
-      </Paper>
-      {data.meals ? (
+        <FormControlLabel
+          value="favorites"
+          control={<Radio />}
+          label="Favorites"
+          checked={searchType === 'favorites'}
+        />
+        <FormControlLabel
+          value="tags"
+          control={<Radio />}
+          label="Tags"
+          checked={searchType === 'tags'}
+        /> 
+      </RadioGroup>
+    </FormControl>
+    </Grid>
+    {searchType === 'tags' &&
+            <Grid container direction="column" margin="0rem 2rem">
+              <div>
+              {data.allMealTags?.edges.map((edge, index) => {
+                const node = edge?.node;
+                if(node !== null) {
+                  return (
+                  <Chip
+                    key={index}
+                    label={node}
+                    clickable
+                    color={selectedTags.includes(node) ? "primary" : "default"}
+                    onClick={() => handleTagClick(node)}
+                    onDelete={selectedTags.includes(node) ? () => handleTagClick(node) : undefined}
+                    style={{ marginRight: '0.2rem' }}
+                  />
+                  );
+                }})}
+              </div>
+            </Grid>
+          }
+  {data.meals ? (
         <Grid
           container
           spacing={2}
@@ -186,6 +260,6 @@ export const Meals = () => {
       ) : (
         "No meals"
       )}
-    </Grid>
+      </div>
   );
 };
