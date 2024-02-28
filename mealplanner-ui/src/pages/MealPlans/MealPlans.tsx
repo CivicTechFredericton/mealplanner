@@ -240,7 +240,7 @@ export const MealPlans = () => {
         spacing={2}
         columns={2}
         gap="2rem"
-        margin="1rem 2rem"
+        margin="1rem 2rem 0.5rem"
         width="95%"
         justifyContent="space-between"
       >
@@ -313,6 +313,7 @@ export const MealPlans = () => {
                     color={selectedTags.includes(node) ? "primary" : "default"}
                     onClick={() => handleTagClick(node)}
                     onDelete={selectedTags.includes(node) ? () => handleTagClick(node) : undefined}
+                    style={{ margin: '0.1rem' }}
                   />
                   );
                 }})}
