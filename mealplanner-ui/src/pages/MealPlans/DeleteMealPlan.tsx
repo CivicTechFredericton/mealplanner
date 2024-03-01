@@ -18,15 +18,21 @@ const deleteMealPlanGQL = graphql`
 `;
 
 export const deleteMealPlan = (connection: string, id: string) => {
-  commitMutation(environment, {
-    mutation: deleteMealPlanGQL,
-    variables: {
-      connections: [connection],
-      mealPlanId: id.toString(),
-    },
-    onCompleted(response, errors) {
-      console.log(response);
-      console.log(errors);
-    },
+  return new Promise((res, rej) => {
+    commitMutation(environment, {
+      mutation: deleteMealPlanGQL,
+      variables: {
+        connections: [connection],
+        mealPlanId: id.toString(),
+      },
+      onCompleted(response, errors) {
+        if (!errors) {
+          res(response);
+          return;
+        }
+        rej(errors);
+      },
+    });
   });
+  
 };
