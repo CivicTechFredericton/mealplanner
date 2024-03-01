@@ -39,6 +39,13 @@ export const initState = () => {
   });
 };
 
+export const setSelectedMealPlanTags = (mpTags: string[]) => {
+  commitLocalUpdate(environment, (store) => {
+    const localState = store.get(STATE_ID);
+    localState?.setValue(mpTags, "selectedMealPlanTags");
+  })
+}
+
 export const setSelectedMeal = (meal: SearchedMeal) => {
   commitLocalUpdate(environment, (store) => {
     const localState = store.get(STATE_ID);
