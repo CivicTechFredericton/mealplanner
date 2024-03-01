@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fd1afa085b409d6e60f2ba71919820e7>>
+ * @generated SignedSource<<7a58edcf14ed094536bfa2cc0e0a6578>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MealPlansTags_tags$data = {
   readonly gqLocalState: {
@@ -29,7 +29,13 @@ export type MealPlansTags_tags$key = {
 const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
-  "metadata": null,
+  "metadata": {
+    "refetch": {
+      "connection": null,
+      "fragmentPathInResult": [],
+      "operation": require('./MealPlansTagsRefetchQuery.graphql')
+    }
+  },
   "name": "MealPlansTags_tags",
   "selections": [
     {
@@ -95,6 +101,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "77d5522adf80567a53a300e40d8e1dcf";
+(node as any).hash = "3511bb24130d79d02ff559004c9b7492";
 
 export default node;
