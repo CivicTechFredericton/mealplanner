@@ -1,10 +1,5 @@
 import { RichTextInput } from "ra-input-rich-text";
-import {
-  CheckboxGroupInput,
-  NumberInput,
-  SimpleForm,
-  TextInput,
-} from "react-admin";
+import { CheckboxGroupInput, NumberInput, SimpleForm, TextInput, required } from "react-admin";
 
 export const MealForm = () => {
   return (
@@ -21,9 +16,9 @@ export const MealForm = () => {
         }}
         source="tags"
       />
-      <TextInput source="descriptionEn" fullWidth required/>
-      <TextInput source="descriptionFr" fullWidth required/>
-      <CheckboxGroupInput
+      <TextInput source="descriptionEn" fullWidth validate={required()} />
+      <TextInput source="descriptionFr" fullWidth validate={required()} />
+      <CheckboxGroupInput validate={required()}
         source="categories"
         choices={[
           { id: "BREAKFAST", name: "Breakfast" },
