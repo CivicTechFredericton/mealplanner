@@ -21,8 +21,8 @@ export const MealForm = () => {
         }}
         source="tags"
       />
-      <TextInput source="descriptionEn" fullWidth />
-      <TextInput source="descriptionFr" fullWidth />
+      <TextInput source="descriptionEn" fullWidth required/>
+      <TextInput source="descriptionFr" fullWidth required/>
       <CheckboxGroupInput
         source="categories"
         choices={[
