@@ -1,4 +1,4 @@
-import { DeleteTwoTone, Search, ShoppingCart, ContentCopy } from "@mui/icons-material";
+import { ContentCopy, DeleteTwoTone, ShoppingCart } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
@@ -8,30 +8,29 @@ import {
   CardContent,
   CardHeader,
   Collapse,
+  FormControl,
+  FormControlLabel,
   Grid,
   IconButton,
   IconButtonProps,
   ImageList,
   ImageListItem,
   InputBase,
-  Paper,
-  styled,
-  Typography,
-  Chip,
-  FormControl,
+  Radio,
   RadioGroup,
-  FormControlLabel,
-  Radio
+  Typography,
+  styled
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { useNavigate } from "react-router";
+import { getCurrentPerson } from "../../state/state";
 import { MealPlanNode } from "../../state/types";
 import { CreateMealPlan } from "./CreateMealPlan";
 import { deleteMealPlan } from "./DeleteMealPlan";
 import { duplicateMealPlan } from "./DuplicateMealPlan";
-import {getCurrentPerson} from "../../state/state";
+import { MealPlansTags } from "./MealPlansTags";
 import { MealPlansQuery } from "./__generated__/MealPlansQuery.graphql";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -81,13 +80,15 @@ const mealPlansQuery = graphql`
         }
       }
     }
-    allMealPlanTags(first:10) {
-      edges {
-      node
-      }
-  } 
+    # fragment name from MealPlansTags
+    ...MealPlansTags_tags
+    gqLocalState {
+      selectedMealPlanTags
+    }
   }
 `;
+
+
 
 const getInitials = (name: string) => {
   let initials = "";
@@ -222,31 +223,14 @@ const MealPlanCard = (props: MealPlanCardProps) => {
 
 export const MealPlans = () => {
   const [searched, setSearched] = useState<string>("");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [searchType, setSearchType] = useState('name');
-  const [fetchKey, setFetchKey] = useState(0);
-
-  const refresh = useCallback(() => {
-    setFetchKey(prevFetchKey => prevFetchKey + 1);
-  }, []);
 
   const data = useLazyLoadQuery<MealPlansQuery>(
     mealPlansQuery,
     {},
-    { fetchPolicy: "network-only", fetchKey }
+    { fetchPolicy: "network-only" }
   );
-
-  const handleTagClick = (tag: string) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter(item => item !== tag));
-    } else {
-      setSelectedTags([...selectedTags, tag]);
-    }
-  };
-
-  useEffect(() => {
-    refresh();
-  }, [searchType]);
+  const selectedTags = data.gqLocalState.selectedMealPlanTags || [];
 
   return (
     <div>
@@ -315,25 +299,8 @@ export const MealPlans = () => {
         </span>
         </Grid>
         {searchType === 'tags' &&
-            <Grid container direction="column" margin="0rem 2rem">
-              <div>
-              {data.allMealPlanTags?.edges.map((edge, index) => {
-                const node = edge?.node;
-                if(node !== null) {
-                  return (
-                  <Chip
-                    key={index}
-                    label={node}
-                    clickable
-                    color={selectedTags.includes(node) ? "primary" : "default"}
-                    onClick={() => handleTagClick(node)}
-                    onDelete={selectedTags.includes(node) ? () => handleTagClick(node) : undefined}
-                  />
-                  );
-                }})}
-              </div>
-            </Grid>
-          }
+            <MealPlansTags tags={data}/>
+        }
       {data.mealPlans ? (
         <Grid container spacing={2} margin="1rem" columns={4}>
           {data.mealPlans?.edges.map(({ node }) => {
