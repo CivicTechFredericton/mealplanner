@@ -10,9 +10,11 @@ import {
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import { useState } from "react";
-import { useLazyLoadQuery } from "react-relay";
+import { RefetchFnDynamic, useLazyLoadQuery } from "react-relay";
 import { createMealPlan } from "../../state/state";
 import { CreateMealPlanAllUsersQuery } from "./__generated__/CreateMealPlanAllUsersQuery.graphql";
+import { OperationType } from "relay-runtime";
+import { MealPlansQuery$data } from "./__generated__/MealPlansQuery.graphql";
 
 const query = graphql`
   query CreateMealPlanAllUsersQuery {
@@ -31,7 +33,7 @@ type userType = {
   id: number;
 };
 
-export const CreateMealPlan = ({ connection }: { connection: string }) => {
+export const CreateMealPlan = ({ connection, refetch }: { connection: string, refetch: RefetchFnDynamic<OperationType, MealPlansQuery$data> }) => {
   const [open, setOpen] = useState(false);
 
   const users = useLazyLoadQuery<CreateMealPlanAllUsersQuery>(query, {});
@@ -199,6 +201,8 @@ export const CreateMealPlan = ({ connection }: { connection: string }) => {
                 tags: tags,
                 connections: [connection],
               }).then(() => {
+                console.log('refetching tags');
+                refetch({}, {fetchPolicy: "network-only"});
                 handleClose();
               });
             }}
