@@ -177,13 +177,11 @@ export const deleteMealFromPlan = (connectionID: string, mpeId: number) => {
 const currentUserQuery = graphql`
   query state_CurrentUserQuery {
     currentPerson {
-      person {
-        id
-        rowId
-      }
+      rowId
       email
       fullName
       role
+      slug
     }
   }
 `;
@@ -204,9 +202,10 @@ function setCurrentUser(data: state_CurrentUserQuery$data | undefined) {
       let localState = store.get(STATE_ID);
       store.delete("client:currentUser");
       let record = store.create("client:currentUser", "CurrentLoggedInUser");
-      record.setValue(data?.currentPerson?.person?.rowId, "personID");
+      record.setValue(data?.currentPerson?.rowId, "personID");
       record.setValue(data?.currentPerson?.fullName, "personName");
       record.setValue(data?.currentPerson?.role, "personRole");
+      record.setValue(data.currentPerson?.slug, "personSlug");
       localState?.setLinkedRecord(record, "currentUser");
     });
   }
@@ -276,16 +275,18 @@ export const getCurrentPerson = (): {
   personID: string;
   personName: string;
   personRole: string;
+  personSlug: string;
 } => {
   const store = environment.getStore();
   let record = store.getSource().get("client:currentUser");
   if (record === null || record === undefined) {
-    return { personID: "", personName: "",personRole: "" };
+    return { personID: "", personName: "",personRole: "", personSlug: "" };
   }
   return {
     personID: record["personID"].toString(),
     personName: record["personName"].toString(),
-    personRole: record["personRole"].toString()
+    personRole: record["personRole"].toString(),
+    personSlug: record["personSlug"].toString(),
   };
 };
 
