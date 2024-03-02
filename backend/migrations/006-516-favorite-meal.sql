@@ -4,10 +4,9 @@ CREATE TABLE IF NOT EXISTS app.favorite_meals (
     meal_id BIGINT NOT NULL REFERENCES app.meal(id),
     person_id BIGINT REFERENCES app.person(id),
     created_at TIMESTAMP DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP DEFAULT NOW() NOT NULL
+    updated_at TIMESTAMP DEFAULT NOW() NOT NULL,
+    UNIQUE (meal_id, person_id)
 );
-
-
 
 -- Create triggers to set created_at and updated_at timestamps
 CREATE OR REPLACE TRIGGER tg_favorite_meals_set_updated_at BEFORE UPDATE
@@ -29,7 +28,7 @@ CREATE POLICY user_favorite_meals ON app.favorite_meals for all to app_user
 USING (person_id = nullif(current_setting('jwt.claims.person_id', true), '')::BIGINT);
 
 -- Function to add a meal plan to favorites
-CREATE OR REPLACE FUNCTION app.create_favorite_meal(meal_id_param BIGINT) RETURNS VOID AS $$
+CREATE OR REPLACE FUNCTION app.add_favorite_meal(meal_id_param BIGINT) RETURNS VOID AS $$
 BEGIN
     -- Fetch the person_id from the current session
     INSERT INTO app.favorite_meals (meal_id, person_id)
@@ -39,7 +38,7 @@ $$ LANGUAGE plpgsql;
 
 
 -- Function to delete a meal plan from favorites
-CREATE OR REPLACE FUNCTION app.delete_favorite_meal(meal_id_param BIGINT) RETURNS VOID AS $$
+CREATE OR REPLACE FUNCTION app.remove_favorite_meal(meal_id_param BIGINT) RETURNS VOID AS $$
 DECLARE
     person_id_param BIGINT;
 BEGIN
