@@ -1,20 +1,22 @@
 import { graphql } from "babel-plugin-relay/macro";
 import { useLazyLoadQuery } from "react-relay";
-import { useParams } from "react-router-dom";
-import { FavoriteMealsQuery, FavoriteMealsQuery$data } from "./__generated__/FavoriteMealsQuery.graphql";
 import React from "react";
 import { Grid } from "@mui/material";
-import { MealCard } from "../Meals/Meals";
+import { MealCard } from "./MealCard";
+import { useParams } from "react-router-dom";
+import { PersonFavoriteMealsQuery } from "./__generated__/PersonFavoriteMealsQuery.graphql";
 
 const favoriteMealsQuery = graphql`
-  query FavoriteMealsQuery($currentUserId: BigInt) {
-      favoriteMeals(orderBy: [CREATED_AT_DESC], 
-                    first: 1000, 
-                    filter: { personId: {equalTo: $currentUserId} } ) {
+  query PersonFavoriteMealsQuery($slug: String!){
+  people (
+    filter: {slug: {equalTo: $slug}}, 
+    first: 1
+  ) 
+  {
+    nodes {
+      favoriteMeals {
         nodes {
-            id
-            rowId
-            meal {
+          meal {
               rowId
               nameEn
               nameFr
@@ -25,20 +27,25 @@ const favoriteMealsQuery = graphql`
               code
               photoUrl
               videoUrl
-            }
+          }
+        }
       }
-      }
+    }
   }
+}
 `;
 
 export const FavoriteMeals = () => {
-  
-  let favMealsData = useLazyLoadQuery<FavoriteMealsQuery>(
+  const params = useParams();
+  let favMealsData = useLazyLoadQuery<PersonFavoriteMealsQuery>(
     favoriteMealsQuery,
-    {currentUserId: "1"},
+    {slug: params.slug as string},
     {fetchPolicy: "store-and-network"}
     )
- const favMeals = favMealsData.favoriteMeals?.nodes;
+ const favMeals = favMealsData.people?.nodes[0].favoriteMeals.nodes;
+ favMeals?.map(favMeal => {
+  console.log('fav Meals', favMeal.meal);
+ })
   
   return (
     <React.Fragment>

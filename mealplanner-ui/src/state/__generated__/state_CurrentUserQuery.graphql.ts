@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2a1482329ae00a0a530cc74ec254602e>>
+ * @generated SignedSource<<eb374f6230dfc05fff930e5d69f8506b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,13 +12,11 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 export type state_CurrentUserQuery$variables = {};
 export type state_CurrentUserQuery$data = {
   readonly currentPerson: {
-    readonly person: {
-      readonly id: string;
-      readonly rowId: any;
-    } | null;
+    readonly rowId: any | null;
     readonly email: string | null;
     readonly fullName: string | null;
     readonly role: string | null;
+    readonly slug: string | null;
   } | null;
 };
 export type state_CurrentUserQuery = {
@@ -39,26 +37,8 @@ var v0 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "Person",
-        "kind": "LinkedField",
-        "name": "person",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "rowId",
-            "storageKey": null
-          }
-        ],
+        "kind": "ScalarField",
+        "name": "rowId",
         "storageKey": null
       },
       {
@@ -80,6 +60,13 @@ var v0 = [
         "args": null,
         "kind": "ScalarField",
         "name": "role",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "slug",
         "storageKey": null
       }
     ],
@@ -104,16 +91,16 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "ad6c25c014e537f7be0822a008dc3c59",
+    "cacheID": "e1386ae5cebceca86301ad711b3f6368",
     "id": null,
     "metadata": {},
     "name": "state_CurrentUserQuery",
     "operationKind": "query",
-    "text": "query state_CurrentUserQuery {\n  currentPerson {\n    person {\n      id\n      rowId\n    }\n    email\n    fullName\n    role\n  }\n}\n"
+    "text": "query state_CurrentUserQuery {\n  currentPerson {\n    rowId\n    email\n    fullName\n    role\n    slug\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "658925a637e6c08cf61239a420825299";
+(node as any).hash = "ff00cae081fc66e331b709846013d6d4";
 
 export default node;
