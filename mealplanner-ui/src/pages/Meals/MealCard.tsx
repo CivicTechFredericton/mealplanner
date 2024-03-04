@@ -1,9 +1,15 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useTheme, Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActions, IconButton, Collapse, IconButtonProps, styled } from "@mui/material";
-import React from "react";
+import {useTheme, Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActions, IconButton, Collapse, IconButtonProps, styled } from "@mui/material";
+import React, {useEffect} from "react";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { MealNode } from "../../state/types";
+import { RefetchFnDynamic } from "react-relay";
+import { OperationType } from "relay-runtime";
+import { setSelectedFavMeals } from "../../state/state";
+import { MealsQuery$data } from "./__generated__/MealsQuery.graphql";
+import { addFavoriteMeal } from "./AddFavoriteMeal";
+import { removeFavoriteMeal } from "./RemoveFavoriteMeal";
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -20,16 +26,46 @@ interface ExpandMoreProps extends IconButtonProps {
     }),
   }));
   
-type MealProps = { node: MealNode };
-  
+interface MealProps {
+   node: MealNode;
+   refetch: RefetchFnDynamic<OperationType, MealsQuery$data>;
+   selectedFavs:  readonly string[];
+  };
+
 export const MealCard = (props: MealProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const meal = props.node;
+    const selectedPFMeals = props.selectedFavs;
+    const [isFavorite, setIsFavorite] = React.useState(selectedPFMeals.includes(meal.rowId));
+
     const navigate = useNavigate();
+    useEffect(() => {
+      setIsFavorite(selectedPFMeals.includes(meal.rowId));
+    }, [selectedPFMeals, meal.rowId]);
+
     const handleExpandClick = (e: React.MouseEvent) => {
       e.stopPropagation();
       setExpanded(!expanded);
     };
+
+    const handleToogleFavorite = (id: string) => {
+        if (!selectedPFMeals.includes(id)) {
+          const selectedFavs = selectedPFMeals.concat([id]);
+          setSelectedFavMeals(selectedFavs);
+          addFavoriteMeal(id).then(() => {
+            props.refetch({}, {fetchPolicy: "network-only"})
+            });
+          return;
+      }
+      const index = selectedPFMeals.indexOf(id);
+      let selectedFavs = [...selectedPFMeals];
+      selectedFavs.splice(index, 1);
+      setSelectedFavMeals(selectedFavs);
+      removeFavoriteMeal(id).then(() => {
+        props.refetch({}, {fetchPolicy: "network-only"})
+        });
+   };
+ 
     const theme = useTheme();
     const tagStyle = {
       color: "white",
@@ -75,8 +111,10 @@ export const MealCard = (props: MealProps) => {
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
+          <IconButton aria-label="toggle favorite" onClick={(e) => {
+            e.stopPropagation();
+            handleToogleFavorite(meal.rowId)}}>
+            {isFavorite ? <Favorite /> : <FavoriteBorder />}
             </IconButton>
             <ExpandMoreFn
               expand={expanded}
