@@ -13,6 +13,7 @@ import { Meals } from "./pages/Meals/Meals";
 import { ShoppingList } from "./pages/ShoppingList";
 import environment from "./relay/environment";
 import { fetchCurrentPerson, initState } from "./state/state";
+import { FavoriteMeals } from "./pages/Meals/PersonFavoriteMeals";
 
 const theme = createTheme({
   palette: {
@@ -41,8 +42,6 @@ const theme = createTheme({
 //Initializing local state from state.ts
 initState();
 
-//fetchCurrentPerson();
-
 function App() {
   let [intialized, setInitialized] = useState(false);
   useEffect(() => {
@@ -53,6 +52,7 @@ function App() {
   if (!intialized) {
     return <h1>loading...</h1>;
   }
+  
   return (
     <RelayEnvironmentProvider environment={environment}>
       <ThemeProvider theme={theme}>
@@ -104,6 +104,16 @@ function App() {
                 <Suspense fallback={"loading inner..."}>
                   <LoggedIn>
                     <Meal />
+                  </LoggedIn>
+                </Suspense>
+              }
+            />
+            <Route 
+              path={`/meals/:slug/favorites`}
+              element={
+                <Suspense fallback={"loading favorite meals.."}>
+                  <LoggedIn>
+                    <FavoriteMeals />
                   </LoggedIn>
                 </Suspense>
               }
