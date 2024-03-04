@@ -1,13 +1,17 @@
 import { graphql } from "babel-plugin-relay/macro";
-import { useLazyLoadQuery } from "react-relay";
+import { useRefetchableFragment, useFragment } from "react-relay";
 import React from "react";
 import { Grid } from "@mui/material";
 import { MealCard } from "./MealCard";
-import { useParams } from "react-router-dom";
-import { PersonFavoriteMealsQuery } from "./__generated__/PersonFavoriteMealsQuery.graphql";
+import { PersonFavoriteMeals_favorites$key } from "./__generated__/PersonFavoriteMeals_favorites.graphql";
 
-const favoriteMealsQuery = graphql`
-  query PersonFavoriteMealsQuery($slug: String!){
+export const FavoriteMealsFragment = graphql`
+fragment PersonFavoriteMeals_favorites on Query
+@argumentDefinitions(slug: { type: "String!" })
+@refetchable(queryName: "PersonFavoriteMealsRefetchQuery") {
+  gqLocalState {
+    selectedFavoriteMeals
+  }
   people (
     filter: {slug: {equalTo: $slug}}, 
     first: 1
@@ -35,21 +39,18 @@ const favoriteMealsQuery = graphql`
 }
 `;
 
-export const FavoriteMeals = () => {
-  const params = useParams();
-  let favMealsData = useLazyLoadQuery<PersonFavoriteMealsQuery>(
-    favoriteMealsQuery,
-    {slug: params.slug as string},
-    {fetchPolicy: "store-and-network"}
-    )
- const favMeals = favMealsData.people?.nodes[0].favoriteMeals.nodes;
- favMeals?.map(favMeal => {
-  console.log('fav Meals', favMeal.meal);
+export const FavoriteMeals = ({ favs }: { favs: PersonFavoriteMeals_favorites$key }) => {
+  const PFMeals = useFragment(FavoriteMealsFragment, favs);
+  const favMeals = PFMeals.people?.nodes[0].favoriteMeals.nodes;
+    favMeals?.map(favMeal => {
+      console.log('fav Meals', favMeal.meal);
  })
-  
+  const selectedFavs: string[] = favMeals?.map(favMeal => favMeal.meal?.rowId) || [];
+  const [_, refetch] = useRefetchableFragment(FavoriteMealsFragment, favs);
+
   return (
-    <React.Fragment>
-      { favMeals ? (
+     <React.Fragment>
+       { favMeals ? (
         <Grid
           container
           spacing={2}
@@ -59,7 +60,7 @@ export const FavoriteMeals = () => {
         >
           {favMeals.map((favMeal) => {
             if (favMeal.meal?.nameEn.toLowerCase())
-              return <MealCard node={favMeal.meal} />;
+              return <MealCard node={favMeal.meal} refetch={refetch} selectedFavs={selectedFavs}/>;
           })}
         </Grid>
       ) : (

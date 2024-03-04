@@ -53,6 +53,13 @@ export const setSelectedMealTags = (mealTags: string[]) => {
   })
 }
 
+export const setSelectedFavMeals = (mealTags: string[]) => {
+  commitLocalUpdate(environment, (store) => {
+    const localState = store.get(STATE_ID);
+    localState?.setValue(mealTags, "selectedFavoriteMeals");
+  })
+}
+
 export const setSelectedMeal = (meal: SearchedMeal) => {
   commitLocalUpdate(environment, (store) => {
     const localState = store.get(STATE_ID);
