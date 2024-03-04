@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<09041e94dc85ca5b10bee8ed6546d1ab>>
+ * @generated SignedSource<<cfb8ec032e2e32784428e0a0387e651b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,27 +9,32 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type CategoryT = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK" | "%future added value";
-export type MealsQuery$variables = {};
+import { FragmentRefs } from "relay-runtime";
+export type CategoryT = "BREAKFAST" | "DINNER" | "LUNCH" | "SNACK" | "%future added value";
+export type MealsQuery$variables = Record<PropertyKey, never>;
 export type MealsQuery$data = {
+  readonly gqLocalState: {
+    readonly selectedMealTags: ReadonlyArray<string> | null | undefined;
+  };
   readonly meals: {
     readonly nodes: ReadonlyArray<{
-      readonly rowId: any;
-      readonly nameEn: string;
-      readonly nameFr: string | null;
-      readonly descriptionEn: string | null;
-      readonly descriptionFr: string | null;
-      readonly categories: ReadonlyArray<CategoryT | null> | null;
-      readonly tags: ReadonlyArray<string | null> | null;
+      readonly categories: ReadonlyArray<CategoryT | null | undefined> | null | undefined;
       readonly code: string;
-      readonly photoUrl: string | null;
-      readonly videoUrl: string | null;
+      readonly descriptionEn: string | null | undefined;
+      readonly descriptionFr: string | null | undefined;
+      readonly nameEn: string;
+      readonly nameFr: string | null | undefined;
+      readonly photoUrl: string | null | undefined;
+      readonly rowId: any;
+      readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
+      readonly videoUrl: string | null | undefined;
     }>;
   } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"MealTags_tags">;
 };
 export type MealsQuery = {
-  variables: MealsQuery$variables;
   response: MealsQuery$data;
+  variables: MealsQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -116,6 +121,29 @@ v10 = {
   "kind": "ScalarField",
   "name": "videoUrl",
   "storageKey": null
+},
+v11 = {
+  "kind": "ClientExtension",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "GQLocalState",
+      "kind": "LinkedField",
+      "name": "gqLocalState",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "selectedMealTags",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ]
 };
 return {
   "fragment": {
@@ -155,7 +183,13 @@ return {
           }
         ],
         "storageKey": "meals(first:1000,orderBy:[\"ID_DESC\"])"
-      }
+      },
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "MealTags_tags"
+      },
+      (v11/*: any*/)
     ],
     "type": "Query",
     "abstractKey": null
@@ -204,20 +238,56 @@ return {
           }
         ],
         "storageKey": "meals(first:1000,orderBy:[\"ID_DESC\"])"
-      }
+      },
+      {
+        "alias": null,
+        "args": [
+          {
+            "kind": "Literal",
+            "name": "first",
+            "value": 100
+          }
+        ],
+        "concreteType": "AllMealTagsConnection",
+        "kind": "LinkedField",
+        "name": "allMealTags",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "AllMealTagEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "node",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": "allMealTags(first:100)"
+      },
+      (v11/*: any*/)
     ]
   },
   "params": {
-    "cacheID": "146cfbf3599982b9e1159ae65c60f39a",
+    "cacheID": "b149ff8b3d1086e08138a1a3d52387d5",
     "id": null,
     "metadata": {},
     "name": "MealsQuery",
     "operationKind": "query",
-    "text": "query MealsQuery {\n  meals(orderBy: [ID_DESC], first: 1000) {\n    nodes {\n      rowId\n      nameEn\n      nameFr\n      descriptionEn\n      descriptionFr\n      categories\n      tags\n      code\n      photoUrl\n      videoUrl\n      id\n    }\n  }\n}\n"
+    "text": "query MealsQuery {\n  meals(orderBy: [ID_DESC], first: 1000) {\n    nodes {\n      rowId\n      nameEn\n      nameFr\n      descriptionEn\n      descriptionFr\n      categories\n      tags\n      code\n      photoUrl\n      videoUrl\n      id\n    }\n  }\n  ...MealTags_tags\n}\n\nfragment MealTags_tags on Query {\n  allMealTags(first: 100) {\n    edges {\n      node\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d3ce343b40931b542f7a72303f4e7f26";
+(node as any).hash = "53d8f93b61dc92a420009b86c5baff5a";
 
 export default node;

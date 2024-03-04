@@ -1,7 +1,6 @@
-import { useTheme } from "@emotion/react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActions, IconButton, Collapse, IconButtonProps, styled } from "@mui/material";
+import { useTheme, Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActions, IconButton, Collapse, IconButtonProps, styled } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { MealNode } from "../../state/types";
@@ -34,7 +33,7 @@ export const MealCard = (props: MealProps) => {
     const theme = useTheme();
     const tagStyle = {
       color: "white",
-      backgroundColor: "primary",
+      backgroundColor: `${theme.palette.primary.dark}`,
       padding: "0 0.5em",
       borderRadius: "1em",
       margin: "0.3em 0",
