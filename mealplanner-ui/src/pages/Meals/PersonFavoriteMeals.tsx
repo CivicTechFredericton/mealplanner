@@ -42,11 +42,12 @@ export const FavoriteMeals = () => {
     {slug: params.slug as string},
     {fetchPolicy: "store-and-network"}
     )
- const favMeals = favMealsData.people?.nodes[0].favoriteMeals.nodes;
- favMeals?.map(favMeal => {
-  console.log('fav Meals', favMeal.meal);
+    console.log("favorites",favMealsData);
+    const favMeals = favMealsData.people?.nodes[0].favoriteMeals.nodes;
+    favMeals?.map(favMeal => {
+      console.log('fav Meals', favMeal.meal);
  })
-  
+
   return (
     <React.Fragment>
       { favMeals ? (

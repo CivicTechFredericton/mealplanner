@@ -1,10 +1,12 @@
 import { useTheme } from "@emotion/react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Grid, Card, CardHeader, CardMedia, CardContent, Typography, CardActions, IconButton, Collapse, IconButtonProps, styled } from "@mui/material";
-import React from "react";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { MealNode } from "../../state/types";
+import { addFavoriteMeal } from "./AddFavoriteMeal";
+import { removeFavoriteMeal } from "./RemoveFavoriteMeal";
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -25,12 +27,24 @@ type MealProps = { node: MealNode };
   
 export const MealCard = (props: MealProps) => {
     const [expanded, setExpanded] = React.useState(false);
+    const [isFavorite, setIsFavorite] = React.useState(false);
     const meal = props.node;
     const navigate = useNavigate();
     const handleExpandClick = (e: React.MouseEvent) => {
       e.stopPropagation();
       setExpanded(!expanded);
     };
+    const handleToggleFavorite = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setIsFavorite(!isFavorite);
+      if(isFavorite) {
+         removeFavoriteMeal(meal.rowId);
+      }
+      else {
+         addFavoriteMeal(meal.rowId);
+      }
+    };
+
     const theme = useTheme();
     const tagStyle = {
       color: "white",
@@ -76,8 +90,8 @@ export const MealCard = (props: MealProps) => {
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
+          <IconButton aria-label="toggle favorite" onClick={handleToggleFavorite}>
+            {isFavorite ? <Favorite /> : <FavoriteBorder />}
             </IconButton>
             <ExpandMoreFn
               expand={expanded}
@@ -100,4 +114,4 @@ export const MealCard = (props: MealProps) => {
         </Card>
       </Grid>
     );
-  };
+    };
