@@ -18,7 +18,7 @@ export const MealForm = () => {
       />
       <TextInput source="descriptionEn" fullWidth />
       <TextInput source="descriptionFr" fullWidth />
-      <CheckboxGroupInput validate={required()}
+      <CheckboxGroupInput 
         source="categories"
         choices={[
           { id: "BREAKFAST", name: "Breakfast" },
