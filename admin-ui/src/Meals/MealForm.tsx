@@ -4,7 +4,7 @@ import { CheckboxGroupInput, NumberInput, SimpleForm, TextInput, required } from
 export const MealForm = () => {
   return (
     <SimpleForm>
-      <TextInput source="nameEn" fullWidth />
+      <TextInput source="nameEn" fullWidth validate={required()} />
       <TextInput source="nameFr" fullWidth />
       <NumberInput source="code" fullWidth min={1} />
       <TextInput
@@ -16,8 +16,8 @@ export const MealForm = () => {
         }}
         source="tags"
       />
-      <TextInput source="descriptionEn" fullWidth validate={required()} />
-      <TextInput source="descriptionFr" fullWidth validate={required()} />
+      <TextInput source="descriptionEn" fullWidth />
+      <TextInput source="descriptionFr" fullWidth />
       <CheckboxGroupInput validate={required()}
         source="categories"
         choices={[
