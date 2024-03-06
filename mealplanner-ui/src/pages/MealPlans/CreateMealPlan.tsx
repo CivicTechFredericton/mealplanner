@@ -220,6 +220,7 @@ export const CreateMealPlan = ({
                 descFr: descriptionFr,
                 personId: userId || null,
                 tags: tags,
+                startDate: startDate,
                 connections: [connection],
               }).then(() => {
                 console.log("refetching tags");
