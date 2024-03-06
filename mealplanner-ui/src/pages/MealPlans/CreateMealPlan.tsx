@@ -9,12 +9,16 @@ import {
   TextField,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RefetchFnDynamic, useLazyLoadQuery } from "react-relay";
 import { createMealPlan } from "../../state/state";
 import { CreateMealPlanAllUsersQuery } from "./__generated__/CreateMealPlanAllUsersQuery.graphql";
 import { OperationType } from "relay-runtime";
 import { MealPlansQuery$data } from "./__generated__/MealPlansQuery.graphql";
+import { DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs, { Dayjs } from 'dayjs';
 
 const query = graphql`
   query CreateMealPlanAllUsersQuery {
@@ -33,7 +37,13 @@ type userType = {
   id: number;
 };
 
-export const CreateMealPlan = ({ connection, refetch }: { connection: string, refetch: RefetchFnDynamic<OperationType, MealPlansQuery$data> }) => {
+export const CreateMealPlan = ({
+  connection,
+  refetch,
+}: {
+  connection: string;
+  refetch: RefetchFnDynamic<OperationType, MealPlansQuery$data>;
+}) => {
   const [open, setOpen] = useState(false);
 
   const users = useLazyLoadQuery<CreateMealPlanAllUsersQuery>(query, {});
@@ -50,7 +60,8 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
     descriptionFr: "",
     tags: [],
     disableButton: true,
-  }
+    startDate: "",
+  };
 
   const [userId, setUserId] = useState<userType | null>(initState.userId);
   const [nameEn, setNameEn] = useState<string>(initState.nameEn);
@@ -59,13 +70,14 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
   const [descriptionFr, setDescriptionFr] = useState<string>(initState.descriptionFr);
   const [tags, setTags] = useState<string[]>(initState.tags);
   const [disableButton, setDisableButton] = useState(initState.disableButton);
+  const [startDate, setStartDate] = useState<String | null>();
 
   const isValid = nameEn !== "";
 
   const handleOpen = () => {
     setOpen(true);
   };
-  
+
   const handleClose = () => {
     setUserId(initState.userId);
     setNameEn(initState.nameEn);
@@ -74,6 +86,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
     setDescriptionFr(initState.descriptionFr);
     setTags(initState.tags);
     setDisableButton(initState.disableButton);
+    setStartDate(initState.startDate);
     setOpen(false);
   };
 
@@ -95,17 +108,25 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
               <Autocomplete
                 options={allUsers || []}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Assign user"
-                    id="user"
-                    variant="filled"
-                  />
+                  <TextField {...params} label="Assign user" id="user" variant="filled" />
                 )}
                 onChange={(e, value) => {
                   setUserId(value?.rowId);
                 }}
               ></Autocomplete>
+            </Grid>
+            <Grid item xs={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Starting Date"
+                  onChange={(newValue: Dayjs | null) => {
+                  if (newValue !== null) {
+                    const formatedDate = dayjs(newValue).format("YYYY-MM-DD");
+                    setStartDate(formatedDate);
+                  }
+                  }}
+                ></DatePicker>
+              </LocalizationProvider>
             </Grid>
             <Grid item xs={3}>
               <TextField
@@ -201,8 +222,8 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                 tags: tags,
                 connections: [connection],
               }).then(() => {
-                console.log('refetching tags');
-                refetch({}, {fetchPolicy: "network-only"});
+                console.log("refetching tags");
+                refetch({}, { fetchPolicy: "network-only" });
                 handleClose();
               });
             }}
