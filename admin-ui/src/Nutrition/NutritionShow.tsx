@@ -22,9 +22,9 @@ export const NutritionShow = () => {
       <NumberField source="transFat" />
       <TextField source="transFatUnit" />
       <NumberField source="transFatPercent" />
-      <NumberField source="cholestrol" />
-      <TextField source="cholestrolUnit" />
-      <NumberField source="cholestrolPercent" />
+      <NumberField source="cholesterol" />
+      <TextField source="cholesterolUnit" />
+      <NumberField source="cholesterolPercent" />
       <NumberField source="sodium" />
       <TextField source="sodiumUnit" />
       <NumberField source="sodiumPercent" />

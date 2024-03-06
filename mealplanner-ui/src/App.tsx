@@ -43,13 +43,13 @@ const theme = createTheme({
 initState();
 
 function App() {
-  let [intialized, setInitialized] = useState(false);
+  let [initialized, setInitialized] = useState(false);
   useEffect(() => {
     fetchCurrentPerson().then(() => {
       setInitialized(true);
     });
   }, []);
-  if (!intialized) {
+  if (!initialized) {
     return <h1>loading...</h1>;
   }
   

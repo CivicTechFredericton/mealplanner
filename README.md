@@ -12,17 +12,17 @@ For Ubuntu, see [Setting up the backend (postgraphile) on Ubuntu](../../wiki/Set
 
 The mealplanner project can be built and run using docker-compose on platforms that support Docker (Linux, MacOS, Windows 10)
 
-In the main project directory there is a docker-compose.yml file that will build and run three containers: postgres, graphl backend and the frontend application. The postgres container uses a standard psotgres image from docker hub, the other two will be built on top of the node:12 container. The Dockerfiles in the backend and meal-planner-fredericton-ui directories decribe the builds.
+In the main project directory there is a docker-compose.yml file that will build and run three containers: postgres, graphl backend and the frontend application. The postgres container uses a standard psotgres image from docker hub, the other two will be built on top of the node:12 container. The Dockerfiles in the backend and meal-planner-fredericton-ui directories describe the builds.
 
 ### Pre-requisites
 
-Before composing the application you must ensure that Docker is installed and functioning. A quick check is to run `docker version` on the command line to see if you get any output. If you get an error, see the Docker set up for your platfrom.
+Before composing the application you must ensure that Docker is installed and functioning. A quick check is to run `docker version` on the command line to see if you get any output. If you get an error, see the Docker set up for your platform.
 
  - Ubuntu - this should be as simple as `sudo apt install docker docker-compose docker.io python3-docker python3-dockerpty` . To enable Docker access for the current user, run the following command in the terminal: `sudo usermod -a -G docker $USER`. It's important to note that after running the command, you need to log out and log back in for the changes to take effect.
  - MacOS [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
  - Windows 10 [Docker Desktop for Windows 10](https://docs.docker.com/docker-for-windows/install/)
 
-It is recomended to perform the install and "getting started" steps for Docker Desktop before proceeding.
+It is recommended to perform the install and "getting started" steps for Docker Desktop before proceeding.
 
 ## Important Notice
 
@@ -39,7 +39,7 @@ If you are running a Linux distribution, Docker can be installed directly from t
 Please refer to the official documentation or community resources specific to your Linux distribution for guidance on installing and managing Docker and KVM.
 
 
-Now that Docker is available, set up the environment for the composed applications.  In the main project folder, where the `docker-compose.yml` file is, create a file named `.env` and add two variables to it. These are a databse password and a token secret. Both should be treated like passwords and should be reasonably unique and random.  This is and example (please don't use these passwords, create your own):
+Now that Docker is available, set up the environment for the composed applications.  In the main project folder, where the `docker-compose.yml` file is, create a file named `.env` and add two variables to it. These are a database password and a token secret. Both should be treated like passwords and should be reasonably unique and random.  This is and example (please don't use these passwords, create your own):
 
 ```
 POSTGRES_PASSWORD=databasepassword
@@ -66,7 +66,7 @@ docker-compose up --build
 ```
 
 ### populating sample data
-On the initial build and startup, the database will be completely empty. There won't even be an account created for logging in. To populate the databse with a handful of users and some recipe material run the appropriate version of the following docker-compose commands to seed the database.
+On the initial build and startup, the database will be completely empty. There won't even be an account created for logging in. To populate the database with a handful of users and some recipe material run the appropriate version of the following docker-compose commands to seed the database.
 
 On Linux or MacOS:
 
@@ -83,7 +83,7 @@ Get-Content .\backend\seed.sql | docker-compose exec -T db /usr/bin/psql -U post
 ```
 
 
-Pay careful attention to the output as it will include the randomly generated passwords for the defaul users. This will look something like the following but the passwords will be unique each time:
+Pay careful attention to the output as it will include the randomly generated passwords for the default users. This will look something like the following but the passwords will be unique each time:
 
 ```
 BEGIN
