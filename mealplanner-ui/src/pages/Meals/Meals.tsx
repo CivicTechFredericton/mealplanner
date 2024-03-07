@@ -50,7 +50,7 @@ export const Meals = () => {
   const selectedTags = data.gqLocalState.selectedMealTags || [];
 
   return (
-    <div>
+    <>
     <Grid
       container
       spacing={2}
@@ -124,6 +124,6 @@ export const Meals = () => {
       ) : (
         "No meals"
       )}
-    </div>
+    </>
   );
 };
