@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RefetchFnDynamic, useLazyLoadQuery } from "react-relay";
 import { createMealPlan } from "../../state/state";
 import { CreateMealPlanAllUsersQuery } from "./__generated__/CreateMealPlanAllUsersQuery.graphql";
@@ -70,7 +70,7 @@ export const CreateMealPlan = ({
   const [descriptionFr, setDescriptionFr] = useState<string>(initState.descriptionFr);
   const [tags, setTags] = useState<string[]>(initState.tags);
   const [disableButton, setDisableButton] = useState(initState.disableButton);
-  const [startDate, setStartDate] = useState<String | null>();
+  const [startDate, setStartDate] = useState<string | null>();
 
   const isValid = nameEn !== "";
 
@@ -220,7 +220,7 @@ export const CreateMealPlan = ({
                 descFr: descriptionFr,
                 personId: userId || null,
                 tags: tags,
-                startDate: startDate,
+                // startDate: startDate,
                 connections: [connection],
               }).then(() => {
                 console.log("refetching tags");
