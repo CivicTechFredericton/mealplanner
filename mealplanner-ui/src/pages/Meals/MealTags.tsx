@@ -42,7 +42,7 @@ export const MealTags = ({ tags }: { tags: MealTags_tags$key }) => {
       <Stack direction="row" spacing={1}>
         {mealTags.allMealTags?.edges.map((edge, index) => {
           const node = edge?.node;
-          if (node !== null && node !==undefined) {
+          if (node !== null && node !== undefined) {
             return (
               <Chip
                 key={index}
