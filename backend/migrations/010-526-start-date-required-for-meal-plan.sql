@@ -1,0 +1,1 @@
+ALTER TABLE app.meal_plan ADD COLUMN startDate TEXT
