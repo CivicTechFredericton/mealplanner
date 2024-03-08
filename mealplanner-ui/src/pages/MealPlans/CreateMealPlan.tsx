@@ -66,7 +66,6 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
 
   const handleOpen = () => {
     setOpen(true);
-    console.log(currentPerson);
   };
   
   const handleClose = () => {
