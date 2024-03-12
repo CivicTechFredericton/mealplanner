@@ -68,6 +68,12 @@ docker-compose up --build
 ### populating sample data
 On the initial build and startup, the database will be completely empty. There won't even be an account created for logging in. To populate the databse with a handful of users and some recipe material run the appropriate version of the following docker-compose commands to seed the database.
 
+If you want to only create users. Just run the seed-users file alone.
+
+```
+cat ./backend/seed-users.sql | docker-compose exec -T db /usr/bin/psql -U postgres -f -
+```
+
 On Linux or MacOS:
 
 ```
