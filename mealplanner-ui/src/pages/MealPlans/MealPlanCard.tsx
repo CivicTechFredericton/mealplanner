@@ -1,6 +1,6 @@
 import React from "react";
 import { MealPlanNode } from "../../state/types";
-import { Avatar, Card, CardActions, CardContent, CardHeader, Collapse, Grid, IconButton, IconButtonProps, ImageList, ImageListItem, Typography, styled } from "@mui/material";
+import { Avatar, Card, CardActions, CardContent, CardHeader, Collapse, Grid, IconButton, IconButtonProps, ImageList, ImageListItem, Typography, styled, useTheme } from "@mui/material";
 import { ShoppingCart, DeleteTwoTone, ContentCopy, ExpandMore, Favorite } from "@mui/icons-material";
 import { useNavigate } from "react-router";
 import { getCurrentPerson } from "../../state/state";
@@ -48,6 +48,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
     const navigate = useNavigate();
     const mealplan = props.mealplan;
     const connection = props.connection;
+    const theme = useTheme();
     const handleExpandClick = (e: React.MouseEvent) => {
       e.stopPropagation();
       setExpanded(!expanded);
@@ -81,6 +82,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
                     console.log("stopped propagation");
                     navigate(`/mealplans/${mealplan.rowId}/shopping-list`);
                   }}
+                  sx={{ "& :hover": { color: theme.palette.primary.main } }}
                 >
                   <ShoppingCart />
                 </IconButton>
@@ -94,6 +96,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
                       props.refetch({}, {fetchPolicy: "network-only"})
                     })
                   }}
+                  sx={{ "& :hover": { color: theme.palette.primary.main } }}
                 >
                   <DeleteTwoTone />
                 </IconButton>
