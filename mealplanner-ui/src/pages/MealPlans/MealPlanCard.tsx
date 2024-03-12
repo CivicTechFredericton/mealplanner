@@ -184,7 +184,10 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton 
+            aria-label="add to favorites"
+            sx={{ "& :hover": { color: theme.palette.secondary.dark } }}
+          >
               <Favorite />
             </IconButton>
   
