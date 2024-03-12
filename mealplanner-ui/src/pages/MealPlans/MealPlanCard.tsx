@@ -102,12 +102,14 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
                     console.log("stopped propagation");
                     navigate(`/mealplans/${mealplan.rowId}/shopping-list`);
                   }}
+                  sx={{ "& :hover": { color: theme.palette.primary.main } }}
                 >
                   <ShoppingCart />
                 </IconButton>
                 <IconButton
                   aria-label="delete"
                   onClick = {handleClickOpen}
+                  sx={{ "& :hover": { color: theme.palette.primary.main } }}
                 >
                   <DeleteTwoTone />
                 </IconButton>
