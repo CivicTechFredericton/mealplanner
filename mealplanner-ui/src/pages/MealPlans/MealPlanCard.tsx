@@ -82,6 +82,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
                     console.log("stopped propagation");
                     navigate(`/mealplans/${mealplan.rowId}/shopping-list`);
                   }}
+                  sx={{ "& :hover": { color: theme.palette.primary.main } }}
                 >
                   <ShoppingCart />
                 </IconButton>
@@ -95,6 +96,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
                       props.refetch({}, {fetchPolicy: "network-only"})
                     })
                   }}
+                  sx={{ "& :hover": { color: theme.palette.primary.main } }}
                 >
                   <DeleteTwoTone />
                 </IconButton>
