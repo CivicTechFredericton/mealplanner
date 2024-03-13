@@ -7,11 +7,12 @@ import {
   DialogTitle,
   Grid,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import { useState } from "react";
 import { RefetchFnDynamic, useLazyLoadQuery } from "react-relay";
-import { createMealPlan } from "../../state/state";
+import { createMealPlan, getCurrentPerson } from "../../state/state";
 import { CreateMealPlanAllUsersQuery } from "./__generated__/CreateMealPlanAllUsersQuery.graphql";
 import { OperationType } from "relay-runtime";
 import { MealPlansQuery$data } from "./__generated__/MealPlansQuery.graphql";
@@ -59,6 +60,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
   const [descriptionFr, setDescriptionFr] = useState<string>(initState.descriptionFr);
   const [tags, setTags] = useState<string[]>(initState.tags);
   const [disableButton, setDisableButton] = useState(initState.disableButton);
+  const [currentPerson, setCurrentPerson] = useState(getCurrentPerson());
 
   const isValid = nameEn !== "";
 
@@ -76,6 +78,23 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
     setDisableButton(initState.disableButton);
     setOpen(false);
   };
+
+  const getTooltipTitles = (person: { personRole: string; }) => {
+    let titleEn = "Suggestion: Client # Week #";
+    let titleFr = "Suggestion: Client n° Semaine #";
+    let titleDescEng = "Suggestion: Notes on the discussion with client about their requirements, your suggestions.";
+    let titleDescFr = "Suggestion : Notes sur la discussion avec le client concernant ses besoins, vos suggestions.";
+
+    if (person.personRole === "app_user") {
+      titleEn = "Suggestion: Family member name Week #"
+      titleFr = "Suggestion: Nom du membre de la famille Semaine #"
+    }
+
+    return {titleEn, titleFr, titleDescEng, titleDescFr};
+
+  }
+  const { titleEn, titleFr, titleDescEng, titleDescFr } = getTooltipTitles(currentPerson);
+
 
   return (
     <>
@@ -95,12 +114,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
               <Autocomplete
                 options={allUsers || []}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Assign user"
-                    id="user"
-                    variant="filled"
-                  />
+                  <TextField {...params} label="Assign user" id="user" variant="filled" />
                 )}
                 onChange={(e, value) => {
                   setUserId(value?.rowId);
@@ -108,53 +122,61 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
               ></Autocomplete>
             </Grid>
             <Grid item xs={3}>
-              <TextField
-                id="nameEn"
-                label="Meal Plan Name*"
-                autoFocus
-                margin="dense"
-                variant="standard"
-                fullWidth
-                onChange={(e) => {
-                  setNameEn(e.target.value);
-                }}
-              />
+              <Tooltip arrow placement="bottom-start" title={titleEn}>
+                <TextField
+                  id="nameEn"
+                  label="Meal Plan Name*"
+                  autoFocus
+                  margin="dense"
+                  variant="standard"
+                  fullWidth
+                  onChange={(e) => {
+                    setNameEn(e.target.value);
+                  }}
+                />
+              </Tooltip>
             </Grid>
             <Grid item xs={3}>
-              <TextField
-                id="nameFr"
-                label="nom du plan de repas"
-                margin="dense"
-                variant="standard"
-                fullWidth
-                onChange={(e) => {
-                  setNameFr(e.target.value);
-                }}
-              />
+              <Tooltip arrow placement="bottom-start" title={titleFr}>
+                <TextField
+                  id="nameFr"
+                  label="nom du plan de repas"
+                  margin="dense"
+                  variant="standard"
+                  fullWidth
+                  onChange={(e) => {
+                    setNameFr(e.target.value);
+                  }}
+                />
+              </Tooltip>
             </Grid>
             <Grid item xs={3}>
-              <TextField
-                id="descriptionEn"
-                label="Description"
-                multiline
-                variant="filled"
-                fullWidth
-                onChange={(e) => {
-                  setDescriptionEn(e.target.value);
-                }}
-              />
+              <Tooltip arrow placement="bottom-start" title={titleDescEng}>
+                <TextField
+                  id="descriptionEn"
+                  label="Description"
+                  multiline
+                  variant="filled"
+                  fullWidth
+                  onChange={(e) => {
+                    setDescriptionEn(e.target.value);
+                  }}
+                />
+              </Tooltip>
             </Grid>
             <Grid item xs={3}>
-              <TextField
-                id="descriptionFr"
-                label="la description"
-                multiline
-                variant="filled"
-                fullWidth
-                onChange={(e) => {
-                  setDescriptionFr(e.target.value);
-                }}
-              />
+              <Tooltip arrow placement="bottom-start" title={titleDescFr}>
+                <TextField
+                  id="descriptionFr"
+                  label="la description"
+                  multiline
+                  variant="filled"
+                  fullWidth
+                  onChange={(e) => {
+                    setDescriptionFr(e.target.value);
+                  }}
+                />
+              </Tooltip>
             </Grid>
             <Grid item xs={6}>
               <Autocomplete
@@ -201,8 +223,8 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                 tags: tags,
                 connections: [connection],
               }).then(() => {
-                console.log('refetching tags');
-                refetch({}, {fetchPolicy: "network-only"});
+                console.log("refetching tags");
+                refetch({}, { fetchPolicy: "network-only" });
                 handleClose();
               });
             }}
