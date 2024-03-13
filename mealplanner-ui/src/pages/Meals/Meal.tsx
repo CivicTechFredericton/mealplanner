@@ -26,7 +26,6 @@ const mealQuery = graphql`
       descriptionFr
       categories
       photoUrl
-      videoUrl
       method
       cookingDuration
       totalCost
