@@ -14,7 +14,7 @@ INSERT INTO
         serving_cost,
         tips,
         servings_size,
-        servings_size_unit,
+        servings_size_unit
     )
 VALUES
     (
@@ -32,7 +32,7 @@ VALUES
         2,
         'Using rustic bread slices will make the sandwich crispier even after it cools down.',
         2,
-        'slice',
+        'slice'
     );
 
 INSERT INTO
@@ -51,7 +51,7 @@ INSERT INTO
         serving_cost,
         tips,
         servings_size,
-        servings_size_unit,
+        servings_size_unit
     )
 VALUES
     (
@@ -69,7 +69,7 @@ VALUES
         2,
         'Use the broiler option in the oven for 2-3 minutes to get a nice golden brown on the outside.',
         2,
-        'slice',
+        'slice'
     );
 
 INSERT INTO
@@ -88,7 +88,7 @@ INSERT INTO
         serving_cost,
         tips,
         servings_size,
-        servings_size_unit,
+        servings_size_unit
     )
 VALUES
     (
@@ -106,7 +106,7 @@ VALUES
         2,
         'Prepare the sauce and store the leftovers in the refrigerator.',
         2,
-        'tbsp',
+        'tbsp'
     );
 
 INSERT INTO
@@ -125,7 +125,7 @@ INSERT INTO
         serving_cost,
         tips,
         servings_size,
-        servings_size_unit,
+        servings_size_unit
     )
 VALUES
     (
@@ -143,7 +143,7 @@ VALUES
         4,
         'Loosely wrap the cucumber first in cling wrap so you dont get little cucumber bits and juices flying everywhere.',
         2,
-        'bowl',
+        'bowl'
     );
 
 INSERT INTO
@@ -162,7 +162,7 @@ INSERT INTO
         serving_cost,
         tips,
         servings_size,
-        servings_size_unit,
+        servings_size_unit
     )
 VALUES
     (
@@ -180,7 +180,7 @@ VALUES
         4,
         'You can prepare this soup on the stove top too. Either use a pressure cooker the same way or the OG way of simmering in a soup pot.',
         2,
-        'bowl',
+        'bowl'
     );
 
 INSERT INTO
@@ -199,7 +199,7 @@ INSERT INTO
         serving_cost,
         tips,
         servings_size,
-        servings_size_unit,
+        servings_size_unit
     )
 VALUES
     (
@@ -217,7 +217,7 @@ VALUES
         4,
         'You can also use some flavored oats instead of the rolled oats.',
         2,
-        'piece',
+        'piece'
     );
 
 INSERT INTO
@@ -236,7 +236,7 @@ INSERT INTO
         serving_cost,
         tips,
         servings_size,
-        servings_size_unit,
+        servings_size_unit
     )
 VALUES
     (
@@ -254,7 +254,7 @@ VALUES
         4,
         'Pickled onions taste even better after soaking them overnight.',
         2,
-        'tsp',
+        'tsp'
     );
 
 INSERT INTO
@@ -273,7 +273,7 @@ INSERT INTO
         serving_cost,
         tips,
         servings_size,
-        servings_size_unit,
+        servings_size_unit
     )
 VALUES
     (
@@ -291,7 +291,7 @@ VALUES
         4,
         'For soft chana add some baking soda while cooking in a pressure cooker.',
         2,
-        'bowl',
+        'bowl'
     );
 
 INSERT INTO
@@ -310,7 +310,7 @@ INSERT INTO
         serving_cost,
         tips,
         servings_size,
-        servings_size_unit,
+        servings_size_unit
     )
 VALUES
     (
@@ -328,7 +328,7 @@ VALUES
         4,
         'The juice of lemon should be always thin and watery.',
         2,
-        'tsp',
+        'tsp'
     );
 
 INSERT INTO
@@ -347,7 +347,7 @@ INSERT INTO
         serving_cost,
         tips,
         servings_size,
-        servings_size_unit,
+        servings_size_unit
     )
 VALUES
     (
@@ -365,5 +365,5 @@ VALUES
         4,
         'The juice of lemon should be always thin and watery.',
         2,
-        'bowl',
+        'bowl'
     );
