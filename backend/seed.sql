@@ -33,39 +33,103 @@ CREATE OR REPLACE FUNCTION app_private.meal_id_by_code(c text)
 $f$
 LANGUAGE sql
 STABLE;
-INSERT INTO app.meal(code, name_en, name_fr, tags, description_en, description_fr, categories, photo_url, video_url, method, cooking_duration, total_cost, serving_cost, tips, servings_size, servings_size_unit, serves)
-  VALUES ('cc_side',
-'coriander coconut chutney',
-'chutney de coriandre à la noix de coco',
-'{"side dish", "vegetarian", "vegan", "indian cuisine"}',
-'It can be used  to eat along with idli, dosa, vada, bonda or bajji',
-'Il peut être utilisé pour manger avec idli, dosa vada, bonda ou bajji',
-'{"Breakfast", "Snack", "Dinner"}',
-NULL,
-NULL,
-'1. Clean the bunch of coriander leaves thoroughly.
-2. grind 1 cup of coconut chunks to powder in a mixie
-3. Then add 3/4th cup of roasted gram,  3 red chilli, 1 inch ginger and grind it
-4. Then add coriander leaves, salt to taste and 1/2 cup of water and grind it to a paste.
-5. Serve it is a thottukai for idli, dosa, vada, bonda or bajji',
-10,
-'11.15',
-'2',
-'Defreeze the coconut chunks before 30 minutes to obtain soft texture. You can grind the coconut chunks to a poweder and store it in an airtight container.',
-2,
-'tbsp',
-1),
-('cs_side', 'Cucumber Dill Salad', '', '{"side dish", "vegetarian", "vegan", "salad"}', '', '', '{"Lunch", "Dinner"}', NULL, NULL, '1. Wash and dry the cucumber. The skin can be left on or partially removed. If using field cucumbers, peel and remove seeds prior to slicing.
+INSERT INTO
+  app.meal (
+    code,
+    name_en,
+    name_fr,
+    tags,
+    description_en,
+    description_fr,
+    categories,
+    photo_url,
+    video_url,
+    method,
+    total_cost,
+    serving_cost,
+    tips,
+    servings_size,
+    servings_size_unit,
+  )
+VALUES
+  (
+    'cc_side',
+    'coriander coconut chutney',
+    'chutney de coriandre à la noix de coco',
+    '{"side dish", "vegetarian", "vegan", "indian cuisine"}',
+    'It can be used  to eat along with idli, dosa, vada, bonda or bajji',
+    'Il peut être utilisé pour manger avec idli, dosa vada, bonda ou bajji',
+    '{"Breakfast", "Snack", "Dinner"}',
+    NULL,
+    NULL,
+    '1. Clean the bunch of coriander leaves thoroughly.
+  2. grind 1 cup of coconut chunks to powder in a mixie
+  3. Then add 3/4th cup of roasted gram,  3 red chilli, 1 inch ginger and grind it
+  4. Then add coriander leaves, salt to taste and 1/2 cup of water and grind it to a paste.
+  5. Serve it is a thottukai for idli, dosa, vada, bonda or bajji',
+    '11.15',
+    '2',
+    'Defreeze the coconut chunks before 30 minutes to obtain soft texture. You can grind the coconut chunks to a poweder and store it in an airtight container.',
+    2,
+    'tbsp',
+  ),
+  (
+    'cs_side',
+    'Cucumber Dill Salad',
+    '',
+    '{"side dish", "vegetarian", "vegan", "salad"}',
+    '',
+    '',
+    '{"Lunch", "Dinner"}',
+    NULL,
+    NULL,
+    '1. Wash and dry the cucumber. The skin can be left on or partially removed. If using field cucumbers, peel and remove seeds prior to slicing.
 2. Slice the cucumbers as thinly as possible (almost see through). Set aside
 3. Place the vinegar, sugar, salt and pepper in a mixing bowl and whisk until the sugar has dissolved completely
 4. Add the cucumber, onion and dill. Mix together well
-5. Refrigerate, turning occasionally, for at least 1 hour', 30, 0, 0, 'Defreeze the coconut chunks before 30 minutes to obtain soft texture. You can grind the coconut chunks to a poweder and store it in an airtight container.', 0, '??', 8),
-('bb_brkf', 'Breakfast Burrito', '', '{"breakfast", "lunch", "school"}', '', '', '{"Lunch", "Breakfast"}', NULL, NULL, '1. Heat a frying pan or skillet over medium heat. Add the diced bacon and fry until just beginning to crisp. Add the peppers, onion and jalapeno if using and fry, stirring occasionally, until the bacon is cooked and the vegetables are softened. Remove bacon and vegetables from the pan and set aside. Pour off the fat from the pan and discard. Wipe out the pan with a paper towel.
+5. Refrigerate, turning occasionally, for at least 1 hour',
+    30,
+    0,
+    0,
+    'Defreeze the coconut chunks before 30 minutes to obtain soft texture. You can grind the coconut chunks to a poweder and store it in an airtight container.',
+    0,
+    '??',
+    8
+  ),
+  (
+    'bb_brkf',
+    'Breakfast Burrito',
+    '',
+    '{"breakfast", "lunch", "school"}',
+    '',
+    '',
+    '{"Lunch", "Breakfast"}',
+    NULL,
+    NULL,
+    '1. Heat a frying pan or skillet over medium heat. Add the diced bacon and fry until just beginning to crisp. Add the peppers, onion and jalapeno if using and fry, stirring occasionally, until the bacon is cooked and the vegetables are softened. Remove bacon and vegetables from the pan and set aside. Pour off the fat from the pan and discard. Wipe out the pan with a paper towel.
 
 2. In a bowl, whisk the egg, milk salt and pepper together. Add 1 Tbsp. / 15 ml of oil to the pan and heat over medium to low heat. Add the egg mixture and stirring, cook the eggs until just set.
 
-3. While the eggs are cooking, lay out the tortilla shells on a flat surface. Divide the egg mixture between the 6 shells. Sprinkle each with 1 Tbsp. / 15 ml of grated cheese. Roll shells tightly, folding in the edges. Serve immediately with salsa on the side.', 35, 0, 0, 'If for school lunch, wrap in parchment paper and refrigerate for reheating in a microwave. Or, if for a later daily meal, wrap in foil and reheat in a 325-f oven for 8 – 10 minutes.', 0, '??', 6),
-('mc_main', 'Macaroni and Cheese', '', '{"dinner", "pasta", "stovetop"}', '', '', '{"Lunch", "Dinner"}', NULL, NULL, 'Preheat oven to 325 f 
+3. While the eggs are cooking, lay out the tortilla shells on a flat surface. Divide the egg mixture between the 6 shells. Sprinkle each with 1 Tbsp. / 15 ml of grated cheese. Roll shells tightly, folding in the edges. Serve immediately with salsa on the side.',
+    35,
+    0,
+    0,
+    'If for school lunch, wrap in parchment paper and refrigerate for reheating in a microwave. Or, if for a later daily meal, wrap in foil and reheat in a 325-f oven for 8 – 10 minutes.',
+    0,
+    '??',
+    6
+  ),
+  (
+    'mc_main',
+    'Macaroni and Cheese',
+    '',
+    '{"dinner", "pasta", "stovetop"}',
+    '',
+    '',
+    '{"Lunch", "Dinner"}',
+    NULL,
+    NULL,
+    'Preheat oven to 325 f 
 
 1. Bring 3 litres of water, with 1 Tsp. (5 ml) of salt to the boil. Add the macaroni noodles and cook following package directions. Stir occasionally during cooking. Drain and rinse well under cold water. Place in a colander and set aside.
 
@@ -77,7 +141,15 @@ NULL,
 
 5. Add the noodles to the sauce and mix well. Place in a greased 8” x 8” deep baking dish. If the sauce appears too thick, add some warmed milk until desired consistency is reached. Remember, sauce will thicken during cooking as the pasta will absorb the sauce. 
 
-6. Sprinkle the breadcrumbs over the macaroni and dot with butter or margarine. For a spicier topping sprinkle with the chili powder. Bake uncovered in pre-heated oven for about 30-35 minutes or until the sauce has bubbled around the edges and the top is nicely browned. Allow to sit for a few minutes before serving.', 60, 0, 0, '', 0, '??', 6);
+6. Sprinkle the breadcrumbs over the macaroni and dot with butter or margarine. For a spicier topping sprinkle with the chili powder. Bake uncovered in pre-heated oven for about 30-35 minutes or until the sauce has bubbled around the edges and the top is nicely browned. Allow to sit for a few minutes before serving.',
+    60,
+    0,
+    0,
+    '',
+    0,
+    '??',
+    6
+  );
 INSERT INTO
   app.product (
     name_en,
