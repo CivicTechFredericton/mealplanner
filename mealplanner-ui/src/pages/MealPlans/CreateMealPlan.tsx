@@ -21,6 +21,10 @@ import { createMealPlan, getCurrentPerson } from "../../state/state";
 import { CreateMealPlanAllUsersQuery } from "./__generated__/CreateMealPlanAllUsersQuery.graphql";
 import { OperationType } from "relay-runtime";
 import { MealPlansQuery$data } from "./__generated__/MealPlansQuery.graphql";
+import { DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs, { Dayjs } from 'dayjs';
 
 const query = graphql`
   query CreateMealPlanAllUsersQuery {
@@ -57,6 +61,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
     descriptionFr: "",
     tags: [],
     disableButton: true,
+    startDate: "",
     isTemplate: false
   }
 
@@ -68,6 +73,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
   const [tags, setTags] = useState<string[]>(initState.tags);
   const [disableButton, setDisableButton] = useState(initState.disableButton);
   const [currentPerson, setCurrentPerson] = useState(getCurrentPerson());
+  const [startDate, setStartDate] = useState<String | null>();
   const [isTemplate, setIsTemplate] = useState<boolean>(initState.isTemplate);
 
   const isValid = nameEn !== "";
@@ -85,6 +91,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
     setTags(initState.tags);
     setIsTemplate(initState.isTemplate);
     setDisableButton(initState.disableButton);
+    setStartDate(initState.startDate);
     setOpen(false);
   };
 
@@ -155,7 +162,20 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                   ></Autocomplete>
                 </Grid>
                 )}
-                <Grid item xs={3}>
+                <Grid item xs={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Starting Date"
+                  onChange={(newValue: Dayjs | null) => {
+                  if (newValue !== null) {
+                    const formatedDate = dayjs(newValue).format("YYYY-MM-DD");
+                    setStartDate(formatedDate);
+                  }
+                  }}
+                ></DatePicker>
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={3}>
                 <Tooltip arrow placement="bottom-start" title={titleEn}>
                   <TextField
                     id="nameEn"
@@ -255,7 +275,8 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                     descFr: descriptionFr,
                     personId: userId || null,
                     tags: tags,
-                    connections: [connection],
+                    // startDate: startDate,
+                connections: [connection],
                     isTemplate: planType === 'template' ? true : false
                   }).then(() => {
                     console.log('refetching tags');
