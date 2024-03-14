@@ -7,6 +7,7 @@ type GQLocalState {
     currentUser: CurrentLoggedInUser
     selectedMealPlanTags: [String!]
     selectedMealTags: [String!]
+    selectedFavoriteMeals: [String!]
 }
 
 type SelectedMeal {

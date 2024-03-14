@@ -9,12 +9,14 @@ import {
 import { graphql } from "babel-plugin-relay/macro";
 import {Suspense, useState } from "react";
 import { useLazyLoadQuery, useRefetchableFragment } from "react-relay";
-import { MealTags, MealTagsFragment } from "./MealTags";
+import { FavoriteMeals, FavoriteMealsFragment } from "./PersonFavoriteMeals";
+import { MealTags } from "./MealTags";
 import { MealsQuery } from "./__generated__/MealsQuery.graphql";
 import { MealCard } from "./MealCard";
+import { getCurrentPerson } from "../../state/state";
 
 const mealsQuery = graphql`
-  query MealsQuery {
+  query MealsQuery($slug: String!)  {
     meals(orderBy: [ID_DESC], first: 1000) {
       nodes {
         rowId
@@ -34,20 +36,29 @@ const mealsQuery = graphql`
     gqLocalState {
       selectedMealTags
     }
+    # fragment name from PersonFavoriteMeals
+    ...PersonFavoriteMeals_favorites @arguments(slug: $slug)
+    gqLocalState {
+      selectedFavoriteMeals
+    }
   }
 `;
 
 export const Meals = () => {
   const [searchMeal, setSearchMeal] = useState<string>("");
   const [searchType, setSearchType] = useState('name');
+  const slug = getCurrentPerson().personSlug;
 
   const data = useLazyLoadQuery<MealsQuery>(
     mealsQuery,
-    {},
+    {slug: slug as string},
     { fetchPolicy: "store-or-network" }
   );
 
+  const PFMeals: any = useRefetchableFragment(FavoriteMealsFragment, data)[0];
+  const [_, refetch] = useRefetchableFragment(FavoriteMealsFragment, data);
   const selectedTags = data.gqLocalState.selectedMealTags || [];
+  const selectedFavs = PFMeals.people?.nodes[0].favoriteMeals.nodes.map((favMeal:any) => favMeal.meal?.rowId) || [];
 
   return (
     <>
@@ -114,11 +125,16 @@ export const Meals = () => {
       </Suspense>
     }
    
+    {searchType === 'favorites' &&
+        <Suspense fallback={"loading favorites..."}>
+        <FavoriteMeals favs={data}/>
+      </Suspense>
+    }
     {data.meals ? (
       <Grid container spacing={2} margin="1rem" columns={4}>
         {data.meals?.nodes.map((node) => {
       if ((searchType === 'name' && node.nameEn.toLowerCase().includes(searchMeal)) || (searchType === 'tags' && selectedTags.every(tag => node.tags?.includes(tag)))) {
-        return <MealCard node={node} />
+        return <MealCard node={node} refetch={refetch} selectedFavs={selectedFavs} />
     }})}
   </Grid>
       ) : (
