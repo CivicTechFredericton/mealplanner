@@ -14,3 +14,4 @@ drop schema if exists app_private, app cascade;
 \i 012-duplicate-meal-plan.sql
 \i 013-add-email-and-role-to-person.sql
 \i 014-reset-password.sql
+\i 015-favorite-meal-plan.sql
