@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b54e36efb882c14a5f0ecec6ddac4427>>
+ * @generated SignedSource<<97d22d9de81e840f35e45f8ddb56d1b0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type state_createMealPlanMutation$variables = {
   descFr?: string | null;
   personId?: any | null;
   tags?: ReadonlyArray<string | null> | null;
+  startdate?: string | null;
   connections: ReadonlyArray<string>;
   isTemplate?: boolean | null;
 };
@@ -43,6 +44,7 @@ export type state_createMealPlanMutation$data = {
             } | null;
           }>;
         };
+        readonly startdate: string | null;
       };
     } | null;
   } | null;
@@ -86,7 +88,7 @@ v5 = {
 v6 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "personId"
+  "name": "startdate"
 },
 v7 = {
   "defaultValue": null,
@@ -127,6 +129,11 @@ v8 = [
             "kind": "Variable",
             "name": "personId",
             "variableName": "personId"
+          },
+          {
+            "kind": "Variable",
+            "name": "startdate",
+            "variableName": "startdate"
           },
           {
             "kind": "Variable",
@@ -195,24 +202,17 @@ v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isTemplate",
+  "name": "fullName",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "fullName",
-  "storageKey": null
-},
-v18 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "tags",
   "storageKey": null
 },
-v19 = {
+v18 = {
   "alias": null,
   "args": null,
   "concreteType": "Meal",
@@ -229,6 +229,13 @@ v19 = {
       "storageKey": null
     }
   ],
+  "storageKey": null
+},
+v19 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "startdate",
   "storageKey": null
 };
 return {
@@ -278,7 +285,6 @@ return {
                   (v13/*: any*/),
                   (v14/*: any*/),
                   (v15/*: any*/),
-                  (v16/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -287,11 +293,11 @@ return {
                     "name": "person",
                     "plural": false,
                     "selections": [
-                      (v17/*: any*/)
+                      (v16/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v18/*: any*/),
+                  (v17/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -308,13 +314,14 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v19/*: any*/)
+                          (v18/*: any*/)
                         ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
-                  }
+                  },
+                  (v19/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -335,6 +342,8 @@ return {
       (v5/*: any*/),
       (v1/*: any*/),
       (v2/*: any*/),
+      (v5/*: any*/),
+      (v7/*: any*/),
       (v6/*: any*/),
       (v7/*: any*/),
       (v0/*: any*/),
@@ -374,7 +383,6 @@ return {
                   (v13/*: any*/),
                   (v14/*: any*/),
                   (v15/*: any*/),
-                  (v16/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -383,12 +391,12 @@ return {
                     "name": "person",
                     "plural": false,
                     "selections": [
-                      (v17/*: any*/),
+                      (v16/*: any*/),
                       (v10/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v18/*: any*/),
+                  (v17/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -405,14 +413,15 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v19/*: any*/),
+                          (v18/*: any*/),
                           (v10/*: any*/)
                         ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
-                  }
+                  },
+                  (v19/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -441,16 +450,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "58a732e9bb6510e540fc79017f0da889",
+    "cacheID": "1bc1f6cae71c4b84aa69a4e261221c96",
     "id": null,
     "metadata": {},
     "name": "state_createMealPlanMutation",
     "operationKind": "mutation",
-    "text": "mutation state_createMealPlanMutation(\n  $nameEn: String!\n  $nameFr: String\n  $descEn: String\n  $descFr: String\n  $personId: BigInt\n  $tags: [String]\n  $isTemplate: Boolean\n) {\n  createMealPlan(input: {mealPlan: {nameEn: $nameEn, nameFr: $nameFr, descriptionEn: $descEn, descriptionFr: $descFr, personId: $personId, tags: $tags, isTemplate: $isTemplate}}) {\n    mealPlanEdge {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        isTemplate\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation state_createMealPlanMutation(\n  $nameEn: String!\n  $nameFr: String\n  $descEn: String\n  $descFr: String\n  $personId: BigInt\n  $tags: [String]\n  $startdate: String\n) {\n  createMealPlan(input: {mealPlan: {nameEn: $nameEn, nameFr: $nameFr, descriptionEn: $descEn, descriptionFr: $descFr, personId: $personId, tags: $tags, startdate: $startdate}}) {\n    mealPlanEdge {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n        startdate\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "44c3cb84e6f7651e066d2fbf63a88458";
+(node as any).hash = "1bf7a882304700e4b3f5029f4f93ed1e";
 
 export default node;
