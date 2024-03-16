@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Datagrid,
   DateField,
@@ -5,7 +6,6 @@ import {
   List,
   ListProps,
   NumberField,
-  ReferenceField,
   ReferenceManyField,
   RichTextField,
   SingleFieldList,
@@ -13,10 +13,11 @@ import {
   TabbedShowLayout,
   TextField,
   UrlField,
+  useRecordContext,
 } from "react-admin";
+import { Link } from "react-router-dom";
 import { ListField } from "../ListField";
 import { NutritionShow } from "../Nutrition/NutritionShow";
-import { useState } from "react";
 import CustomSearchInput from "../components/CustomSearchInput";
 
 export const MealList = (props: ListProps) => {
@@ -41,7 +42,6 @@ export const MealList = (props: ListProps) => {
       >
         <Datagrid expand={Details}>
           <TextField source="id" />
-          <TextField source="code" />
           <TextField source="nameEn" />
           <TextField source="nameFr" />
           <ListField label="Tags" source="tags" />
@@ -56,14 +56,15 @@ export const MealList = (props: ListProps) => {
 };
 
 const Details = () => {
+  const meal = useRecordContext();
   return (
     <>
       <TabbedShowLayout syncWithLocation={false}>
         <Tab label="Method">
           <RichTextField source="method" />
-          <ReferenceManyField label="Measures" reference="measures" target="mealId">
+          <Link to={`${meal.id}/ingredients`}>Ingredients</Link>
+          {/* <ReferenceManyField label="Measures" reference="measures" target="mealId">
             <Datagrid>
-              {/* <TextField source="rowId" /> */}
               <TextField source="productId" label="Product ID" />
               <ReferenceField label="Product Name" reference="products" source="productId">
                 <TextField source="nameEn" />
@@ -72,16 +73,17 @@ const Details = () => {
               <TextField source="unit" />
               <TextField source="quantity" />
             </Datagrid>
-          </ReferenceManyField>
+          </ReferenceManyField> */}
         </Tab>
         <Tab label="Summary">
-          <NumberField source="cookingDuration" />
+          <NumberField source="prepTime" />
+          <NumberField source="cookTime" />
           <NumberField source="totalCost" />
           <NumberField source="servingCost" />
           <TextField source="tips" />
           <NumberField source="servingsSize" />
           <TextField source="servingsSizeUnit" />
-          <NumberField source="serves" />
+          <NumberField source="portions" />
           <NumberField source="nutritionRating" />
           <UrlField source="photoUrl" />
           <UrlField source="videoUrl" />
