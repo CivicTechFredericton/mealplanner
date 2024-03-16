@@ -9,7 +9,6 @@ import {
 export const MealForm = () => {
   return (
     <SimpleForm>
-      <TextInput source="code" fullWidth />
       <TextInput source="nameEn" fullWidth />
       <TextInput source="nameFr" fullWidth />
       <TextInput
@@ -34,8 +33,9 @@ export const MealForm = () => {
       />
       <TextInput source="photoUrl" fullWidth />
       <TextInput source="videoUrl" fullWidth />
-      <NumberInput source="cookingDuration" fullWidth />
-      <NumberInput source="serves" fullWidth />
+      <NumberInput source="cookTime" fullWidth />
+      <NumberInput source="prepTime" fullWidth />
+      <NumberInput source="portions" fullWidth />
       <NumberInput source="totalCost" fullWidth />
       <NumberInput source="servingCost" fullWidth />
       <NumberInput source="servingsSize" fullWidth />

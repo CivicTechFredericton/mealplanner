@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   BooleanField,
   Datagrid,
@@ -13,7 +14,6 @@ import {
 import { ListField } from "../ListField";
 import { NutritionShow } from "../Nutrition/NutritionShow";
 import CustomSearchInput from "../components/CustomSearchInput";
-import { useEffect, useState } from "react";
 
 export const ProductList = (props: ListProps) => {
   const [data, setData] = useState<String[]>([]);
@@ -40,7 +40,6 @@ export const ProductList = (props: ListProps) => {
           <TextField source="id" fullWidth />
           <TextField source="nameEn" fullWidth />
           <TextField source="nameFr" fullWidth />
-          <TextField source="code" />
           <NumberField source="price" />
           <NumberField source="quantity" />
           <TextField source="unit" />
@@ -48,6 +47,7 @@ export const ProductList = (props: ListProps) => {
           <TextField source="upc" />
           <UrlField source="sourceLink" />
           <ListField source="tags" />
+          <ListField source="productKeywords" />
           <EditButton />
         </Datagrid>
       </List>

@@ -10,6 +10,9 @@ import {
 } from "react-admin";
 import { Route } from "react-router-dom";
 import { useAuth } from "./Auth";
+import { IngredientCreate } from "./Ingredients/IngredientCreate";
+import { IngredientEdit } from "./Ingredients/IngredientEdit";
+import { IngredientList } from "./Ingredients/IngredientList";
 import { MealCreate } from "./Meals/MealCreate";
 import { MealEdit } from "./Meals/MealEdit";
 import { MealList } from "./Meals/MealList";
@@ -33,6 +36,8 @@ function App() {
   const client = useApolloClient();
 
   useEffect(() => {
+    // Need to add the id of all tables so that when we fetch id it fetches the rowId
+    // If we don't give this it will try to fetch id apart from rowId.
     pgDataProvider(client, {
       typeMap: {
         Meal: { excludeFields: ["id"], expand: true },
@@ -40,6 +45,7 @@ function App() {
         Measure: { excludeFields: ["id"] },
         Nutrition: { excludeFields: ["id"] },
         Person: { excludeFields: ["id"] },
+        Ingredient: { excludeFields: ["id"] },
       },
     })
       .then((resolvedValue) => setDataProvider(resolvedValue))
@@ -58,12 +64,24 @@ function App() {
             layout={Layout}
             requireAuth
           >
+            
             <Resource
               name="meals"
               list={MealList}
               edit={MealEdit}
               create={MealCreate}
-            />
+            >
+              <Route path=":id/ingredients" element={<IngredientList />} />
+              <Route
+                path=":id/ingredients/create"
+                element={<IngredientCreate />}
+              />
+              <Route
+                path=":id/ingredients/:ingredientId"
+                element={<IngredientEdit />}
+              />
+            </Resource>
+            
             <Resource
               name="products"
               list={ProductList}
@@ -89,10 +107,12 @@ function App() {
               list={PersonList}
               edit={PersonEdit}
             />
+
             <CustomRoutes>
               <Route path="people/register" element={<Register />} />
               <Route path="people/:rowId/reset" element={<ResetPassword />} />
             </CustomRoutes>
+            
           </Admin>
         ) : (
           "loading..."
