@@ -1,6 +1,6 @@
 import React from "react";
 import { MealPlanNode } from "../../state/types";
-import { Avatar, Card, CardActions, CardContent, CardHeader, Collapse, Grid, IconButton, IconButtonProps, ImageList, ImageListItem, Typography, styled, useTheme } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, IconButtonProps, ImageList, ImageListItem, Typography, styled, useTheme, useMediaQuery } from "@mui/material";
 import { ShoppingCart, DeleteTwoTone, ContentCopy, ExpandMore, Favorite } from "@mui/icons-material";
 import { useNavigate } from "react-router";
 import { getCurrentPerson } from "../../state/state";
@@ -45,13 +45,33 @@ const getInitials = (name: string) => {
 
 export const MealPlanCard = (props: MealPlanCardProps) => {
     const [expanded, setExpanded] = React.useState(false);
+    const [openDialog, setOpenDialog] = React.useState(false);
     const navigate = useNavigate();
     const mealplan = props.mealplan;
     const connection = props.connection;
     const theme = useTheme();
+    const fullScreenDialog = useMediaQuery(theme.breakpoints.down('md'));
     const handleExpandClick = (e: React.MouseEvent) => {
       e.stopPropagation();
       setExpanded(!expanded);
+    };
+    const handleClickOpen = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setOpenDialog(true);
+    };
+
+    const handleClose = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setOpenDialog(false);
+    };
+
+    const handleDelete =(e: React.MouseEvent) => {
+      e.stopPropagation();
+      deleteMealPlan(connection, mealplan.rowId).then(() => {
+        //refetch here for fetching tags after delete
+        props.refetch({}, {fetchPolicy: "network-only"})
+      })
+      setOpenDialog(false);
     };
   
     return (
@@ -88,18 +108,44 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
                 </IconButton>
                 <IconButton
                   aria-label="delete"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("meal plan id: ", typeof mealplan.rowId);
-                    deleteMealPlan(connection, mealplan.rowId).then(() => {
-                      //refetch here for fetching tags after delete
-                      props.refetch({}, {fetchPolicy: "network-only"})
-                    })
-                  }}
+                  onClick = {handleClickOpen}
                   sx={{ "& :hover": { color: theme.palette.primary.main } }}
                 >
                   <DeleteTwoTone />
                 </IconButton>
+                <Dialog
+                  fullScreen={fullScreenDialog}
+                  open={openDialog}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onClose={handleClose}
+                  aria-labelledby="delete-dialog"
+                >
+                  <DialogTitle id="delete-dialog">
+                    {"Delete this meal plan?"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      Are you sure you want to <b>delete</b> the meal plan <b>{mealplan.nameEn}</b>?
+                    </DialogContentText>
+                  </DialogContent>
+  
+                  <DialogActions>
+                    <Button 
+                      onClick={handleDelete}
+                      autoFocus
+                      startIcon={<DeleteTwoTone />}
+                      color = "error"
+                    >
+                      Delete
+                    </Button>
+                    <Button autoFocus onClick={handleClose}>
+                      Cancel
+                    </Button>
+                  </DialogActions>
+                </Dialog>
                 {getCurrentPerson().personRole === "app_admin" || getCurrentPerson().personRole === "app_meal_designer" ? (
                   <IconButton
                     aria-label="duplicate"
