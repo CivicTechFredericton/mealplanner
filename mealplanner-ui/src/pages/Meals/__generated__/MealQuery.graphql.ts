@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a110771a235e2ba05fff5bedb2047221>>
+ * @generated SignedSource<<28eb43fe7d7baa5612c2577544cd1d22>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,6 @@ export type MealQuery$variables = {
 export type MealQuery$data = {
   readonly meal: {
     readonly rowId: any;
-    readonly code: string;
     readonly nameEn: string;
     readonly nameFr: string | null;
     readonly tags: ReadonlyArray<string | null> | null;
@@ -26,14 +25,15 @@ export type MealQuery$data = {
     readonly photoUrl: string | null;
     readonly videoUrl: string | null;
     readonly method: string | null;
-    readonly cookingDuration: any | null;
     readonly totalCost: any | null;
     readonly servingCost: any | null;
     readonly tips: string | null;
     readonly servingsSize: any | null;
     readonly servingsSizeUnit: string | null;
-    readonly serves: any | null;
     readonly nutritionRating: number | null;
+    readonly prepTime: any | null;
+    readonly cookTime: any | null;
+    readonly portions: any | null;
     readonly measures: {
       readonly nodes: ReadonlyArray<{
         readonly id: string;
@@ -87,126 +87,126 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "code",
+  "name": "nameEn",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "nameEn",
+  "name": "nameFr",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "nameFr",
+  "name": "tags",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "tags",
+  "name": "descriptionEn",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "descriptionEn",
+  "name": "descriptionFr",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "descriptionFr",
+  "name": "categories",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "categories",
+  "name": "photoUrl",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "photoUrl",
+  "name": "videoUrl",
   "storageKey": null
 },
 v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "videoUrl",
+  "name": "method",
   "storageKey": null
 },
 v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "method",
+  "name": "totalCost",
   "storageKey": null
 },
 v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "cookingDuration",
+  "name": "servingCost",
   "storageKey": null
 },
 v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "totalCost",
+  "name": "tips",
   "storageKey": null
 },
 v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "servingCost",
+  "name": "servingsSize",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "tips",
+  "name": "servingsSizeUnit",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "servingsSize",
+  "name": "nutritionRating",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "servingsSizeUnit",
+  "name": "prepTime",
   "storageKey": null
 },
 v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "serves",
+  "name": "cookTime",
   "storageKey": null
 },
 v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "nutritionRating",
+  "name": "portions",
   "storageKey": null
 },
 v21 = {
@@ -334,7 +334,7 @@ return {
                     "name": "product",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/)
+                      (v3/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -413,7 +413,7 @@ return {
                     "name": "product",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
+                      (v3/*: any*/),
                       (v21/*: any*/)
                     ],
                     "storageKey": null
@@ -435,16 +435,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7d2b9fef4db2b12e4a694c1119b01eb1",
+    "cacheID": "9a499dab367a7b8d081a101f15e9577a",
     "id": null,
     "metadata": {},
     "name": "MealQuery",
     "operationKind": "query",
-    "text": "query MealQuery(\n  $mealId: BigInt!\n) {\n  meal(rowId: $mealId) {\n    rowId\n    code\n    nameEn\n    nameFr\n    tags\n    descriptionEn\n    descriptionFr\n    categories\n    photoUrl\n    videoUrl\n    method\n    cookingDuration\n    totalCost\n    servingCost\n    tips\n    servingsSize\n    servingsSizeUnit\n    serves\n    nutritionRating\n    measures {\n      nodes {\n        id\n        product {\n          nameEn\n          id\n        }\n        unit\n        quantity\n      }\n    }\n    nutrition {\n      id\n    }\n    products {\n      edges {\n        node {\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query MealQuery(\n  $mealId: BigInt!\n) {\n  meal(rowId: $mealId) {\n    rowId\n    nameEn\n    nameFr\n    tags\n    descriptionEn\n    descriptionFr\n    categories\n    photoUrl\n    videoUrl\n    method\n    totalCost\n    servingCost\n    tips\n    servingsSize\n    servingsSizeUnit\n    nutritionRating\n    prepTime\n    cookTime\n    portions\n    measures {\n      nodes {\n        id\n        product {\n          nameEn\n          id\n        }\n        unit\n        quantity\n      }\n    }\n    nutrition {\n      id\n    }\n    products {\n      edges {\n        node {\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2eb11b0b1b5d5a6601296931e78df327";
+(node as any).hash = "c5c72e6e81ae3195d3bedc20712d6569";
 
 export default node;

@@ -18,7 +18,6 @@ const mealQuery = graphql`
   query MealQuery($mealId: BigInt!) {
     meal(rowId: $mealId) {
       rowId
-      code
       nameEn
       nameFr
       tags
@@ -28,14 +27,15 @@ const mealQuery = graphql`
       photoUrl
       videoUrl
       method
-      cookingDuration
       totalCost
       servingCost
       tips
       servingsSize
       servingsSizeUnit
-      serves
       nutritionRating
+      prepTime
+      cookTime
+      portions
       measures {
         nodes {
           id
@@ -226,8 +226,8 @@ export const Meal = () => {
               {meal?.nutritionRating}
             </Typography>
             <Typography variant="caption">
-              Meal Code: {meal?.code} &nbsp; Cooking Duration:{" "}
-              {meal?.cookingDuration} mins &nbsp; Serves: {meal?.serves} &nbsp;
+              Prep Time:{" "} {meal?.prepTime} mins &nbsp; Cook Time:{" "}
+              {meal?.cookTime} mins &nbsp; Portions: {meal?.portions} &nbsp;
               Serving Size: {meal?.servingsSize} {meal?.servingsSizeUnit} &nbsp;
               Serving Cost: {meal?.servingCost}$
             </Typography>

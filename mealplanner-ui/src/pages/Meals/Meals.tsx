@@ -24,7 +24,6 @@ const mealsQuery = graphql`
         descriptionFr
         categories
         tags
-        code
         photoUrl
         videoUrl
       }
