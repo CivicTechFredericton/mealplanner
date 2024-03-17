@@ -1,39 +1,39 @@
 import fs from "node:fs/promises";
 import pgp from "pg-promise";
 
-const recipesPath = "meals-ingredients.json";
+const recipesPath = "meals-ingredients-substitutes.json";
 
 type RecipeContentType = {
-  nameEn: string;
-  nameFr: string;
+  name_en: string;
+  name_fr: string;
   tags: string[];
-  descriptionEn: string;
-  descriptionFr: string;
+  description_en: string;
+  description_fr: string;
   categories: string[];
-  photoUrl: string;
-  videoUrl: string;
+  photo_url: string;
+  video_url: string;
   method: string;
-  totalCost: number;
-  servingCost: number;
+  total_cost: number;
+  serving_cost: number;
   tips: string;
-  servingsSize: number;
-  servingsSizeUnit: string;
-  nutritionRating: number;
-  prepTime: number;
-  cookTime: number;
+  servings_size: number;
+  servings_size_unit: string;
+  nutrition_rating: number;
+  prep_time: number;
+  cook_time: number;
   portions: number;
   ingredients: {
     name: string;
     quantity: string;
     unit: string;
-    productKeyword: string;
+    product_keyword: string;
     substitutes:
       | {
           name: string;
           quantity: string;
           unit: string;
-          productKeyword: string;
-          substituteReason: string;
+          product_keyword: string;
+          substitute_reason: string;
         }[]
       | null;
   }[];
@@ -65,11 +65,11 @@ const importRecipes = async (fileName: string) => {
       `,
       [
         recipe.tags,
-        recipe.nameEn,
+        recipe.name_en,
         recipe.method,
         recipe.portions,
-        recipe.prepTime,
-        recipe.cookTime,
+        recipe.prep_time,
+        recipe.cook_time,
         recipe.tips,
       ]
     );
@@ -99,7 +99,7 @@ const importRecipes = async (fileName: string) => {
           ingredient.name,
           ingredient.quantity,
           ingredient.unit,
-          ingredient.productKeyword,
+          ingredient.product_keyword,
           mealRec.id,
         ]
       );
@@ -126,10 +126,10 @@ const importRecipes = async (fileName: string) => {
             substitute.name,
             substitute.quantity,
             substitute.unit,
-            substitute.productKeyword,
+            substitute.product_keyword,
             mealRec.id,
             ingRec.id,
-            substitute.substituteReason,
+            substitute.substitute_reason,
           ]
         );
       }
