@@ -3,6 +3,7 @@ import {
   BooleanField,
   Datagrid,
   EditButton,
+  ImageField,
   List,
   ListProps,
   NumberField,
@@ -39,15 +40,16 @@ export const ProductList = (props: ListProps) => {
         <Datagrid expand={NutritionDetails}>
           <TextField source="id" fullWidth />
           <TextField source="nameEn" fullWidth />
-          <TextField source="nameFr" fullWidth />
+          <ImageField source="imageUrl" />
+          <ListField source="productKeywords" />
           <NumberField source="price" />
           <NumberField source="quantity" />
           <TextField source="unit" />
-          <BooleanField source="isArchived" />
           <TextField source="upc" />
-          <UrlField source="sourceLink" />
+          <UrlField source="sourceUrl" />
           <ListField source="tags" />
-          <ListField source="productKeywords" />
+          <BooleanField source="isArchived" />
+          <TextField source="nameFr" fullWidth />
           <EditButton />
         </Datagrid>
       </List>
