@@ -93,7 +93,7 @@ function App() {
               element={
                 <Suspense fallback={"loading Meals list..."}>
                   {/* <LoggedIn> */}
-                   <Meals />
+                  <Meals />
                   {/* </LoggedIn> */}
                 </Suspense>
               }
