@@ -5,7 +5,6 @@ const searchStringQuery = gql`
     meals(
       filter: {
         or: [
-          { code: { includesInsensitive: $searchString } }
           { nameEn: { includesInsensitive: $searchString } }
           { nameFr: { includesInsensitive: $searchString } }
           { descriptionEn: { includesInsensitive: $searchString } }
