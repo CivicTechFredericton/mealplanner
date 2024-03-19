@@ -10,7 +10,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFragment, useLazyLoadQuery } from "react-relay";
 import { useNavigate } from "react-router";
 import { updateMealPlanName } from "../../state/state";
@@ -25,6 +25,7 @@ const fragment = graphql`
     descriptionEn
     tags
     isTemplate
+    startdate
     person {
       fullName
       rowId
@@ -62,7 +63,13 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
   const [isEditUser, setIsEditUser] = useState(false);
   const navigate = useNavigate();
 
+    useEffect(() => {
+      console.log(data);
+    
+    }, [])
+
   return (
+    
     <section
       style={{
         border: `2px solid ${theme.palette.primary.main}`,
