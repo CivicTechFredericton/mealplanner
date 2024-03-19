@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MealPlanNode } from "../../state/types";
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, IconButtonProps, ImageList, ImageListItem, Typography, styled, useTheme, useMediaQuery } from "@mui/material";
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, IconButtonProps, ImageList, ImageListItem, Typography, styled, useTheme, useMediaQuery, Chip } from "@mui/material";
 import { ShoppingCart, DeleteTwoTone, ContentCopy, ExpandMore, Favorite } from "@mui/icons-material";
 import { useNavigate } from "react-router";
 import { getCurrentPerson } from "../../state/state";
@@ -43,11 +43,13 @@ const getInitials = (name: string) => {
     return initials;
   };
 
+
 export const MealPlanCard = (props: MealPlanCardProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
     const navigate = useNavigate();
     const mealplan = props.mealplan;
+    const startDate: Date | string | null = mealplan.startdate ? new Date(mealplan.startdate) : null;
     const connection = props.connection;
     const theme = useTheme();
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('md'));
@@ -73,6 +75,10 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
       })
       setOpenDialog(false);
     };
+
+    useEffect(() => {
+      console.log(mealplan);
+    }, []);
   
     return (
       <Grid item xs="auto">
@@ -162,6 +168,11 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
             title={mealplan.nameEn}
             subheader={mealplan.person?.fullName}
           />
+          {!!startDate && (
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Chip label={"Starting Date: " + startDate.toDateString()} />
+            </div>
+          )}
           <ImageList sx={{ width: 350, height: 150 }} cols={3} rowHeight={164}>
             {mealplan.mealPlanEntries.nodes.map((meal) =>
               meal.meal?.photoUrl !== null ? (
