@@ -73,7 +73,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
   const [tags, setTags] = useState<string[]>(initState.tags);
   const [disableButton, setDisableButton] = useState(initState.disableButton);
   const [currentPerson, setCurrentPerson] = useState(getCurrentPerson());
-  const [startDate, setStartDate] = useState<String | null>();
+  const [startDate, setStartDate] = useState<string | null>();
   const [isTemplate, setIsTemplate] = useState<boolean>(initState.isTemplate);
 
   const isValid = nameEn !== "";
@@ -275,7 +275,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                     descFr: descriptionFr,
                     personId: userId || null,
                     tags: tags,
-                    // startDate: startDate,
+                    startdate: startDate,
                 connections: [connection],
                     isTemplate: planType === 'template' ? true : false
                   }).then(() => {
