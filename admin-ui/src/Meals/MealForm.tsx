@@ -11,6 +11,7 @@ export const MealForm = () => {
     <SimpleForm>
       <TextInput source="nameEn" fullWidth />
       <TextInput source="nameFr" fullWidth />
+      <NumberInput source="code" fullWidth min={1}/>
       <TextInput
         defaultValue={null}
         fullWidth
