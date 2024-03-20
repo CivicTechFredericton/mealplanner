@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid";
 import React from "react";
+import { ProductResultType } from "../Products/service";
 
 const getProducts = gql`
   query ingredientProducts($ingredientId: BigInt!) {
@@ -41,20 +42,19 @@ const getProducts = gql`
   }
 `;
 
-const createMatchGql = gql`
-  mutation createMatchMutation($input: MatchInput!) {
-    createMatch(input: { match: $input }) {
-      product {
-        nameEn
-      }
-      ingredient {
-        name
-      }
+const updateMatchGql = gql`
+mutation updateMatchesMutation ($input: UpdateMatchesInput!) {
+	updateMatches(input: $input) {
+    matches {
+      rowId
+      ingredientId
+      productId
     }
   }
+}
 `;
 
-export const MatchCreate = (props: CreateProps) => {
+export const Match = (props: CreateProps) => {
   const { ingredientId, id } = useParams();
 
   const {
@@ -73,36 +73,32 @@ export const MatchCreate = (props: CreateProps) => {
     React.useState<GridRowSelectionModel>([]);
   const [selectedBestProduct, setSelectedBestProduct] =
     React.useState<any>(null);
-  let matchedProductsIds = rowSelectionModel.map((rowId) => rowId);
+  let matchedProductsIds = rowSelectionModel.map((rowId) => rowId as number);
   let relevance: number | null = null;
-  const [createMatchFn] = useMutation(createMatchGql);
+  // const [createMatchFn] = useMutation(createMatchGql);
+  const [updateMatchFn] = useMutation(updateMatchGql, {
+    onCompleted: () => {
+      redirect(`/meals/${id}/ingredients`);
+    }
+  });
   console.log("matchedProduct ids: ", matchedProductsIds);
 
   const handleSave = (
-    matchedProductsIds,
-    ingredientId,
-    selectedBestProduct
+    matchedProductsIds: number[],
+    ingredientId: number,
+    selectedBestProduct: number
   ) => {
     console.log("matchedProductsIds", matchedProductsIds);
     console.log("ingredientId", ingredientId);
     console.log("selectedBestProduct", selectedBestProduct);
-    createMatchFn({
-      variables: {
-        input: { ingredientId, productId: selectedBestProduct, relevance: 1 },
-      },
-    });
-    matchedProductsIds.map((productId) =>
-      createMatchFn({
-        variables: {
-          input: {
-            ingredientId,
-            productId,
-            relevance: 2,
-          },
-        },
-      })
-    );
-    redirect(`/meals/${id}/ingredients`);
+    let productIds = [];
+    if(selectedBestProduct) {
+      productIds.push(selectedBestProduct);
+    }
+    matchedProductsIds.forEach(productId => productId !== selectedBestProduct && productIds.push(productId));
+    console.log('product Ids', productIds);
+    updateMatchFn({variables:  {input: {ingId: ingredientId, productIds}}});
+
   };
 
   if (!data || !mealData) return <>loading...</>;
@@ -114,35 +110,38 @@ export const MatchCreate = (props: CreateProps) => {
     <Create
       {...props}
       resource="match"
-      redirect={`/meals/${data.mealId}/ingredients`}
+      // redirect={`/meals/${data.mealId}/ingredients`}
     >
       <Button
         label="Save"
         onClick={() =>
-          handleSave(matchedProductsIds, ingredientId, selectedBestProduct)
+          handleSave(matchedProductsIds, parseInt(ingredientId!), selectedBestProduct)
         }
       />
       {/* <SaveButton onClick={() => handleSave(matchedProductsIds, ingredientId, selectedBestProduct)} /> */}
       <IngredientName data={data} mealData={mealData} />
       <br />
-      <div>
-        <FormControl fullWidth>
-          <InputLabel>
+      <>
+        <FormControl sx={{minWidth: '300px'}}>
+          <InputLabel >
             Select the best product matched to the ingredient
           </InputLabel>
-          <Select
+          <Select 
             onChange={(e: SelectChangeEvent) =>
               setSelectedBestProduct(e.target.value as string)
             }
+          
           >
             {rowSelectionModel.map((rowId) =>
               products.ingredient.keywordProducts.nodes
-                .filter((obj) => obj.rowId === rowId)
-                .map((product: any) => {
+                .filter((obj: ProductResultType) => obj.rowId === rowId)
+                // need to change this any type to legitimate type
+                .map((product: {rowId: number, imageUrl: string, nameEn: string, upc: string}) => {
                   return (
                     <MenuItem key={product.rowId} value={product.rowId}>
-                      <img src={product.imageUrl} width="100" height="100" />
-                      <b>Product Name:</b> {product.nameEn}
+                      <img src={product.imageUrl} width="100" height="100" 
+                        style={{marginRight: "1em"}}/>
+                      <p>{product.nameEn}</p> &nbsp;
                       <b>UPC:</b> {product.upc}
                     </MenuItem>
                   );
@@ -150,12 +149,17 @@ export const MatchCreate = (props: CreateProps) => {
             )}
           </Select>
         </FormControl>
-      </div>
-      Best Product:{" "}
+      </>
+      <br />
+      <div style={{margin: "1em"}}>
+      <b>Best Product:{" "}
       {selectedBestProduct &&
         products.ingredient.keywordProducts.nodes.filter(
-          (obj) => obj.rowId === selectedBestProduct
-        )[0].nameEn}
+          (obj: ProductResultType) => obj.rowId === selectedBestProduct
+        )[0].nameEn
+      }
+      </b>
+      </div>
       <DataGrid
         getRowId={(r) => r.rowId}
         rows={products?.ingredient?.keywordProducts?.nodes}
