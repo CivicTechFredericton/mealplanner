@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import {
     Datagrid,
     List,
+    NumberField,
     ReferenceField,
     TextField,
     useRecordContext,
@@ -15,6 +16,7 @@ export const IngredientList = () => {
       {id && <CreateIngredientButton id={id} />}
       <List resource="ingredients" filter={{ mealId: id }}>
         <Datagrid>
+          <NumberField source="code" label="Ingredient code" />
           <TextField source="name" label="Ingredient name" />
           <TextField label="Quantity" source="quantity" />
           <TextField label="Unit" source="unit" />
@@ -28,6 +30,7 @@ export const IngredientList = () => {
           </ReferenceField>
           <TextField label="Substitute reason" source="substituteReason" />
           <EditIngredientButton />
+          <MatchIngredientButton />
         </Datagrid>
       </List>
     </>
@@ -53,3 +56,15 @@ const EditIngredientButton = () => {
     </Button>
   );
 };
+
+const MatchIngredientButton = () => {
+  const ingredient = useRecordContext();
+  return (
+    <Button
+      component={Link}
+      to={`/meals/${ingredient.mealId}/ingredients/${ingredient.id}/match/create`}
+    >
+      Match
+    </Button>
+  );
+}
