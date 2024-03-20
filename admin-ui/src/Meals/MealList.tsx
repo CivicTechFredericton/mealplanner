@@ -3,6 +3,7 @@ import {
   Datagrid,
   DateField,
   EditButton,
+  ImageField,
   List,
   ListProps,
   NumberField,
@@ -12,14 +13,31 @@ import {
   Tab,
   TabbedShowLayout,
   TextField,
-  UrlField,
-  useRecordContext,
+  useRecordContext
 } from "react-admin";
 import { Link } from "react-router-dom";
 import { ListField } from "../ListField";
 import { NutritionShow } from "../Nutrition/NutritionShow";
 import CustomSearchInput from "../components/CustomSearchInput";
 
+const VideoField = (props) => {
+  const record = useRecordContext(props);
+  if (record.videoUrl === null) return null;
+  return (
+    <div className="video-responsive">
+      <iframe
+        width="250px"
+        src={"https://youtube.com/embed/".concat(
+          record.videoUrl.slice(record.videoUrl.search("=") + 1)
+        )}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        title="Embedded youtube"
+      />
+    </div>
+  );
+};
 export const MealList = (props: ListProps) => {
   const [data, setData] = useState<string[]>([]);
   const handleSearchResult = (data: string[]) => {
@@ -43,10 +61,11 @@ export const MealList = (props: ListProps) => {
         <Datagrid expand={Details}>
           <TextField source="id" />
           <TextField source="nameEn" />
+          <NumberField source="code" />
           <TextField source="nameFr" />
           <ListField label="Tags" source="tags" />
-          <TextField source="descriptionEn" />
-          <TextField source="descriptionFr" />
+          <ImageField source="photoUrl" />
+          <VideoField source="videoUrl" />
           <ListField source="categories" />
           <EditButton />
         </Datagrid>
@@ -63,17 +82,6 @@ const Details = () => {
         <Tab label="Method">
           <RichTextField source="method" />
           <Link to={`${meal.id}/ingredients`}>Ingredients</Link>
-          {/* <ReferenceManyField label="Measures" reference="measures" target="mealId">
-            <Datagrid>
-              <TextField source="productId" label="Product ID" />
-              <ReferenceField label="Product Name" reference="products" source="productId">
-                <TextField source="nameEn" />
-              </ReferenceField>
-              <TextField label="Nom du Produit" source="nameFr" />
-              <TextField source="unit" />
-              <TextField source="quantity" />
-            </Datagrid>
-          </ReferenceManyField> */}
         </Tab>
         <Tab label="Summary">
           <NumberField source="prepTime" />
@@ -85,8 +93,9 @@ const Details = () => {
           <TextField source="servingsSizeUnit" />
           <NumberField source="portions" />
           <NumberField source="nutritionRating" />
-          <UrlField source="photoUrl" />
-          <UrlField source="videoUrl" />
+          <TextField source="descriptionEn" />
+          <TextField source="descriptionFr" />
+
           <DateField source="createdAt" showTime />
           <DateField source="updatedAt" showTime />
         </Tab>
