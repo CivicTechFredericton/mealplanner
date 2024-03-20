@@ -110,10 +110,10 @@ export const MealPlans = () => {
               }
             />
             <FormControlLabel
-              value="favorites"
+              value="template"
               control={<Radio />}
-              label="Favorites"
-              checked={searchType === 'favorites'}
+              label="Template"
+              checked={searchType === 'template'}
             />
             <FormControlLabel
               value="tags"
