@@ -24,6 +24,7 @@ export const IngredientEdit = (props: EditProps) => {
         {/* <ReferenceInput source="mealId" reference="meals" label="Referenced Meal">
                 <AutocompleteInput optionText={"nameEn"} fullWidth readOnly/>
             </ReferenceInput> */}
+        <NumberInput source="code" label="Ingredient Code" fullWidth min={1}/>
         <TextInput source="name" label="Ingredient Name" fullWidth />
         <NumberInput source="quantity" fullWidth min={0} />
         <TextInput

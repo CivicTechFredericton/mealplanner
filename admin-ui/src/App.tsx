@@ -13,12 +13,10 @@ import { useAuth } from "./Auth";
 import { IngredientCreate } from "./Ingredients/IngredientCreate";
 import { IngredientEdit } from "./Ingredients/IngredientEdit";
 import { IngredientList } from "./Ingredients/IngredientList";
+import { MatchCreate } from "./Match/MatchCreate";
 import { MealCreate } from "./Meals/MealCreate";
 import { MealEdit } from "./Meals/MealEdit";
 import { MealList } from "./Meals/MealList";
-import { MeasureCreate } from "./Measure/MeasureCreate";
-import { MeasureEdit } from "./Measure/MeasureEdit";
-import { MeasureList } from "./Measure/MeasureList";
 import { NutritionCreate } from "./Nutrition/NutritionCreate";
 import { NutritionEdit } from "./Nutrition/NutritionEdit";
 import { NutritionList } from "./Nutrition/NutritionList";
@@ -46,6 +44,7 @@ function App() {
         Nutrition: { excludeFields: ["id"] },
         Person: { excludeFields: ["id"] },
         Ingredient: { excludeFields: ["id"] },
+        Match: { excludeFields: ["id"] },
       },
     })
       .then((resolvedValue) => setDataProvider(resolvedValue))
@@ -64,7 +63,6 @@ function App() {
             layout={Layout}
             requireAuth
           >
-            
             <Resource
               name="meals"
               list={MealList}
@@ -80,19 +78,18 @@ function App() {
                 path=":id/ingredients/:ingredientId"
                 element={<IngredientEdit />}
               />
+
+              <Route
+                path=":id/ingredients/:ingredientId/match/create"
+                element={<MatchCreate />}
+              />
             </Resource>
-            
+
             <Resource
               name="products"
               list={ProductList}
               edit={ProductEdit}
               create={ProductCreate}
-            />
-            <Resource
-              name="measures"
-              list={MeasureList}
-              edit={MeasureEdit}
-              create={MeasureCreate}
             />
 
             <Resource
@@ -112,7 +109,6 @@ function App() {
               <Route path="people/register" element={<Register />} />
               <Route path="people/:rowId/reset" element={<ResetPassword />} />
             </CustomRoutes>
-            
           </Admin>
         ) : (
           "loading..."
