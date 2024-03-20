@@ -1,1 +1,1 @@
-ALTER TABLE app.meal_plan ADD COLUMN startDate TEXT
+ALTER TABLE app.meal_plan ADD COLUMN start_date DATE 
