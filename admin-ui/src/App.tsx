@@ -13,7 +13,7 @@ import { useAuth } from "./Auth";
 import { IngredientCreate } from "./Ingredients/IngredientCreate";
 import { IngredientEdit } from "./Ingredients/IngredientEdit";
 import { IngredientList } from "./Ingredients/IngredientList";
-import { MatchCreate } from "./Match/MatchCreate";
+import { Match } from "./Match/Match";
 import { MealCreate } from "./Meals/MealCreate";
 import { MealEdit } from "./Meals/MealEdit";
 import { MealList } from "./Meals/MealList";
@@ -81,7 +81,7 @@ function App() {
 
               <Route
                 path=":id/ingredients/:ingredientId/match/create"
-                element={<MatchCreate />}
+                element={<Match />}
               />
             </Resource>
 

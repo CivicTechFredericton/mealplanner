@@ -75,28 +75,24 @@ export const Match = (props: CreateProps) => {
     React.useState<any>(null);
   let matchedProductsIds = rowSelectionModel.map((rowId) => rowId as number);
   let relevance: number | null = null;
-  // const [createMatchFn] = useMutation(createMatchGql);
+  
   const [updateMatchFn] = useMutation(updateMatchGql, {
     onCompleted: () => {
       redirect(`/meals/${id}/ingredients`);
     }
   });
-  console.log("matchedProduct ids: ", matchedProductsIds);
 
   const handleSave = (
     matchedProductsIds: number[],
     ingredientId: number,
     selectedBestProduct: number
   ) => {
-    console.log("matchedProductsIds", matchedProductsIds);
-    console.log("ingredientId", ingredientId);
-    console.log("selectedBestProduct", selectedBestProduct);
+   
     let productIds = [];
     if(selectedBestProduct) {
       productIds.push(selectedBestProduct);
     }
     matchedProductsIds.forEach(productId => productId !== selectedBestProduct && productIds.push(productId));
-    console.log('product Ids', productIds);
     updateMatchFn({variables:  {input: {ingId: ingredientId, productIds}}});
 
   };
@@ -110,7 +106,7 @@ export const Match = (props: CreateProps) => {
     <Create
       {...props}
       resource="match"
-      // redirect={`/meals/${data.mealId}/ingredients`}
+      redirect={`/meals/${data.mealId}/ingredients`}
     >
       <Button
         label="Save"
