@@ -9,6 +9,26 @@ services:
       - pgdata:/var/lib/postgresql/data
     env_file:
       - .env
+  migrator:
+    image: migrate/migrate
+    restart: 'no'
+    volumes:
+      - ./backend/db_migrations:/migrations
+    entrypoint: ["migrate", "-path", "/migrations", "-database", "postgres://postgres:$POSTGRES_PASSWORD@db/mpshadow?sslmode=disable"]
+    env_file:
+      - .env
+    depends_on: ['db']
+    links: ['db']
+  create-migration:
+    image: migrate/migrate
+    restart: 'no'
+    volumes:
+      - ./backend/db_migrations:/migrations
+    entrypoint: ["migrate", "-path", "/migrations", "-database", "postgres://postgres:$POSTGRES_PASSWORD@db/mpshadow?sslmode=disable", "create", "-dir", "/migrations", "-ext", "sql", "-seq"]
+    env_file:
+      - .env
+    depends_on: ['db']
+    links: ['db']
   graphql:
     build:
       context: backend
