@@ -1,12 +1,5 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import {
-  Button,
-  Create,
-  CreateProps,
-  useGetOne
-} from "react-admin";
-import { Link, redirect, useParams } from "react-router-dom";
-import {
   FormControl,
   InputLabel,
   MenuItem,
@@ -15,6 +8,8 @@ import {
 } from "@mui/material";
 import { DataGrid, GridRowSelectionModel } from "@mui/x-data-grid";
 import React from "react";
+import { Button, CreateProps, useGetOne } from "react-admin";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ProductResultType } from "../Products/service";
 
 const getProducts = gql`
@@ -42,19 +37,36 @@ const getProducts = gql`
   }
 `;
 
-const updateMatchGql = gql`
-mutation updateMatchesMutation ($input: UpdateMatchesInput!) {
-	updateMatches(input: $input) {
-    matches {
-      rowId
-      ingredientId
-      productId
+const getMatchesGql = gql`
+  query matches($ingredientId: BigInt!) {
+    ingredient(rowId: $ingredientId) {
+      matches {
+        nodes {
+          relevance
+          product {
+            nameEn
+            upc
+          }
+        }
+      }
     }
   }
-}
+`;
+
+const updateMatchGql = gql`
+  mutation updateMatchesMutation($input: UpdateMatchesInput!) {
+    updateMatches(input: $input) {
+      matches {
+        rowId
+        ingredientId
+        productId
+      }
+    }
+  }
 `;
 
 export const Match = (props: CreateProps) => {
+  const navigate = useNavigate();
   const { ingredientId, id } = useParams();
 
   const {
@@ -75,11 +87,19 @@ export const Match = (props: CreateProps) => {
     React.useState<any>(null);
   let matchedProductsIds = rowSelectionModel.map((rowId) => rowId as number);
   let relevance: number | null = null;
-  
+
+  const {
+    loading: matchLoading,
+    error: matchError,
+    data: matchedData,
+  } = useQuery(getMatchesGql, {
+    variables: { ingredientId: ingredientId },
+  });
+
   const [updateMatchFn] = useMutation(updateMatchGql, {
     onCompleted: () => {
-      redirect(`/meals/${id}/ingredients`);
-    }
+      navigate(`/meals/${id}/ingredients`);
+    },
   });
 
   const handleSave = (
@@ -87,74 +107,121 @@ export const Match = (props: CreateProps) => {
     ingredientId: number,
     selectedBestProduct: number
   ) => {
-   
     let productIds = [];
-    if(selectedBestProduct) {
+    if (selectedBestProduct) {
       productIds.push(selectedBestProduct);
     }
-    matchedProductsIds.forEach(productId => productId !== selectedBestProduct && productIds.push(productId));
-    updateMatchFn({variables:  {input: {ingId: ingredientId, productIds}}});
-
+    matchedProductsIds.forEach(
+      (productId) =>
+        productId !== selectedBestProduct && productIds.push(productId)
+    );
+    updateMatchFn({
+      variables: { input: { ingId: ingredientId, productIds } },
+    });
   };
 
   if (!data || !mealData) return <>loading...</>;
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :{error.message}</p>;
+  if (loading || matchLoading) return <p>Loading...</p>;
+  if (error || matchError)
+    return (
+      <p>
+        Error :{error?.message} || {matchError?.message}{" "}
+      </p>
+    );
 
   return (
-    <Create
-      {...props}
-      resource="match"
-      redirect={`/meals/${data.mealId}/ingredients`}
-    >
-      <Button
-        label="Save"
-        onClick={() =>
-          handleSave(matchedProductsIds, parseInt(ingredientId!), selectedBestProduct)
-        }
-      />
-      {/* <SaveButton onClick={() => handleSave(matchedProductsIds, ingredientId, selectedBestProduct)} /> */}
+    <div style={{ margin: "1em" }}>
+      <h2> Match ingredient to relevant products using product keywords</h2>
+
       <IngredientName data={data} mealData={mealData} />
       <br />
       <>
-        <FormControl sx={{minWidth: '300px'}}>
-          <InputLabel >
+        {matchedData && (
+          <div>
+            <h3>Relevant matches of products:</h3>
+            {matchedData.ingredient.matches.nodes.map(
+              (match: { product: { nameEn: string }; relevance: number }) => (
+                <p>
+                  <b>{match.relevance}</b>&nbsp; &nbsp;{match.product.nameEn}{" "}
+                  {match.relevance == 1 && <b>[best]</b>}
+                </p>
+              )
+            )}
+          </div>
+        )}
+        <p style={{ width: "850px", marginTop: "2em" }}>
+          <i>
+            To make or change your selection, first select the list (using
+            checkbox) of relevant products from the below table. Then select the
+            best product from the selected list using the dropdown box.
+          </i>
+        </p>
+        <FormControl sx={{ minWidth: "850px" }}>
+          <InputLabel>
             Select the best product matched to the ingredient
           </InputLabel>
-          <Select 
+
+          <Select
             onChange={(e: SelectChangeEvent) =>
               setSelectedBestProduct(e.target.value as string)
             }
-          
           >
             {rowSelectionModel.map((rowId) =>
               products.ingredient.keywordProducts.nodes
                 .filter((obj: ProductResultType) => obj.rowId === rowId)
                 // need to change this any type to legitimate type
-                .map((product: {rowId: number, imageUrl: string, nameEn: string, upc: string}) => {
-                  return (
-                    <MenuItem key={product.rowId} value={product.rowId}>
-                      <img src={product.imageUrl} width="100" height="100" 
-                        style={{marginRight: "1em"}}/>
-                      <p>{product.nameEn}</p> &nbsp;
-                      <b>UPC:</b> {product.upc}
-                    </MenuItem>
-                  );
-                })
+                .map(
+                  (product: {
+                    rowId: number;
+                    imageUrl: string;
+                    nameEn: string;
+                    upc: string;
+                  }) => {
+                    return (
+                      <MenuItem key={product.rowId} value={product.rowId}>
+                        <img
+                          src={product.imageUrl}
+                          width="100"
+                          height="100"
+                          style={{ marginRight: "1em" }}
+                        />
+                        <p>{product.nameEn}</p> &nbsp;
+                        <b>UPC:</b> {product.upc}
+                      </MenuItem>
+                    );
+                  }
+                )
             )}
           </Select>
         </FormControl>
+        <Button
+          variant="contained"
+          style={{
+            marginTop: "0.5em",
+            marginLeft: "1em",
+            alignContent: "center",
+            width: "100px",
+            height: "50px",
+          }}
+          label="Save"
+          onClick={() =>
+            handleSave(
+              matchedProductsIds,
+              parseInt(ingredientId!),
+              selectedBestProduct
+            )
+          }
+        />
       </>
       <br />
-      <div style={{margin: "1em"}}>
-      <b>Best Product:{" "}
-      {selectedBestProduct &&
-        products.ingredient.keywordProducts.nodes.filter(
-          (obj: ProductResultType) => obj.rowId === selectedBestProduct
-        )[0].nameEn
-      }
-      </b>
+      <div style={{ margin: "1em" }}>
+        <b>Selected Best Product: </b>
+        {selectedBestProduct
+          ? products.ingredient.keywordProducts.nodes.filter(
+              (obj: ProductResultType) => obj.rowId === selectedBestProduct
+            )[0].nameEn
+          : "none"}
       </div>
       <DataGrid
         getRowId={(r) => r.rowId}
@@ -190,7 +257,7 @@ export const Match = (props: CreateProps) => {
         }}
         rowSelectionModel={rowSelectionModel}
       />
-    </Create>
+    </div>
   );
 };
 
@@ -198,9 +265,9 @@ const IngredientName = ({ data, mealData }: { data: any; mealData: any }) => {
   return (
     <>
       <br />
-      &nbsp;&nbsp;<b> Ingredient:</b> <i>{data.name}</i>
+      <b> Ingredient:</b> <i>{data.name}</i>
       <br />
-      &nbsp;&nbsp;<b> Meal:</b> <i>{mealData.nameEn}</i>
+      <b> Meal:</b> <i>{mealData.nameEn}</i>
     </>
   );
 };
