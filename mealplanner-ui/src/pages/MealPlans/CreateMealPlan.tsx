@@ -57,6 +57,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
     descriptionFr: "",
     tags: [],
     disableButton: true,
+    isTemplate: false
   }
 
   const [userId, setUserId] = useState<userType | null>(initState.userId);
@@ -67,6 +68,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
   const [tags, setTags] = useState<string[]>(initState.tags);
   const [disableButton, setDisableButton] = useState(initState.disableButton);
   const [currentPerson, setCurrentPerson] = useState(getCurrentPerson());
+  const [isTemplate, setIsTemplate] = useState<boolean>(initState.isTemplate);
 
   const isValid = nameEn !== "";
 
@@ -81,6 +83,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
     setDescriptionEn(initState.descriptionEn);
     setDescriptionFr(initState.descriptionFr);
     setTags(initState.tags);
+    setIsTemplate(initState.isTemplate);
     setDisableButton(initState.disableButton);
     setOpen(false);
   };
@@ -251,6 +254,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                     personId: userId || null,
                     tags: tags,
                     connections: [connection],
+                    isTemplate: planType === 'template' ? true : false
                   }).then(() => {
                     console.log('refetching tags');
                     refetch({}, {fetchPolicy: "network-only"});
