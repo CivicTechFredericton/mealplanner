@@ -112,13 +112,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
       </Button>
       <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
-      <Grid container 
-        spacing={2} 
-        columns={2} 
-        gap="2rem"
-        margin="1rem 2rem"
-        width="95%"
-        justifyContent="space-between">
+      <Grid container columns={2} >
       <FormControl component="fieldset">
           <RadioGroup row
             aria-label="planType"
@@ -162,31 +156,36 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                 </Grid>
                 )}
                 <Grid item xs={3}>
+                <Tooltip arrow placement="bottom-start" title={titleEn}>
                   <TextField
                     id="nameEn"
                     label="Meal Plan Name*"
                     autoFocus
                     margin="dense"
-                    variant="standard"
+                    variant="filled"
                     fullWidth
                     onChange={(e) => {
                       setNameEn(e.target.value);
                     }}
                   />
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={3}>
+                <Tooltip arrow placement="bottom-start" title={titleFr}>
                   <TextField
                     id="nameFr"
                     label="nom du plan de repas"
                     margin="dense"
-                    variant="standard"
+                    variant="filled"
                     fullWidth
                     onChange={(e) => {
                       setNameFr(e.target.value);
                     }}
                   />
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={3}>
+                <Tooltip arrow placement="bottom-start" title={titleDescEng}>
                   <TextField
                     id="descriptionEn"
                     label="Description"
@@ -197,8 +196,10 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                       setDescriptionEn(e.target.value);
                     }}
                   />
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={3}>
+                <Tooltip arrow placement="bottom-start" title={titleDescFr}>
                   <TextField
                     id="descriptionFr"
                     label="la description"
@@ -209,6 +210,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                       setDescriptionFr(e.target.value);
                     }}
                   />
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={6}>
                   <Autocomplete
