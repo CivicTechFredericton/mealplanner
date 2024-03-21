@@ -7,6 +7,7 @@ import {
   List,
   ListProps,
   NumberField,
+  RaRecord,
   ReferenceManyField,
   RichTextField,
   SingleFieldList,
@@ -20,7 +21,7 @@ import { ListField } from "../ListField";
 import { NutritionShow } from "../Nutrition/NutritionShow";
 import CustomSearchInput from "../components/CustomSearchInput";
 
-const VideoField = (props) => {
+const VideoField = (props: Omit<RaRecord, "id">) => {
   const record = useRecordContext(props);
   if (record.videoUrl === null) return null;
   return (
