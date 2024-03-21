@@ -80,7 +80,7 @@ function App() {
               />
 
               <Route
-                path=":id/ingredients/:ingredientId/match/create"
+                path=":id/ingredients/:ingredientId/match"
                 element={<Match />}
               />
             </Resource>

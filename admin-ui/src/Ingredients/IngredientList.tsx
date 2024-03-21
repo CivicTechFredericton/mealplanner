@@ -62,7 +62,7 @@ const MatchIngredientButton = () => {
   return (
     <Button
       component={Link}
-      to={`/meals/${ingredient.mealId}/ingredients/${ingredient.id}/match/create`}
+      to={`/meals/${ingredient.mealId}/ingredients/${ingredient.id}/match`}
     >
       Match
     </Button>
