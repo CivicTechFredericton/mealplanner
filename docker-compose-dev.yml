@@ -14,7 +14,7 @@ services:
     restart: 'no'
     volumes:
       - ./backend/db_migrations:/migrations
-    entrypoint: ["migrate", "-path", "/migrations", "-database", "postgres://postgres:$POSTGRES_PASSWORD@db/mpshadow?sslmode=disable"]
+    entrypoint: ["migrate", "-path", "/migrations", "-database", "postgres://postgres:$POSTGRES_PASSWORD@db/postgres?sslmode=disable"]
     env_file:
       - .env
     depends_on: ['db']
@@ -24,7 +24,7 @@ services:
     restart: 'no'
     volumes:
       - ./backend/db_migrations:/migrations
-    entrypoint: ["migrate", "-path", "/migrations", "-database", "postgres://postgres:$POSTGRES_PASSWORD@db/mpshadow?sslmode=disable", "create", "-dir", "/migrations", "-ext", "sql", "-seq"]
+    entrypoint: ["migrate", "-path", "/migrations", "-database", "postgres://postgres:$POSTGRES_PASSWORD@db/postgres?sslmode=disable", "create", "-dir", "/migrations", "-ext", "sql", "-seq"]
     env_file:
       - .env
     depends_on: ['db']

@@ -5,7 +5,7 @@ comment on type app.category_t is 'Possible values for Meal category. "Breakfast
 
 create table if not exists app.meal (
     id bigserial primary key,
-    code text not null,
+    code numeric,
     name_en TEXT not NULL,
     name_fr TEXT,
     tags text[],

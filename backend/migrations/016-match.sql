@@ -54,7 +54,7 @@ create or replace function app.update_matches(ing_id bigint, product_ids bigint[
         return query select * from app.match where ingredient_id = ing_id;
     end;
 $$ language plpgsql;
-comment on function app.update_matches(ingredient id, product id[]) is 'Given an ingredient id and product ids, updates the matches and returns the updated matches';
+comment on function app.update_matches(bigint, bigint[]) is 'Given an ingredient id and product ids, updates the matches and returns the updated matches';
 
 grant select on table app.match to app_anonymous, app_user, app_admin, app_meal_designer;
 grant insert, update, delete on table app.match to app_meal_designer, app_admin;
