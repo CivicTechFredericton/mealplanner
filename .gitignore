@@ -5,3 +5,4 @@ node_modules
 .envrc
 recipes-json
 identifyProductKeywords.ts
+deploy/images
