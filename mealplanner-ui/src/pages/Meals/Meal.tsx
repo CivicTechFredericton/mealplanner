@@ -28,33 +28,17 @@ const mealQuery = graphql`
       photoUrl
       videoUrl
       method
-      cookingDuration
       totalCost
       servingCost
       tips
       servingsSize
       servingsSizeUnit
-      serves
+      prepTime
+      cookTime
+      portions
       nutritionRating
-      measures {
-        nodes {
-          id
-          product {
-            nameEn
-          }
-          unit
-          quantity
-        }
-      }
       nutrition {
         id
-      }
-      products {
-        edges {
-          node {
-            id
-          }
-        }
       }
     }
   }
@@ -226,8 +210,8 @@ export const Meal = () => {
               {meal?.nutritionRating}
             </Typography>
             <Typography variant="caption">
-              Meal Code: {meal?.code} &nbsp; Cooking Duration:{" "}
-              {meal?.cookingDuration} mins &nbsp; Serves: {meal?.serves} &nbsp;
+              Meal Code: {meal?.code} &nbsp; Prep Time:{" "} {meal?.prepTime} mins &nbsp; 
+              Cook Time:{" "} {meal?.cookTime} mins &nbsp; Portions: {meal?.portions} &nbsp;
               Serving Size: {meal?.servingsSize} {meal?.servingsSizeUnit} &nbsp;
               Serving Cost: {meal?.servingCost}$
             </Typography>
@@ -247,14 +231,6 @@ export const Meal = () => {
           </Grid>
           <Grid item xs={3}>
             <Typography variant="h6"> Ingredients </Typography>
-            <Typography>
-              {meal?.measures.nodes.map((ingredient) => (
-                <div>
-                  {ingredient.product?.nameEn} - {ingredient.quantity}{" "}
-                  {ingredient.unit}{" "}
-                </div>
-              ))}
-            </Typography>
           </Grid>
           <Grid item xs={9}>
             <Typography variant="h6"> Method of preparation </Typography>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a110771a235e2ba05fff5bedb2047221>>
+ * @generated SignedSource<<78d29ec4a81454feb42e42c49bb764ec>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type MealQuery$variables = {
 export type MealQuery$data = {
   readonly meal: {
     readonly rowId: any;
-    readonly code: string;
+    readonly code: any | null;
     readonly nameEn: string;
     readonly nameFr: string | null;
     readonly tags: ReadonlyArray<string | null> | null;
@@ -26,34 +26,18 @@ export type MealQuery$data = {
     readonly photoUrl: string | null;
     readonly videoUrl: string | null;
     readonly method: string | null;
-    readonly cookingDuration: any | null;
     readonly totalCost: any | null;
     readonly servingCost: any | null;
     readonly tips: string | null;
     readonly servingsSize: any | null;
     readonly servingsSizeUnit: string | null;
-    readonly serves: any | null;
+    readonly prepTime: any | null;
+    readonly cookTime: any | null;
+    readonly portions: any | null;
     readonly nutritionRating: number | null;
-    readonly measures: {
-      readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly product: {
-          readonly nameEn: string;
-        } | null;
-        readonly unit: string;
-        readonly quantity: any;
-      }>;
-    };
     readonly nutrition: {
       readonly id: string;
     } | null;
-    readonly products: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly id: string;
-        };
-      }>;
-    };
   } | null;
 };
 export type MealQuery = {
@@ -157,121 +141,81 @@ v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "cookingDuration",
+  "name": "totalCost",
   "storageKey": null
 },
 v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "totalCost",
+  "name": "servingCost",
   "storageKey": null
 },
 v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "servingCost",
+  "name": "tips",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "tips",
+  "name": "servingsSize",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "servingsSize",
+  "name": "servingsSizeUnit",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "servingsSizeUnit",
+  "name": "prepTime",
   "storageKey": null
 },
 v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "serves",
+  "name": "cookTime",
   "storageKey": null
 },
 v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "nutritionRating",
+  "name": "portions",
   "storageKey": null
 },
 v21 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "nutritionRating",
   "storageKey": null
 },
 v22 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "unit",
+  "name": "id",
   "storageKey": null
 },
 v23 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "quantity",
-  "storageKey": null
-},
-v24 = [
-  (v21/*: any*/)
-],
-v25 = {
   "alias": null,
   "args": null,
   "concreteType": "Nutrition",
   "kind": "LinkedField",
   "name": "nutrition",
   "plural": false,
-  "selections": (v24/*: any*/),
-  "storageKey": null
-},
-v26 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ProductsConnection",
-  "kind": "LinkedField",
-  "name": "products",
-  "plural": false,
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ProductsEdge",
-      "kind": "LinkedField",
-      "name": "edges",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Product",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
-          "selections": (v24/*: any*/),
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
+    (v22/*: any*/)
   ],
   "storageKey": null
 };
@@ -309,45 +253,8 @@ return {
           (v18/*: any*/),
           (v19/*: any*/),
           (v20/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "MeasuresConnection",
-            "kind": "LinkedField",
-            "name": "measures",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Measure",
-                "kind": "LinkedField",
-                "name": "nodes",
-                "plural": true,
-                "selections": [
-                  (v21/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "Product",
-                    "kind": "LinkedField",
-                    "name": "product",
-                    "plural": false,
-                    "selections": [
-                      (v4/*: any*/)
-                    ],
-                    "storageKey": null
-                  },
-                  (v22/*: any*/),
-                  (v23/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v25/*: any*/),
-          (v26/*: any*/)
+          (v21/*: any*/),
+          (v23/*: any*/)
         ],
         "storageKey": null
       }
@@ -388,63 +295,25 @@ return {
           (v18/*: any*/),
           (v19/*: any*/),
           (v20/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "MeasuresConnection",
-            "kind": "LinkedField",
-            "name": "measures",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Measure",
-                "kind": "LinkedField",
-                "name": "nodes",
-                "plural": true,
-                "selections": [
-                  (v21/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "Product",
-                    "kind": "LinkedField",
-                    "name": "product",
-                    "plural": false,
-                    "selections": [
-                      (v4/*: any*/),
-                      (v21/*: any*/)
-                    ],
-                    "storageKey": null
-                  },
-                  (v22/*: any*/),
-                  (v23/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v25/*: any*/),
-          (v26/*: any*/),
-          (v21/*: any*/)
+          (v21/*: any*/),
+          (v23/*: any*/),
+          (v22/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "7d2b9fef4db2b12e4a694c1119b01eb1",
+    "cacheID": "3d9fc0e35ce6a7a7e60d38e8d39a8310",
     "id": null,
     "metadata": {},
     "name": "MealQuery",
     "operationKind": "query",
-    "text": "query MealQuery(\n  $mealId: BigInt!\n) {\n  meal(rowId: $mealId) {\n    rowId\n    code\n    nameEn\n    nameFr\n    tags\n    descriptionEn\n    descriptionFr\n    categories\n    photoUrl\n    videoUrl\n    method\n    cookingDuration\n    totalCost\n    servingCost\n    tips\n    servingsSize\n    servingsSizeUnit\n    serves\n    nutritionRating\n    measures {\n      nodes {\n        id\n        product {\n          nameEn\n          id\n        }\n        unit\n        quantity\n      }\n    }\n    nutrition {\n      id\n    }\n    products {\n      edges {\n        node {\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query MealQuery(\n  $mealId: BigInt!\n) {\n  meal(rowId: $mealId) {\n    rowId\n    code\n    nameEn\n    nameFr\n    tags\n    descriptionEn\n    descriptionFr\n    categories\n    photoUrl\n    videoUrl\n    method\n    totalCost\n    servingCost\n    tips\n    servingsSize\n    servingsSizeUnit\n    prepTime\n    cookTime\n    portions\n    nutritionRating\n    nutrition {\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2eb11b0b1b5d5a6601296931e78df327";
+(node as any).hash = "c7f547edb0feb149d3e0f574c4c37db6";
 
 export default node;
