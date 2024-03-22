@@ -20,7 +20,7 @@ create table if not exists app.product (
 create index if not exists 
     idx_product_product_keywords on app.product using gin(product_keywords);
 
-comment on table app.product is 'Product details for off-the-shelf ingredients. In a Meal this combines with the measure to describe the ingredient and portion. The Product list from Meals in a Meal Plan will be input to a Shopping List.';
+comment on table app.product is 'Product details for off-the-shelf ingredients. In a Meal this combines with the ingredient to describe the ingredient and portion.';
 comment on column app.product.name_en is 'Product name in English';
 comment on column app.product.name_fr is 'Product name in French';
 comment on column app.product.price is 'Dollar value in CAD';
