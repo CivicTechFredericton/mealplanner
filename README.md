@@ -65,6 +65,47 @@ export COMPOSE_FILE=docker-compose-dev.yml
 docker-compose up --build
 ```
 
+### Migrations
+
+To run the migrations you need to run it under the dev mode (`docker-compose-dev.yml`). 
+
+```
+export COMPOSE_FILE=docker-compose-dev.yml
+docker-compose run migrator up
+```
+
+To make changes to the database, you need to run the create migration script.
+
+```
+export COMPOSE_FILE=docker-compose-dev.yml
+docker-compose run create-migration migration_name
+```
+
+This will create the the two migration files under the `db_migrations` folder.
+
+```
+backend/db_migrations/<sequence>_<migration_name>.up.sql
+backend/db_migrations/<sequence>_<migration_name>.down.sql
+```
+
+The `up` migration will have the code to effect the change you want
+to make and the `down` migration should have the change that you want
+to roll back. We will NEVER run down migrations in production. Down
+migrations exist only to make developer environments and testing easier.
+
+We will be using [Expand - Contract pattern](https://www.prisma.io/dataguide/types/relational/expand-and-contract-pattern)
+while designing our migrations. While this might result in multiple
+migrations for a single change, it prioritizes operations over efficency.
+
+> The expand and contract pattern is a process that database 
+> administrators and software developers can use to transition 
+> data from an old data structure to a new data structure without 
+> affecting uptime. It works by applying changes through a series 
+> of discrete steps designed to introduce the new structure in 
+> the background, prepare the data for live usage, and then switch 
+> over to the new structure seamlessly.
+
+
 ### populating sample data
 On the initial build and startup, the database will be completely empty. There won't even be an account created for logging in. To populate the databse with a handful of users and some recipe material run the appropriate version of the following docker-compose commands to seed the database.
 
