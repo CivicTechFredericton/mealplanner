@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3849a6d3c82c32401fbea5af0aa1917b>>
+ * @generated SignedSource<<984c30565cc126180a9d2c0a60532215>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,6 +21,7 @@ export type MealPlansQuery$data = {
         readonly rowId: any;
         readonly nameEn: string;
         readonly descriptionEn: string | null;
+        readonly isTemplate: boolean | null;
         readonly person: {
           readonly fullName: string;
         } | null;
@@ -93,17 +94,24 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "fullName",
+  "name": "isTemplate",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "tags",
+  "name": "fullName",
   "storageKey": null
 },
 v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "tags",
+  "storageKey": null
+},
+v9 = {
   "alias": null,
   "args": null,
   "concreteType": "Meal",
@@ -122,14 +130,14 @@ v8 = {
   ],
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "concreteType": "PageInfo",
@@ -154,7 +162,7 @@ v10 = {
   ],
   "storageKey": null
 },
-v11 = {
+v12 = {
   "kind": "ClientExtension",
   "selections": [
     {
@@ -166,7 +174,7 @@ v11 = {
     }
   ]
 },
-v12 = {
+v13 = {
   "kind": "ClientExtension",
   "selections": [
     {
@@ -189,7 +197,7 @@ v12 = {
     }
   ]
 },
-v13 = [
+v14 = [
   {
     "kind": "Literal",
     "name": "first",
@@ -235,6 +243,7 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -243,11 +252,11 @@ return {
                     "name": "person",
                     "plural": false,
                     "selections": [
-                      (v6/*: any*/)
+                      (v7/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v7/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -264,22 +273,22 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v8/*: any*/)
+                          (v9/*: any*/)
                         ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
                   },
-                  (v9/*: any*/)
+                  (v10/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v10/*: any*/),
-          (v11/*: any*/)
+          (v11/*: any*/),
+          (v12/*: any*/)
         ],
         "storageKey": "__connection_mealPlans_connection(orderBy:[\"CREATED_AT_DESC\"])"
       },
@@ -288,7 +297,7 @@ return {
         "kind": "FragmentSpread",
         "name": "MealPlansTags_tags"
       },
-      (v12/*: any*/)
+      (v13/*: any*/)
     ],
     "type": "Query",
     "abstractKey": null
@@ -301,7 +310,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v13/*: any*/),
+        "args": (v14/*: any*/),
         "concreteType": "MealPlansConnection",
         "kind": "LinkedField",
         "name": "mealPlans",
@@ -328,6 +337,7 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -336,12 +346,12 @@ return {
                     "name": "person",
                     "plural": false,
                     "selections": [
-                      (v6/*: any*/),
+                      (v7/*: any*/),
                       (v2/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v7/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -358,7 +368,7 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v8/*: any*/),
+                          (v9/*: any*/),
                           (v2/*: any*/)
                         ],
                         "storageKey": null
@@ -366,21 +376,21 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v9/*: any*/)
+                  (v10/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v10/*: any*/),
-          (v11/*: any*/)
+          (v11/*: any*/),
+          (v12/*: any*/)
         ],
         "storageKey": "mealPlans(first:1000,orderBy:[\"CREATED_AT_DESC\"])"
       },
       {
         "alias": null,
-        "args": (v13/*: any*/),
+        "args": (v14/*: any*/),
         "filters": [
           "orderBy"
         ],
@@ -424,11 +434,11 @@ return {
         ],
         "storageKey": "allMealPlanTags(first:100)"
       },
-      (v12/*: any*/)
+      (v13/*: any*/)
     ]
   },
   "params": {
-    "cacheID": "5a880ca0cdd8fd42e200cf9e45a3554b",
+    "cacheID": "4e3e01d91e65e556379dcec273f10159",
     "id": null,
     "metadata": {
       "connection": [
@@ -444,11 +454,11 @@ return {
     },
     "name": "MealPlansQuery",
     "operationKind": "query",
-    "text": "query MealPlansQuery {\n  mealPlans(orderBy: [CREATED_AT_DESC], first: 1000) {\n    edges {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        descriptionEn\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  ...MealPlansTags_tags\n}\n\nfragment MealPlansTags_tags on Query {\n  allMealPlanTags(first: 100) {\n    edges {\n      node\n    }\n  }\n}\n"
+    "text": "query MealPlansQuery {\n  mealPlans(orderBy: [CREATED_AT_DESC], first: 1000) {\n    edges {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        descriptionEn\n        isTemplate\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  ...MealPlansTags_tags\n}\n\nfragment MealPlansTags_tags on Query {\n  allMealPlanTags(first: 100) {\n    edges {\n      node\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "6db72941db50511d305c9cb41483d7bb";
+(node as any).hash = "463d2cac84ba2599ca68d7f03aa5d63e";
 
 export default node;
