@@ -24,6 +24,7 @@ const fragment = graphql`
     nameFr
     descriptionEn
     tags
+    isTemplate
     person {
       fullName
       rowId
@@ -164,7 +165,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               fontStyle="normal"
               onClick={(e) => setIsEditUser(true)}
             > 
-            {data.person?.fullName ? data.person.fullName : "No User Assigned"}
+            {data.isTemplate ? "template" : (data.person?.fullName ? data.person.fullName : "No User Assigned")}
               
             </Typography> 
           )}
