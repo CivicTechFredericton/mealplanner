@@ -49,7 +49,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
     const [openDialog, setOpenDialog] = React.useState(false);
     const navigate = useNavigate();
     const mealplan = props.mealplan;
-    const startDate: Date | string | null = mealplan.startdate ? new Date(mealplan.startdate) : null;
+    const startDate: Date | string | null = mealplan.startDate ? new Date(mealplan.startDate) : null;
     const connection = props.connection;
     const theme = useTheme();
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('md'));
@@ -170,7 +170,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
           />
           {!!startDate && (
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Chip label={"Starting Date: " + startDate.toDateString()} />
+              <Chip label={"Starting: " + startDate.toDateString()} />
             </div>
           )}
           <ImageList sx={{ width: 350, height: 150 }} cols={3} rowHeight={164}>
