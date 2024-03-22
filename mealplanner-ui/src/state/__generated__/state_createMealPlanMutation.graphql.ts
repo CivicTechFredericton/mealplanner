@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<97d22d9de81e840f35e45f8ddb56d1b0>>
+ * @generated SignedSource<<65764ce27d07b53d00e9bd311c20d8d0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type state_createMealPlanMutation$variables = {
   descFr?: string | null;
   personId?: any | null;
   tags?: ReadonlyArray<string | null> | null;
-  startdate?: string | null;
+  startDate?: any | null;
   connections: ReadonlyArray<string>;
   isTemplate?: boolean | null;
 };
@@ -88,7 +88,7 @@ v5 = {
 v6 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "startdate"
+  "name": "startDate"
 },
 v7 = {
   "defaultValue": null,
@@ -132,8 +132,8 @@ v8 = [
           },
           {
             "kind": "Variable",
-            "name": "startdate",
-            "variableName": "startdate"
+            "name": "startDate",
+            "variableName": "startDate"
           },
           {
             "kind": "Variable",
@@ -450,16 +450,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1bc1f6cae71c4b84aa69a4e261221c96",
+    "cacheID": "599a1a7551c8a9202eb7717f9e82fd36",
     "id": null,
     "metadata": {},
     "name": "state_createMealPlanMutation",
     "operationKind": "mutation",
-    "text": "mutation state_createMealPlanMutation(\n  $nameEn: String!\n  $nameFr: String\n  $descEn: String\n  $descFr: String\n  $personId: BigInt\n  $tags: [String]\n  $startdate: String\n) {\n  createMealPlan(input: {mealPlan: {nameEn: $nameEn, nameFr: $nameFr, descriptionEn: $descEn, descriptionFr: $descFr, personId: $personId, tags: $tags, startdate: $startdate}}) {\n    mealPlanEdge {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n        startdate\n      }\n    }\n  }\n}\n"
+    "text": "mutation state_createMealPlanMutation(\n  $nameEn: String!\n  $nameFr: String\n  $descEn: String\n  $descFr: String\n  $personId: BigInt\n  $tags: [String]\n  $startDate: Date\n) {\n  createMealPlan(input: {mealPlan: {nameEn: $nameEn, nameFr: $nameFr, descriptionEn: $descEn, descriptionFr: $descFr, personId: $personId, tags: $tags, startDate: $startDate}}) {\n    mealPlanEdge {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n        startdate\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "1bf7a882304700e4b3f5029f4f93ed1e";
+(node as any).hash = "67cdc9592d88870e67aa69a525f8ad5b";
 
 export default node;

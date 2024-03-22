@@ -354,7 +354,7 @@ const createMealPlanGQL = graphql`
     $descFr: String
     $personId: BigInt
     $tags: [String]
-    $startdate: String
+    $startDate: Date 
     $connections: [ID!]!
     $isTemplate: Boolean
   ) {
@@ -367,7 +367,7 @@ const createMealPlanGQL = graphql`
           descriptionFr: $descFr
           personId: $personId
           tags: $tags
-          startdate: $startdate
+          startDate: $startDate
           isTemplate: $isTemplate
         }
       }
