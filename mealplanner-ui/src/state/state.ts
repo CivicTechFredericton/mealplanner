@@ -394,7 +394,7 @@ const createMealPlanGQL = graphql`
               }
             }
           }
-          startdate
+          startDate
         }
       }
     }

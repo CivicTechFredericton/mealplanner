@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<65764ce27d07b53d00e9bd311c20d8d0>>
+ * @generated SignedSource<<c4d568a5156178462b305cb1baaffb5a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -44,7 +44,7 @@ export type state_createMealPlanMutation$data = {
             } | null;
           }>;
         };
-        readonly startdate: string | null;
+        readonly startDate: any | null;
       };
     } | null;
   } | null;
@@ -235,7 +235,7 @@ v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "startdate",
+  "name": "startDate",
   "storageKey": null
 };
 return {
@@ -450,16 +450,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "599a1a7551c8a9202eb7717f9e82fd36",
+    "cacheID": "d133e8d4c1eba7af293d79b7f722f051",
     "id": null,
     "metadata": {},
     "name": "state_createMealPlanMutation",
     "operationKind": "mutation",
-    "text": "mutation state_createMealPlanMutation(\n  $nameEn: String!\n  $nameFr: String\n  $descEn: String\n  $descFr: String\n  $personId: BigInt\n  $tags: [String]\n  $startDate: Date\n) {\n  createMealPlan(input: {mealPlan: {nameEn: $nameEn, nameFr: $nameFr, descriptionEn: $descEn, descriptionFr: $descFr, personId: $personId, tags: $tags, startDate: $startDate}}) {\n    mealPlanEdge {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n        startdate\n      }\n    }\n  }\n}\n"
+    "text": "mutation state_createMealPlanMutation(\n  $nameEn: String!\n  $nameFr: String\n  $descEn: String\n  $descFr: String\n  $personId: BigInt\n  $tags: [String]\n  $startDate: Date\n) {\n  createMealPlan(input: {mealPlan: {nameEn: $nameEn, nameFr: $nameFr, descriptionEn: $descEn, descriptionFr: $descFr, personId: $personId, tags: $tags, startDate: $startDate}}) {\n    mealPlanEdge {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n        startDate\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "67cdc9592d88870e67aa69a525f8ad5b";
+(node as any).hash = "91b625906b68925ce139e0ec7810ae53";
 
 export default node;
