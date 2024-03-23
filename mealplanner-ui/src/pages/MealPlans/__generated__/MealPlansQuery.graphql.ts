@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b76777781e604a04c0b762a6045d5772>>
+ * @generated SignedSource<<f9ff3502999ca00606e967e3cb04cfea>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,7 +26,7 @@ export type MealPlansQuery$data = {
           readonly fullName: string;
         } | null;
         readonly tags: ReadonlyArray<string | null> | null;
-        readonly startdate: string | null;
+        readonly startDate: any | null;
         readonly mealPlanEntries: {
           readonly nodes: ReadonlyArray<{
             readonly meal: {
@@ -109,7 +109,7 @@ v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "startdate",
+  "name": "startDate",
   "storageKey": null
 },
 v9 = {
@@ -458,7 +458,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2cc3de9c305501fc9bf0d117235fd947",
+    "cacheID": "c08626eb36a09b989e3c1d43b2d55d75",
     "id": null,
     "metadata": {
       "connection": [
@@ -474,11 +474,11 @@ return {
     },
     "name": "MealPlansQuery",
     "operationKind": "query",
-    "text": "query MealPlansQuery {\n  mealPlans(orderBy: [CREATED_AT_DESC], first: 1000) {\n    edges {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        descriptionEn\n        person {\n          fullName\n          id\n        }\n        tags\n        startdate\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  ...MealPlansTags_tags\n}\n\nfragment MealPlansTags_tags on Query {\n  allMealPlanTags(first: 100) {\n    edges {\n      node\n    }\n  }\n}\n"
+    "text": "query MealPlansQuery {\n  mealPlans(orderBy: [CREATED_AT_DESC], first: 1000) {\n    edges {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        descriptionEn\n        person {\n          fullName\n          id\n        }\n        tags\n        startDate\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  ...MealPlansTags_tags\n}\n\nfragment MealPlansTags_tags on Query {\n  allMealPlanTags(first: 100) {\n    edges {\n      node\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0d36000e8b5e44a726a5868dcd8fa3c5";
+(node as any).hash = "3c6e7c11e43e666b4387767b64c8ca78";
 
 export default node;
