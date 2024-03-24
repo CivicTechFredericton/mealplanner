@@ -304,6 +304,7 @@ const updateMealPlan = graphql`
     $descriptionEn: String
     $personId: BigInt
     $tags: [String]
+    $startDate: Date
   ) {
     updateMealPlan(
       input: {
@@ -312,6 +313,7 @@ const updateMealPlan = graphql`
           descriptionEn: $descriptionEn
           personId: $personId
           tags: $tags
+          startDate: $startDate
         }
         rowId: $mealPlanId
       }
@@ -323,6 +325,7 @@ const updateMealPlan = graphql`
         descriptionEn
         personId
         tags
+        startDate
         ...MealPlanHeader_mealPlan
       }
     }
