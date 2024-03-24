@@ -7,12 +7,11 @@ import {
   ListProps,
   NumberField,
   ShowButton,
-  TextField
+  TextField,
 } from "react-admin";
 import { ListField } from "../ListField";
 import CustomSearchInput from "../components/CustomSearchInput";
 import { Details, VideoField } from "./MealDetails";
-
 
 export const MealList = (props: ListProps) => {
   const [data, setData] = useState<string[]>([]);
@@ -50,4 +49,3 @@ export const MealList = (props: ListProps) => {
     </>
   );
 };
-

@@ -17,6 +17,7 @@ import { Match } from "./Match/Match";
 import { MealCreate } from "./Meals/MealCreate";
 import { MealEdit } from "./Meals/MealEdit";
 import { MealList } from "./Meals/MealList";
+import { MealShow } from "./Meals/MealShow";
 import { NutritionCreate } from "./Nutrition/NutritionCreate";
 import { NutritionEdit } from "./Nutrition/NutritionEdit";
 import { NutritionList } from "./Nutrition/NutritionList";
@@ -27,7 +28,6 @@ import { ResetPassword } from "./People/ResetPassword";
 import { ProductCreate } from "./Products/ProductCreate";
 import { ProductEdit } from "./Products/ProductEdit";
 import { ProductList } from "./Products/ProductList";
-import { MealShow } from "./Meals/MealShow";
 
 function App() {
   const auth = useAuth();

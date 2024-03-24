@@ -11,13 +11,13 @@ export const MealForm = () => {
     <SimpleForm>
       <TextInput source="nameEn" fullWidth />
       <TextInput source="nameFr" fullWidth />
-      <NumberInput source="code" fullWidth min={1}/>
+      <NumberInput source="code" fullWidth min={1} />
       <TextInput
         defaultValue={null}
         fullWidth
         parse={(values) => {
-          if(values == '') return null;
-          return values.split(",").map((s: string) => s.trimStart())
+          if (values == "") return null;
+          return values.split(",").map((s: string) => s.trimStart());
         }}
         source="tags"
       />
