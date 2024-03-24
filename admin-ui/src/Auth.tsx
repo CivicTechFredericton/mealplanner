@@ -35,7 +35,7 @@ interface AuthInfo {
 //First Define the type context (type interface) to be used for return value
 const AuthContext = React.createContext<AuthInfo>({
   currentPerson: null,
-  raAuthProvider: null
+  raAuthProvider: null,
 });
 //Next Define the type of the props using interface
 interface AuthProviderProps {
@@ -57,7 +57,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     (async () => {
       const currentUser = await getCurrentPerson(client);
-      if (currentUser !== null) { 
+      if (currentUser !== null) {
         setCurrentPerson(currentUser);
       }
     })();
@@ -68,7 +68,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     <AuthContext.Provider
       value={{
         currentPerson: currentPerson,
-        raAuthProvider: authObject
+        raAuthProvider: authObject,
       }}
     >
       {children}
@@ -87,7 +87,7 @@ const getCurrentPerson = async (
 ): Promise<CurrentPerson | null> => {
   const result = await client.query({
     query: currentPersonQuery,
-    fetchPolicy: "network-only"
+    fetchPolicy: "network-only",
   });
   console.log("current person", result.data);
   if (result.data["currentPerson"]) {
@@ -100,66 +100,76 @@ const getCurrentPerson = async (
 //First write a mutation
 
 const loginMutation = gql`
-mutation LoginMutation($userEmail: String, $password: String) {
-    authenticate(input: {userEmail: $userEmail, password: $password}) {
-        jwtToken {
-            role
-            personId
-        }
+  mutation LoginMutation($userEmail: String, $password: String) {
+    authenticate(input: { userEmail: $userEmail, password: $password }) {
+      jwtToken {
+        role
+        personId
+      }
     }
-}`
+  }
+`;
 
-const loginFn = async (client: ApolloClient<object>, userEmail: string, password: string):Promise<CurrentPerson | null> => {
-    let result = await client.mutate({
-        mutation: loginMutation,
-        variables: {userEmail, password}
-    });
-    if (result.data["authenticate"] !== null) {
-        return getCurrentPerson(client);
-    }
-    return null;
-}
+const loginFn = async (
+  client: ApolloClient<object>,
+  userEmail: string,
+  password: string
+): Promise<CurrentPerson | null> => {
+  let result = await client.mutate({
+    mutation: loginMutation,
+    variables: { userEmail, password },
+  });
+  if (result.data["authenticate"] !== null) {
+    return getCurrentPerson(client);
+  }
+  return null;
+};
 
 const logoutMutation = gql`
-mutation LogoutMutation {
-  logout {status
+  mutation LogoutMutation {
+    logout {
+      status
+    }
   }
+`;
 
-}`;
-
-const logoutFn = async(client: ApolloClient<object>) => {
-  let result = await client.mutate({mutation: logoutMutation});
-  if(result.data["logout"] !== null){
+const logoutFn = async (client: ApolloClient<object>) => {
+  let result = await client.mutate({ mutation: logoutMutation });
+  if (result.data["logout"] !== null) {
     return result.data["logout"];
   }
-}
+};
 
 class RAAuthProvider {
   _client: ApolloClient<object>;
-  constructor(client: ApolloClient<object>){
+  constructor(client: ApolloClient<object>) {
     this._client = client;
   }
-  login({username, password}:{username: string, password: string}) {
-    return loginFn(this._client, username, password)
+  login({ username, password }: { username: string; password: string }) {
+    return loginFn(this._client, username, password);
   }
-  async logout(){
+  async logout() {
     await logoutFn(this._client);
     return Promise.resolve();
   }
   async getIdentity() {
     let cp = await getCurrentPerson(this._client);
-    if(cp !== null) {
-      return {id: cp.rowId, fullName: cp.fullName, role: cp.role};
+    if (cp !== null) {
+      return { id: cp.rowId, fullName: cp.fullName, role: cp.role };
     }
-    throw "invalid user"
+    throw "invalid user";
   }
   async checkAuth() {
     let identity = await this.getIdentity();
-    if (identity && identity.role === "app_admin") return Promise.resolve();
+    if (
+      identity &&
+      (identity.role === "app_admin" || identity.role === "app_meal_designer")
+    )
+      return Promise.resolve();
     return Promise.reject("User does not exist or does not have permissions");
   }
-  checkError(e:Error) {
-    console.log('check Error', e);
+  checkError(e: Error) {
+    console.log("check Error", e);
     return Promise.resolve();
   }
   getPermissions() {
