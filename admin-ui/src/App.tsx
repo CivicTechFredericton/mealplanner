@@ -17,6 +17,7 @@ import { Match } from "./Match/Match";
 import { MealCreate } from "./Meals/MealCreate";
 import { MealEdit } from "./Meals/MealEdit";
 import { MealList } from "./Meals/MealList";
+import { MealShow } from "./Meals/MealShow";
 import { NutritionCreate } from "./Nutrition/NutritionCreate";
 import { NutritionEdit } from "./Nutrition/NutritionEdit";
 import { NutritionList } from "./Nutrition/NutritionList";
@@ -68,6 +69,7 @@ function App() {
               list={MealList}
               edit={MealEdit}
               create={MealCreate}
+              show={MealShow}
             >
               <Route path=":id/ingredients" element={<IngredientList />} />
               <Route
