@@ -155,7 +155,7 @@ class RAAuthProvider {
   }
   async checkAuth() {
     let identity = await this.getIdentity();
-    if (identity && identity.role === "app_admin") return Promise.resolve();
+    if (identity && (identity.role === "app_admin" || identity.role === "app_meal_designer")) return Promise.resolve();
     return Promise.reject("User does not exist or does not have permissions");
   }
   checkError(e:Error) {

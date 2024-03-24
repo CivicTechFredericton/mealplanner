@@ -98,7 +98,9 @@ function App() {
               edit={NutritionEdit}
               create={NutritionCreate}
             />
-            <Resource
+            { auth.currentPerson?.role === "app_admin" &&
+            (
+            <><Resource
               name="people"
               options={{ label: "Users" }}
               list={PersonList}
@@ -109,6 +111,8 @@ function App() {
               <Route path="people/register" element={<Register />} />
               <Route path="people/:rowId/reset" element={<ResetPassword />} />
             </CustomRoutes>
+            </>)
+          }
           </Admin>
         ) : (
           "loading..."
