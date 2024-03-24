@@ -25,7 +25,7 @@ const fragment = graphql`
     descriptionEn
     tags
     isTemplate
-    startdate
+    startDate
     person {
       fullName
       rowId
@@ -61,6 +61,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
   const [editHeader, setEditHeader] = useState(false);
   const [isEditName, setIsEditName] = useState(false);
   const [isEditUser, setIsEditUser] = useState(false);
+  const [isEditDate, setIsEditDate] = useState(false);
   const navigate = useNavigate();
 
     useEffect(() => {
@@ -122,8 +123,13 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               color="primary.contrastText"
               variant={"h5"}
               defaultValue={data.nameEn}
-              onClick={(e) => {
+              // onClick={(e) => {
+              //   setIsEditName(true);
+              // }}
+                onMouseEnter={(e) => {
                 setIsEditName(true);
+                setIsEditUser(false);
+                setIsEditDate(false);
               }}
             >
               {data.nameEn}
@@ -168,13 +174,57 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             <Typography
               padding="0.75rem 0"
               color="primary.contrastText"
+              variant={"h5"}
               textTransform={"capitalize"}
               fontStyle="normal"
-              onClick={(e) => setIsEditUser(true)}
+              // onClick={(e) => setIsEditUser(true)}
+                onMouseEnter={(e) => {
+                setIsEditName(false);
+                setIsEditUser(true);
+                setIsEditDate(false);
+              }}
             > 
             {data.isTemplate ? "template" : (data.person?.fullName ? data.person.fullName : "No User Assigned")}
               
             </Typography> 
+          )}
+          {isEditDate ? (
+            <TextField
+              id="filled-basic"
+              label="Edit Meal Plan Date YYYY-MM-DD"
+              variant="filled"
+              color="info"
+              style={{ backgroundColor: theme.palette.primary.light }}
+              defaultValue={data.startDate}
+              onBlur={(e) => {
+                e.target.value
+                  ? updateMealPlanName(data.rowId, {
+                      mealPlanId: data.rowId,
+                      descriptionEn: data.descriptionEn,
+                      personId: data.person?.rowId,
+                      tags: data.tags,
+                      startDate: e.target.value,
+                      mealPlanName: data.nameEn,
+                    })
+                  : (e.target.value = data.startDate);
+                setIsEditDate(false);
+              }}
+            />
+          ) : (
+            <Typography
+              padding="0.5rem 0"
+              marginLeft="1rem"
+              color="primary.contrastText"
+              variant={"h5"}
+              defaultValue={data.startDate}
+              onMouseEnter={(e) => {
+                setIsEditName(false);
+                setIsEditUser(false);
+                setIsEditDate(true);
+              }}
+            >
+              {data.startDate === null? "Enter Date" : data.startDate}
+            </Typography>
           )}
         </Box>
 
