@@ -49,7 +49,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
     const [openDialog, setOpenDialog] = React.useState(false);
     const navigate = useNavigate();
     const mealplan = props.mealplan;
-    const startDate: Date | string | null = mealplan.startDate ? new Date(mealplan.startDate) : null;
+    const startDate: Date | null = mealplan.startDate ? new Date(mealplan.startDate) : null;
     const connection = props.connection;
     const theme = useTheme();
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('md'));
