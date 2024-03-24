@@ -27,6 +27,7 @@ import { ResetPassword } from "./People/ResetPassword";
 import { ProductCreate } from "./Products/ProductCreate";
 import { ProductEdit } from "./Products/ProductEdit";
 import { ProductList } from "./Products/ProductList";
+import { MealShow } from "./Meals/MealShow";
 
 function App() {
   const auth = useAuth();
@@ -68,6 +69,7 @@ function App() {
               list={MealList}
               edit={MealEdit}
               create={MealCreate}
+              show={MealShow}
             >
               <Route path=":id/ingredients" element={<IngredientList />} />
               <Route
