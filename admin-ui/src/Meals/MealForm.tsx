@@ -17,7 +17,7 @@ export const MealForm = () => {
         fullWidth
         parse={(values) => {
           if(values == '') return null;
-          return values.split(",").map((s: string) => s.trim())
+          return values.split(",").map((s: string) => s.trimStart())
         }}
         source="tags"
       />

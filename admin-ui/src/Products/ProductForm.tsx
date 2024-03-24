@@ -17,20 +17,18 @@ export const ProductForm = () => {
         fullWidth
         parse={(values) => {
           if (values == "") return null;
-          return values.split(",").map((s: string) => s.trim());
+          // return values.split(",").map((s: string) => s.trim());
+          return values.split(",").map((s:string) => s.trimStart());
         }}
         source="tags"
       />
+
       <TextInput
         defaultValue={null}
         fullWidth
-        format={(x) => {
-          console.log('product keyword values', x);
-          return x && x.join(", ")
-        }}
-        parse={(values) => {
+        parse={(values: string) => {
           if (values == "") return null;
-          return values.split(",").map((s: string) => s.trim());
+          return values.split(",").map((s: string) => s.trimStart());
         }}
         source="productKeywords"
       />
