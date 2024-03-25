@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f0b198daba71f4a4a407b05a23242791>>
+ * @generated SignedSource<<36f5d04cf1be95af82c969bec0b62f69>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -292,12 +292,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "61d1fac070c90fe1de8c270a759670bc",
+    "cacheID": "349b100f3db04fe58bc8aa30411dcc0f",
     "id": null,
     "metadata": {},
     "name": "state_updateMealPlanMutation",
     "operationKind": "mutation",
-    "text": "mutation state_updateMealPlanMutation(\n  $mealPlanId: BigInt!\n  $mealPlanName: String\n  $descriptionEn: String\n  $personId: BigInt\n  $tags: [String]\n) {\n  updateMealPlan(input: {patch: {nameEn: $mealPlanName, descriptionEn: $descriptionEn, personId: $personId, tags: $tags}, rowId: $mealPlanId}) {\n    mealPlan {\n      id\n      rowId\n      nameEn\n      descriptionEn\n      personId\n      tags\n      ...MealPlanHeader_mealPlan\n    }\n  }\n}\n\nfragment MealPlanHeader_mealPlan on MealPlan {\n  rowId\n  nameEn\n  nameFr\n  descriptionEn\n  tags\n  isTemplate\n  person {\n    fullName\n    rowId\n    id\n  }\n}\n"
+    "text": "mutation state_updateMealPlanMutation(\n  $mealPlanId: BigInt!\n  $mealPlanName: String\n  $descriptionEn: String\n  $personId: BigInt\n  $tags: [String]\n  $startDate: Date\n) {\n  updateMealPlan(input: {patch: {nameEn: $mealPlanName, descriptionEn: $descriptionEn, personId: $personId, tags: $tags, startDate: $startDate}, rowId: $mealPlanId}) {\n    mealPlan {\n      id\n      rowId\n      nameEn\n      descriptionEn\n      personId\n      tags\n      startDate\n      ...MealPlanHeader_mealPlan\n    }\n  }\n}\n\nfragment MealPlanHeader_mealPlan on MealPlan {\n  rowId\n  nameEn\n  nameFr\n  descriptionEn\n  tags\n  isTemplate\n  startDate\n  person {\n    fullName\n    rowId\n    id\n  }\n}\n"
   }
 };
 })();
