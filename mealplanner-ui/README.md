@@ -60,11 +60,11 @@ In Version 2 of meal planner,we are using TypeScript and updated version of Rela
 Upgrading Relay as we are going to use hooks such as PreLoadedQuery as the version 9.1.0 used in the current code doesn’t support.
 
 1. DashBoard
-    1. Dashboard component will be simplifed by extracting them as different components
+    1. Dashboard component will be simplified by extracting them as different components
         1. QueryRenderer and Refetch container becomes PreloadedQuery in Dashboard component.
         2. The people filter menu will be its own component with its associated fragment.
         3. DeleteDialog - use `@deleteEdge` on the commit mutation to automatically drop the edge and avoid a refetch.
-    2. Extract selected person into its own local state. (Implementing state using Relay - commitLocalUpdate and seperate graphQL file for state extending the Query type.)
+    2. Extract selected person into its own local state. (Implementing state using Relay - commitLocalUpdate and separate graphQL file for state extending the Query type.)
     3. If and when pagination is implemented this client side filter will break i.e. if the record is not present for that user in the first page, but in the subsequent pages, it will show as no records found. So we need to use the condition in graphQL and refetch when the peoplefilter changes.
 2. Mealplan page
     1. Create Plan option: a better name would be meal selector.
@@ -77,10 +77,10 @@ Upgrading Relay as we are going to use hooks such as PreLoadedQuery as the versi
     4. MealplansToolbar - It unnecessarily queries all the fields on the meal plan while it displays only the meal plan name and the user name. So query needs to be modified to include only the meal plan name and username.
     5. CreatePlanTable - should contain the meal plan entry details for the current meal plan. As of now that part of the query fragment is in MealplansToolbar.
     6. Create a type for global state to include isCreateMPModalOpen, isDuplicateMPModalOpen, createMPConfig, duplicateMPConfig instead of using local state such as newModalOpen and selectedPlan controlled by the toolbar so that eventually we avoid prop drilling. Remove unnecessary states such as alreadySelectedMealAfterNav.
-    7. New, Duplicate, Save is as 3 different buttons in the current release. This can all be combined to one. There can be just one modal which gives the option for the new meal plan which offers existing meal plan as template option and the other as from scratch. We can save as an when the meal is getting dropped instead of having a seperate save button.
+    7. New, Duplicate, Save is as 3 different buttons in the current release. This can all be combined to one. There can be just one modal which gives the option for the new meal plan which offers existing meal plan as template option and the other as from scratch. We can save as an when the meal is getting dropped instead of having a separate save button.
     8. MealplansToolbar - We will use the mealplan ID in the url and avoid using useLocation and useEffect. Instead we can use useParams.
     9. MealPlanAssignment - This assigns users. mutation will move from PlanPage to MealPlanAssignment and eliminating the need of a save button or props drilling. This will also read from the global state.
-    10. Duplicate meal plan is going part of new meal plan itself as an option to select mealplan from a template rather than a seperate button.
+    10. Duplicate meal plan is going part of new meal plan itself as an option to select mealplan from a template rather than a separate button.
     11. The mutation of NewMealPlanModal is containing mealplan entries which is not available in a new mealplan. We need not query for it. NewMealPlanModal is in MealplanToolbar, but it should be in PlanPage.
     12. In Delete functionality as of now I am doing relay.refetch(). This can be avoided with `@deleteEdge` with connections.
     13. createMealPlanEntry is creating an array of promises and making so many network calls in a single SAVE button click. However we can push those entries to the database as and when it is created. This would eliminate requirement for mealEntryAlreadyExists, mealEntryHasBeenRemoved.

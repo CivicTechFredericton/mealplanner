@@ -58,9 +58,9 @@ export const NutritionForm = () => {
       <NumberInput source="transFat" />
       <TextInput source="transFatUnit" />
       <NumberInput source="transFatPercent" />
-      <NumberInput source="cholestrol" />
-      <TextInput source="cholestrolUnit" />
-      <NumberInput source="cholestrolPercent" />
+      <NumberInput source="cholesterol" />
+      <TextInput source="cholesterolUnit" />
+      <NumberInput source="cholesterolPercent" />
       <NumberInput source="sodium" />
       <TextInput source="sodiumUnit" />
       <NumberInput source="sodiumPercent" />

@@ -6,7 +6,7 @@ import { DesktopCalendar } from "./DesktopCalendar";
 import { MobileCalendar } from "./MobileCalendar";
 import { Calendar_mealPlan$key } from "./__generated__/Calendar_mealPlan.graphql";
 
-// Refered https://relay.dev/docs/guided-tour/list-data/updating-connections/ documentation for @connection, __id
+// Referred https://relay.dev/docs/guided-tour/list-data/updating-connections/ documentation for @connection, __id
 // The example does not work exactly. It threw errors that first or last should be included
 // The second error was edges was missing
 // Complained Calendar_mealPlan_mealPlanEntries_connection should be Calendar_mealPlan_mealPlanEntries

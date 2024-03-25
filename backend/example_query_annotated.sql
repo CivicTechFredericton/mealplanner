@@ -18,7 +18,7 @@ with meals_arr as (
               )
             ) as "@nodes"
             from "app"."meal_products"(meals_rel) as products_rel -- this is a function call
-            where (TRUE) and (TRUE) -- totally superflous
+            where (TRUE) and (TRUE) -- totally superfluous
           ),
           products_arr_data as (
             select json_agg(

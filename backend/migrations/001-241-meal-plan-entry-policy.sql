@@ -38,7 +38,7 @@ create policy all_meal_plan_entry_meal_designer
   for all
   to app_meal_designer using(true);
 
--- user can only see or update entries beloning to their own meal plans
+-- user can only see or update entries belonging to their own meal plans
 -- IMPORTANT: the row level policy on meal_plan must be in place for this to work
 drop policy if exists all_meal_plan_entry_user on app.meal_plan_entry;
 create policy all_meal_plan_entry_user
