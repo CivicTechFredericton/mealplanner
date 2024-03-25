@@ -70,7 +70,6 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
     }, [])
 
   return (
-    
     <section
       style={{
         border: `2px solid ${theme.palette.primary.main}`,
@@ -126,7 +125,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               // onClick={(e) => {
               //   setIsEditName(true);
               // }}
-                onMouseEnter={(e) => {
+              onMouseEnter={(e) => {
                 setIsEditName(true);
                 setIsEditUser(false);
                 setIsEditDate(false);
@@ -177,16 +176,16 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               variant={"h5"}
               textTransform={"capitalize"}
               fontStyle="normal"
-              // onClick={(e) => setIsEditUser(true)}
-                onMouseEnter={(e) => {
-                setIsEditName(false);
-                setIsEditUser(true);
-                setIsEditDate(false);
+              onMouseEnter={(e) => {
+                if (!data.isTemplate) {
+                  setIsEditName(false);
+                  setIsEditUser(true);
+                  setIsEditDate(false);
+                }
               }}
-            > 
-            {data.isTemplate ? "template" : (data.person?.fullName ? data.person.fullName : "No User Assigned")}
-              
-            </Typography> 
+            >
+              {data.isTemplate ? "Template" : data.person?.fullName ? data.person.fullName : "No User Assigned"}
+            </Typography>
           )}
           {isEditDate ? (
             <TextField
@@ -223,16 +222,13 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 setIsEditDate(true);
               }}
             >
-            {data.isTemplate ? null : data.startDate === null? "Enter Date" : data.startDate}
+              {data.isTemplate ? null : data.startDate === null ? "Enter Date" : data.startDate}
             </Typography>
           )}
         </Box>
 
         <Box display="inline-flex">
-          <IconButton
-            onClick={() => window.print()}
-            sx={{ displayPrint: "none" }}
-          >
+          <IconButton onClick={() => window.print()} sx={{ displayPrint: "none" }}>
             <Print htmlColor={`${theme.palette.primary.contrastText}`}></Print>
           </IconButton>
           <IconButton
