@@ -191,7 +191,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
           {isEditDate ? (
             <TextField
               id="filled-basic"
-              label="Edit Meal Plan Date YYYY-MM-DD"
+              label="Edit Date YYYY-MM-DD"
               variant="filled"
               color="info"
               style={{ backgroundColor: theme.palette.primary.light }}
@@ -223,7 +223,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 setIsEditDate(true);
               }}
             >
-              {data.startDate === null? "Enter Date" : data.startDate}
+            {data.isTemplate ? null : data.startDate === null? "Enter Date" : data.startDate}
             </Typography>
           )}
         </Box>
