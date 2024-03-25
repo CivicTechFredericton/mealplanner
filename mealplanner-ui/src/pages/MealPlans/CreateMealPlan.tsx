@@ -163,17 +163,19 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                 </Grid>
                 )}
                 <Grid item xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Starting Date"
-                  onChange={(newValue: Dayjs | null) => {
-                  if (newValue !== null) {
-                    const formatedDate = dayjs(newValue).format("YYYY-MM-DD");
-                    setStartDate(formatedDate);
-                  }
-                  }}
-                ></DatePicker>
-              </LocalizationProvider>
+              {planType === "mealPlan" && (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label="Starting Date"
+                    onChange={(newValue: Dayjs | null) => {
+                    if (newValue !== null) {
+                      const formatedDate = dayjs(newValue).format("YYYY-MM-DD");
+                      setStartDate(formatedDate);
+                    }
+                    }}
+                  ></DatePicker>
+                </LocalizationProvider>
+              )}
             </Grid>
             <Grid item xs={3}>
                 <Tooltip arrow placement="bottom-start" title={titleEn}>
