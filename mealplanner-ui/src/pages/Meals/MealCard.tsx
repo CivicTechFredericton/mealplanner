@@ -48,7 +48,7 @@ export const MealCard = (props: MealProps) => {
       setExpanded(!expanded);
     };
 
-    const handleToogleFavorite = (id: string) => {
+    const handleToggleFavorite = (id: string) => {
         if (!selectedPFMeals.includes(id)) {
           const selectedFavs = selectedPFMeals.concat([id]);
           setSelectedFavMeals(selectedFavs);
@@ -113,7 +113,7 @@ export const MealCard = (props: MealProps) => {
           <CardActions disableSpacing>
           <IconButton aria-label="toggle favorite" onClick={(e) => {
             e.stopPropagation();
-            handleToogleFavorite(meal.rowId)}}>
+            handleToggleFavorite(meal.rowId)}}>
             {isFavorite ? <Favorite /> : <FavoriteBorder />}
             </IconButton>
             <ExpandMoreFn

@@ -44,6 +44,30 @@ const mealsQuery = graphql`
   }
 `;
 
+type MealNode = {
+  meal: {
+  rowId: string;
+  name_en: string;
+  }
+};
+
+type FavoriteMeals = {
+  people: {
+    nodes: {
+      favoriteMeals: {
+        nodes: {
+          meal: {
+            rowId: string;
+            name_en: string;
+          }
+        }[];
+      }
+    }[];
+  }
+  gqLocalState: {
+    selectedFavoriteMeals: any; 
+  };
+}
 export const Meals = () => {
   const [searchMeal, setSearchMeal] = useState<string>("");
   const [searchType, setSearchType] = useState('name');
@@ -54,11 +78,12 @@ export const Meals = () => {
     {slug: slug as string},
     { fetchPolicy: "store-or-network" }
   );
-
-  const PFMeals: any = useRefetchableFragment(FavoriteMealsFragment, data)[0];
   const [_, refetch] = useRefetchableFragment(FavoriteMealsFragment, data);
+
+  const PFMeals =  useRefetchableFragment(FavoriteMealsFragment, data)[0] as FavoriteMeals;
+  const selectedFavs = PFMeals.people?.nodes[0].favoriteMeals.nodes.map((favMeal:MealNode) => favMeal.meal?.rowId) || [];
+
   const selectedTags = data.gqLocalState.selectedMealTags || [];
-  const selectedFavs = PFMeals.people?.nodes[0].favoriteMeals.nodes.map((favMeal:any) => favMeal.meal?.rowId) || [];
 
   return (
     <>
