@@ -9,6 +9,9 @@ import { SearchMeal } from "./SearchMeal";
 import { MealPlanQuery } from "./__generated__/MealPlanQuery.graphql";
 
 /* Meal plan query */
+// naming convention is important in relay. The file name is called MealPlan.tsx
+// So the query should be starting with MealPlan and ending with Query. So it is MealPlanQuery
+// Remember we can have anything in between such as MealPLanSingleQuery
 const mealPlanQuery = graphql`
   query MealPlanQuery($id: BigInt!) {
     ...SearchMeal_data

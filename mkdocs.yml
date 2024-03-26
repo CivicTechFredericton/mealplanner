@@ -1,0 +1,16 @@
+site_name: Mealplanner (Good Meal Plan) Guide
+
+nav:
+  - Home: index.md
+
+theme:
+  name: mkdocs
+  nav_style: dark
+  highlightjs: true
+
+plugins:
+  - search
+  - mermaid2:
+      javascript: https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs
+
+

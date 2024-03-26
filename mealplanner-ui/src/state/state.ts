@@ -362,6 +362,7 @@ const createMealPlanGQL = graphql`
     $personId: BigInt
     $tags: [String]
     $connections: [ID!]!
+    $isTemplate: Boolean
   ) {
     createMealPlan(
       input: {
@@ -372,6 +373,7 @@ const createMealPlanGQL = graphql`
           descriptionFr: $descFr
           personId: $personId
           tags: $tags
+          isTemplate: $isTemplate
         }
       }
     ) {
@@ -384,6 +386,7 @@ const createMealPlanGQL = graphql`
           nameFr
           descriptionEn
           descriptionFr
+          isTemplate
           person {
             fullName
           }

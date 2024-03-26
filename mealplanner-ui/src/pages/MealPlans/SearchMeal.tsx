@@ -17,6 +17,7 @@ import { clearSelectedMeal, setSelectedMeal } from "../../state/state";
 import { SearchedMeal } from "../../state/types";
 import { SearchMeal_data$key } from "./__generated__/SearchMeal_data.graphql";
 
+// For the fragment name, it should be the filename in the beginning, _ and the field name
 const fragment = graphql`
   fragment SearchMeal_data on Query {
     gqLocalState {

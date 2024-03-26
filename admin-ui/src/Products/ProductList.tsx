@@ -1,7 +1,9 @@
+import { useState } from "react";
 import {
   BooleanField,
   Datagrid,
   EditButton,
+  ImageField,
   List,
   ListProps,
   NumberField,
@@ -13,7 +15,6 @@ import {
 import { ListField } from "../ListField";
 import { NutritionShow } from "../Nutrition/NutritionShow";
 import CustomSearchInput from "../components/CustomSearchInput";
-import { useEffect, useState } from "react";
 
 export const ProductList = (props: ListProps) => {
   const [data, setData] = useState<String[]>([]);
@@ -39,15 +40,16 @@ export const ProductList = (props: ListProps) => {
         <Datagrid expand={NutritionDetails}>
           <TextField source="id" fullWidth />
           <TextField source="nameEn" fullWidth />
-          <TextField source="nameFr" fullWidth />
-          <TextField source="code" />
+          <ImageField source="imageUrl" />
+          <ListField source="productKeywords" />
           <NumberField source="price" />
           <NumberField source="quantity" />
           <TextField source="unit" />
-          <BooleanField source="isArchived" />
           <TextField source="upc" />
-          <UrlField source="sourceLink" />
+          <UrlField source="sourceUrl" />
           <ListField source="tags" />
+          <BooleanField source="isArchived" />
+          <TextField source="nameFr" fullWidth />
           <EditButton />
         </Datagrid>
       </List>

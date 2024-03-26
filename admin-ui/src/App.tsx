@@ -10,12 +10,14 @@ import {
 } from "react-admin";
 import { Route } from "react-router-dom";
 import { useAuth } from "./Auth";
+import { IngredientCreate } from "./Ingredients/IngredientCreate";
+import { IngredientEdit } from "./Ingredients/IngredientEdit";
+import { IngredientList } from "./Ingredients/IngredientList";
+import { Match } from "./Match/Match";
 import { MealCreate } from "./Meals/MealCreate";
 import { MealEdit } from "./Meals/MealEdit";
 import { MealList } from "./Meals/MealList";
-import { MeasureCreate } from "./Measure/MeasureCreate";
-import { MeasureEdit } from "./Measure/MeasureEdit";
-import { MeasureList } from "./Measure/MeasureList";
+import { MealShow } from "./Meals/MealShow";
 import { NutritionCreate } from "./Nutrition/NutritionCreate";
 import { NutritionEdit } from "./Nutrition/NutritionEdit";
 import { NutritionList } from "./Nutrition/NutritionList";
@@ -33,6 +35,8 @@ function App() {
   const client = useApolloClient();
 
   useEffect(() => {
+    // Need to add the id of all tables so that when we fetch id it fetches the rowId
+    // If we don't give this it will try to fetch id apart from rowId.
     pgDataProvider(client, {
       typeMap: {
         Meal: { excludeFields: ["id"], expand: true },
@@ -40,6 +44,8 @@ function App() {
         Measure: { excludeFields: ["id"] },
         Nutrition: { excludeFields: ["id"] },
         Person: { excludeFields: ["id"] },
+        Ingredient: { excludeFields: ["id"] },
+        Match: { excludeFields: ["id"] },
       },
     })
       .then((resolvedValue) => setDataProvider(resolvedValue))
@@ -63,18 +69,29 @@ function App() {
               list={MealList}
               edit={MealEdit}
               create={MealCreate}
-            />
+              show={MealShow}
+            >
+              <Route path=":id/ingredients" element={<IngredientList />} />
+              <Route
+                path=":id/ingredients/create"
+                element={<IngredientCreate />}
+              />
+              <Route
+                path=":id/ingredients/:ingredientId"
+                element={<IngredientEdit />}
+              />
+
+              <Route
+                path=":id/ingredients/:ingredientId/match"
+                element={<Match />}
+              />
+            </Resource>
+
             <Resource
               name="products"
               list={ProductList}
               edit={ProductEdit}
               create={ProductCreate}
-            />
-            <Resource
-              name="measures"
-              list={MeasureList}
-              edit={MeasureEdit}
-              create={MeasureCreate}
             />
 
             <Resource
@@ -83,16 +100,24 @@ function App() {
               edit={NutritionEdit}
               create={NutritionCreate}
             />
-            <Resource
-              name="people"
-              options={{ label: "Users" }}
-              list={PersonList}
-              edit={PersonEdit}
-            />
-            <CustomRoutes>
-              <Route path="people/register" element={<Register />} />
-              <Route path="people/:rowId/reset" element={<ResetPassword />} />
-            </CustomRoutes>
+            {auth.currentPerson?.role === "app_admin" && (
+              <>
+                <Resource
+                  name="people"
+                  options={{ label: "Users" }}
+                  list={PersonList}
+                  edit={PersonEdit}
+                />
+
+                <CustomRoutes>
+                  <Route path="people/register" element={<Register />} />
+                  <Route
+                    path="people/:rowId/reset"
+                    element={<ResetPassword />}
+                  />
+                </CustomRoutes>
+              </>
+            )}
           </Admin>
         ) : (
           "loading..."

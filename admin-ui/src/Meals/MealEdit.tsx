@@ -3,7 +3,7 @@ import { MealForm } from "./MealForm";
 
 export const MealEdit = (props: EditProps) => {
   return (
-    <Edit {...props} title="Edit Meal">
+    <Edit {...props} title="Edit Meal" redirect={`show`}>
       <MealForm />
     </Edit>
   );
