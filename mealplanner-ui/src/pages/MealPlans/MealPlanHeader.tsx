@@ -10,12 +10,16 @@ import {
   useTheme,
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useFragment, useLazyLoadQuery } from "react-relay";
 import { useNavigate } from "react-router";
 import { updateMealPlanName } from "../../state/state";
 import { MealPlanHeaderAllUsersQuery } from "./__generated__/MealPlanHeaderAllUsersQuery.graphql";
 import { MealPlanHeader_mealPlan$key } from "./__generated__/MealPlanHeader_mealPlan.graphql";
+import { DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs, { Dayjs } from 'dayjs';
 
 const fragment = graphql`
   fragment MealPlanHeader_mealPlan on MealPlan {
@@ -51,6 +55,7 @@ interface HeaderProps {
 
 export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
   let data = useFragment<MealPlanHeader_mealPlan$key>(fragment, mealPlan);
+  let startDate = dayjs(data.startDate).format("YYYY-MM-DD");
 
   let users = useLazyLoadQuery<MealPlanHeaderAllUsersQuery>(query, {});
 
@@ -61,13 +66,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
   const [editHeader, setEditHeader] = useState(false);
   const [isEditName, setIsEditName] = useState(false);
   const [isEditUser, setIsEditUser] = useState(false);
-  const [isEditDate, setIsEditDate] = useState(false);
   const navigate = useNavigate();
-
-    useEffect(() => {
-      console.log(data);
-    
-    }, [])
 
   return (
     <section
@@ -77,12 +76,6 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         marginBottom: "1rem",
       }}
     >
-      <Typography variant="h4" sx={{ displayPrint: "block", display: "none" }}>
-        {data.nameEn} - {data.nameFr}
-      </Typography>
-      <Typography variant="h5" sx={{ displayPrint: "block", display: "none" }}>
-        {data.person?.fullName}
-      </Typography>
       <Box
         display="flex"
         flexDirection="row"
@@ -90,143 +83,167 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         bgcolor="primary.main"
         displayPrint={"none"}
       >
-        <Box display="inline-flex" justifyContent={"space-between"}>
-          <IconButton onClick={() => navigate("/mealplans")} color="info">
-            <ArrowBackIosNewIcon />
-          </IconButton>
-          {isEditName ? (
-            <TextField
-              id="filled-basic"
-              label="Edit Meal Plan Name"
-              variant="filled"
-              color="info"
-              style={{ backgroundColor: theme.palette.primary.light }}
-              defaultValue={data.nameEn}
-              onBlur={(e) => {
-                e.target.value
-                  ? updateMealPlanName(data.rowId, {
-                      mealPlanId: data.rowId,
-                      descriptionEn: data.descriptionEn,
-                      personId: data.person?.rowId,
-                      tags: data.tags,
-                      mealPlanName: e.target.value,
-                    })
-                  : (e.target.value = data.nameEn);
-                setIsEditName(false);
-              }}
-            />
-          ) : (
-            <Typography
-              padding="0.5rem 0"
-              marginLeft="1rem"
-              color="primary.contrastText"
-              variant={"h5"}
-              defaultValue={data.nameEn}
-              // onClick={(e) => {
-              //   setIsEditName(true);
-              // }}
-              onMouseEnter={(e) => {
-                setIsEditName(true);
-                setIsEditUser(false);
-                setIsEditDate(false);
-              }}
-            >
-              {data.nameEn}
-            </Typography>
-          )}
-          <Typography padding="0.75rem 1rem"></Typography>
-          {isEditUser ? (
-            <Autocomplete
-              // options={[
-              //   { label: "Admin", id: 1 },
-              //   { label: "Meal Designer", id: 2 },
-              //   { label: "User 1", id: 3 },
-              //   { label: "User 2", id: 4 },
-              // ]}
-              options={allUsers || []}
-              onBlur={(e) => {
-                setIsEditUser(false);
-              }}
-              onChange={(e, value) => {
-                updateMealPlanName(data.rowId, {
-                  mealPlanId: data.rowId,
-                  descriptionEn: data.descriptionEn,
-                  personId: value?.id,
-                  tags: data.tags,
-                  mealPlanName: data.nameEn,
-                });
-                setIsEditUser(false);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Select user"
-                  style={{
-                    backgroundColor: theme.palette.primary.contrastText,
-                    width: "200%",
-                  }}
-                  variant="filled"
-                />
-              )}
-            ></Autocomplete>
-          ) : (
-            <Typography
-              padding="0.75rem 0"
-              color="primary.contrastText"
-              variant={"h5"}
-              textTransform={"capitalize"}
-              fontStyle="normal"
-              onMouseEnter={(e) => {
-                if (!data.isTemplate) {
-                  setIsEditName(false);
-                  setIsEditUser(true);
-                  setIsEditDate(false);
-                }
-              }}
-            >
-              {data.isTemplate ? "Template" : data.person?.fullName ? data.person.fullName : "No User Assigned"}
-            </Typography>
-          )}
-          {isEditDate ? (
-            <TextField
-              id="filled-basic"
-              label="Edit Date YYYY-MM-DD"
-              variant="filled"
-              color="info"
-              style={{ backgroundColor: theme.palette.primary.light }}
-              defaultValue={data.startDate}
-              onBlur={(e) => {
-                e.target.value
-                  ? updateMealPlanName(data.rowId, {
-                      mealPlanId: data.rowId,
-                      descriptionEn: data.descriptionEn,
-                      personId: data.person?.rowId,
-                      tags: data.tags,
-                      startDate: e.target.value,
-                      mealPlanName: data.nameEn,
-                    })
-                  : (e.target.value = data.startDate);
-                setIsEditDate(false);
-              }}
-            />
-          ) : (
-            <Typography
-              padding="0.5rem 0"
-              marginLeft="1rem"
-              color="primary.contrastText"
-              variant={"h5"}
-              defaultValue={data.startDate}
-              onMouseEnter={(e) => {
-                setIsEditName(false);
-                setIsEditUser(false);
-                setIsEditDate(true);
-              }}
-            >
-              {data.isTemplate ? null : data.startDate === null ? "Enter Date" : data.startDate}
-            </Typography>
-          )}
-        </Box>
+        <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
 
+        }}
+        >
+          <Box
+            sx={{
+              justifyContent: "space-between",
+              display: "inline-flex",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <Box>
+              <IconButton onClick={() => navigate("/mealplans")} color="info">
+                <ArrowBackIosNewIcon />
+              </IconButton>
+            </Box>
+            {isEditName ? (
+              <TextField
+                id="filled-basic"
+                label="Edit Meal Plan Name"
+                variant="filled"
+                color="info"
+                style={{ backgroundColor: theme.palette.primary.light }}
+                defaultValue={data.nameEn}
+                onBlur={(e) => {
+                  e.target.value
+                    ? updateMealPlanName(data.rowId, {
+                        mealPlanId: data.rowId,
+                        descriptionEn: data.descriptionEn,
+                        personId: data.person?.rowId,
+                        tags: data.tags,
+                        startDate: data.startDate,
+                        mealPlanName: e.target.value,
+                      })
+                    : (e.target.value = data.nameEn);
+                  setIsEditName(false);
+                }}
+              />
+            ) : (
+              <Typography
+                display="inline-flex"
+                justifyContent="space-between"
+                padding="0.5rem 0"
+                marginLeft="1rem"
+                color="primary.contrastText"
+                variant={"h5"}
+                defaultValue={data.nameEn}
+                // onClick={(e) => {
+                //   setIsEditName(true);
+                // }}
+                onClick={(e) => {
+                  setIsEditName(true);
+                }}
+              >
+                {data.nameEn}
+              </Typography>
+            )}
+            <Typography padding="0.75rem 1rem"></Typography>
+            {isEditUser ? (
+              <Autocomplete
+                // options={[
+                //   { label: "Admin", id: 1 },
+                //   { label: "Meal Designer", id: 2 },
+                //   { label: "User 1", id: 3 },
+                //   { label: "User 2", id: 4 },
+                // ]}
+                options={allUsers || []}
+                onBlur={(e) => {
+                  setIsEditUser(false);
+                }}
+                onChange={(e, value) => {
+                  updateMealPlanName(data.rowId, {
+                    mealPlanId: data.rowId,
+                    descriptionEn: data.descriptionEn,
+                    personId: value?.id,
+                    tags: data.tags,
+                    startDate: data.startDate,
+                    mealPlanName: data.nameEn,
+                  });
+                  setIsEditUser(false);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Select user"
+                    style={{
+                      backgroundColor: theme.palette.primary.contrastText,
+                      width: "200%",
+                    }}
+                    variant="filled"
+                  />
+                )}
+              ></Autocomplete>
+            ) : (
+              <Typography
+                display="inline-flex"
+                justifyContent="space-between"
+                padding="0.75rem 0"
+                color="primary.contrastText"
+                variant={"h5"}
+                textTransform={"capitalize"}
+                fontStyle="normal"
+                onClick={(e) => {
+                  if (!data.isTemplate) {
+                    setIsEditUser(true);
+                  }
+                }}
+              >
+                {data.isTemplate
+                  ? "Template"
+                  : data.person?.fullName
+                  ? data.person.fullName
+                  : "No User Assigned"}
+              </Typography>
+            )}
+          </Box>
+          <Box
+            sx={{
+              paddingLeft: "10%",
+              ".css-10rztul-MuiInputBase-root-MuiOutlinedInput-root": {
+                borderRadius: "10px",
+              },
+            }}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                sx={{
+                  // borderRadius: "10px",
+                  // maxWidth: "60%",
+                  ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
+                    color: `${theme.palette.primary.contrastText}`,
+                    padding: "13px",
+                  },
+                  ".css-i4bv87-MuiSvgIcon-root": {
+                    color: `${theme.palette.primary.contrastText}`,
+                  },
+                }}
+                value={dayjs(startDate)}
+                onChange={async (newDate: Dayjs | null) => {
+                  if (newDate !== null) {
+                    const formatedDate = await dayjs(newDate).format("MM-DD-YYYY");
+                    formatedDate
+                      ? await updateMealPlanName(data.rowId, {
+                          mealPlanId: data.rowId,
+                          descriptionEn: data.descriptionEn,
+                          personId: data.person?.rowId,
+                          tags: data.tags,
+                          startDate: formatedDate,
+                          mealPlanName: data.nameEn,
+                        })
+                      : <></>;
+                  }
+                }}
+              ></DatePicker>
+            </LocalizationProvider>
+          </Box>
+        </Box>
         <Box display="inline-flex">
           <IconButton onClick={() => window.print()} sx={{ displayPrint: "none" }}>
             <Print htmlColor={`${theme.palette.primary.contrastText}`}></Print>
