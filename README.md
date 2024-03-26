@@ -115,6 +115,12 @@ If you want to only create users. Just run the seed-users file alone.
 cat ./backend/seed-users.sql | docker-compose exec -T db /usr/bin/psql -U postgres -f -
 ```
 
+To import recipes and products, go to the folder data and run these import commands to import recipes and products:
+`cd data`
+`bun importRecipes.ts` to import the meals and ingredients
+and
+`bun importProducts.ts` to import the products.
+
 On Linux or MacOS:
 
 ```
