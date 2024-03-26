@@ -9,6 +9,7 @@ import { duplicateMealPlan } from "./DuplicateMealPlan";
 import { RefetchFnDynamic } from "react-relay";
 import { OperationType } from "relay-runtime";
 import { MealPlansQuery$data } from "./__generated__/MealPlansQuery.graphql";
+import dayjs, { Dayjs } from 'dayjs';
 
 interface MealPlanCardProps {
     mealplan: MealPlanNode;
@@ -49,7 +50,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
     const [openDialog, setOpenDialog] = React.useState(false);
     const navigate = useNavigate();
     const mealplan = props.mealplan;
-    const startDate: Date | null = mealplan.startDate ? new Date(mealplan.startDate) : null;
+    const startDate: Dayjs | null = mealplan.startDate ? dayjs(mealplan.startDate) : null;
     const connection = props.connection;
     const theme = useTheme();
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('md'));
@@ -78,6 +79,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
 
     useEffect(() => {
       console.log(mealplan);
+      console.log(mealplan.startDate);
     }, []);
   
     return (
@@ -168,9 +170,9 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
             title={mealplan.nameEn}
             subheader={mealplan.person?.fullName}
           />
-          {!!startDate && (
+          {startDate && (
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Chip label={"Starting: " + startDate.toDateString()} />
+              <Chip label={"Starting: " + startDate.format("YYYY-MM-DD")} />
             </div>
           )}
           <ImageList sx={{ width: 350, height: 150 }} cols={3} rowHeight={164}>
