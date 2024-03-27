@@ -76,11 +76,6 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
       })
       setOpenDialog(false);
     };
-
-    useEffect(() => {
-      console.log(mealplan);
-      console.log(mealplan.startDate);
-    }, []);
   
     return (
       <Grid item xs="auto">
