@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f0b198daba71f4a4a407b05a23242791>>
+ * @generated SignedSource<<36f5d04cf1be95af82c969bec0b62f69>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type state_updateMealPlanMutation$variables = {
   descriptionEn?: string | null;
   personId?: any | null;
   tags?: ReadonlyArray<string | null> | null;
+  startDate?: any | null;
 };
 export type state_updateMealPlanMutation$data = {
   readonly updateMealPlan: {
@@ -26,6 +27,7 @@ export type state_updateMealPlanMutation$data = {
       readonly descriptionEn: string | null;
       readonly personId: any | null;
       readonly tags: ReadonlyArray<string | null> | null;
+      readonly startDate: any | null;
       readonly " $fragmentSpreads": FragmentRefs<"MealPlanHeader_mealPlan">;
     } | null;
   } | null;
@@ -59,9 +61,14 @@ v3 = {
 v4 = {
   "defaultValue": null,
   "kind": "LocalArgument",
+  "name": "startDate"
+},
+v5 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
   "name": "tags"
 },
-v5 = [
+v6 = [
   {
     "fields": [
       {
@@ -83,6 +90,11 @@ v5 = [
           },
           {
             "kind": "Variable",
+            "name": "startDate",
+            "variableName": "startDate"
+          },
+          {
+            "kind": "Variable",
             "name": "tags",
             "variableName": "tags"
           }
@@ -100,46 +112,53 @@ v5 = [
     "name": "input"
   }
 ],
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "rowId",
   "storageKey": null
 },
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "nameEn",
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "descriptionEn",
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "personId",
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "tags",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "startDate",
   "storageKey": null
 };
 return {
@@ -149,7 +168,8 @@ return {
       (v1/*: any*/),
       (v2/*: any*/),
       (v3/*: any*/),
-      (v4/*: any*/)
+      (v4/*: any*/),
+      (v5/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
@@ -157,7 +177,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v6/*: any*/),
         "concreteType": "UpdateMealPlanPayload",
         "kind": "LinkedField",
         "name": "updateMealPlan",
@@ -171,12 +191,13 @@ return {
             "name": "mealPlan",
             "plural": false,
             "selections": [
-              (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
               (v10/*: any*/),
               (v11/*: any*/),
+              (v12/*: any*/),
+              (v13/*: any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -199,6 +220,7 @@ return {
       (v2/*: any*/),
       (v0/*: any*/),
       (v3/*: any*/),
+      (v5/*: any*/),
       (v4/*: any*/)
     ],
     "kind": "Operation",
@@ -206,7 +228,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v6/*: any*/),
         "concreteType": "UpdateMealPlanPayload",
         "kind": "LinkedField",
         "name": "updateMealPlan",
@@ -220,12 +242,13 @@ return {
             "name": "mealPlan",
             "plural": false,
             "selections": [
-              (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
               (v10/*: any*/),
               (v11/*: any*/),
+              (v12/*: any*/),
+              (v13/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -255,8 +278,8 @@ return {
                     "name": "fullName",
                     "storageKey": null
                   },
-                  (v7/*: any*/),
-                  (v6/*: any*/)
+                  (v8/*: any*/),
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -269,16 +292,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "61d1fac070c90fe1de8c270a759670bc",
+    "cacheID": "349b100f3db04fe58bc8aa30411dcc0f",
     "id": null,
     "metadata": {},
     "name": "state_updateMealPlanMutation",
     "operationKind": "mutation",
-    "text": "mutation state_updateMealPlanMutation(\n  $mealPlanId: BigInt!\n  $mealPlanName: String\n  $descriptionEn: String\n  $personId: BigInt\n  $tags: [String]\n) {\n  updateMealPlan(input: {patch: {nameEn: $mealPlanName, descriptionEn: $descriptionEn, personId: $personId, tags: $tags}, rowId: $mealPlanId}) {\n    mealPlan {\n      id\n      rowId\n      nameEn\n      descriptionEn\n      personId\n      tags\n      ...MealPlanHeader_mealPlan\n    }\n  }\n}\n\nfragment MealPlanHeader_mealPlan on MealPlan {\n  rowId\n  nameEn\n  nameFr\n  descriptionEn\n  tags\n  isTemplate\n  person {\n    fullName\n    rowId\n    id\n  }\n}\n"
+    "text": "mutation state_updateMealPlanMutation(\n  $mealPlanId: BigInt!\n  $mealPlanName: String\n  $descriptionEn: String\n  $personId: BigInt\n  $tags: [String]\n  $startDate: Date\n) {\n  updateMealPlan(input: {patch: {nameEn: $mealPlanName, descriptionEn: $descriptionEn, personId: $personId, tags: $tags, startDate: $startDate}, rowId: $mealPlanId}) {\n    mealPlan {\n      id\n      rowId\n      nameEn\n      descriptionEn\n      personId\n      tags\n      startDate\n      ...MealPlanHeader_mealPlan\n    }\n  }\n}\n\nfragment MealPlanHeader_mealPlan on MealPlan {\n  rowId\n  nameEn\n  nameFr\n  descriptionEn\n  tags\n  isTemplate\n  startDate\n  person {\n    fullName\n    rowId\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5cd6b760400f768ac3b5454e313a620d";
+(node as any).hash = "b9961ca77d864607d952cf9035d49180";
 
 export default node;

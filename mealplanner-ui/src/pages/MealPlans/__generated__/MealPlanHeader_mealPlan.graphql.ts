@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7605a53707a7c0e01c12d2557ddc4adb>>
+ * @generated SignedSource<<08268e2dd9edf6efc63f00f860e5634e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,7 @@ export type MealPlanHeader_mealPlan$data = {
   readonly descriptionEn: string | null;
   readonly tags: ReadonlyArray<string | null> | null;
   readonly isTemplate: boolean | null;
+  readonly startDate: any | null;
   readonly person: {
     readonly fullName: string;
     readonly rowId: any;
@@ -81,6 +82,13 @@ return {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "startDate",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "Person",
       "kind": "LinkedField",
       "name": "person",
@@ -103,6 +111,6 @@ return {
 };
 })();
 
-(node as any).hash = "1e369a55405186ecb62d68d8b109828a";
+(node as any).hash = "b0cbb22caadc72394d86e5b66de33ece";
 
 export default node;

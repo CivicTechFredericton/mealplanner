@@ -304,6 +304,7 @@ const updateMealPlan = graphql`
     $descriptionEn: String
     $personId: BigInt
     $tags: [String]
+    $startDate: Date
   ) {
     updateMealPlan(
       input: {
@@ -312,6 +313,7 @@ const updateMealPlan = graphql`
           descriptionEn: $descriptionEn
           personId: $personId
           tags: $tags
+          startDate: $startDate
         }
         rowId: $mealPlanId
       }
@@ -323,6 +325,7 @@ const updateMealPlan = graphql`
         descriptionEn
         personId
         tags
+        startDate
         ...MealPlanHeader_mealPlan
       }
     }
@@ -354,6 +357,7 @@ const createMealPlanGQL = graphql`
     $descFr: String
     $personId: BigInt
     $tags: [String]
+    $startDate: Date 
     $connections: [ID!]!
     $isTemplate: Boolean
   ) {
@@ -366,6 +370,7 @@ const createMealPlanGQL = graphql`
           descriptionFr: $descFr
           personId: $personId
           tags: $tags
+          startDate: $startDate
           isTemplate: $isTemplate
         }
       }
@@ -392,6 +397,7 @@ const createMealPlanGQL = graphql`
               }
             }
           }
+          startDate
         }
       }
     }

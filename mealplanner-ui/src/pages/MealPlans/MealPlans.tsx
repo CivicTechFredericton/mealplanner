@@ -33,6 +33,7 @@ const mealPlansQuery = graphql`
             fullName
           }
           tags
+          startDate
           mealPlanEntries {
             nodes {
               meal {
