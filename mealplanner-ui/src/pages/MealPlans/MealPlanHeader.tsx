@@ -112,6 +112,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 style={{
                   backgroundColor: theme.palette.primary.light,
                   width: "10rem",
+                  maxWidth: "10rem",
                   // padding: "0.5rem",
                   // marginLeft: "1rem",
                 }}
@@ -137,6 +138,9 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 padding="0.5rem 0"
                 marginLeft="1rem"
                 width="9rem"
+                maxWidth="9rem"
+                whiteSpace="nowrap"
+                overflow="hidden"
                 color="primary.contrastText"
                 variant={"h5"}
                 defaultValue={data.nameEn}
@@ -161,10 +165,10 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 // ]}
                 sx={{
                   ".css-i4bv87-MuiSvgIcon-root": {
-                    color: "white",
+                    color: "primary.contrastText"
                   },
                   ".css-19nwk72-MuiFormLabel-root-MuiInputLabel-root.Mui-focused": {
-                    color: "white",
+                    color: "primary.contrastText"
                   },
                   color: "white",
                   backgroundColor: theme.palette.primary.light,
@@ -205,6 +209,9 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 textTransform={"capitalize"}
                 fontStyle="normal"
                 width="10rem"
+                maxWidth="9rem"
+                whiteSpace="nowrap"
+                overflow="hidden"
                 onClick={(e) => {
                   if (!data.isTemplate) {
                     setIsEditUser(true);
