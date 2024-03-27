@@ -30,7 +30,7 @@ export const IngredientCreate = (props: CreateProps) => {
     >
       {data && <MealName record={data} />}
       <SimpleForm>
-        <NumberInput source="id"
+        <NumberInput source="mealId"
         defaultValue={id}
         sx={{
           display: "none",
