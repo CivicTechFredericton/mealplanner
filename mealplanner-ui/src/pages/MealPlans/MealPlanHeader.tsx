@@ -95,7 +95,6 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               display: "inline-flex",
               alignItems: "center",
               width: "100%",
-              // padding: "0.75rem 1rem",
             }}
           >
             <Box>
@@ -165,10 +164,10 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 // ]}
                 sx={{
                   ".css-i4bv87-MuiSvgIcon-root": {
-                    color: "primary.contrastText"
+                    color: "primary.contrastText",
                   },
                   ".css-19nwk72-MuiFormLabel-root-MuiInputLabel-root.Mui-focused": {
-                    color: "primary.contrastText"
+                    color: "primary.contrastText",
                   },
                   color: "white",
                   backgroundColor: theme.palette.primary.light,
@@ -235,41 +234,45 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
             }}
           >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                sx={{
-                  // borderRadius: "10px",
-                  // maxWidth: "60%",
-                  ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
-                    color: `${theme.palette.primary.contrastText}`,
-                    padding: "10px",
-                  },
-                  ".css-i4bv87-MuiSvgIcon-root": {
-                    color: `${theme.palette.primary.contrastText}`,
-                  },
-                  ".css-34wjpk-MuiFormLabel-root-MuiInputLabel-root": {
-                    color: `${theme.palette.primary.contrastText}`,
-                  },
-                }}
-                label="Edit Date"
-                value={dayjs(startDate)}
-                onChange={async (newDate: Dayjs | null) => {
-                  if (newDate !== null) {
-                    const formatedDate = await dayjs(newDate).format("MM-DD-YYYY");
-                    formatedDate ? (
-                      await updateMealPlanName(data.rowId, {
-                        mealPlanId: data.rowId,
-                        descriptionEn: data.descriptionEn,
-                        personId: data.person?.rowId,
-                        tags: data.tags,
-                        startDate: formatedDate,
-                        mealPlanName: data.nameEn,
-                      })
-                    ) : (
-                      <></>
-                    );
-                  }
-                }}
-              ></DatePicker>
+              {!data.isTemplate ? (
+                <DatePicker
+                  sx={{
+                    // borderRadius: "10px",
+                    // maxWidth: "60%",
+                    ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
+                      color: `${theme.palette.primary.contrastText}`,
+                      padding: "10px",
+                    },
+                    ".css-i4bv87-MuiSvgIcon-root": {
+                      color: `${theme.palette.primary.contrastText}`,
+                    },
+                    ".css-34wjpk-MuiFormLabel-root-MuiInputLabel-root": {
+                      color: `${theme.palette.primary.contrastText}`,
+                    },
+                  }}
+                  label="Edit Date"
+                  value={dayjs(startDate)}
+                  onChange={async (newDate: Dayjs | null) => {
+                    if (newDate !== null) {
+                      const formatedDate = await dayjs(newDate).format("MM-DD-YYYY");
+                      formatedDate ? (
+                        await updateMealPlanName(data.rowId, {
+                          mealPlanId: data.rowId,
+                          descriptionEn: data.descriptionEn,
+                          personId: data.person?.rowId,
+                          tags: data.tags,
+                          startDate: formatedDate,
+                          mealPlanName: data.nameEn,
+                        })
+                      ) : (
+                        <></>
+                      );
+                    }
+                  }}
+                ></DatePicker>
+              ) : (
+                <></>
+              )}
             </LocalizationProvider>
           </Box>
         </Box>
