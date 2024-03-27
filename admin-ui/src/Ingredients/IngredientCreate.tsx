@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   AutocompleteInput,
   Create,
@@ -5,6 +6,7 @@ import {
   NumberInput,
   ReferenceInput,
   SimpleForm,
+  TextField,
   TextInput,
   useGetOne,
 } from "react-admin";
@@ -15,7 +17,12 @@ export const IngredientCreate = (props: CreateProps) => {
   // Get the meal record given the meal id.
   // This record is needed to get the meal name
   const { data } = useGetOne("meals", { id });
+    useEffect(() => {
+      console.log(id)
+    
+    }, [])
   return (
+    
     <Create
       {...props}
       resource="ingredients"
@@ -23,6 +30,13 @@ export const IngredientCreate = (props: CreateProps) => {
     >
       {data && <MealName record={data} />}
       <SimpleForm>
+        <NumberInput source="id"
+        defaultValue={id}
+        sx={{
+          display: "none",
+        }}
+
+        />
         <NumberInput source="code" label="Ingredient Code" fullWidth min={1} /> 
         <TextInput source="name" label="Ingredient Name" fullWidth />
         <NumberInput source="quantity" fullWidth min={0} />
