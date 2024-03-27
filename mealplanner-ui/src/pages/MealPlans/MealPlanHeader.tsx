@@ -84,11 +84,10 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
         displayPrint={"none"}
       >
         <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-
-        }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
         >
           <Box
             sx={{
@@ -96,6 +95,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               display: "inline-flex",
               alignItems: "center",
               width: "100%",
+              // padding: "0.75rem 1rem",
             }}
           >
             <Box>
@@ -109,7 +109,12 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 label="Edit Meal Plan Name"
                 variant="filled"
                 color="info"
-                style={{ backgroundColor: theme.palette.primary.light }}
+                style={{
+                  backgroundColor: theme.palette.primary.light,
+                  width: "10rem",
+                  // padding: "0.5rem",
+                  // marginLeft: "1rem",
+                }}
                 defaultValue={data.nameEn}
                 onBlur={(e) => {
                   e.target.value
@@ -131,6 +136,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 justifyContent="space-between"
                 padding="0.5rem 0"
                 marginLeft="1rem"
+                width="9rem"
                 color="primary.contrastText"
                 variant={"h5"}
                 defaultValue={data.nameEn}
@@ -153,6 +159,16 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 //   { label: "User 1", id: 3 },
                 //   { label: "User 2", id: 4 },
                 // ]}
+                sx={{
+                  ".css-i4bv87-MuiSvgIcon-root": {
+                    color: "white",
+                  },
+                  ".css-19nwk72-MuiFormLabel-root-MuiInputLabel-root.Mui-focused": {
+                    color: "white",
+                  },
+                  color: "white",
+                  backgroundColor: theme.palette.primary.light,
+                }}
                 options={allUsers || []}
                 onBlur={(e) => {
                   setIsEditUser(false);
@@ -172,9 +188,8 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                   <TextField
                     {...params}
                     label="Select user"
-                    style={{
-                      backgroundColor: theme.palette.primary.contrastText,
-                      width: "200%",
+                    sx={{
+                      width: "10rem",
                     }}
                     variant="filled"
                   />
@@ -189,6 +204,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 variant={"h5"}
                 textTransform={"capitalize"}
                 fontStyle="normal"
+                width="10rem"
                 onClick={(e) => {
                   if (!data.isTemplate) {
                     setIsEditUser(true);
@@ -205,7 +221,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
           </Box>
           <Box
             sx={{
-              paddingLeft: "10%",
+              paddingLeft: "15%",
               ".css-10rztul-MuiInputBase-root-MuiOutlinedInput-root": {
                 borderRadius: "10px",
               },
@@ -218,26 +234,32 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                   // maxWidth: "60%",
                   ".css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
                     color: `${theme.palette.primary.contrastText}`,
-                    padding: "13px",
+                    padding: "10px",
                   },
                   ".css-i4bv87-MuiSvgIcon-root": {
                     color: `${theme.palette.primary.contrastText}`,
                   },
+                  ".css-34wjpk-MuiFormLabel-root-MuiInputLabel-root": {
+                    color: `${theme.palette.primary.contrastText}`,
+                  },
                 }}
+                label="Edit Date"
                 value={dayjs(startDate)}
                 onChange={async (newDate: Dayjs | null) => {
                   if (newDate !== null) {
                     const formatedDate = await dayjs(newDate).format("MM-DD-YYYY");
-                    formatedDate
-                      ? await updateMealPlanName(data.rowId, {
-                          mealPlanId: data.rowId,
-                          descriptionEn: data.descriptionEn,
-                          personId: data.person?.rowId,
-                          tags: data.tags,
-                          startDate: formatedDate,
-                          mealPlanName: data.nameEn,
-                        })
-                      : <></>;
+                    formatedDate ? (
+                      await updateMealPlanName(data.rowId, {
+                        mealPlanId: data.rowId,
+                        descriptionEn: data.descriptionEn,
+                        personId: data.person?.rowId,
+                        tags: data.tags,
+                        startDate: formatedDate,
+                        mealPlanName: data.nameEn,
+                      })
+                    ) : (
+                      <></>
+                    );
                   }
                 }}
               ></DatePicker>
