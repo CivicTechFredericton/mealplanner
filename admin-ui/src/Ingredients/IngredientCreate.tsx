@@ -16,6 +16,7 @@ export const IngredientCreate = (props: CreateProps) => {
   // This record is needed to get the meal name
   const { data } = useGetOne("meals", { id });
   return (
+    
     <Create
       {...props}
       resource="ingredients"
@@ -23,6 +24,13 @@ export const IngredientCreate = (props: CreateProps) => {
     >
       {data && <MealName record={data} />}
       <SimpleForm>
+        <NumberInput source="mealId"
+        defaultValue={id}
+        sx={{
+          display: "none",
+        }}
+
+        />
         <NumberInput source="code" label="Ingredient Code" fullWidth min={1} /> 
         <TextInput source="name" label="Ingredient Name" fullWidth />
         <NumberInput source="quantity" fullWidth min={0} />
