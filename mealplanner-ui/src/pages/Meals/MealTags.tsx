@@ -39,7 +39,7 @@ export const MealTags = ({ tags }: { tags: MealTags_tags$key }) => {
 
   return (
     <Grid container direction="column" margin="0rem 2rem">
-      <Stack direction="row" spacing={1}>
+      <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', width: '100%' }}>
         {mealTags.allMealTags?.edges.map((edge, index) => {
           const node = edge?.node;
           if (node !== null && node !== undefined) {
