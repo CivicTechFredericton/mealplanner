@@ -153,6 +153,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
                       e.stopPropagation();
                       duplicateMealPlan(connection, mealplan.rowId);
                     }}
+                    sx={{ "& :hover": { color: theme.palette.primary.main } }}
                   >
                     <ContentCopy />
                   </IconButton>
