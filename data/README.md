@@ -24,6 +24,14 @@ Created the products-all-items.json from the scraper api (part of recipe-assista
 
 importProducts script can loop through the json file products-all-items.json and inserts it into the database when it is new.
 
+### populating sample data
+
+Create a new .env file inside the mealplanner/data directory and add the DB_URL as following:
+```DB_URL=postgres://postgres:databasepassword@127.0.0.1:5433/postgres
+```
+
+Then, run the following commands inside the data directory
+
 *To do in a fresh db:*
 `bun importRecipes.ts` to import the meals and ingredients
 and
