@@ -64,6 +64,7 @@ function App() {
             layout={Layout}
             requireAuth
           >
+            
             <Resource
               name="meals"
               list={MealList}
