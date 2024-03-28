@@ -15,7 +15,7 @@
     "@graphile-contrib/pg-simplify-inflector": "^6.0",
     "@graphile/operation-hooks": "^1.0.0",
     "cookie-session": "^2.0.0",
-    "express": "^4.17.1",
+    "express": "^4.19.2",
     "express-session": "^1.17.2",
     "md5": "^2.2.1",
     "postgraphile": "^4.13",
