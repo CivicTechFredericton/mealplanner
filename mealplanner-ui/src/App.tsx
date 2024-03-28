@@ -102,9 +102,9 @@ function App() {
               path="/meals/:id"
               element={
                 <Suspense fallback={"loading inner..."}>
-                  <LoggedIn>
+                  {/* <LoggedIn> */}
                     <Meal />
-                  </LoggedIn>
+                  {/* <LoggedIn> */}
                 </Suspense>
               }
             />
