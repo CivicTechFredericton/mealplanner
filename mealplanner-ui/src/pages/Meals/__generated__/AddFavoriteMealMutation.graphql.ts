@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f2c2d9e70b9bb0294c4ea20a81213cae>>
+ * @generated SignedSource<<60548045efbedf0f79bc353ef3c170d1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,11 +15,11 @@ export type AddFavoriteMealMutation$variables = {
 export type AddFavoriteMealMutation$data = {
   readonly addFavoriteMeal: {
     readonly preflight: boolean;
-  } | null | undefined;
+  } | null;
 };
 export type AddFavoriteMealMutation = {
-  response: AddFavoriteMealMutation$data;
   variables: AddFavoriteMealMutation$variables;
+  response: AddFavoriteMealMutation$data;
 };
 
 const node: ConcreteRequest = (function(){

@@ -3,17 +3,21 @@ import {
   FormControlLabel,
   Grid,
   InputBase,
+  InputLabel,
+  MenuItem,
   Radio,
-  RadioGroup
+  RadioGroup,
+  Select
 } from "@mui/material";
 import { graphql } from "babel-plugin-relay/macro";
 import {Suspense, useState } from "react";
 import { useLazyLoadQuery, useRefetchableFragment } from "react-relay";
-import { FavoriteMeals, FavoriteMealsFragment } from "./PersonFavoriteMeals";
 import { MealTags } from "./MealTags";
 import { MealsQuery } from "./__generated__/MealsQuery.graphql";
 import { MealCard } from "./MealCard";
 import { getCurrentPerson } from "../../state/state";
+import { GetAllPeopleInfo } from "../../state/state";
+import { FavoriteMeals, FavoriteMealsFragment } from "./PersonFavoriteMeals";
 
 const mealsQuery = graphql`
   query MealsQuery($slug: String!)  {
@@ -68,11 +72,13 @@ type FavoriteMeals = {
     selectedFavoriteMeals: any; 
   };
 }
+
 export const Meals = () => {
   const [searchMeal, setSearchMeal] = useState<string>("");
   const [searchType, setSearchType] = useState('name');
   const slug = getCurrentPerson().personSlug;
 
+  let peopleData = GetAllPeopleInfo();
   const data = useLazyLoadQuery<MealsQuery>(
     mealsQuery,
     {slug: slug as string},
@@ -89,14 +95,12 @@ export const Meals = () => {
     <>
     <Grid
       container
-      spacing={2}
-      columns={2}
-      gap="2rem"
       margin="1rem 2rem"
       width="95%"
       justifyContent="space-between"
     >
-      <FormControl component="fieldset">
+    <Grid item xs={12}>
+      <FormControl style={{display:"flex"}} component="fieldset">
       <RadioGroup
         row
         aria-label="searchType"
@@ -135,14 +139,26 @@ export const Meals = () => {
           label="Favorites"
           checked={searchType === 'favorites'}
         />
+        {searchType === 'favorites' && (getCurrentPerson().personRole === 'app_admin' || getCurrentPerson().personRole === 'app_meal_designer') && (
+            <FormControl style={{ width: '20%' }}>
+            <InputLabel>Select any User</InputLabel>
+            <Select>
+            {peopleData?.people?.nodes.map(person => (
+               <MenuItem key={person.rowId} value={person.role}>{person.fullName}</MenuItem> 
+            ))} 
+            </Select>
+          </FormControl>
+        )}
         <FormControlLabel
           value="tags"
           control={<Radio />}
           label="Tags"
           checked={searchType === 'tags'}
+          style={{ marginLeft: '0px' }}
         /> 
       </RadioGroup>
     </FormControl>
+    </Grid>
     </Grid>
       {searchType === 'tags' &&
         <Suspense fallback={"loading tags..."}>

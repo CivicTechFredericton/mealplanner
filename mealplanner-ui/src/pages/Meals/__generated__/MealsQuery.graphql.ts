@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a7c99d6cd983dc8245c21d8a477d41ec>>
+ * @generated SignedSource<<31d180638382a0804ed5aab9329143f9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,34 +10,34 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CategoryT = "BREAKFAST" | "DINNER" | "LUNCH" | "SNACK" | "%future added value";
+export type CategoryT = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK" | "%future added value";
 export type MealsQuery$variables = {
   slug: string;
 };
 export type MealsQuery$data = {
-  readonly gqLocalState: {
-    readonly selectedFavoriteMeals: ReadonlyArray<string> | null | undefined;
-    readonly selectedMealTags: ReadonlyArray<string> | null | undefined;
-  };
   readonly meals: {
     readonly nodes: ReadonlyArray<{
-      readonly categories: ReadonlyArray<CategoryT | null | undefined> | null | undefined;
-      readonly code: string | null | undefined;
-      readonly descriptionEn: string | null | undefined;
-      readonly descriptionFr: string | null | undefined;
-      readonly nameEn: string;
-      readonly nameFr: string | null | undefined;
-      readonly photoUrl: string | null | undefined;
       readonly rowId: any;
-      readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
-      readonly videoUrl: string | null | undefined;
+      readonly nameEn: string;
+      readonly nameFr: string | null;
+      readonly descriptionEn: string | null;
+      readonly descriptionFr: string | null;
+      readonly categories: ReadonlyArray<CategoryT | null> | null;
+      readonly tags: ReadonlyArray<string | null> | null;
+      readonly code: any | null;
+      readonly photoUrl: string | null;
+      readonly videoUrl: string | null;
     }>;
   } | null;
+  readonly gqLocalState: {
+    readonly selectedMealTags: ReadonlyArray<string> | null;
+    readonly selectedFavoriteMeals: ReadonlyArray<string> | null;
+  };
   readonly " $fragmentSpreads": FragmentRefs<"MealTags_tags" | "PersonFavoriteMeals_favorites">;
 };
 export type MealsQuery = {
-  response: MealsQuery$data;
   variables: MealsQuery$variables;
+  response: MealsQuery$data;
 };
 
 const node: ConcreteRequest = (function(){

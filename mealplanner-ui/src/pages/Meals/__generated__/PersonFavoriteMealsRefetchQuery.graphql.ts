@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7187c55bb389481d3bc27f5ff2e504c6>>
+ * @generated SignedSource<<51b4b2d3a92807c6d00240e28892bfeb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,8 +17,8 @@ export type PersonFavoriteMealsRefetchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"PersonFavoriteMeals_favorites">;
 };
 export type PersonFavoriteMealsRefetchQuery = {
-  response: PersonFavoriteMealsRefetchQuery$data;
   variables: PersonFavoriteMealsRefetchQuery$variables;
+  response: PersonFavoriteMealsRefetchQuery$data;
 };
 
 const node: ConcreteRequest = (function(){

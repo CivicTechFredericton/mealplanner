@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f8cd75068c6ad5148afc2199cb16b3b8>>
+ * @generated SignedSource<<db259b2f504461d0e264a948d0bc484d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,32 +9,32 @@
 // @ts-nocheck
 
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
-export type CategoryT = "BREAKFAST" | "DINNER" | "LUNCH" | "SNACK" | "%future added value";
+export type CategoryT = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type PersonFavoriteMeals_favorites$data = {
   readonly gqLocalState: {
-    readonly selectedFavoriteMeals: ReadonlyArray<string> | null | undefined;
+    readonly selectedFavoriteMeals: ReadonlyArray<string> | null;
   };
   readonly people: {
     readonly nodes: ReadonlyArray<{
       readonly favoriteMeals: {
         readonly nodes: ReadonlyArray<{
           readonly meal: {
-            readonly categories: ReadonlyArray<CategoryT | null | undefined> | null | undefined;
-            readonly code: string | null | undefined;
-            readonly descriptionEn: string | null | undefined;
-            readonly descriptionFr: string | null | undefined;
-            readonly nameEn: string;
-            readonly nameFr: string | null | undefined;
-            readonly photoUrl: string | null | undefined;
             readonly rowId: any;
-            readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
-            readonly videoUrl: string | null | undefined;
-          } | null | undefined;
+            readonly nameEn: string;
+            readonly nameFr: string | null;
+            readonly descriptionEn: string | null;
+            readonly descriptionFr: string | null;
+            readonly categories: ReadonlyArray<CategoryT | null> | null;
+            readonly tags: ReadonlyArray<string | null> | null;
+            readonly code: any | null;
+            readonly photoUrl: string | null;
+            readonly videoUrl: string | null;
+          } | null;
         }>;
       };
     }>;
-  } | null | undefined;
+  } | null;
   readonly " $fragmentType": "PersonFavoriteMeals_favorites";
 };
 export type PersonFavoriteMeals_favorites$key = {
