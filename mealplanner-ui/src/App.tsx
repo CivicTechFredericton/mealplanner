@@ -108,8 +108,7 @@ function App() {
                 </Suspense>
               }
             />
-            <Route 
-              path={`/meals/:slug/favorites`}
+            {/* <Route path={`/meals/:slug/favorites`}
               element={
                 <Suspense fallback={"loading favorite meals.."}>
                   <LoggedIn>
@@ -117,7 +116,7 @@ function App() {
                   </LoggedIn>
                 </Suspense>
               }
-            />
+            /> */}
             <Route
               path="/"
               element={

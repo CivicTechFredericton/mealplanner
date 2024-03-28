@@ -24,6 +24,8 @@ import {
   state_updateMealPlanMutation,
   state_updateMealPlanMutation$variables
 } from "./__generated__/state_updateMealPlanMutation.graphql";
+import { state_peopleQuery } from "./__generated__/state_peopleQuery.graphql";
+import { useLazyLoadQuery } from "react-relay";
 const STATE_ID = `client:GQLLocalState:21`;
 
 // This initializes the local state before the app is getting loaded. Need to call in App.ts
@@ -50,6 +52,13 @@ export const setSelectedMealTags = (mealTags: string[]) => {
   commitLocalUpdate(environment, (store) => {
     const localState = store.get(STATE_ID);
     localState?.setValue(mealTags, "selectedMealTags");
+  })
+}
+
+export const setSelectedFavMeals = (mealTags: string[]) => {
+  commitLocalUpdate(environment, (store) => {
+    const localState = store.get(STATE_ID);
+    localState?.setValue(mealTags, "selectedFavoriteMeals");
   })
 }
 
@@ -295,6 +304,28 @@ export const getCurrentPerson = (): {
     personRole: record["personRole"].toString(),
     personSlug: record["personSlug"].toString(),
   };
+};
+
+const getAllPeopleQuery = graphql`
+ query state_peopleQuery {
+  people {
+    nodes {
+      fullName
+      rowId
+      slug
+      role
+    }
+  }
+ }
+`
+
+export const GetAllPeopleInfo = () => {
+  const data = useLazyLoadQuery<state_peopleQuery>(
+    getAllPeopleQuery,
+    {},
+    { fetchPolicy: "store-or-network" }
+  );
+  return data;
 };
 
 const updateMealPlan = graphql`
