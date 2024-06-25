@@ -20,7 +20,6 @@ export type MealPlansQuery$data = {
         readonly id: string;
         readonly rowId: any;
         readonly nameEn: string;
-        readonly personId: any | null;
         readonly descriptionEn: string | null;
         readonly isTemplate: boolean | null;
         readonly person: {
