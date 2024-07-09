@@ -45,6 +45,13 @@
     </script>
 
   </head>
+  <style>
+    /* Microsoft has it's own handler for password reveals in Edge. This disables it so doesn't appear alongside the MUI reveal handler. */
+    input::-ms-reveal,
+    input::-ms-clear {
+      display: none;
+    }
+  </style>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
