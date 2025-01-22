@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<442ec150748f0e90497d04ffab81182c>>
+ * @generated SignedSource<<9cbaa36cd05ef09f04528caaaef4ab46>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type DuplicateMealPlanMutation$variables = {
   connections: ReadonlyArray<string>;
   mealPlanId: any;
+  personId: any;
 };
 export type DuplicateMealPlanMutation$data = {
   readonly duplicateMealPlan: {
@@ -22,6 +23,7 @@ export type DuplicateMealPlanMutation$data = {
         readonly rowId: any;
         readonly nameEn: string;
         readonly nameFr: string | null;
+        readonly personId: any | null;
         readonly descriptionEn: string | null;
         readonly descriptionFr: string | null;
         readonly person: {
@@ -56,6 +58,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "mealPlanId"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "personId"
   }
 ],
 v1 = [
@@ -65,6 +72,11 @@ v1 = [
         "kind": "Variable",
         "name": "mealplanId",
         "variableName": "mealPlanId"
+      },
+      {
+        "kind": "Variable",
+        "name": "pId",
+        "variableName": "personId"
       }
     ],
     "kind": "ObjectValue",
@@ -110,31 +122,38 @@ v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "descriptionEn",
+  "name": "personId",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "descriptionFr",
+  "name": "descriptionEn",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "fullName",
+  "name": "descriptionFr",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "tags",
+  "name": "fullName",
   "storageKey": null
 },
 v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "tags",
+  "storageKey": null
+},
+v12 = {
   "alias": null,
   "args": null,
   "concreteType": "Meal",
@@ -191,6 +210,7 @@ return {
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -199,11 +219,11 @@ return {
                     "name": "person",
                     "plural": false,
                     "selections": [
-                      (v9/*: any*/)
+                      (v10/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -220,7 +240,7 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v11/*: any*/)
+                          (v12/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -277,6 +297,7 @@ return {
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -285,12 +306,12 @@ return {
                     "name": "person",
                     "plural": false,
                     "selections": [
-                      (v9/*: any*/),
+                      (v10/*: any*/),
                       (v3/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -307,7 +328,7 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v11/*: any*/),
+                          (v12/*: any*/),
                           (v3/*: any*/)
                         ],
                         "storageKey": null
@@ -343,16 +364,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7f6407c93dce3445c4857b72dcae3cef",
+    "cacheID": "58909a18ca00b8ea3e61d30136792fa5",
     "id": null,
     "metadata": {},
     "name": "DuplicateMealPlanMutation",
     "operationKind": "mutation",
-    "text": "mutation DuplicateMealPlanMutation(\n  $mealPlanId: BigInt!\n) {\n  duplicateMealPlan(input: {mealplanId: $mealPlanId}) {\n    mealPlanEdge {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation DuplicateMealPlanMutation(\n  $mealPlanId: BigInt!\n  $personId: BigInt!\n) {\n  duplicateMealPlan(input: {mealplanId: $mealPlanId, pId: $personId}) {\n    mealPlanEdge {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        nameFr\n        personId\n        descriptionEn\n        descriptionFr\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "42d544842c1e18d7facbf151b2a90b65";
+(node as any).hash = "0c4ee5ca2031d18762a501e14d717192";
 
 export default node;

@@ -4,7 +4,7 @@ import environment from "../../relay/environment";
 
 const duplicateMealPlanGQL = graphql`
 mutation DuplicateMealPlanMutation($connections: [ID!]!, $mealPlanId: BigInt!, $personId:BigInt!) {
-    duplicateMealPlan(input: {mealplanId: $mealPlanId, personId: $personId}) {
+    duplicateMealPlan(input: {mealplanId: $mealPlanId, pId: $personId}) {
         mealPlanEdge @prependEdge(connections: $connections) {
             cursor
             node {
