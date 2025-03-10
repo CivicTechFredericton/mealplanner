@@ -45,6 +45,7 @@ const postgraphileOptions = {
     PgSimplifyInflector,
     ConnectionFilterPlugin,
     GravatarPlugin,
+    LoginPlugin,
     SocialLoginPlugin,
     VerifyGoogleTokenPlugin,
     VerifyFacebookTokenPlugin,
