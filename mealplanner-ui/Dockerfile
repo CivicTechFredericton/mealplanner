@@ -11,12 +11,12 @@ COPY package.json ./
 COPY package-lock.json ./
 
 # install app dependencies using npm (node packages)
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copies everything over to Docker environment
 COPY . ./
 # Builds the react application as static HTML files
-RUN npm run build
+RUN npm install --legacy-peer-deps
 
 # Pull the official nginx base
 FROM nginx:1.22-alpine

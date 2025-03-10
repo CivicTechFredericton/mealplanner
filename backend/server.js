@@ -9,6 +9,9 @@ const OperationMessagesPlugin = require("@graphile/operation-hooks/lib/Operation
 const LoginPlugin = require("./hooks/login_plugin");
 const session = require("cookie-session");
 const { LogoutPlugin } = require("./extensions/logout");
+const VerifyGoogleTokenPlugin = require("./hooks/Verify_Google_Token_plugin");
+const VerifyFacebookTokenPlugin = require("./hooks/Verify_Facebook_Token_Plugin");
+const SocialLoginPlugin = require("./hooks/Social_login_plugin");
 
 const app = express();
 app.set('trust proxy', 1);
@@ -38,11 +41,13 @@ const postgraphileOptions = {
   pluginHook: pluginHook,
   appendPlugins: [
     OperationMessagesPlugin,
-    LoginPlugin,
     LogoutPlugin,
     PgSimplifyInflector,
     ConnectionFilterPlugin,
     GravatarPlugin,
+    SocialLoginPlugin,
+    VerifyGoogleTokenPlugin,
+    VerifyFacebookTokenPlugin,
   ],
   exportGqlSchemaPath: "schema.graphql",
   graphiql: true,
