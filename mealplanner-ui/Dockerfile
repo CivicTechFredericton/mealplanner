@@ -16,7 +16,7 @@ RUN npm install --legacy-peer-deps
 # Copies everything over to Docker environment
 COPY . ./
 # Builds the react application as static HTML files
-RUN npm install --legacy-peer-deps
+RUN npm run build
 
 # Pull the official nginx base
 FROM nginx:1.22-alpine
