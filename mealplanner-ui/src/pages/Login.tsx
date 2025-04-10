@@ -207,16 +207,6 @@ export const Login = () => {
             <>
               <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log("Google login failed")} />
 
-              <FacebookLogin
-                appId={FACEBOOK_APP_ID}
-                fields="email"
-                callback={handleFacebookSuccess}  // This callback is invoked after login
-                render={(renderProps) => (
-                  <Button variant="contained" color="primary" onClick={renderProps.onClick}>
-                    Login with Facebook
-                  </Button>
-                )}
-              />
             </>
           )}
           {authError && (
