@@ -306,6 +306,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 descriptionEn: e.target.value,
                 personId: data.person?.rowId,
                 tags: data.tags,
+                startDate: data.startDate,
                 mealPlanName: data.nameEn,
               });
             }}
@@ -322,6 +323,7 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
                 descriptionEn: data.descriptionEn,
                 personId: data.person?.rowId,
                 tags: value,
+                startDate: data.startDate,
                 mealPlanName: data.nameEn,
               });
             }}
