@@ -182,4 +182,31 @@ setup hooks
 cp hooks/pre-commit.sh .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```
+## For Google OAuth
+
+To setup Google Oauth, first step is to generate the Google Oauth Client ID. Follow steps given at https://support.google.com/googleapi/answer/6158849?hl=en to generate OAuth client ID. Once you have Google Client ID, you need to update this value in following pages
+1. mealplanner-ui/src/pages/Login.tsx update value for the const GOOGLE_CLIENT_ID
+2. backend/hooks/Verify_Google_Token_plugin.js value for const GOOGLE_CLIENT_ID
+
+After making these changes run migrator up command
+docker compose run migrator up
+
+Once migrator executes script 21, regenerate graphql to load new mutations and backend hooks. You need to delete and recreate graphql container for this. Check the name of the container on your local machine.
+docker stop mealplanner-graphql-1
+docker rm mealplanner-graphql-1
+
+docker-compose build graphql
+docker-compose up graphql -d
+
+-d will run graphql in detached mode and supress logs output on the console, and will also ensure that graphql container continues to run even when console is closed.
+
+Wait for the graphql to start and then recreate and rerun frontend docker container to deploy the code changes. Check the name of the container on your local machine.
+docker stop mealplanner-frontend-1
+docker rm mealplanner-frontend-1
+
+docker-compose build frontend
+docker-compose up frontend -d
+
+Restart admin docker so it connects to new graphql container. Check the name of the container on your local machine.
+docker restart mealplanner-admin-1
 
