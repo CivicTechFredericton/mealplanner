@@ -154,7 +154,11 @@ In command prompt give
 direnv allow
 ```
 
-Then, follow the instructions in the `data/README.md` file to import the data for the database tables - products, meals and ingredients.
+Then run,
+
+`bun importRecipes.ts` to import the meals and ingredients
+and
+`bun importProducts.ts` to import the products.
 
 
 ## For v2
