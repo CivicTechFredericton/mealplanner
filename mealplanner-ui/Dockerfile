@@ -11,7 +11,7 @@ COPY package.json ./
 COPY package-lock.json ./
 
 # install app dependencies using npm (node packages)
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copies everything over to Docker environment
 COPY . ./
