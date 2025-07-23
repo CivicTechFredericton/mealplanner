@@ -29,4 +29,8 @@ for each row execute function app.set_updated_at();
 create trigger tg_social_login_user_set_created_at before insert
 on app.social_login_user for each row execute function app.set_created_at();
 
+GRANT SELECT, INSERT, UPDATE, DELETE on table app.social_login_user to app_admin;
+
+GRANT USAGE, SELECT ON SEQUENCE app.social_login_user_id_seq TO app_admin;
+
 COMMIT;
