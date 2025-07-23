@@ -53,8 +53,8 @@ export const Register = () => {
 						label="Login Mode"
 						onChange={(e) => setLoginMode(e.target.value)}
 					>
-						<MenuItem value="Google">Google</MenuItem>
-						<MenuItem value="Facebook">Facebook</MenuItem>
+						<MenuItem value="GOOGLE">Google</MenuItem>
+						<MenuItem value="FACEBOOK">Facebook</MenuItem>
 					</Select>
 				</FormControl>
 
