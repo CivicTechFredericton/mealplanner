@@ -31,6 +31,39 @@ const SocialLoginActions = () => {
   );
 };
 
+type LoginModeRecord = {
+  loginMode: string;
+};
+
+const LoginMode = (props: FieldProps) => {
+	const record = useRecordContext<LoginModeRecord>();
+	if (!record) return <span>loading login mode...</span>;
+
+	const loginModes: { [key: string]: string | undefined } = {
+		GOOGLE: "Google",
+		FACEBOOK: "Facebook",
+	};
+
+	return <span>{loginModes[record.loginMode ?? ""] || "Unknown"}</span>;
+};
+
+type UserStatusRecord = {
+  status: string;
+};
+
+const UserStatus = (props: FieldProps) => {
+	const record = useRecordContext<UserStatusRecord>();
+	if (!record) return <span>loading login mode...</span>;
+
+	const UserStatus: { [key: string]: string | undefined } = {
+		PENDING: "Pending",
+		ACTIVE: "Active",
+		INACTIVE: "InActive"
+	};
+
+	return <span>{UserStatus[record.status ?? ""] || "Unknown"}</span>;
+};
+
 export const SocialLoginList = (props: ListProps) => {
 	return(
 		<React.Fragment>
@@ -39,8 +72,8 @@ export const SocialLoginList = (props: ListProps) => {
 					<TextField source="id" />
 					<TextField source="fullName" />
 					<UserRole label="Role" />
-					<TextField source="loginMode" />
-					<TextField source="status" />
+					<LoginMode label="Login Mode"/>
+					<UserStatus label="Status" />
 					<TextField source="email" />
 					<EditButton />
 				</Datagrid>

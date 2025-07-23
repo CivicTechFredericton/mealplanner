@@ -1,24 +1,11 @@
-import { Edit, EditProps, SelectInput, SimpleForm, TextInput, useRecordContext } from "react-admin";
+import { 
+	Edit, 
+	EditProps, 
+	SelectInput, 
+	SimpleForm, 
+	TextInput 
+} from "react-admin";
 
-const StatusField = () => {
-	const record = useRecordContext();
-	const currentStatus = record?.status;
-
-	const choices = [{ id: "InActive", name: "InActive" }];
-
-	// Add current value if it's not already in choices
-	if (currentStatus && !choices.find((c) => c.id === currentStatus)) {
-		choices.unshift({ id: currentStatus, name: currentStatus });
-	}
-
-	return (
-		<SelectInput
-			source="status"
-			choices={choices}
-			parse={(value) => (value === "InActive" ? "InActive" : currentStatus)}
-		/>
-	);
-};
 
 export const SocialLoginEdit = (props: EditProps) => {
 	return (
@@ -40,22 +27,19 @@ export const SocialLoginEdit = (props: EditProps) => {
 					emptyText="Google"
 					emptyValue="GOOGLE"
 					choices={[
-						{ id: "GOOGLE", name: "Google" },
-						{ id: "FACEBOOK", name: "Facebook" },
+						{ id: "FACEBOOK", name: "Facebook" }
 					]}
 				/>
-				{/* <SelectInput
+				<SelectInput
 					source="status"
-					// emptyText=""
-					// emptyValue=""
+					emptyText="Pending"
+					emptyValue="PENDING"
 					choices={[
-						{ id: "InActive", name: "InActive" }
-					]}
-					format={(value) => value} // shows current status even if not in choices
-  					parse={(value) => (value === "InActive" ? "InActive" : undefined)} // only allows setting to InActive
-				/> */}
-				<StatusField />
+						{ id: "ACTIVE", name: "Active" },
+						{ id: "INACTIVE", name: "InActive" }
 
+					]}
+				/>
 			</SimpleForm>
 		</Edit>
 	);
