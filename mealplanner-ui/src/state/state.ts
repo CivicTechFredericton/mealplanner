@@ -186,6 +186,28 @@ export const deleteMealFromPlan = (connectionID: string, mpeId: number) => {
   });
 };
 
+//#region Google Login
+const CheckEmailQuery = graphql`
+  query state_checkUserByEmailQuery($email: String!) {
+    personByEmail(email: $email) {
+      rowId
+      email
+    }
+  }
+`;
+
+export const emailVerify = async(email: string): Promise<boolean> => {
+  console.log('emailVerify', email)
+  const data = await fetchQuery<state_checkUserByEmailQuery>(
+    environment,
+    CheckEmailQuery,
+    { email }
+  ).toPromise();
+  console.log('emailVerify', data, data?.personByEmail?.email)
+  return !!data?.personByEmail?.email;
+}
+//#endregion
+
 const currentUserQuery = graphql`
   query state_CurrentUserQuery {
     currentPerson {
