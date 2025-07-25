@@ -1,0 +1,3 @@
+BEGIN;
+	DROP TABLE IF EXISTS app.social_login CASCADE;
+COMMIT;
