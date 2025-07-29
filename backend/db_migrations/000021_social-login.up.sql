@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS app.social_login (
 	refresh_token TEXT NOT NULL,
 	id_token TEXT NOT NULL,
 	token_response JSONB NOT NULL DEFAULT '{}',
+	is_active BOOLEAN NOT NULL DEFAULT true, --social login deactivate
 	created_at TIMESTAMP DEFAULT now() NOT NULL,
 	updated_at TIMESTAMP DEFAULT now() NOT NULL,
 	person_id BIGINT NOT NULL REFERENCES app.person (id) ON DELETE CASCADE,

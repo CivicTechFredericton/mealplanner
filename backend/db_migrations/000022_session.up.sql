@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS app.session (
 	id BIGSERIAL PRIMARY KEY,
 	auth_channel TEXT NOT NULL CHECK (auth_channel IN ('Password', 'Google', 'Facebook')),
 	timestamp TIMESTAMP NOT NULL DEFAULT now(),
-	person_id BIGINT NOT NULL REFERENCES app.person(id) ON DELETE CASCADE
+	person_id BIGINT NOT NULL REFERENCES app.person(id) ON DELETE CASCADE,
+	social_login_id BIGINT REFERENCES app.social_login(id) ON DELETE CASCADE
 );
 
 -- index to speed up lookups by person
