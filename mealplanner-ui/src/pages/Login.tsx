@@ -12,9 +12,6 @@ import { graphql } from "babel-plugin-relay/macro";
 import { useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { Navigate } from "react-router";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google"; // npm install @react-oauth/google
-// import jwt_decode from 'jwt-decode';
-import {jwtDecode} from 'jwt-decode';
 import { getCurrentPerson, login, updatePersonTerms, emailVerify } from "../state/state";
 import { LoginQuery } from "./__generated__/LoginQuery.graphql";
 
@@ -31,8 +28,15 @@ const query = graphql`
     }
   }
 `;
-const GOOGLE_CLIENT_ID = "257812322829-8eldvvic573u11288rrh2u53ver5g1gu.apps.googleusercontent.com";
-console.log('client_id', GOOGLE_CLIENT_ID);
+
+
+// const API_BASE = process.env.REACT_APP_API_BASE_URL ?? "http://localhost:4000"; // "" => same-origin in prod
+// const AUTH_URL = `${API_BASE || window.location.origin}/auth/google`;
+// console.log('auth_url', AUTH_URL)
+
+export const authStartUrl = () =>
+  `${window.location.origin}/auth/google`;
+
 export const Login = () => {
 	let [username, setUsername] = useState("");
 	let [password, setPassword] = useState("");
@@ -52,29 +56,6 @@ export const Login = () => {
 		}
 	};
 
-	const handleGoogleSuccess = async (credentialResponse: any) => {
-		try {
-			console.log('handleGoogleSuccess - decode credential', credentialResponse );
-			const decoded: any = jwtDecode(credentialResponse.credential);
-			const email = decoded.email;
-			console.log('handleGoogleSuccess', email, decoded);
-			
-			// You can send this token to your backend to verify/create a session
-			const isEmailReg = await emailVerify(email);
-			if(!isEmailReg) {
-				throw new Error("Login denied. Please contact Greener Village.");
-			}
-		} catch (err: any) {
-			console.log("Google login error", err);
-			setResult(err);
-		}
-	};
-
-	const handleGoogleFailure = () => {
-		console.log("Google login failed.");
-		setResult("Google login failed.");
-	};
-
 	let data = useLazyLoadQuery<LoginQuery>(
 		query,
 		{},
@@ -91,155 +72,78 @@ export const Login = () => {
 	}
 
 	return (
-		<GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-			<main
-				style={{
-					height: "560px",
-					backgroundImage: `url('/images/veggie-background-log-in.png')`,
-					backgroundSize: "cover",
-					// backgroundPosition: "center",
-					display: "flex",
-					justifyContent: "center",
-					// alignItems: "center"
-				}}
-			>
-				<Modal open={true} hideBackdrop>
-					<Box
-						onKeyPress={(ev) => {
-							if (ev.key === "Enter") {
-								handleLogin();
-								ev.preventDefault();
-							}
-						}}
-						sx={{
-							width: 400,
-							margin: "auto",
-							mt: "8rem",
-							p: 4,
-							borderRadius: 2,
-							display: "flex",
-							flexDirection: "column",
-							gap: "1rem",
-							textAlign: "center",
-							boxShadow: 6,
-							bgcolor: "rgba(255, 255, 255, 0.85)",
-							// bgcolor: "white"
-							// backdropFilter: "blur(6px)", // optional for glassmorphism
-						}}
-					>
-
-						<Typography variant="h5">Looking for a healthier meal?</Typography>
-
-						{/* Google login UI placeholder */}
-						<GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleFailure}></GoogleLogin>
-						{/* <Button
-							variant="outlined"
-							color="primary"
-							style={{ textTransform: "none" }}
-							onClick={() => { }}
-						>
-							<img
-								src="https://developers.google.com/identity/images/g-logo.png"
-								alt="Google"
-								style={{ height: 20, marginRight: 8 }}
-							/>
-							Continue with Google
-						</Button> */}
-
-						<Typography variant="body2" sx={{ mt: 1 }}>
-							OR
-						</Typography>
-
-						{/* username field */}
-						<TextField
-							variant="filled"
-							placeholder="username"
-							onChange={(e) => setUsername(e.target.value)}
-							value={username}
-						></TextField>
-
-						{/* password field */}
-						<TextField
-							type={showPassword ? "text" : "password"}
-							placeholder="password"
-							variant="filled"
-							onChange={(e) => setPassword(e.target.value)}
-							value={password}
-							InputProps={{
-								endAdornment: (
-									<InputAdornment position="end">
-										<IconButton
-											aria-label="toggle password visibility"
-											onClick={handleVisibility}
-										>
-											{showPassword ? (
-												<VisibilityOff></VisibilityOff>
-											) : (
-												<Visibility></Visibility>
-											)}
-										</IconButton>
-									</InputAdornment>
-								),
-							}}
-						></TextField>
-
-						{result ? (
-							<Typography variant="body2" color={"red"}>
-								{result}
-							</Typography>
-						) : (
-							<></>
-						)}
-
-						<Button variant="contained" onClick={handleLogin}>
-							Login
-						</Button>
-
-						<Typography fontSize="small" marginTop={"3rem"}>
-							Don't have an account? <br />
-							Contact{" "}
-							<label style={{ color: "green" }}>
-								john.doe@greenervillage.com
-							</label>{" "}
-							to get started
-						</Typography>
-					</Box>
-
-				</Modal>
-
-
-				{/* <section
+		<main
+			style={{
+				height: "560px",
+				backgroundImage: `url('/images/veggie-background-log-in.png')`,
+				backgroundSize: "cover",
+				// backgroundPosition: "center",
+				display: "flex",
+				justifyContent: "center",
+				// alignItems: "center"
+			}}
+		>
+			<Modal open={true} hideBackdrop>
+				<Box
 					onKeyPress={(ev) => {
 						if (ev.key === "Enter") {
 							handleLogin();
 							ev.preventDefault();
 						}
 					}}
-					style={{
-						width: "30%",
-						height: "400px",
-						backgroundColor: "white",
-						padding: "2rem",
-						margin: "2rem",
-						textAlign: "center",
+					sx={{
+						width: 400,
+						margin: "auto",
+						mt: "8rem",
+						p: 4,
+						borderRadius: 2,
 						display: "flex",
 						flexDirection: "column",
 						gap: "1rem",
+						textAlign: "center",
+						boxShadow: 6,
+						bgcolor: "rgba(255, 255, 255, 0.85)",
+						// bgcolor: "white"
+						// backdropFilter: "blur(6px)", // optional for glassmorphism
 					}}
 				>
+
 					<Typography variant="h5">Looking for a healthier meal?</Typography>
 
+					<Button
+						variant="outlined"
+						color="primary"
+						style={{ textTransform: "none" }}
+						onClick={() => window.location.assign(authStartUrl())} 						
+						// onClick={() => window.location.assign(AUTH_URL)} // force full-page nav (HashRouter can't hijack)
+					>
+						<img
+							src="https://developers.google.com/identity/images/g-logo.png"
+							alt="Google"
+							style={{ height: 20, marginRight: 8 }}
+						/>
+						Continue with Google
+					</Button>
+
+					<Typography variant="body2" sx={{ mt: 1 }}>
+						OR
+					</Typography>
+
+					{/* username field */}
 					<TextField
 						variant="filled"
-						placeholder="user name"
+						placeholder="username"
 						onChange={(e) => setUsername(e.target.value)}
+						value={username}
 					></TextField>
 
+					{/* password field */}
 					<TextField
 						type={showPassword ? "text" : "password"}
 						placeholder="password"
 						variant="filled"
 						onChange={(e) => setPassword(e.target.value)}
+						value={password}
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position="end">
@@ -257,6 +161,7 @@ export const Login = () => {
 							),
 						}}
 					></TextField>
+
 					{result ? (
 						<Typography variant="body2" color={"red"}>
 							{result}
@@ -264,9 +169,11 @@ export const Login = () => {
 					) : (
 						<></>
 					)}
+
 					<Button variant="contained" onClick={handleLogin}>
 						Login
 					</Button>
+
 					<Typography fontSize="small" marginTop={"3rem"}>
 						Don't have an account? <br />
 						Contact{" "}
@@ -275,8 +182,11 @@ export const Login = () => {
 						</label>{" "}
 						to get started
 					</Typography>
-				</section> */}
-			</main>
-		</GoogleOAuthProvider>
+				</Box>
+
+			</Modal>
+
+
+		</main>
 	);
 };
