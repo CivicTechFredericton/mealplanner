@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 
 export const NutritionForm = () => {
   const params = useParams();
-
+  console.log("testing")
   let record;
   if (!params.id) {
     record = useCreateContext();
