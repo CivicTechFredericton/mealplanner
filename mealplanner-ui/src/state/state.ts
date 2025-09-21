@@ -20,6 +20,10 @@ import {
   state_loginMutation$data,
 } from "./__generated__/state_loginMutation.graphql";
 import {
+  state_googleLoginMutation,
+  state_googleLoginMutation$data
+} from "./__generated__/state_googleLoginMutation.graphql";
+import {
   state_logoutMutation,
   state_logoutMutation$data,
 } from "./__generated__/state_logoutMutation.graphql";
@@ -27,6 +31,10 @@ import {
   state_updateMealPlanMutation,
   state_updateMealPlanMutation$variables,
 } from "./__generated__/state_updateMealPlanMutation.graphql";
+import {
+  state_checkUserByEmailQuery,
+  state_checkUserByEmailQuery$data
+} from "./__generated__/state_checkUserByEmailQuery.graphql";
 import { state_peopleQuery } from "./__generated__/state_peopleQuery.graphql";
 import { useLazyLoadQuery } from "react-relay";
 const STATE_ID = `client:GQLLocalState:21`;
@@ -252,6 +260,39 @@ function setCurrentUser(data: state_CurrentUserQuery$data | undefined) {
   }
 }
 
+// New mutation for Google login
+const googleLoginMutation = graphql`
+  mutation state_googleLoginMutation($userEmail: String!) {
+    authenticateGoogle(input: { userEmail: $userEmail }) {
+      jwtToken {
+        role
+        personId
+      }
+    }
+  }
+`;
+
+export const loginWithGoogle = async (userEmail: string) => {
+	return new Promise<state_googleLoginMutation$data>((res, rej) => {
+		commitMutation<state_googleLoginMutation>(environment, {
+			mutation: googleLoginMutation,
+			variables: {
+				userEmail, // same shape as authenticateGoogle input
+			},
+			onCompleted: (resp) => {
+				if (resp.authenticateGoogle != null && resp.authenticateGoogle.jwtToken != null) {
+					console.log("google auth", resp.authenticateGoogle);
+					fetchCurrentPerson();
+					res(resp);
+				} else {
+					console.log("resp:", resp);
+					rej("Please contact GV to get access");
+				}
+			},
+		});
+	});
+};
+
 const loginMutation = graphql`
   mutation state_loginMutation($userEmail: String!, $password: String!) {
     authenticate(input: { userEmail: $userEmail, password: $password }) {
@@ -273,6 +314,7 @@ export const login = async (username: string, password: string) => {
       },
       onCompleted: (resp) => {
         if (resp.authenticate != null && resp.authenticate.jwtToken != null) {
+			console.log('auth', resp.authenticate)
           fetchCurrentPerson();
           res(resp);
         } else {
