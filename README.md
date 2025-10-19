@@ -153,12 +153,14 @@ In command prompt give
 ```
 direnv allow
 ```
-
 Then run,
 
 `bun importRecipes.ts` to import the meals and ingredients
 and
 `bun importProducts.ts` to import the products.
+
+
+
 
 
 ## For v2
