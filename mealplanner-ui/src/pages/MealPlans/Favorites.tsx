@@ -1,10 +1,15 @@
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
   Button,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   Typography,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useRefetchableFragment, useLazyLoadQuery } from "react-relay";
 import { getCurrentPerson, clearSelectedMeal, setSelectedMeal } from "../../state/state";
 import { FavoriteMealsFragment } from "../Meals/PersonFavoriteMeals";
@@ -33,14 +38,29 @@ export const Favorites: React.FC = () => {
     { fetchPolicy: "store-or-network" }
   );
   const [meals] = useRefetchableFragment(FavoriteMealsFragment, data as any);
-  const favMeals = meals.people?.nodes[0].favoriteMeals.nodes;
-  const sortedFavMeals = (favMeals || []).slice().sort((a: any, b: any) => {
-    const aName = (a?.meal?.nameEn || "").toLowerCase();
-    const bName = (b?.meal?.nameEn || "").toLowerCase();
-    if (aName < bName) return -1;
-    if (aName > bName) return 1;
-    return 0;
-  });
+  const favMeals = meals.people?.nodes[0].favoriteMeals.nodes || [];
+
+  let [searchText, setSearchText] = useState("");
+  let search = (searchText: string) => {
+    const mapped = favMeals
+      .map((f: any) => f.meal)
+      .filter((m: any) => m != null);
+
+    let sortedMeals = mapped.slice().sort((a: any, b: any) => {
+      const aName = (a?.nameEn || "").toLowerCase();
+      const bName = (b?.nameEn || "").toLowerCase();
+      if (aName < bName) return -1;
+      if (aName > bName) return 1;
+      return 0;
+    });
+
+    if (searchText === "") {
+      return sortedMeals;
+    }
+    return sortedMeals.filter((m: any) =>
+      (m.nameEn || "").match(new RegExp(searchText, "i"))
+    );
+  };
 
   return (
     <React.Fragment>
@@ -67,6 +87,31 @@ export const Favorites: React.FC = () => {
               Favorites
             </Typography>
 
+            <FormControl
+              variant="filled"
+              sx={{ width: "99%", color: `${theme.palette.primary.contrastText}` }}
+            >
+              <InputLabel sx={{ color: `${theme.palette.primary.contrastText}` }}>
+                Search for meals
+              </InputLabel>
+              <OutlinedInput
+                sx={{
+                  backgroundColor: theme.palette.primary.main,
+                  color: `${theme.palette.primary.contrastText}`,
+                }}
+                notched={false}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <SearchIcon htmlColor={theme.palette.primary.contrastText} />
+                  </InputAdornment>
+                }
+                value={searchText}
+                onChange={(e) => {
+                  setSearchText(e.target.value);
+                }}
+              />
+            </FormControl>
+
             {data.gqLocalState?.selectedMeal?.nameEn ? (
               <Typography sx={{ color: `${theme.palette.primary.contrastText}` }}>
                 {data.gqLocalState.selectedMeal.nameEn}
@@ -87,7 +132,7 @@ export const Favorites: React.FC = () => {
             ) : null}
 
             <Box mt={1} width="100%">
-              {sortedFavMeals.map((fav: any) => {
+              {/* {sortedFavMeals.map((fav: any) => {
                 const meal = fav.meal;
                 return (
                   <Button
@@ -107,6 +152,29 @@ export const Favorites: React.FC = () => {
                   >
                     <Typography fontWeight="500">{meal?.nameEn ?? 'Unnamed'}</Typography>
                     <Typography fontSize="0.8em">{meal?.tags?.join(', ')}</Typography>
+                  </Button>
+                );
+              })} */}
+              {
+                search(searchText).map((m: any) => {
+                  return (
+                    <Button
+                    sx={{ 
+                      textTransform: "capitalize", 
+                      width: "49%",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      margin: "0.2em"
+                    }}
+                    variant="contained"
+                    color="primary"
+                    key={m.id ?? m.rowId}
+                    onClick={() => {
+                      setSelectedMeal(m);
+                    }}
+                  >
+                    <Typography fontWeight={"500"}>{m.nameEn ?? "Unnamed"} </Typography>
+                    <Typography fontSize={"0.8em"}>{m.tags?.join(", ")}</Typography>
                   </Button>
                 );
               })}
