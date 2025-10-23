@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { Calendar } from "./Calendar";
 import { MealPlanHeader } from "./MealPlanHeader";
 import { SearchMeal } from "./SearchMeal";
+import { Favorites } from "./Favorites";
 import { MealPlanQuery } from "./__generated__/MealPlanQuery.graphql";
 
 /* Meal plan query */
@@ -60,6 +61,7 @@ export const MealPlan = () => {
           <section>
             <Calendar mealPlan={data.mealPlan!} />
           </section>
+          <Favorites />
         </Grid>
       </Grid>
     </React.Fragment>
