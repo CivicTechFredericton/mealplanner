@@ -5,7 +5,9 @@ import {
   FormControl,
   InputAdornment,
   InputLabel,
+  MenuItem,
   OutlinedInput,
+  Select,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -39,9 +41,16 @@ export const Favorites: React.FC = () => {
   );
   const [meals] = useRefetchableFragment(FavoriteMealsFragment, data as any);
   const favMeals = meals.people?.nodes[0].favoriteMeals.nodes || [];
+  const favMealTags: string[] = Array.from(
+    new Set(
+      (favMeals || []).flatMap((f: any) => f?.meal?.tags || [])
+    )
+  );
 
   let [searchText, setSearchText] = useState("");
-  let search = (searchText: string) => {
+  let [selectedTag, setSelectedTag] = useState("");
+  
+  let search = (searchText: string, tag: string) => {
     const mapped = favMeals
       .map((f: any) => f.meal)
       .filter((m: any) => m != null);
@@ -53,13 +62,20 @@ export const Favorites: React.FC = () => {
       if (aName > bName) return 1;
       return 0;
     });
-
-    if (searchText === "") {
-      return sortedMeals;
+    
+    if (searchText !== "") {
+      sortedMeals = sortedMeals.filter((m: any) =>
+        (m.nameEn || "").match(new RegExp(searchText, "i"))
+      );
     }
-    return sortedMeals.filter((m: any) =>
-      (m.nameEn || "").match(new RegExp(searchText, "i"))
-    );
+    
+    if (tag !== "") {
+      sortedMeals = sortedMeals.filter((m: any) =>
+        (m.tags || []).includes(tag)
+      );
+    }
+    
+    return sortedMeals;
   };
 
   return (
@@ -87,30 +103,58 @@ export const Favorites: React.FC = () => {
               Favorites
             </Typography>
 
-            <FormControl
-              variant="filled"
-              sx={{ width: "99%", color: `${theme.palette.primary.contrastText}` }}
-            >
-              <InputLabel sx={{ color: `${theme.palette.primary.contrastText}` }}>
-                Search for meals
-              </InputLabel>
-              <OutlinedInput
-                sx={{
-                  backgroundColor: theme.palette.primary.main,
-                  color: `${theme.palette.primary.contrastText}`,
-                }}
-                notched={false}
-                startAdornment={
-                  <InputAdornment position="start">
-                    <SearchIcon htmlColor={theme.palette.primary.contrastText} />
-                  </InputAdornment>
-                }
-                value={searchText}
-                onChange={(e) => {
-                  setSearchText(e.target.value);
-                }}
-              />
-            </FormControl>
+            <Box display="flex" gap={2} width="99%">
+              <FormControl
+                variant="filled"
+                sx={{ flex: 2, color: `${theme.palette.primary.contrastText}` }}
+              >
+                <InputLabel sx={{ color: `${theme.palette.primary.contrastText}` }}>
+                  Search for meals
+                </InputLabel>
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: theme.palette.primary.main,
+                    color: `${theme.palette.primary.contrastText}`,
+                  }}
+                  notched={false}
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon htmlColor={theme.palette.primary.contrastText} />
+                    </InputAdornment>
+                  }
+                  value={searchText}
+                  onChange={(e) => {
+                    setSearchText(e.target.value);
+                  }}
+                />
+              </FormControl>
+              
+              <FormControl
+                variant="filled"
+                sx={{ flex: 1, color: `${theme.palette.primary.contrastText}` }}
+              >
+                <InputLabel sx={{ color: `${theme.palette.primary.contrastText}` }}>
+                  Filter by tag
+                </InputLabel>
+                <Select
+                  value={selectedTag}
+                  onChange={(e) => setSelectedTag(e.target.value)}
+                  sx={{
+                    backgroundColor: theme.palette.primary.main,
+                    color: `${theme.palette.primary.contrastText}`,
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>All tags</em>
+                  </MenuItem>
+                  {favMealTags.map((tag) => (
+                    <MenuItem key={tag} value={tag}>
+                      {tag}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
 
             {data.gqLocalState?.selectedMeal?.nameEn ? (
               <Typography sx={{ color: `${theme.palette.primary.contrastText}` }}>
@@ -132,31 +176,8 @@ export const Favorites: React.FC = () => {
             ) : null}
 
             <Box mt={1} width="100%">
-              {/* {sortedFavMeals.map((fav: any) => {
-                const meal = fav.meal;
-                return (
-                  <Button
-                    sx={{ 
-                      textTransform: "capitalize", 
-                      width: "49%",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      margin: "0.2em"
-                    }}
-                    variant="contained"
-                    color="primary"
-                    key={meal.id}
-                    onClick={() => {
-                      setSelectedMeal(meal);
-                    }}
-                  >
-                    <Typography fontWeight="500">{meal?.nameEn ?? 'Unnamed'}</Typography>
-                    <Typography fontSize="0.8em">{meal?.tags?.join(', ')}</Typography>
-                  </Button>
-                );
-              })} */}
               {
-                search(searchText).map((m: any) => {
+                search(searchText, selectedTag).map((m: any) => {
                   return (
                     <Button
                     sx={{ 
