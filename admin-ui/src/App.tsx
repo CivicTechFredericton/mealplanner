@@ -23,11 +23,14 @@ import { NutritionEdit } from "./Nutrition/NutritionEdit";
 import { NutritionList } from "./Nutrition/NutritionList";
 import { PersonEdit } from "./People/PersonEdit";
 import { PersonList } from "./People/PersonList";
-import { Register } from "./People/Register";
+import { Register as PeopleRegister } from "./People/Register";
 import { ResetPassword } from "./People/ResetPassword";
 import { ProductCreate } from "./Products/ProductCreate";
 import { ProductEdit } from "./Products/ProductEdit";
 import { ProductList } from "./Products/ProductList";
+import { SocialLoginList } from "./SocialLogin/SocialLoginList";
+import { Register as SocialLoginRegister } from "./SocialLogin/Register";
+import { SocialLoginEdit } from "./SocialLogin/SocialLoginEdit";
 
 function App() {
   const auth = useAuth();
@@ -46,6 +49,7 @@ function App() {
         Person: { excludeFields: ["id"] },
         Ingredient: { excludeFields: ["id"] },
         Match: { excludeFields: ["id"] },
+		SocialLoginUser: { excludeFields: ["id"] }
       },
     })
       .then((resolvedValue) => setDataProvider(resolvedValue))
@@ -111,12 +115,27 @@ function App() {
                 />
 
                 <CustomRoutes>
-                  <Route path="people/register" element={<Register />} />
+                  <Route path="people/register" element={<PeopleRegister />} />
                   <Route
                     path="people/:rowId/reset"
                     element={<ResetPassword />}
                   />
                 </CustomRoutes>
+              </>
+            )}
+
+            {auth.currentPerson?.role === "app_admin" && (
+              <>
+                <Resource
+                  name="socialLoginUsers"
+                  options={{ label: "Social Login" }}
+                  list={ SocialLoginList }
+				  edit={ SocialLoginEdit }
+                />
+
+				<CustomRoutes>
+					<Route path="socialLoginUsers/register" element={<SocialLoginRegister />} />
+				</CustomRoutes>
               </>
             )}
           </Admin>

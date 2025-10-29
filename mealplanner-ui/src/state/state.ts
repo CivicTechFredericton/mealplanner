@@ -27,6 +27,10 @@ import {
   state_updateMealPlanMutation,
   state_updateMealPlanMutation$variables,
 } from "./__generated__/state_updateMealPlanMutation.graphql";
+import {
+  state_checkUserByEmailQuery,
+  state_checkUserByEmailQuery$data
+} from "./__generated__/state_checkUserByEmailQuery.graphql"
 import { state_peopleQuery } from "./__generated__/state_peopleQuery.graphql";
 import { useLazyLoadQuery } from "react-relay";
 const STATE_ID = `client:GQLLocalState:21`;
@@ -186,6 +190,28 @@ export const deleteMealFromPlan = (connectionID: string, mpeId: number) => {
   });
 };
 
+//#region Google Login
+const CheckEmailQuery = graphql`
+  query state_checkUserByEmailQuery($email: String!) {
+    personByEmail(email: $email) {
+      rowId
+      email
+    }
+  }
+`;
+
+export const emailVerify = async(email: string): Promise<boolean> => {
+  console.log('emailVerify', email)
+  const data = await fetchQuery<state_checkUserByEmailQuery>(
+    environment,
+    CheckEmailQuery,
+    { email }
+  ).toPromise();
+  console.log('emailVerify', data, data?.personByEmail?.email)
+  return !!data?.personByEmail?.email;
+}
+//#endregion
+
 const currentUserQuery = graphql`
   query state_CurrentUserQuery {
     currentPerson {
@@ -254,7 +280,7 @@ export const login = async (username: string, password: string) => {
           fetchCurrentPerson();
           res(resp);
         } else {
-          console.log("resp:", resp);
+          console.log("login resp:", resp);
           rej("invalid user credentials");
         }
       },

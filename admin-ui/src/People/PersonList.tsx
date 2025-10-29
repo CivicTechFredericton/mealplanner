@@ -12,30 +12,12 @@ import {
   useRecordContext,
 } from "react-admin";
 import { useNavigate } from "react-router-dom";
+import UserRole from "../components/UserRole";
+
 
 type Person = {
   role: string;
   rowId: string;
-};
-
-const UserRole = (props: FieldProps) => {
-  const record = useRecordContext<Person>();
-
-  const roles: { [key: string]: string | undefined } = {
-    APP_ADMIN: "Admin",
-    APP_MEAL_DESIGNER: "Meal Designer",
-    APP_USER: "Client",
-  };
-
-  if (!record) {
-    return <span>loading person</span>;
-  }
-  const userRole = roles[record.role] || "Anonymous";
-  console.log(record.role);
-  {
-    console.log("userRole", userRole);
-  }
-  return <span>{userRole}</span>;
 };
 
 const ResetPassword = (props: FieldProps) => {
@@ -69,6 +51,7 @@ const PersonActions = () => {
     </TopToolbar>
   );
 };
+
 export const PersonList = (props: ListProps) => {
   return (
     <React.Fragment>
