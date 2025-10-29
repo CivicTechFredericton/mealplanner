@@ -320,7 +320,7 @@ INSERT INTO
                 0,              '',                 8),
 
                ('sd_potatoes',
-                'Roasted Potatoes',                        'Pommes de terre rôties',                 '{"side_dish", "potatoes", "vegetables"}',
+                'Roasted Potatoes',                        'Pommes de terre rôties',                 '{"side_dish", "potatoes", "vegetable"}',
                 '',
                 '',
                 '{}',
@@ -528,7 +528,7 @@ INSERT INTO
               '{"grocery", "vegetable"}'),
              ('Carrot',             'Carotte',              'cr',     '3.47',   '3',        'lb',     '3338366002',
               'https://www.walmart.ca/en/ip/carrot-your-fresh-market/6000197111434',
-              '{"grocery", "vegetables"}'),
+              '{"grocery", "vegetable"}'),
              ('Garlic',             'Ail',                  'gl',     '0.78',   '3',        'pack',   '67929500051',
               'https://www.walmart.ca/en/ip/garlic/6000191273738',
               '{"grocery", "garlic"}'),

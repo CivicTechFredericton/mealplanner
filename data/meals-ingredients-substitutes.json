@@ -1362,7 +1362,7 @@
   {
     "name_en": "Sweet and Sour Sauce",
     "name_fr": null,
-    "tags": ["Sweet and Sour Sauce"],
+    "tags": [],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3410,7 +3410,7 @@
   {
     "name_en": "Trail Mix Bars",
     "name_fr": null,
-    "tags": ["Trail Mix Bars"],
+    "tags": [],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3915,7 +3915,7 @@
   {
     "name_en": "Pickled Red Onions",
     "name_fr": null,
-    "tags": ["Pickled Red Onions"],
+    "tags": [],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4369,7 +4369,7 @@
   {
     "name_en": "Quick and Easy Fish Stew",
     "name_fr": null,
-    "tags": ["Main Meals", "Fish Stew"],
+    "tags": ["Main Meals"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5423,7 +5423,7 @@
   {
     "name_en": "Skillet Cornbread",
     "name_fr": null,
-    "tags": ["Skillet Cornbread"],
+    "tags": [],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5989,7 +5989,7 @@
   {
     "name_en": "Glazed Carrots",
     "name_fr": null,
-    "tags": ["Side Dish", "Vegetables"],
+    "tags": ["Side Dish", "Vegetable"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9510,7 +9510,7 @@
   {
     "name_en": "Beef Stew",
     "name_fr": null,
-    "tags": ["Beef Stew"],
+    "tags": [],
     "description_en": null,
     "description_fr": null,
     "categories": null,
