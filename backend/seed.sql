@@ -26,7 +26,7 @@ begin;
 		cooking_duration, total_cost, serving_cost, 
 		tips, 
 		servings_size, servings_size_unit, serves) 
-        VALUES ('cc_side', 'coriander coconut chutney', 'chutney de coriandre à la noix de coco', '{"side dish", "vegetarian", "vegan", "indian cuisine"}', 
+        VALUES ('cc_side', 'coriander coconut chutney', 'chutney de coriandre à la noix de coco', '{"meal_accompaniment", "vegetarian", "vegan"}', 
                 'It can be used  to eat along with idli, dosa, vada, bonda or bajji', 
 		'Il peut être utilisé pour manger avec idli, dosa vada, bonda ou bajji', 
                 '{"Breakfast", "Snack", "Dinner"}', null, null, 
@@ -39,7 +39,7 @@ begin;
                 'Defreeze the coconut chunks before 30 minutes to obtain soft texture. You can grind the coconut chunks to a poweder and store it in an airtight container.',
                 2,             'tbsp',             1),
 
-               ('cs_side', 'Cucumber Dill Salad',       '', '{"side dish", "vegetarian", "vegan", "salad"}', 
+               ('cs_side', 'Cucumber Dill Salad',       '', '{"meal_accompaniment", "vegetarian", "vegan", "salad"}', 
                 '', 
 		'', 
                 '{"Lunch", "Dinner"}', null, null, 
@@ -52,7 +52,7 @@ begin;
                 'Defreeze the coconut chunks before 30 minutes to obtain soft texture. You can grind the coconut chunks to a poweder and store it in an airtight container.',
                 0,             '??',             8),
 
-               ('bb_brkf', 'Breakfast Burrito',         '', '{"breakfast", "lunch", "school"}', 
+               ('bb_brkf', 'Breakfast Burrito',         '', '{"breakfast", "main_meal"}', 
                 '', 
 		'', 
                 '{"Lunch", "Breakfast"}', null, null, 
@@ -65,7 +65,7 @@ begin;
                 'If for school lunch, wrap in parchment paper and refrigerate for reheating in a microwave. Or, if for a later daily meal, wrap in foil and reheat in a 325-f oven for 8 – 10 minutes.',
                 0,             '??',             6),
 
-               ('mc_main', 'Macaroni and Cheese',       '', '{"dinner", "pasta", "stovetop"}', 
+               ('mc_main', 'Macaroni and Cheese',       '', '{"main_meal", "vegetarian"}', 
                 '', 
 		'', 
                 '{"Lunch", "Dinner"}', null, null, 

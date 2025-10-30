@@ -11,7 +11,7 @@ INSERT INTO
 		            tips,
 		            servings_size, servings_size_unit, serves)
         VALUES ('c_sandwiches',
-                'Chicken Salad Sandwich',                 'Sandwich à la salade de poulet',         '{"sandwiches"}',
+                'Chicken Salad Sandwich',                 'Sandwich à la salade de poulet',         '{"main_meal", "nut_free"}',
                 '',
                 '',
                 '{}',
@@ -31,7 +31,7 @@ INSERT INTO
                 0,             '',                 2),
 
                ('e_sandwiches',
-                'Egg Salad Sandwich',                     'Sandwich à la salade dœufs',             '{"sandwiches"}',
+                'Egg Salad Sandwich',                     'Sandwich à la salade dœufs',             '{"main_meal", "vegetarian", "halal", "nut_free"}',
                 '',
                 '',
                 '{}',
@@ -48,7 +48,7 @@ INSERT INTO
                 0,             '',                 3),
 
                ('mm_baked_beans',
-                'Baked Beans',                             'Haricots au lard',                       '{"main_meal", "baked_beans"}',
+                'Baked Beans',                             'Haricots au lard',                       '{"main_meal", "nut_free", "gluten_free"}',
                 '',
                 '',
                 '{}',
@@ -65,7 +65,7 @@ INSERT INTO
                 0,              '',                 0),
 
                ('s_starches',
-                'Baked Potatoes',                          'Pommes de terre cuites',                 '{"sides", "starches"}',
+                'Baked Potatoes',                          'Pommes de terre cuites',                 '{"main_meal", "vegetarian", "halal", "nut_free", "gluten_free"}',
                 '',
                 '',
                 '{}',
@@ -82,7 +82,7 @@ INSERT INTO
                 0,              '',                 4),
 
                ('mm_fish',
-                'Battered Fish',                           'Poisson pané',                           '{"main_meal", "fish"}',
+                'Battered Fish',                           'Poisson pané',                           '{"main_meal", "halal", "nut_free"}',
                 '',
                 '',
                 '{}',
@@ -100,7 +100,7 @@ INSERT INTO
                 0,              '',                 4),
 
                ('mm_beef',
-                'Beef Stew',                               'Ragoût de bœuf',                         '{"main_meal", "beef"}',
+                'Beef Stew',                               'Ragoût de bœuf',                         '{"main_meal", "nut_free", "gluten_free"}',
                 '',
                 '',
                 '{}',
@@ -116,7 +116,7 @@ INSERT INTO
                 0,              '',                 8),
 
                ('mm_beef_side',
-                'Beefaroni',                               'Beefaroni',                              '{"main_meal", "beef"}',
+                'Beefaroni',                               'Beefaroni',                              '{"main_meal", "nut_free"}',
                 'Macaroni, Beef and Tomato casserole',
                 'Casserole de macaronis, bœuf et tomates',
                 '{}',
@@ -130,7 +130,7 @@ INSERT INTO
                 0,              '',                 0),
 
                ('desserts',
-                'Bread And Butter Pudding',                'Pudding au pain et au beurre',           '{"desserts"}',
+                'Bread And Butter Pudding',                'Pudding au pain et au beurre',           '{"dessert", "halal", "nut_free"}',
                 '',
                 '',
                 '{}',
@@ -147,7 +147,7 @@ INSERT INTO
                 0,              '',                 8),
 
                ('breakfast',
-                'Breakfast Sandwich',                      'Sandwich déjeuner',                      '{"breakfast"}',
+                'Breakfast Sandwich',                      'Sandwich déjeuner',                      '{"main_meal", "nut_free"}',
                 '',
                 '',
                 '{}',
@@ -163,7 +163,7 @@ INSERT INTO
                 0,              '',                 1),
 
                ('mm_chicken',
-                'Chicken Fajita Wraps',                    'Wraps aux fajitas au poulet',            '{"main_meal","chicken"}',
+                'Chicken Fajita Wraps',                    'Wraps aux fajitas au poulet',            '{"main_meal", "nut_free"}',
                 '',
                 '',
                 '{}',
@@ -180,7 +180,7 @@ INSERT INTO
                 0,              '',                 6),
 
                ('mm_fish_side',
-                'Fish Cakes',                              'Galettes de poisson',                    '{"main_meal","fish"}',
+                'Fish Cakes',                              'Galettes de poisson',                    '{"main_meal", "halal", "nut_free"}',
                 '',
                 '',
                 '{}',
@@ -195,7 +195,7 @@ INSERT INTO
                 0,              '',                 8),
 
                ('s_starches_side',
-                'Garlic Mashed Potatoes',                  'Purée de pommes de terre à lail',        '{"sides","starches"}',
+                'Garlic Mashed Potatoes',                  'Purée de pommes de terre à lail',        '{"main_meal", "vegetarian", "halal", "nut_free", "gluten_free"}',
                 '',
                 '',
                 '{}',
@@ -209,7 +209,7 @@ INSERT INTO
                 0,              '',                 0),
 
                ('s_chowders',
-                'Hamburger Soup',                          'Soupe au hamburger',                     '{"soups","chowders"}',
+                'Hamburger Soup',                          'Soupe au hamburger',                     '{"main_meal", "nut_free", "gluten_free", "soup"}',
                 '',
                 '',
                 '{}',
@@ -223,7 +223,7 @@ INSERT INTO
                 0,              '',                 0),
 
                ('mm_pork',
-                'Roasted Herbed Pork Loin',                'Longe de porc rôtie aux herbesr',        '{"main_meals","pork"}',
+                'Roasted Herbed Pork Loin',                'Longe de porc rôtie aux herbesr',        '{"main_meal", "nut_free", "gluten_free"}',
                 '',
                 '',
                 '{}',
@@ -238,7 +238,7 @@ INSERT INTO
                 0,              '',                 6),
 
                ('mm_pasta',
-                'Macaroni and Cheese',                     'Macaroni au fromage',                    '{"main_meal", "pasta"}',
+                'Macaroni and Cheese',                     'Macaroni au fromage',                    '{"main_meal", "vegetarian", "halal", "nut_free"}',
                 '',
                 '',
                 '{}',
@@ -256,7 +256,7 @@ INSERT INTO
                 0,              '',                 4),
 
                ('main_beef',
-                'Meatloaf',                                'Pain de viande',                         '{"main_meals","beef"}',
+                'Meatloaf',                                'Pain de viande',                         '{"main_meal", "nut_free"}',
                 '',
                 '',
                 '{}',
@@ -272,7 +272,7 @@ INSERT INTO
                 0,              '',                 8),
 
                ('s_vegetable',
-                'Mixed Bean salad',                        'Salade de haricots mélangés',            '{"salad","vegetable"}',
+                'Mixed Bean salad',                        'Salade de haricots mélangés',            '{"salad", "vegetarian", "vegan", "halal", "nut_free", "gluten_free", "meal_accompanied"}',
                 'A simple and tasty salad, suitable to accompany almost any meal.',
                 'Une salade simple et savoureuse, adaptée pour accompagner presque tous les repas.',
                 '{}',
@@ -286,7 +286,7 @@ INSERT INTO
                 0,              '',                 8),
 
                ('mm_pork_side',
-                'Oven baked Pork Chops with an onion, mushroom sauce','Côtelettes de porc cuites au four avec un oignon, sauce aux champignons','{"main_meal", "pork"}',
+                'Oven baked Pork Chops with an onion, mushroom sauce','Côtelettes de porc cuites au four avec un oignon, sauce aux champignons','{"main_meal", "nut_free", "gluten_free"}',
                 '',
                 '',
                 '{}',
@@ -304,7 +304,7 @@ INSERT INTO
                 0,              '',                 4),
 
                ('sd_starches',
-                'Rice Pilaf',                              'riz pilaf',                              '{"side_dish", "starches"}',
+                'Rice Pilaf',                              'riz pilaf',                              '{"main_meal", "vegan", "vegetarian", "halal", "nut_free", "gluten_free", "meal_accompanied"}',
                 '',
                 '',
                 '{}',
@@ -320,7 +320,7 @@ INSERT INTO
                 0,              '',                 8),
 
                ('sd_potatoes',
-                'Roasted Potatoes',                        'Pommes de terre rôties',                 '{"side_dish", "potatoes", "vegetable"}',
+                'Roasted Potatoes',                        'Pommes de terre rôties',                 '{"main_meal", "vegan", "vegetarian", "halal", "nut_free", "gluten_free", "meal_accompanied"}',
                 '',
                 '',
                 '{}',
@@ -335,7 +335,7 @@ INSERT INTO
                 0,              '',                6),
 
                ('mm_chicken_side',
-                'Sweet And Spicy Glazed Chicken Thighs',   'Cuisses De Poulet Glacées Sucrées Et Épicées', '{"main_meal", "chicken"}',
+                'Sweet And Spicy Glazed Chicken Thighs',   'Cuisses De Poulet Glacées Sucrées Et Épicées', '{"main_meal", "nut_free", "gluten_free"}',
                 '',
                 '',
                 '{}',
@@ -352,7 +352,7 @@ INSERT INTO
                 0,              '',                6),
 
                ('mm_beef_mix',
-                'Beef Mix for Tacos',                      'Mélange de bœuf pour tacos',                   '{"main_meal", "beef"}',
+                'Beef Mix for Tacos',                      'Mélange de bœuf pour tacos',                   '{"main_meal", "nut_free", "gluten_free"}',
                 '',
                 '',
                 '{}',
@@ -368,7 +368,7 @@ INSERT INTO
                 0,              '',                8),
 
                ('sauce',
-                'Tartare Sauce',                           'sauce tartare',                                '{"sauce"}',
+                'Tartare Sauce',                           'sauce tartare',                                '{"halal", "nut_free", "gluten_free", "meal_accompanied"}',
                 'A classic accompaniment for battered fish',
                 'Un accompagnement classique pour le poisson pané',
                 '{}',
@@ -380,7 +380,7 @@ INSERT INTO
                 0,              '',                0),
 
                ('sauce_side',
-                'Tartare Sauce',                           'sauce tartare',                                '{"sauce"}',
+                'Tartare Sauce',                           'sauce tartare',                                '{"halal", "nut_free", "gluten_free", "meal_accompanied"}',
                 'A classic accompaniment for battered fish',
                 'Un accompagnement classique pour le poisson pané',
                 '{}',
@@ -392,7 +392,7 @@ INSERT INTO
                 0,              '',                0),
 
                ('main_fish',
-                'Tuna Noodle Casserole',                   'Casserole de nouilles au thon',                '{"main_meal", "fish"}',
+                'Tuna Noodle Casserole',                   'Casserole de nouilles au thon',                '{"main_meal", "halal", "nut_free"}',
                 '',
                 '',
                 '{}',
@@ -409,7 +409,7 @@ INSERT INTO
                 0,              '',                6),
 
                ('salad_sandwiches',
-                'Tuna Salad Sandwich',                     'Sandwich à la salade de thon',                 '{"sandwiches"}',
+                'Tuna Salad Sandwich',                     'Sandwich à la salade de thon',                 '{"main_meal", "halal", "nut_free"}',
                 '',
                 '',
                 '{}',

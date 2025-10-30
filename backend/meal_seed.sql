@@ -19,7 +19,7 @@ INSERT INTO app.meal
   VALUES      ( 'tcs_main',
       'Avocado Grilled Cheese Recipe',
       'Recette de fromage grillé à lavocat',
-      '{"vegetarian", "sandwich"}',
+      '{"main_meals", "vegetarian"}',
       'The avocado sandwich is very simple yet healthy recipe',
       'Le sandwich à lavocat est une recette très simple mais saine',
       '{"Breakfast", "Snack"}',
@@ -56,7 +56,7 @@ INSERT INTO app.meal
   VALUES      ( 'tcs_main',
       'Banana Bread',
       'Pain à la banane',
-      '{"vegetarian", "bread"}',
+      '{"desserts", "vegetarian"}',
       'The banana bread can be made with simple ingredients available at home',
       'Le pain aux bananes peut être fait avec des ingrédients simples disponibles à la maison'
       ,
@@ -96,7 +96,7 @@ INSERT INTO app.meal
   VALUES      ( 'cc_side',
       'Mint Chimichurri Sauce',
       'Sauce chimichurri à la menthe',
-      '{"vegan", "vegetarian", "sauce"}',
+      '{"main_meals", "vegan", "vegetarian"}',
       'The sauce can be eaten along with bread, roti or chips.',
       'La sauce peut être consommée avec du pain, du roti ou des frites',
       '{"Breakfast", "Snack", "Dinner"}',
@@ -134,7 +134,7 @@ INSERT INTO app.meal
   VALUES      ( 'tcs_main',
       'Smashed Cucumber Salad',
       'Salade de concombre écrasé',
-      '{"vegan", "vegetarian", "salad"}',
+      '{"main_meals", "vegan", "vegetarian", "salad"}',
       'The salad is rich in nutrients and contains antioxidants',
       'La salade est riche en nutriments et contient des antioxydants',
       '{"Snack", "Dinner"}',
@@ -172,7 +172,7 @@ INSERT INTO app.meal
   VALUES      ( 'tcs_main',
       'Mulligatawny Soup',
       'Soupe Mulligatawny',
-      '{"vegetarian", "soup", "indian cuisine"}',
+      '{"main_meals", "vegetarian", "soup"}',
       'This soup has masoor dal and coconut milk along with vegetables and spices.',
       'Cette soupe contient du masoor dal et du lait de coco, ainsi que des légumes et des épices.'
       ,
@@ -211,7 +211,7 @@ INSERT INTO app.meal
   VALUES      ( 'tcs_main',
       'Oats Omelette',
       'Omelette à lavoine',
-      '{"vegetarian", "indian cuisine"}',
+      '{"main_meals", "vegetarian"}',
       'An easy and simple instant breakfast or snack meal with healthy rolled oats.',
       'Un petit-déjeuner ou une collation instantané facile et simple avec des flocons davoine sains.'
       ,
@@ -250,7 +250,7 @@ INSERT INTO app.meal
   VALUES      ( 'cc_side',
       'Pickled Red Onions',
       'oignons rouges marinés',
-      '{"vegetarian", "vegan"}',
+      '{"main_meals", "vegan", "vegetarian"}',
       'A sweet and tangy onion condiment thats perfect on sandwiches, tacos, burgers, nachos, salads, or anything that needs some extra zing!'
       ,
       'Un condiment à loignon sucré et acidulé qui est parfait sur les sandwichs, les tacos, les hamburgers, les nachos, les salades ou tout ce qui a besoin dun peu plus de piquant!'
@@ -289,7 +289,7 @@ INSERT INTO app.meal
   VALUES      ( 'tcs_main',
       'Chana Pasta',
       'Pâtes Chana',
-      '{"vegetarian", "indian cuisine"}',
+      '{"main_meals", "vegetarian"}',
       'A spicy flavourful recipe to satisfy your hunger pangs.',
       'Une recette épicée et savoureuse pour satisfaire vos fringales.',
       '{"Snack", "Dinner"}',
@@ -327,7 +327,7 @@ INSERT INTO app.meal
   VALUES      ( 'cc_side',
       'Lemon Rasam / Soup',
       'Rasam Citron / Soupe',
-      '{"vegetarian", "vegan", "indian cuisine"}',
+      '{"main_meals", "vegan", "vegetarian", "soup"}',
       'A simple healthy and tasty rasam recipe that is ideally served with hot steamed rice.'
       ,
       'Une recette de rasam simple, saine et savoureuse qui est idéalement servie avec du riz chaud à la vapeur.'
@@ -367,7 +367,7 @@ INSERT INTO app.meal
   VALUES      ( 'cc_side',
       'Potato Masala Chips',
       'Croustilles de pomme de terre masala',
-      '{"vegetarian", "vegan", "indian cuisine"}',
+      '{"main_meals", "vegan", "vegetarian"}',
       'Potato masala chips is an instant snack prepared with potato, gram flour, rice flour, chilli powder and sesame seeds.'
       ,
       'Les chips de pomme de terre masala sont une collation instantanée préparée avec de la pomme de terre, de la farine de gramme, de la farine de riz, de la poudre de piment et des graines de sésame.'
