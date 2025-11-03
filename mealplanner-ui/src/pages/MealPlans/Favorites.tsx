@@ -18,7 +18,8 @@ import { FavoriteMealsFragment } from "../Meals/PersonFavoriteMeals";
 import { graphql } from "babel-plugin-relay/macro";
 import { FavoritesMealPlanQuery } from "./__generated__/FavoritesMealPlanQuery.graphql";
 
-export const Favorites: React.FC = () => {  
+export const Favorites: React.FC = () => {
+  // Fetch favorite meals for current person
   const theme = useTheme();
   const slug = getCurrentPerson().personSlug;
   const combinedQuery = graphql`
@@ -34,6 +35,7 @@ export const Favorites: React.FC = () => {
     }
   `;
 
+  // Load list of favorite meals and meal tags
   const data = useLazyLoadQuery<FavoritesMealPlanQuery>(
     combinedQuery,
     { slug: slug },
@@ -49,7 +51,8 @@ export const Favorites: React.FC = () => {
 
   let [searchText, setSearchText] = useState("");
   let [selectedTag, setSelectedTag] = useState("");
-  
+
+  // Modify favorites list based on meal search text and meal tag
   let search = (searchText: string, tag: string) => {
     const mapped = favMeals
       .map((f: any) => f.meal)
