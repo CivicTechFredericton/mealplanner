@@ -28,7 +28,9 @@ import {
   state_updateMealPlanMutation$variables,
 } from "./__generated__/state_updateMealPlanMutation.graphql";
 import { state_peopleQuery } from "./__generated__/state_peopleQuery.graphql";
-import { useLazyLoadQuery } from "react-relay";
+import { useLazyLoadQuery, useMutation } from "react-relay";
+import { state_socialLoginMutation, state_socialLoginMutation$data } from "./__generated__/state_socialLoginMutation.graphql";
+import { stateVerifyFacebookMutation, stateVerifyFacebookMutation$data} from "./__generated__/stateVerifyFacebookMutation.graphql"
 const STATE_ID = `client:GQLLocalState:21`;
 
 // This initializes the local state before the app is getting loaded. Need to call in App.ts
@@ -261,6 +263,95 @@ export const login = async (username: string, password: string) => {
     });
   });
 };
+
+const socialLoginMutation = graphql`
+  mutation state_socialLoginMutation($userEmail: String!) {
+    personDetails(input: { userEmail: $userEmail }) {
+      jwtToken {
+        role
+        personId
+      }
+    }
+  }
+`;
+ 
+
+export const socialLogin = async (username: string) => {
+  return new Promise<state_socialLoginMutation$data>((res, rej) => {
+    console.log("SocialLogin username:"+username);
+    commitMutation<state_socialLoginMutation>(environment, {
+      mutation: socialLoginMutation,
+      variables: {
+        userEmail: username, 
+      },
+      onCompleted: (resp) => {
+        if (resp.personDetails != null && resp.personDetails.jwtToken != null) {
+          console.log("JWT Token:", resp.personDetails.jwtToken);
+          fetchCurrentPerson();
+          res(resp);
+          console.log()
+        } else {
+          console.log("resp:", resp);
+          rej("Invalid user credentials or login failed");
+        }
+      },
+    });
+  });
+};
+ 
+const VerifyGoogleMutation = graphql`
+  mutation stateVerifyGoogleMutation($idToken: String!, $email: String!) {
+    verifyGoogleToken(idToken: $idToken, email: $email) {
+      success
+    }
+  }
+`;
+
+const VerifyFacebookMutation = graphql`
+  mutation stateVerifyFacebookMutation($accessToken: String!, $email: String!) {
+    verifyFacebookToken(accessToken: $accessToken, email: $email) {
+      success
+    }
+  }
+`;
+ 
+export function useVerifyFacebook() {
+  const [commit] = useMutation(VerifyFacebookMutation);
+  return (accessToken: string, email: string): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      commit({
+        variables: { accessToken, email },
+        onCompleted: (response: any) => {
+          console.log("Facebook verification response:", response);
+          resolve(response.verifyFacebookToken.success);
+        },
+        onError: (error) => {
+          console.error("Facebook verification failed:", error);
+          reject(error);
+        },
+      });
+    });
+  };
+}
+
+export function useVerifyGoogle() {
+  const [commit] = useMutation(VerifyGoogleMutation);
+  return (idToken: string, email: string): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      commit({
+        variables: { idToken, email },
+        onCompleted: (response: any) => {
+          console.log("Verification response:", response);
+          resolve(response.verifyGoogleToken.success);
+        },
+        onError: (error) => {
+          console.error("Verification failed:", error);
+          reject(error);
+        },
+      });
+    });
+  };
+}
 
 const logoutMutation = graphql`
   mutation state_logoutMutation {
