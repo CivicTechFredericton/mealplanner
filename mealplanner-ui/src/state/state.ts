@@ -31,10 +31,6 @@ import {
   state_updateMealPlanMutation,
   state_updateMealPlanMutation$variables,
 } from "./__generated__/state_updateMealPlanMutation.graphql";
-import {
-  state_checkUserByEmailQuery,
-  state_checkUserByEmailQuery$data
-} from "./__generated__/state_checkUserByEmailQuery.graphql";
 import { state_peopleQuery } from "./__generated__/state_peopleQuery.graphql";
 import { useLazyLoadQuery } from "react-relay";
 const STATE_ID = `client:GQLLocalState:21`;
@@ -194,28 +190,6 @@ export const deleteMealFromPlan = (connectionID: string, mpeId: number) => {
   });
 };
 
-//#region Google Login
-const CheckEmailQuery = graphql`
-  query state_checkUserByEmailQuery($email: String!) {
-    personByEmail(email: $email) {
-      rowId
-      email
-    }
-  }
-`;
-
-export const emailVerify = async(email: string): Promise<boolean> => {
-  console.log('emailVerify', email)
-  const data = await fetchQuery<state_checkUserByEmailQuery>(
-    environment,
-    CheckEmailQuery,
-    { email }
-  ).toPromise();
-  console.log('emailVerify', data, data?.personByEmail?.email)
-  return !!data?.personByEmail?.email;
-}
-//#endregion
-
 const currentUserQuery = graphql`
   query state_CurrentUserQuery {
     currentPerson {
@@ -235,6 +209,7 @@ export const fetchCurrentPerson = async () => {
     currentUserQuery,
     { fetchPolicy: 'state-or-network' }
   ).toPromise();
+  console.log('fetchCurrentPerson', data);
   setCurrentUser(data);
   return data;
 };
@@ -243,13 +218,14 @@ function setCurrentUser(data: state_CurrentUserQuery$data | undefined) {
   if (data?.currentPerson) {
     commitLocalUpdate(environment, (store) => {
       let localState = store.get(STATE_ID);
+	  console.log('setCurrentUser', data,localState);
      // store.delete("client:currentUser");
       let record = store.get("client:currentUser");
 
       if(!record) {
          record = store.create("client:currentUser", "CurrentLoggedInUser");
       }
-
+	   console.log('setCurrentUser', record);
       record.setValue(data?.currentPerson?.rowId, "personID");
       record.setValue(data?.currentPerson?.fullName, "personName");
       record.setValue(data?.currentPerson?.role, "personRole");
@@ -306,6 +282,7 @@ const loginMutation = graphql`
 
 export const login = async (username: string, password: string) => {
   return new Promise<state_loginMutation$data>((res, rej) => {
+    console.log("LOGIN TRY", username, password);
     commitMutation<state_loginMutation>(environment, {
       mutation: loginMutation,
       variables: {
@@ -314,7 +291,7 @@ export const login = async (username: string, password: string) => {
       },
       onCompleted: (resp) => {
         if (resp.authenticate != null && resp.authenticate.jwtToken != null) {
-			console.log('auth', resp.authenticate)
+			console.log('login auth', resp.authenticate)
           fetchCurrentPerson();
           res(resp);
         } else {
@@ -335,12 +312,15 @@ const logoutMutation = graphql`
 `;
 
 export const logout = async () => {
+	console.log('logout called')
   return new Promise<state_logoutMutation$data>((res, rej) => {
     commitMutation<state_logoutMutation>(environment, {
       mutation: logoutMutation,
       variables: {},
       onCompleted: (resp) => {
+		console.log('logout response', resp)
         if (resp.logout != null && resp.logout.status != null) {
+			console.log('logout success', resp.logout.status)
           commitLocalUpdate(environment, (store) => {
             store.delete("client:currentUser");
             res(resp);

@@ -12,7 +12,7 @@ import { graphql } from "babel-plugin-relay/macro";
 import { useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { Navigate } from "react-router";
-import { getCurrentPerson, login, updatePersonTerms, emailVerify } from "../state/state";
+import { getCurrentPerson, login, updatePersonTerms } from "../state/state";
 import { LoginQuery } from "./__generated__/LoginQuery.graphql";
 
 const query = graphql`
@@ -49,7 +49,9 @@ export const Login = () => {
 
 	const handleLogin = async () => {
 		try {
+			console.log(username, password)
 			await login(username, password);
+			console.log("login successful");
 		} catch (err: any) {
 			console.log("login error", err);
 			setResult(err);
