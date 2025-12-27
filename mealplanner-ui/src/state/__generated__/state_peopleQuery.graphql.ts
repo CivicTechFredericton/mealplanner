@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8702d815871cfa6544c732380c419e59>>
+ * @generated SignedSource<<9b15aff572b690bf8e515d5663bdcb7a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,22 +8,22 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
-export type RoleType = "APP_USER" | "APP_MEAL_DESIGNER" | "APP_ADMIN" | "%future added value";
-export type state_peopleQuery$variables = {};
+import { ConcreteRequest } from 'relay-runtime';
+export type RoleType = "APP_ADMIN" | "APP_MEAL_DESIGNER" | "APP_USER" | "%future added value";
+export type state_peopleQuery$variables = Record<PropertyKey, never>;
 export type state_peopleQuery$data = {
   readonly people: {
     readonly nodes: ReadonlyArray<{
       readonly fullName: string;
+      readonly role: RoleType;
       readonly rowId: any;
       readonly slug: string;
-      readonly role: RoleType;
     }>;
-  } | null;
+  } | null | undefined;
 };
 export type state_peopleQuery = {
-  variables: state_peopleQuery$variables;
   response: state_peopleQuery$data;
+  variables: state_peopleQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

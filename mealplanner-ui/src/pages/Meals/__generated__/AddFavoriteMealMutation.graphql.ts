@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<60548045efbedf0f79bc353ef3c170d1>>
+ * @generated SignedSource<<fa67d7f913e2c2772b196550c605dbad>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,18 +8,18 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type AddFavoriteMealMutation$variables = {
   mealIdParam: any;
 };
 export type AddFavoriteMealMutation$data = {
   readonly addFavoriteMeal: {
     readonly preflight: boolean;
-  } | null;
+  } | null | undefined;
 };
 export type AddFavoriteMealMutation = {
-  variables: AddFavoriteMealMutation$variables;
   response: AddFavoriteMealMutation$data;
+  variables: AddFavoriteMealMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

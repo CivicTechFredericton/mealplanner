@@ -1,4 +1,4 @@
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import { useLazyLoadQuery } from "react-relay/hooks";
 import { CurrentUserQuery } from "./__generated__/CurrentUserQuery.graphql";
 const userQuery = graphql`

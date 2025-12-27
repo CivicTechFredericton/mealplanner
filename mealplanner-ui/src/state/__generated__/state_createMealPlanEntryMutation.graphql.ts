@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<60a83d84174717cbd15c23640c4b411d>>
+ * @generated SignedSource<<5fea17cfa89e7650e561ca9fb1a04f37>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,37 +8,37 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type CategoryT = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK" | "%future added value";
+import { ConcreteRequest } from 'relay-runtime';
+export type CategoryT = "BREAKFAST" | "DINNER" | "LUNCH" | "SNACK" | "%future added value";
 export type state_createMealPlanEntryMutation$variables = {
-  connections: ReadonlyArray<string>;
   category: CategoryT;
+  connections: ReadonlyArray<string>;
   days: number;
-  mealPlanId: any;
   mealId: any;
+  mealPlanId: any;
 };
 export type state_createMealPlanEntryMutation$data = {
   readonly createMealPlanEntry: {
     readonly mealPlanEntryEdge: {
-      readonly cursor: any | null;
+      readonly cursor: any | null | undefined;
       readonly node: {
-        readonly id: string;
-        readonly rowId: any;
-        readonly days: number;
         readonly category: CategoryT;
-        readonly mealId: any;
+        readonly days: number;
+        readonly id: string;
         readonly meal: {
           readonly id: string;
-          readonly rowId: any;
           readonly nameEn: string;
-        } | null;
+          readonly rowId: any;
+        } | null | undefined;
+        readonly mealId: any;
+        readonly rowId: any;
       };
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type state_createMealPlanEntryMutation = {
-  variables: state_createMealPlanEntryMutation$variables;
   response: state_createMealPlanEntryMutation$data;
+  variables: state_createMealPlanEntryMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

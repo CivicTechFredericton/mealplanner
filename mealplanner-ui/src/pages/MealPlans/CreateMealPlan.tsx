@@ -14,7 +14,7 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import { useState } from "react";
 import { RefetchFnDynamic, useLazyLoadQuery } from "react-relay";
 import { createMealPlan, getCurrentPerson } from "../../state/state";

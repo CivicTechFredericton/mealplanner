@@ -1,4 +1,4 @@
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import { commitMutation } from "relay-runtime";
 import environment from "../../relay/environment";
 

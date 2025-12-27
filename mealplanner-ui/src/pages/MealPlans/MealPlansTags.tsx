@@ -1,5 +1,5 @@
 import { Chip, Grid, Stack } from "@mui/material";
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import { useFragment } from "react-relay";
 import { MealPlansTags_tags$key } from "./__generated__/MealPlansTags_tags.graphql";
 import { setSelectedMealPlanTags } from "../../state/state";

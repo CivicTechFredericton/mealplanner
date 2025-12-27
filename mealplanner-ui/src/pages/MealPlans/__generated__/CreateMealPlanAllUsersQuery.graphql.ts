@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0553f561b90d4ee189fa7510a15c0194>>
+ * @generated SignedSource<<40895194c96fabeb4b8c023d6e512611>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,20 +8,20 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
-export type CreateMealPlanAllUsersQuery$variables = {};
+import { ConcreteRequest } from 'relay-runtime';
+export type CreateMealPlanAllUsersQuery$variables = Record<PropertyKey, never>;
 export type CreateMealPlanAllUsersQuery$data = {
   readonly people: {
     readonly nodes: ReadonlyArray<{
+      readonly fullName: string;
       readonly id: string;
       readonly rowId: any;
-      readonly fullName: string;
     }>;
-  } | null;
+  } | null | undefined;
 };
 export type CreateMealPlanAllUsersQuery = {
-  variables: CreateMealPlanAllUsersQuery$variables;
   response: CreateMealPlanAllUsersQuery$data;
+  variables: CreateMealPlanAllUsersQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

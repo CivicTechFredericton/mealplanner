@@ -3,82 +3,49 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.8.1",
-    "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.4.4",
-    "@mui/material": "^5.4.4",
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@mui/icons-material": "^5.18.0",
+    "@mui/material": "^5.18.0",
     "@mui/x-date-pickers": "^6.19.6",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.4.0",
-    "@types/node": "^16.11.22",
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20.17.11",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "@types/relay-test-utils": "^6.0.5",
-    "babel-jest": "^27.5.1",
-    "babel-plugin-relay": "^13.0.2",
     "dayjs": "^1.11.10",
-    "graphql": "^16.3.0",
+    "graphql": "^16.9.0",
     "moment": "^2.29.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-relay": "^13.0.2",
-    "react-router": "^6.2.1",
-    "react-router-dom": "^6.2.1",
-    "react-scripts": "5.0.0",
-    "relay-compiler": "^13.0.2",
-    "relay-runtime": "^13.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-relay": "^18.1.0",
+    "react-router": "^6.28.0",
+    "react-router-dom": "^6.28.0",
+    "relay-compiler": "^18.1.0",
+    "relay-runtime": "^18.1.0",
     "relay-test-utils": "^13.1.1",
-    "typescript": "^4.5.5",
+    "typescript": "^5.7.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=3333 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "dev": "vite --port 3333",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
     "relay": "relay-compiler"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "relay": {
-    "src": "./src",
-    "schema": "../backend/schema.graphql",
-    "schemaExtensions": [
-      "./src"
-    ],
-    "exclude": [
-      "**/node_modules/**",
-      "**/__mocks__/**",
-      "**/__generated__/**"
-    ],
-    "language": "typescript"
-  },
-  "babel": {
-    "plugins": [
-      "relay"
-    ]
-  },
   "devDependencies": {
-    "@types/react-relay": "^13.0.1",
-    "@types/relay-runtime": "^13.0.1"
-  },
-  "proxy": "http://127.0.0.1:4000"
+    "@types/react-relay": "^18.0.0",
+    "@types/relay-runtime": "^18.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/ui": "^3.0.5",
+    "babel-plugin-relay": "^20.1.1",
+    "jsdom": "^25.0.1",
+    "vite": "^6.0.5",
+    "vite-plugin-relay": "^2.1.0",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.5"
+  }
 }

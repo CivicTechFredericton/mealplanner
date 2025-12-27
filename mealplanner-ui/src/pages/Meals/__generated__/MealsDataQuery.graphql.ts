@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f4558d0e8e687053c26b6b6c73ebbbab>>
+ * @generated SignedSource<<fd91aab340fbfbad8d2d9cc81350c878>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,35 +8,35 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CategoryT = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK" | "%future added value";
+export type CategoryT = "BREAKFAST" | "DINNER" | "LUNCH" | "SNACK" | "%future added value";
 export type MealsDataQuery$variables = {
   slug: string;
 };
 export type MealsDataQuery$data = {
+  readonly gqLocalState: {
+    readonly selectedMealTags: ReadonlyArray<string> | null | undefined;
+  };
   readonly meals: {
     readonly nodes: ReadonlyArray<{
-      readonly rowId: any;
+      readonly categories: ReadonlyArray<CategoryT | null | undefined> | null | undefined;
+      readonly code: any | null | undefined;
+      readonly descriptionEn: string | null | undefined;
+      readonly descriptionFr: string | null | undefined;
       readonly nameEn: string;
-      readonly nameFr: string | null;
-      readonly descriptionEn: string | null;
-      readonly descriptionFr: string | null;
-      readonly categories: ReadonlyArray<CategoryT | null> | null;
-      readonly tags: ReadonlyArray<string | null> | null;
-      readonly code: any | null;
-      readonly photoUrl: string | null;
-      readonly videoUrl: string | null;
+      readonly nameFr: string | null | undefined;
+      readonly photoUrl: string | null | undefined;
+      readonly rowId: any;
+      readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
+      readonly videoUrl: string | null | undefined;
     }>;
-  } | null;
-  readonly gqLocalState: {
-    readonly selectedMealTags: ReadonlyArray<string> | null;
-  };
+  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"MealTags_tags" | "PersonFavoriteMeals_favorites">;
 };
 export type MealsDataQuery = {
-  variables: MealsDataQuery$variables;
   response: MealsDataQuery$data;
+  variables: MealsDataQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

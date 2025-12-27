@@ -1,5 +1,5 @@
 import { Button, Grid, Stack, Typography } from "@mui/material";
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import React from "react";
 import { useLazyLoadQuery, useRefetchableFragment } from "react-relay";
 import { useNavigate, useParams } from "react-router-dom";

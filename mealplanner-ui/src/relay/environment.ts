@@ -2,8 +2,8 @@ import {Environment, Network, RecordSource, RequestParameters, Store, Variables}
 
 //Wraps the fetch call and it calls the graphql server
 async function fetchGraphQL(params : RequestParameters, variables: Variables) {
-    const TOKEN = process.env.REACT_APP_GRAPHQL_TOKEN;
-    const URL = process.env.GRAPHQL_ENDPOINT || '/graphql';
+    const TOKEN = import.meta.env.VITE_GRAPHQL_TOKEN;
+    const URL = import.meta.env.VITE_GRAPHQL_ENDPOINT || '/graphql';
     const response = await fetch(URL, {
         method: 'POST',
         credentials:  'include',

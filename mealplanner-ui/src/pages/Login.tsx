@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import { useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
 import { Navigate } from "react-router";

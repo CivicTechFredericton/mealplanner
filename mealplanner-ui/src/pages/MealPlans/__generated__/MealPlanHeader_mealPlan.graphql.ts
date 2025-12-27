@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<08268e2dd9edf6efc63f00f860e5634e>>
+ * @generated SignedSource<<5434b948f1ba91a240323132a1f4ea20>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,20 +8,20 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MealPlanHeader_mealPlan$data = {
-  readonly rowId: any;
+  readonly descriptionEn: string | null | undefined;
+  readonly isTemplate: boolean | null | undefined;
   readonly nameEn: string;
-  readonly nameFr: string | null;
-  readonly descriptionEn: string | null;
-  readonly tags: ReadonlyArray<string | null> | null;
-  readonly isTemplate: boolean | null;
-  readonly startDate: any | null;
+  readonly nameFr: string | null | undefined;
   readonly person: {
     readonly fullName: string;
     readonly rowId: any;
-  } | null;
+  } | null | undefined;
+  readonly rowId: any;
+  readonly startDate: any | null | undefined;
+  readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
   readonly " $fragmentType": "MealPlanHeader_mealPlan";
 };
 export type MealPlanHeader_mealPlan$key = {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<160593680c8e51397bce56ae455b2e14>>
+ * @generated SignedSource<<609a4259058fae6a427d9c4a86131736>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,97 +8,97 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
-export type CategoryT = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK" | "%future added value";
+import { ConcreteRequest } from 'relay-runtime';
+export type CategoryT = "BREAKFAST" | "DINNER" | "LUNCH" | "SNACK" | "%future added value";
 export type MealQuery$variables = {
   mealId: any;
 };
 export type MealQuery$data = {
   readonly meal: {
-    readonly rowId: any;
-    readonly code: any | null;
-    readonly nameEn: string;
-    readonly nameFr: string | null;
-    readonly tags: ReadonlyArray<string | null> | null;
-    readonly descriptionEn: string | null;
-    readonly descriptionFr: string | null;
-    readonly categories: ReadonlyArray<CategoryT | null> | null;
-    readonly photoUrl: string | null;
-    readonly videoUrl: string | null;
-    readonly method: string | null;
-    readonly totalCost: any | null;
-    readonly servingCost: any | null;
-    readonly tips: string | null;
-    readonly servingsSize: any | null;
-    readonly servingsSizeUnit: string | null;
-    readonly prepTime: any | null;
-    readonly cookTime: any | null;
-    readonly portions: any | null;
-    readonly nutritionRating: number | null;
-    readonly nutrition: {
-      readonly calcium: any | null;
-      readonly calories: any | null;
-      readonly carbohydrate: any | null;
-      readonly carbohydratePercent: any | null;
-      readonly carbohydrateUnit: string | null;
-      readonly cholesterol: any | null;
-      readonly cholesterolPercent: any | null;
-      readonly cholesterolUnit: string | null;
-      readonly dietaryFiber: any | null;
-      readonly dietaryFiberPercent: any | null;
-      readonly dietaryFiberUnit: string | null;
-      readonly iron: any | null;
-      readonly potassium: any | null;
-      readonly protein: any | null;
-      readonly proteinPercent: any | null;
-      readonly proteinUnit: string | null;
-      readonly saturatedFat: any | null;
-      readonly saturatedFatPercent: any | null;
-      readonly saturatedFatUnit: string | null;
-      readonly servingSize: any | null;
-      readonly servingSizeText: string | null;
-      readonly servingSizeUnit: string | null;
-      readonly servingsPerContainer: any | null;
-      readonly sodium: any | null;
-      readonly sodiumPercent: any | null;
-      readonly sodiumUnit: string | null;
-      readonly totalFatPercent: any | null;
-      readonly totalFat: any | null;
-      readonly totalFatUnit: string | null;
-      readonly totalSugar: any | null;
-      readonly totalSugarPercent: any | null;
-      readonly totalSugarUnit: string | null;
-      readonly transFat: any | null;
-      readonly transFatPercent: any | null;
-      readonly transFatUnit: string | null;
-      readonly vitA: any | null;
-      readonly vitB12: any | null;
-      readonly vitB6: any | null;
-      readonly vitC: any | null;
-      readonly vitD: any | null;
-      readonly vitE: any | null;
-      readonly vitK: any | null;
-    } | null;
+    readonly categories: ReadonlyArray<CategoryT | null | undefined> | null | undefined;
+    readonly code: any | null | undefined;
+    readonly cookTime: any | null | undefined;
+    readonly descriptionEn: string | null | undefined;
+    readonly descriptionFr: string | null | undefined;
     readonly ingredients: {
       readonly edges: ReadonlyArray<{
         readonly node: {
           readonly name: string;
-          readonly rowId: any;
           readonly quantity: any;
-          readonly unit: string;
-          readonly substituteReason: ReadonlyArray<string | null> | null;
-          readonly substituteIngredientId: any | null;
+          readonly rowId: any;
           readonly substituteIngredient: {
             readonly rowId: any;
-          } | null;
+          } | null | undefined;
+          readonly substituteIngredientId: any | null | undefined;
+          readonly substituteReason: ReadonlyArray<string | null | undefined> | null | undefined;
+          readonly unit: string;
         };
       }>;
     };
-  } | null;
+    readonly method: string | null | undefined;
+    readonly nameEn: string;
+    readonly nameFr: string | null | undefined;
+    readonly nutrition: {
+      readonly calcium: any | null | undefined;
+      readonly calories: any | null | undefined;
+      readonly carbohydrate: any | null | undefined;
+      readonly carbohydratePercent: any | null | undefined;
+      readonly carbohydrateUnit: string | null | undefined;
+      readonly cholesterol: any | null | undefined;
+      readonly cholesterolPercent: any | null | undefined;
+      readonly cholesterolUnit: string | null | undefined;
+      readonly dietaryFiber: any | null | undefined;
+      readonly dietaryFiberPercent: any | null | undefined;
+      readonly dietaryFiberUnit: string | null | undefined;
+      readonly iron: any | null | undefined;
+      readonly potassium: any | null | undefined;
+      readonly protein: any | null | undefined;
+      readonly proteinPercent: any | null | undefined;
+      readonly proteinUnit: string | null | undefined;
+      readonly saturatedFat: any | null | undefined;
+      readonly saturatedFatPercent: any | null | undefined;
+      readonly saturatedFatUnit: string | null | undefined;
+      readonly servingSize: any | null | undefined;
+      readonly servingSizeText: string | null | undefined;
+      readonly servingSizeUnit: string | null | undefined;
+      readonly servingsPerContainer: any | null | undefined;
+      readonly sodium: any | null | undefined;
+      readonly sodiumPercent: any | null | undefined;
+      readonly sodiumUnit: string | null | undefined;
+      readonly totalFat: any | null | undefined;
+      readonly totalFatPercent: any | null | undefined;
+      readonly totalFatUnit: string | null | undefined;
+      readonly totalSugar: any | null | undefined;
+      readonly totalSugarPercent: any | null | undefined;
+      readonly totalSugarUnit: string | null | undefined;
+      readonly transFat: any | null | undefined;
+      readonly transFatPercent: any | null | undefined;
+      readonly transFatUnit: string | null | undefined;
+      readonly vitA: any | null | undefined;
+      readonly vitB12: any | null | undefined;
+      readonly vitB6: any | null | undefined;
+      readonly vitC: any | null | undefined;
+      readonly vitD: any | null | undefined;
+      readonly vitE: any | null | undefined;
+      readonly vitK: any | null | undefined;
+    } | null | undefined;
+    readonly nutritionRating: number | null | undefined;
+    readonly photoUrl: string | null | undefined;
+    readonly portions: any | null | undefined;
+    readonly prepTime: any | null | undefined;
+    readonly rowId: any;
+    readonly servingCost: any | null | undefined;
+    readonly servingsSize: any | null | undefined;
+    readonly servingsSizeUnit: string | null | undefined;
+    readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
+    readonly tips: string | null | undefined;
+    readonly totalCost: any | null | undefined;
+    readonly videoUrl: string | null | undefined;
+  } | null | undefined;
 };
 export type MealQuery = {
-  variables: MealQuery$variables;
   response: MealQuery$data;
+  variables: MealQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ebc64b28a3d7ddb4aed38dee581c6a99>>
+ * @generated SignedSource<<84133943d3f30a0f293431c255ac324b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,50 +8,50 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type state_createMealPlanMutation$variables = {
-  nameEn: string;
-  nameFr?: string | null;
-  descEn?: string | null;
-  descFr?: string | null;
-  personId?: any | null;
-  tags?: ReadonlyArray<string | null> | null;
-  startDate?: any | null;
   connections: ReadonlyArray<string>;
-  isTemplate?: boolean | null;
+  descEn?: string | null | undefined;
+  descFr?: string | null | undefined;
+  isTemplate?: boolean | null | undefined;
+  nameEn: string;
+  nameFr?: string | null | undefined;
+  personId?: any | null | undefined;
+  startDate?: any | null | undefined;
+  tags?: ReadonlyArray<string | null | undefined> | null | undefined;
 };
 export type state_createMealPlanMutation$data = {
   readonly createMealPlan: {
     readonly mealPlanEdge: {
-      readonly cursor: any | null;
+      readonly cursor: any | null | undefined;
       readonly node: {
+        readonly descriptionEn: string | null | undefined;
+        readonly descriptionFr: string | null | undefined;
         readonly id: string;
-        readonly rowId: any;
-        readonly nameEn: string;
-        readonly nameFr: string | null;
-        readonly descriptionEn: string | null;
-        readonly descriptionFr: string | null;
-        readonly isTemplate: boolean | null;
-        readonly person: {
-          readonly fullName: string;
-        } | null;
-        readonly tags: ReadonlyArray<string | null> | null;
+        readonly isTemplate: boolean | null | undefined;
         readonly mealPlanEntries: {
           readonly nodes: ReadonlyArray<{
             readonly meal: {
               readonly id: string;
-              readonly photoUrl: string | null;
-            } | null;
+              readonly photoUrl: string | null | undefined;
+            } | null | undefined;
           }>;
         };
-        readonly startDate: any | null;
+        readonly nameEn: string;
+        readonly nameFr: string | null | undefined;
+        readonly person: {
+          readonly fullName: string;
+        } | null | undefined;
+        readonly rowId: any;
+        readonly startDate: any | null | undefined;
+        readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
       };
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type state_createMealPlanMutation = {
-  variables: state_createMealPlanMutation$variables;
   response: state_createMealPlanMutation$data;
+  variables: state_createMealPlanMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

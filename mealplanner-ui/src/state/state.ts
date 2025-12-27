@@ -1,4 +1,4 @@
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import { commitLocalUpdate, commitMutation, fetchQuery } from "relay-runtime";
 import environment from "../relay/environment";
 import { SearchedMeal } from "./types";

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b2efcfb9eddc7714aa7d1993181dc5e7>>
+ * @generated SignedSource<<ee8efe20135b2c956043edb7537c5285>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,22 +8,22 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
-export type LoginQuery$variables = {};
+import { ConcreteRequest } from 'relay-runtime';
+export type LoginQuery$variables = Record<PropertyKey, never>;
 export type LoginQuery$data = {
   readonly currentPerson: {
-    readonly fullName: string | null;
-    readonly email: string | null;
-  } | null;
+    readonly email: string | null | undefined;
+    readonly fullName: string | null | undefined;
+  } | null | undefined;
   readonly gqLocalState: {
     readonly currentUser: {
       readonly personID: any;
-    } | null;
+    } | null | undefined;
   };
 };
 export type LoginQuery = {
-  variables: LoginQuery$variables;
   response: LoginQuery$data;
+  variables: LoginQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ae601404c477c72696b45a8f27ce3fab>>
+ * @generated SignedSource<<01c41e2bfebe5f771d3e09514170f25c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,24 +8,24 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SearchMeal_data$data = {
   readonly gqLocalState: {
     readonly selectedMeal: {
+      readonly id: string;
       readonly nameEn: string;
       readonly rowId: any;
-      readonly id: string;
-    } | null;
+    } | null | undefined;
   };
   readonly meals: {
     readonly nodes: ReadonlyArray<{
       readonly id: string;
-      readonly rowId: any;
       readonly nameEn: string;
-      readonly tags: ReadonlyArray<string | null> | null;
+      readonly rowId: any;
+      readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
     }>;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "SearchMeal_data";
 };
 export type SearchMeal_data$key = {

@@ -12,7 +12,7 @@ import {
   TableRow,
   Typography
 } from "@mui/material";
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import moment from 'moment';
 import { useLazyLoadQuery } from "react-relay";
 import { useParams } from "react-router";

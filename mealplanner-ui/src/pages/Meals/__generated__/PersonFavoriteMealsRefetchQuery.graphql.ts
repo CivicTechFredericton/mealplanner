@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<612870122f2287b23f2a71498f4372d6>>
+ * @generated SignedSource<<09dcd97ffade128497becbb068a72847>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type PersonFavoriteMealsRefetchQuery$variables = {
   slug: string;
@@ -17,8 +17,8 @@ export type PersonFavoriteMealsRefetchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"PersonFavoriteMeals_favorites">;
 };
 export type PersonFavoriteMealsRefetchQuery = {
-  variables: PersonFavoriteMealsRefetchQuery$variables;
   response: PersonFavoriteMealsRefetchQuery$data;
+  variables: PersonFavoriteMealsRefetchQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

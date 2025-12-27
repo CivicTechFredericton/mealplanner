@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d3d0b6efd6cfe71ed23960e8d6fd6d0f>>
+ * @generated SignedSource<<5c32f673823c1742e4a2c9be1e60287e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,15 +8,15 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type MealTagsRefetchQuery$variables = {};
+export type MealTagsRefetchQuery$variables = Record<PropertyKey, never>;
 export type MealTagsRefetchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"MealTags_tags">;
 };
 export type MealTagsRefetchQuery = {
-  variables: MealTagsRefetchQuery$variables;
   response: MealTagsRefetchQuery$data;
+  variables: MealTagsRefetchQuery$variables;
 };
 
 const node: ConcreteRequest = {

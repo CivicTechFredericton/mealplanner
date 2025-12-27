@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aa6531fd6954cc6f0cee5034c54902c1>>
+ * @generated SignedSource<<4063b59cda5390ed5eeb710f39d6d040>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,22 +8,22 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type state_loginMutation$variables = {
-  userEmail: string;
   password: string;
+  userEmail: string;
 };
 export type state_loginMutation$data = {
   readonly authenticate: {
     readonly jwtToken: {
-      readonly role: string | null;
-      readonly personId: any | null;
-    } | null;
-  } | null;
+      readonly personId: any | null | undefined;
+      readonly role: string | null | undefined;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type state_loginMutation = {
-  variables: state_loginMutation$variables;
   response: state_loginMutation$data;
+  variables: state_loginMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
