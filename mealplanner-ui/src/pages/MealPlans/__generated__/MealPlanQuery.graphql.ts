@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3ae7605a2e67f800dae7d013751aa51e>>
+ * @generated SignedSource<<aae92a77272ba51ac457e2620d46c614>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,20 +8,20 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MealPlanQuery$variables = {
   id: any;
 };
 export type MealPlanQuery$data = {
   readonly mealPlan: {
-    readonly " $fragmentSpreads": FragmentRefs<"MealPlanHeader_mealPlan" | "Calendar_mealPlan">;
-  } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"Calendar_mealPlan" | "MealPlanHeader_mealPlan">;
+  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"SearchMeal_data">;
 };
 export type MealPlanQuery = {
-  variables: MealPlanQuery$variables;
   response: MealPlanQuery$data;
+  variables: MealPlanQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

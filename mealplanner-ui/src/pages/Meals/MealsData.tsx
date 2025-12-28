@@ -1,4 +1,4 @@
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import { useLazyLoadQuery } from "react-relay";
 import { getCurrentPerson } from "../../state/state";
 import { MealsDataQuery } from "./__generated__/MealsDataQuery.graphql";

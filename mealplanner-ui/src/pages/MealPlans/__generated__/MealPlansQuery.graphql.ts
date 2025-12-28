@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<203be15e02135ef24f80cabeabe7c520>>
+ * @generated SignedSource<<2f77bc37504d51470fff42606cf5c5c6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,44 +8,44 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type MealPlansQuery$variables = {};
+export type MealPlansQuery$variables = Record<PropertyKey, never>;
 export type MealPlansQuery$data = {
+  readonly gqLocalState: {
+    readonly selectedMealPlanTags: ReadonlyArray<string> | null | undefined;
+  };
   readonly mealPlans: {
     readonly __id: string;
     readonly edges: ReadonlyArray<{
-      readonly cursor: any | null;
+      readonly cursor: any | null | undefined;
       readonly node: {
+        readonly descriptionEn: string | null | undefined;
         readonly id: string;
-        readonly rowId: any;
-        readonly nameEn: string;
-        readonly descriptionEn: string | null;
-        readonly isTemplate: boolean | null;
-        readonly person: {
-          readonly fullName: string;
-        } | null;
-        readonly tags: ReadonlyArray<string | null> | null;
-        readonly startDate: any | null;
+        readonly isTemplate: boolean | null | undefined;
         readonly mealPlanEntries: {
           readonly nodes: ReadonlyArray<{
             readonly meal: {
               readonly id: string;
-              readonly photoUrl: string | null;
-            } | null;
+              readonly photoUrl: string | null | undefined;
+            } | null | undefined;
           }>;
         };
+        readonly nameEn: string;
+        readonly person: {
+          readonly fullName: string;
+        } | null | undefined;
+        readonly rowId: any;
+        readonly startDate: any | null | undefined;
+        readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
       };
     }>;
-  } | null;
-  readonly gqLocalState: {
-    readonly selectedMealPlanTags: ReadonlyArray<string> | null;
-  };
+  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"MealPlansTags_tags">;
 };
 export type MealPlansQuery = {
-  variables: MealPlansQuery$variables;
   response: MealPlansQuery$data;
+  variables: MealPlansQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f151c3378ebe984c7f70b2c5088deb78>>
+ * @generated SignedSource<<374890b307e3bb2a9dcacb217b29f485>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,18 +8,18 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type state_UpdatePersonTermsMutation$variables = {
   personTerms: boolean;
 };
 export type state_UpdatePersonTermsMutation$data = {
   readonly updatePersonTerms: {
     readonly preflight: boolean;
-  } | null;
+  } | null | undefined;
 };
 export type state_UpdatePersonTermsMutation = {
-  variables: state_UpdatePersonTermsMutation$variables;
   response: state_UpdatePersonTermsMutation$data;
+  variables: state_UpdatePersonTermsMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

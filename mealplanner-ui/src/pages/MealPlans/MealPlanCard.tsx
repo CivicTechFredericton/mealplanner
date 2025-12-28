@@ -170,7 +170,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
             </div>
           )}
           <ImageList sx={{ width: 350, height: 150 }} cols={3} rowHeight={164}>
-            {mealplan.mealPlanEntries.nodes.map((meal) =>
+            {mealplan.mealPlanEntries.nodes.map((meal: any) =>
               meal.meal?.photoUrl !== null ? (
                 <ImageListItem key={meal.meal?.id}>
                   <img
@@ -187,7 +187,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
           </ImageList>
           <CardContent>
             <Typography variant="body2" color="text.secondary">
-              {mealplan.tags?.map((tag) => (
+              {mealplan.tags?.map((tag: any) => (
                 <span>{tag} &nbsp;</span>
               ))}
             </Typography>

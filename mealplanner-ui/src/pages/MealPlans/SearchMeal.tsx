@@ -10,7 +10,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import React, { useState } from "react";
 import { useFragment } from "react-relay";
 import { clearSelectedMeal, setSelectedMeal } from "../../state/state";

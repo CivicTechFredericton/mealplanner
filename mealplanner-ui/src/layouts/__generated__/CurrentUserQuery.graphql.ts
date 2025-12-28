@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3dee208d9c0e58042e97bbc565354eef>>
+ * @generated SignedSource<<56d7e0b9bcccbe8c4664e66453ee30ea>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,18 +8,18 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
-export type CurrentUserQuery$variables = {};
+import { ConcreteRequest } from 'relay-runtime';
+export type CurrentUserQuery$variables = Record<PropertyKey, never>;
 export type CurrentUserQuery$data = {
   readonly currentPerson: {
-    readonly fullName: string | null;
-    readonly email: string | null;
-    readonly role: string | null;
-  } | null;
+    readonly email: string | null | undefined;
+    readonly fullName: string | null | undefined;
+    readonly role: string | null | undefined;
+  } | null | undefined;
 };
 export type CurrentUserQuery = {
-  variables: CurrentUserQuery$variables;
   response: CurrentUserQuery$data;
+  variables: CurrentUserQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

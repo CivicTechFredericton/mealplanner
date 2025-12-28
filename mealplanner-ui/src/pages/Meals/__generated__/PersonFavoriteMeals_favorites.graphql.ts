@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a3cb3fe6bb8522e44b2f1e0711e06711>>
+ * @generated SignedSource<<1b94b862ab9c0be81da4ac46af049e3d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,8 +8,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
-export type CategoryT = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK" | "%future added value";
+import { ReaderFragment } from 'relay-runtime';
+export type CategoryT = "BREAKFAST" | "DINNER" | "LUNCH" | "SNACK" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type PersonFavoriteMeals_favorites$data = {
   readonly people: {
@@ -17,27 +17,29 @@ export type PersonFavoriteMeals_favorites$data = {
       readonly favoriteMeals: {
         readonly nodes: ReadonlyArray<{
           readonly meal: {
-            readonly rowId: any;
+            readonly categories: ReadonlyArray<CategoryT | null | undefined> | null | undefined;
+            readonly code: any | null | undefined;
+            readonly descriptionEn: string | null | undefined;
+            readonly descriptionFr: string | null | undefined;
             readonly nameEn: string;
-            readonly nameFr: string | null;
-            readonly descriptionEn: string | null;
-            readonly descriptionFr: string | null;
-            readonly categories: ReadonlyArray<CategoryT | null> | null;
-            readonly tags: ReadonlyArray<string | null> | null;
-            readonly code: any | null;
-            readonly photoUrl: string | null;
-            readonly videoUrl: string | null;
-          } | null;
+            readonly nameFr: string | null | undefined;
+            readonly photoUrl: string | null | undefined;
+            readonly rowId: any;
+            readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
+            readonly videoUrl: string | null | undefined;
+          } | null | undefined;
         }>;
       };
     }>;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "PersonFavoriteMeals_favorites";
 };
 export type PersonFavoriteMeals_favorites$key = {
   readonly " $data"?: PersonFavoriteMeals_favorites$data;
   readonly " $fragmentSpreads": FragmentRefs<"PersonFavoriteMeals_favorites">;
 };
+
+import PersonFavoriteMealsRefetchQuery_graphql from './PersonFavoriteMealsRefetchQuery.graphql';
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -52,7 +54,7 @@ const node: ReaderFragment = {
     "refetch": {
       "connection": null,
       "fragmentPathInResult": [],
-      "operation": require('./PersonFavoriteMealsRefetchQuery.graphql')
+      "operation": PersonFavoriteMealsRefetchQuery_graphql
     }
   },
   "name": "PersonFavoriteMeals_favorites",

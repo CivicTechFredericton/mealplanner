@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d41b32f86ab5e5483112602e494d52cb>>
+ * @generated SignedSource<<8bd79d74db4d59447e2272a50b126020>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type DeleteMealPlanMutation$variables = {
   connections: ReadonlyArray<string>;
   mealPlanId: any;
@@ -16,18 +16,18 @@ export type DeleteMealPlanMutation$variables = {
 export type DeleteMealPlanMutation$data = {
   readonly deleteMealPlan: {
     readonly mealPlanEdge: {
-      readonly cursor: any | null;
+      readonly cursor: any | null | undefined;
       readonly node: {
         readonly id: string;
-        readonly rowId: any;
         readonly nameEn: string;
+        readonly rowId: any;
       };
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type DeleteMealPlanMutation = {
-  variables: DeleteMealPlanMutation$variables;
   response: DeleteMealPlanMutation$data;
+  variables: DeleteMealPlanMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

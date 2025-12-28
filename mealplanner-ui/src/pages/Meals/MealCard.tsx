@@ -105,7 +105,7 @@ export const MealCard = (props: MealProps) => {
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary" lineHeight="2rem">
-            {meal.tags?.map((tag) => (
+            {meal.tags?.map((tag: any) => (
               <span>
                 <span style={tagStyle}>{tag}</span>
                 &nbsp;

@@ -1,5 +1,5 @@
 import { useMediaQuery, useTheme } from "@mui/material";
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import React from "react";
 import { useFragment } from "react-relay";
 import { DesktopCalendar } from "./DesktopCalendar";

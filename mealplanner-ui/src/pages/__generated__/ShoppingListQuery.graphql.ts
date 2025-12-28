@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e74705206773a1fe5e7881c51c17447c>>
+ * @generated SignedSource<<9d8727c8f4f991c24fdfeb69d11b0f02>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,34 +8,20 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type ShoppingListQuery$variables = {
   rowId: any;
 };
 export type ShoppingListQuery$data = {
   readonly mealPlan: {
-    readonly nameEn: string;
-    readonly descriptionEn: string | null;
-    readonly person: {
-      readonly fullName: string;
-    } | null;
-    readonly startDate: any | null;
+    readonly descriptionEn: string | null | undefined;
     readonly mealPlanEntries: {
       readonly nodes: ReadonlyArray<{
         readonly meal: {
           readonly id: string;
-          readonly nameEn: string;
           readonly ingredients: {
             readonly nodes: ReadonlyArray<{
               readonly id: string;
-              readonly name: string;
-              readonly quantity: any;
-              readonly unit: string;
-              readonly productKeyword: string;
-              readonly substituteIngredient: {
-                readonly name: string;
-              } | null;
-              readonly substituteReason: ReadonlyArray<string | null> | null;
               readonly matchedProducts: {
                 readonly nodes: ReadonlyArray<{
                   readonly id: string;
@@ -43,16 +29,30 @@ export type ShoppingListQuery$data = {
                   readonly price: any;
                 }>;
               };
+              readonly name: string;
+              readonly productKeyword: string;
+              readonly quantity: any;
+              readonly substituteIngredient: {
+                readonly name: string;
+              } | null | undefined;
+              readonly substituteReason: ReadonlyArray<string | null | undefined> | null | undefined;
+              readonly unit: string;
             }>;
           };
-        } | null;
+          readonly nameEn: string;
+        } | null | undefined;
       }>;
     };
-  } | null;
+    readonly nameEn: string;
+    readonly person: {
+      readonly fullName: string;
+    } | null | undefined;
+    readonly startDate: any | null | undefined;
+  } | null | undefined;
 };
 export type ShoppingListQuery = {
-  variables: ShoppingListQuery$variables;
   response: ShoppingListQuery$data;
+  variables: ShoppingListQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

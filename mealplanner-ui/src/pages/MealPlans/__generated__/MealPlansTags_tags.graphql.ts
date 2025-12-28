@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7a58edcf14ed094536bfa2cc0e0a6578>>
+ * @generated SignedSource<<3da7335f02abfad782ed38bbdfcfceb6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,23 +8,25 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
+import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MealPlansTags_tags$data = {
-  readonly gqLocalState: {
-    readonly selectedMealPlanTags: ReadonlyArray<string> | null;
-  };
   readonly allMealPlanTags: {
     readonly edges: ReadonlyArray<{
-      readonly node: string | null;
+      readonly node: string | null | undefined;
     }>;
-  } | null;
+  } | null | undefined;
+  readonly gqLocalState: {
+    readonly selectedMealPlanTags: ReadonlyArray<string> | null | undefined;
+  };
   readonly " $fragmentType": "MealPlansTags_tags";
 };
 export type MealPlansTags_tags$key = {
   readonly " $data"?: MealPlansTags_tags$data;
   readonly " $fragmentSpreads": FragmentRefs<"MealPlansTags_tags">;
 };
+
+import MealPlansTagsRefetchQuery_graphql from './MealPlansTagsRefetchQuery.graphql';
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -33,7 +35,7 @@ const node: ReaderFragment = {
     "refetch": {
       "connection": null,
       "fragmentPathInResult": [],
-      "operation": require('./MealPlansTagsRefetchQuery.graphql')
+      "operation": MealPlansTagsRefetchQuery_graphql
     }
   },
   "name": "MealPlansTags_tags",

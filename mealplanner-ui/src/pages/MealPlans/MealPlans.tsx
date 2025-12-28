@@ -6,7 +6,7 @@ import {
   Radio,
   RadioGroup
 } from "@mui/material";
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import { Suspense, useState } from "react";
 import { useLazyLoadQuery, useRefetchableFragment } from "react-relay";
 import { getCurrentPerson } from "../../state/state";

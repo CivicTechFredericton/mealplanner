@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f9254bebf6ded137a14eeb85eb65c689>>
+ * @generated SignedSource<<42cbc5df151fd07ce8aa0c1728ef816c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,31 +8,31 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
-export type CategoryT = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACK" | "%future added value";
+import { ReaderFragment } from 'relay-runtime';
+export type CategoryT = "BREAKFAST" | "DINNER" | "LUNCH" | "SNACK" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type Calendar_mealPlan$data = {
-  readonly rowId: any;
-  readonly id: string;
   readonly __id: string;
+  readonly id: string;
   readonly mealPlanEntries: {
     readonly __id: string;
     readonly edges: ReadonlyArray<{
-      readonly cursor: any | null;
+      readonly cursor: any | null | undefined;
       readonly node: {
-        readonly id: string;
-        readonly rowId: any;
         readonly category: CategoryT;
-        readonly mealId: any;
         readonly days: number;
+        readonly id: string;
         readonly meal: {
           readonly id: string;
           readonly nameEn: string;
-          readonly nameFr: string | null;
-        } | null;
+          readonly nameFr: string | null | undefined;
+        } | null | undefined;
+        readonly mealId: any;
+        readonly rowId: any;
       };
     }>;
   };
+  readonly rowId: any;
   readonly " $fragmentType": "Calendar_mealPlan";
 };
 export type Calendar_mealPlan$key = {

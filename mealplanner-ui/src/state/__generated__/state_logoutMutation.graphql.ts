@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<76ca31058adc3faf6cda33a363ff7426>>
+ * @generated SignedSource<<2f3b71842c68e872c5ad3fa442b8c9b2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,16 +8,16 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type state_logoutMutation$variables = {};
+import { ConcreteRequest } from 'relay-runtime';
+export type state_logoutMutation$variables = Record<PropertyKey, never>;
 export type state_logoutMutation$data = {
   readonly logout: {
-    readonly status: string | null;
+    readonly status: string | null | undefined;
   };
 };
 export type state_logoutMutation = {
-  variables: state_logoutMutation$variables;
   response: state_logoutMutation$data;
+  variables: state_logoutMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

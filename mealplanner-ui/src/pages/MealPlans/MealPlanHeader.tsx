@@ -9,7 +9,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import React, { useState } from "react";
 import { useFragment, useLazyLoadQuery } from "react-relay";
 import { useNavigate } from "react-router";

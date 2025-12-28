@@ -1,4 +1,4 @@
-import { graphql } from "babel-plugin-relay/macro";
+import { graphql } from "relay-runtime";
 import { commitLocalUpdate, commitMutation, fetchQuery } from "relay-runtime";
 import environment from "../relay/environment";
 import { SearchedMeal } from "./types";
@@ -203,7 +203,8 @@ export const fetchCurrentPerson = async () => {
   let data = await fetchQuery<state_CurrentUserQuery>(
     environment,
     currentUserQuery,
-    { fetchPolicy: 'state-or-network' }
+    {},
+    {fetchPolicy: "network-only"}
   ).toPromise();
   setCurrentUser(data);
   return data;

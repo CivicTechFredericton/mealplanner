@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9cbaa36cd05ef09f04528caaaef4ab46>>
+ * @generated SignedSource<<c78689d2983668a96ee7a53104336ed9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 export type DuplicateMealPlanMutation$variables = {
   connections: ReadonlyArray<string>;
   mealPlanId: any;
@@ -17,34 +17,34 @@ export type DuplicateMealPlanMutation$variables = {
 export type DuplicateMealPlanMutation$data = {
   readonly duplicateMealPlan: {
     readonly mealPlanEdge: {
-      readonly cursor: any | null;
+      readonly cursor: any | null | undefined;
       readonly node: {
+        readonly descriptionEn: string | null | undefined;
+        readonly descriptionFr: string | null | undefined;
         readonly id: string;
-        readonly rowId: any;
-        readonly nameEn: string;
-        readonly nameFr: string | null;
-        readonly personId: any | null;
-        readonly descriptionEn: string | null;
-        readonly descriptionFr: string | null;
-        readonly person: {
-          readonly fullName: string;
-        } | null;
-        readonly tags: ReadonlyArray<string | null> | null;
         readonly mealPlanEntries: {
           readonly nodes: ReadonlyArray<{
             readonly meal: {
               readonly id: string;
-              readonly photoUrl: string | null;
-            } | null;
+              readonly photoUrl: string | null | undefined;
+            } | null | undefined;
           }>;
         };
+        readonly nameEn: string;
+        readonly nameFr: string | null | undefined;
+        readonly person: {
+          readonly fullName: string;
+        } | null | undefined;
+        readonly personId: any | null | undefined;
+        readonly rowId: any;
+        readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
       };
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type DuplicateMealPlanMutation = {
-  variables: DuplicateMealPlanMutation$variables;
   response: DuplicateMealPlanMutation$data;
+  variables: DuplicateMealPlanMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

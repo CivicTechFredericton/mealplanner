@@ -1,6 +1,6 @@
 # Ref: https://medium.com/geekculture/dockerizing-a-react-application-with-multi-stage-docker-build-4a5c6ca68166
 # pull official base image
-FROM node:18-buster-slim AS builder
+FROM node:24-slim AS builder
 
 # set working directory
 WORKDIR /app
@@ -19,7 +19,7 @@ COPY . ./
 RUN npm run build
 
 # Pull the official nginx base
-FROM nginx:1.22-alpine
+FROM nginx:1.28-trixie
 # Set working directory to nginx resources directory
 WORKDIR /usr/share/nginx/html
 # Remove default nginx static resources

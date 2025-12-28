@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<36f5d04cf1be95af82c969bec0b62f69>>
+ * @generated SignedSource<<2769ae4ad6cafcc50297d7ff77845338>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,33 +8,33 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type state_updateMealPlanMutation$variables = {
+  descriptionEn?: string | null | undefined;
   mealPlanId: any;
-  mealPlanName?: string | null;
-  descriptionEn?: string | null;
-  personId?: any | null;
-  tags?: ReadonlyArray<string | null> | null;
-  startDate?: any | null;
+  mealPlanName?: string | null | undefined;
+  personId?: any | null | undefined;
+  startDate?: any | null | undefined;
+  tags?: ReadonlyArray<string | null | undefined> | null | undefined;
 };
 export type state_updateMealPlanMutation$data = {
   readonly updateMealPlan: {
     readonly mealPlan: {
+      readonly descriptionEn: string | null | undefined;
       readonly id: string;
-      readonly rowId: any;
       readonly nameEn: string;
-      readonly descriptionEn: string | null;
-      readonly personId: any | null;
-      readonly tags: ReadonlyArray<string | null> | null;
-      readonly startDate: any | null;
+      readonly personId: any | null | undefined;
+      readonly rowId: any;
+      readonly startDate: any | null | undefined;
+      readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
       readonly " $fragmentSpreads": FragmentRefs<"MealPlanHeader_mealPlan">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type state_updateMealPlanMutation = {
-  variables: state_updateMealPlanMutation$variables;
   response: state_updateMealPlanMutation$data;
+  variables: state_updateMealPlanMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
