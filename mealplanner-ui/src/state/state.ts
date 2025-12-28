@@ -204,7 +204,7 @@ export const fetchCurrentPerson = async () => {
     environment,
     currentUserQuery,
     {},
-    { fetchPolicy: 'store-or-network' as any }
+    {fetchPolicy: "network-only"}
   ).toPromise();
   setCurrentUser(data);
   return data;
