@@ -1,5 +1,9 @@
-const {makeExtendSchemaPlugin, gql} = require("graphile-utils");
-const md5 = require('md5');
+import { makeExtendSchemaPlugin, gql } from "graphile-utils";
+import md5 from 'md5';
+
+interface CurrentUser {
+  email: string;
+}
 
 const GravatarPlugin = makeExtendSchemaPlugin(build => {
   return {
@@ -10,13 +14,13 @@ const GravatarPlugin = makeExtendSchemaPlugin(build => {
     `,
     resolvers: {
       CurrentUser: {
-        avatar: async currentUser => {
-          let hashEmail = md5(currentUser.email);
+        avatar: async (currentUser: CurrentUser) => {
+          const hashEmail = md5(currentUser.email);
           return `https://www.gravatar.com/avatar/${hashEmail}.png`;
         }
       }
     }
-  }
+  };
 });
 
-module.exports = { GravatarPlugin };
+export { GravatarPlugin };

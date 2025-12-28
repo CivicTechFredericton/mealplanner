@@ -16,4 +16,4 @@
 # 	psql -U postgres -h db  -f "${sql}"
 # done
 
-node server.js
+npx tsx server.ts

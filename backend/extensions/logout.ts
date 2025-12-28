@@ -1,5 +1,8 @@
-const {makeExtendSchemaPlugin, gql} = require("graphile-utils");
-const md5 = require('md5');
+import { makeExtendSchemaPlugin, gql } from "graphile-utils";
+
+interface LogoutContext {
+  clearAuthCookie: () => void;
+}
 
 const LogoutPlugin = makeExtendSchemaPlugin(build => {
   return {
@@ -13,13 +16,13 @@ const LogoutPlugin = makeExtendSchemaPlugin(build => {
     `,
     resolvers: {
       Mutation: {
-        logout: async (_query, args, context, resolveInfo)  => {
+        logout: async (_query: unknown, _args: unknown, context: LogoutContext, _resolveInfo: unknown) => {
           context.clearAuthCookie();
-          return {status: "success"};
+          return { status: "success" };
         }
       }
     }
-  }
+  };
 });
 
-module.exports = { LogoutPlugin };
+export { LogoutPlugin };
