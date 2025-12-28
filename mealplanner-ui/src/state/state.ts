@@ -203,7 +203,8 @@ export const fetchCurrentPerson = async () => {
   let data = await fetchQuery<state_CurrentUserQuery>(
     environment,
     currentUserQuery,
-    { fetchPolicy: 'state-or-network' }
+    {},
+    { fetchPolicy: 'store-or-network' as any }
   ).toPromise();
   setCurrentUser(data);
   return data;
