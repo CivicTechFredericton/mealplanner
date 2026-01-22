@@ -272,7 +272,7 @@ INSERT INTO
                 0,              '',                 8),
 
                ('s_vegetable',
-                'Mixed Bean salad',                        'Salade de haricots mélangés',            '{"salad", "vegetarian", "vegan", "halal", "nut_free", "gluten_free", "meal_accompanied"}',
+                'Mixed Bean salad',                        'Salade de haricots mélangés',            '{"salad", "vegetarian", "vegan", "halal", "nut_free", "gluten_free", "main_meal"}',
                 'A simple and tasty salad, suitable to accompany almost any meal.',
                 'Une salade simple et savoureuse, adaptée pour accompagner presque tous les repas.',
                 '{}',

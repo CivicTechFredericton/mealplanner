@@ -3410,7 +3410,7 @@
   {
     "name_en": "Trail Mix Bars",
     "name_fr": null,
-    "tags": ["Dessert", "Vegetarian", "Nut-free", "Halal"],
+    "tags": ["Dessert", "Vegetarian", "Halal"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4241,7 +4241,7 @@
   {
     "name_en": "Cucumber Dill Salad",
     "name_fr": null,
-    "tags": ["Meal Accompanied", "Salad", "Egg-free", "Vegan", "Nut-free", "Halal", "Gluten-free", "Vegetarian"],
+    "tags": ["Main Meals", "Salad", "Egg-free", "Vegan", "Nut-free", "Halal", "Gluten-free", "Vegetarian"],
     "description_en": null,
     "description_fr": null,
     "categories": null,

@@ -172,7 +172,7 @@ INSERT INTO app.meal
   VALUES      ( 'tcs_main',
       'Mulligatawny Soup',
       'Soupe Mulligatawny',
-      '{"main_meals", "vegetarian", "soup"}',
+      '{"main_meals", "vegetarian", "soup", "indian_cuisine"}',
       'This soup has masoor dal and coconut milk along with vegetables and spices.',
       'Cette soupe contient du masoor dal et du lait de coco, ainsi que des légumes et des épices.'
       ,
@@ -211,7 +211,7 @@ INSERT INTO app.meal
   VALUES      ( 'tcs_main',
       'Oats Omelette',
       'Omelette à lavoine',
-      '{"main_meals", "vegetarian"}',
+      '{"main_meals", "vegetarian", "indian_cuisine"}',
       'An easy and simple instant breakfast or snack meal with healthy rolled oats.',
       'Un petit-déjeuner ou une collation instantané facile et simple avec des flocons davoine sains.'
       ,
@@ -289,7 +289,7 @@ INSERT INTO app.meal
   VALUES      ( 'tcs_main',
       'Chana Pasta',
       'Pâtes Chana',
-      '{"main_meals", "vegetarian"}',
+      '{"main_meals", "vegetarian", "indian_cuisine"}',
       'A spicy flavourful recipe to satisfy your hunger pangs.',
       'Une recette épicée et savoureuse pour satisfaire vos fringales.',
       '{"Snack", "Dinner"}',
@@ -327,7 +327,7 @@ INSERT INTO app.meal
   VALUES      ( 'cc_side',
       'Lemon Rasam / Soup',
       'Rasam Citron / Soupe',
-      '{"main_meals", "vegan", "vegetarian", "soup"}',
+      '{"main_meals", "vegan", "vegetarian", "soup", "indian_cuisine"}',
       'A simple healthy and tasty rasam recipe that is ideally served with hot steamed rice.'
       ,
       'Une recette de rasam simple, saine et savoureuse qui est idéalement servie avec du riz chaud à la vapeur.'
@@ -367,7 +367,7 @@ INSERT INTO app.meal
   VALUES      ( 'cc_side',
       'Potato Masala Chips',
       'Croustilles de pomme de terre masala',
-      '{"main_meals", "vegan", "vegetarian"}',
+      '{"main_meals", "vegan", "vegetarian", "indian_cuisine"}',
       'Potato masala chips is an instant snack prepared with potato, gram flour, rice flour, chilli powder and sesame seeds.'
       ,
       'Les chips de pomme de terre masala sont une collation instantanée préparée avec de la pomme de terre, de la farine de gramme, de la farine de riz, de la poudre de piment et des graines de sésame.'

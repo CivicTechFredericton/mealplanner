@@ -26,7 +26,7 @@ begin;
 		cooking_duration, total_cost, serving_cost, 
 		tips, 
 		servings_size, servings_size_unit, serves) 
-        VALUES ('cc_side', 'coriander coconut chutney', 'chutney de coriandre à la noix de coco', '{"meal_accompaniment", "vegetarian", "vegan"}', 
+        VALUES ('cc_side', 'coriander coconut chutney', 'chutney de coriandre à la noix de coco', '{"meal_accompaniment", "vegetarian", "vegan", "indian_cuisine"}', 
                 'It can be used  to eat along with idli, dosa, vada, bonda or bajji', 
 		'Il peut être utilisé pour manger avec idli, dosa vada, bonda ou bajji', 
                 '{"Breakfast", "Snack", "Dinner"}', null, null, 
@@ -39,7 +39,7 @@ begin;
                 'Defreeze the coconut chunks before 30 minutes to obtain soft texture. You can grind the coconut chunks to a poweder and store it in an airtight container.',
                 2,             'tbsp',             1),
 
-               ('cs_side', 'Cucumber Dill Salad',       '', '{"meal_accompaniment", "vegetarian", "vegan", "salad"}', 
+               ('cs_side', 'Cucumber Dill Salad',       '', '{"main_meal", "vegetarian", "vegan", "salad"}', 
                 '', 
 		'', 
                 '{"Lunch", "Dinner"}', null, null, 
