@@ -9,6 +9,7 @@ const OperationMessagesPlugin = require("@graphile/operation-hooks/lib/Operation
 const LoginPlugin = require("./hooks/login_plugin");
 const session = require("cookie-session");
 const { LogoutPlugin } = require("./extensions/logout");
+require("dotenv").config();
 
 const app = express();
 app.set('trust proxy', 1);
@@ -66,6 +67,7 @@ const postgraphileOptions = {
       role: role,
     };
   },
+  
   additionalGraphQLContextFromRequest: async (req) => {
     return {
       setAuthCookie: (personId, role) => {
