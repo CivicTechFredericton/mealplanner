@@ -46,19 +46,15 @@ export const Login = () => {
     }
   };
 
-  // let data = useLazyLoadQuery<LoginQuery>(
-  //   query,
-  //   {},
-  //   {
-  //     fetchPolicy: "network-only",
-  //     fetchKey: getCurrentPerson().personID,
-  //     networkCacheConfig: {
-  //       force: true,
-  //     },
-  //   }
-  // );
-  let data = useLazyLoadQuery<LoginQuery>(query, {});
-  if (data.gqLocalState.currentUser?.personID) {
+  let data = useLazyLoadQuery<LoginQuery>(
+    query,
+    {},
+    {
+      fetchPolicy: "store-or-network",
+    }
+  );
+  
+  if (data.currentPerson || data.gqLocalState.currentUser?.personID) {
     return <Navigate to="/mealplans" replace/>;
   }
 

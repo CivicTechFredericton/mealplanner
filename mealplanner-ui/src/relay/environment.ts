@@ -3,19 +3,6 @@ import {Environment, Network, RecordSource, RequestParameters, Store, Variables}
 //Wraps the fetch call and it calls the graphql server
 async function fetchGraphQL(params : RequestParameters, variables: Variables) {
     const URL = import.meta.env.VITE_GRAPHQL_ENDPOINT || '/graphql';
-    // const response = await fetch(URL, {
-    //     method: 'POST',
-    //     credentials:  'include',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //         query: params.text,
-    //         variables,
-    //     }),
-    // }
-    // );
-    // return await response.json();
     try {
         const response = await fetch(URL, {
             method: 'POST',
@@ -40,7 +27,6 @@ async function fetchGraphQL(params : RequestParameters, variables: Variables) {
     }
 }
 
-//create a relay environment that requires network and store
 export default new Environment({
     network: Network.create(fetchGraphQL),
     store: new Store(new RecordSource()),
