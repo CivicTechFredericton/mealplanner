@@ -9,7 +9,7 @@ import {
 import { graphql } from "relay-runtime";
 import { useState } from "react";
 import { useLazyLoadQuery } from "react-relay";
-import { Navigate } from "react-router";
+import { Navigate } from "react-router-dom";
 import { getCurrentPerson, login, updatePersonTerms } from "../state/state";
 import { LoginQuery } from "./__generated__/LoginQuery.graphql";
 
@@ -46,17 +46,18 @@ export const Login = () => {
     }
   };
 
-  let data = useLazyLoadQuery<LoginQuery>(
-    query,
-    {},
-    {
-      fetchPolicy: "network-only",
-      fetchKey: getCurrentPerson().personID,
-      networkCacheConfig: {
-        force: true,
-      },
-    }
-  );
+  // let data = useLazyLoadQuery<LoginQuery>(
+  //   query,
+  //   {},
+  //   {
+  //     fetchPolicy: "network-only",
+  //     fetchKey: getCurrentPerson().personID,
+  //     networkCacheConfig: {
+  //       force: true,
+  //     },
+  //   }
+  // );
+  let data = useLazyLoadQuery<LoginQuery>(query, {});
   if (data.gqLocalState.currentUser?.personID) {
     return <Navigate to="/mealplans" replace/>;
   }

@@ -42,13 +42,22 @@ const theme = createTheme({
 });
 
 //Initializing local state from state.ts
-initState();
+// initState();
 
 function App() {
   let [intialized, setInitialized] = useState(false);
 
   useEffect(() => {
+    // fetchCurrentPerson().then(() => {
+    //   setInitialized(true);
+    // });
+    initState();
     fetchCurrentPerson().then(() => {
+      setInitialized(true);
+    })
+    .catch((error) => {
+      console.error("Failed to fetch current person:", error);
+      // Still initialize the app even if fetch fails (user might not be logged in)
       setInitialized(true);
     });
   }, []);
@@ -59,90 +68,92 @@ function App() {
   return (
     <RelayEnvironmentProvider environment={environment}>
       <ThemeProvider theme={theme}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route
-              path="/mealplans/:id"
-              element={
-                <Suspense fallback={"loading inner..."}>
-                  <LoggedIn>
-                    <MealPlan />
-                  </LoggedIn>
-                </Suspense>
-              }
-            />
-            <Route
-              path="/mealplans/:id/shopping-list"
-              element={
-                <Suspense fallback={"loading inner..."}>
-                  <LoggedIn>
-                    <ShoppingList />
-                  </LoggedIn>
-                </Suspense>
-              }
-            />
-            <Route
-              path="/mealplans"
-              element={
-                <Suspense fallback={"loading Mealplans list..."}>
-                  <LoggedIn>
-                    <MealPlans />
-                  </LoggedIn>
-                </Suspense>
-              }
-            />
-            <Route
-              path="/meals"
-              element={
-                <Suspense fallback={"loading Meals list..."}>
-                  {/* <LoggedIn> */}
-                  <Meals />
-                  {/* </LoggedIn> */}
-                </Suspense>
-              }
-            />
-            <Route
-              path="/meals/:id"
-              element={
-                <Suspense fallback={"loading inner..."}>
-                  {/* <LoggedIn> */}
-                  <Meal />
-                  {/* </LoggedIn> */}
-                </Suspense>
-              }
-            />
-            <Route
-              path={`/meals/:slug/favorites`}
-              element={
-                <Suspense fallback={"loading favorite meals.."}>
-                  <LoggedIn>
-                    <FavoriteMealPage />
-                  </LoggedIn>
-                </Suspense>
-              }
-            />
-            <Route
-              path={"/terms"}
-              element={
-                <Suspense fallback={"loading terms.."}>
-                  {/* <LoggedIn> */}
-                    <TermsAndConditions />
-                  {/* </LoggedIn> */}
-                </Suspense>
-              }
-            />
-            <Route
-              path="/"
-              element={
-                <Suspense fallback={"loading Login..."}>
-                  <Login />
-                </Suspense>
-              }
-            >
-              {" "}
+        <Suspense fallback={<h1>Loading login...</h1>}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route
+                path="/mealplans/:id"
+                element={
+                  <Suspense fallback={"loading inner..."}>
+                    <LoggedIn>
+                      <MealPlan />
+                    </LoggedIn>
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/mealplans/:id/shopping-list"
+                element={
+                  <Suspense fallback={"loading inner..."}>
+                    <LoggedIn>
+                      <ShoppingList />
+                    </LoggedIn>
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/mealplans"
+                element={
+                  <Suspense fallback={"loading Mealplans list..."}>
+                    <LoggedIn>
+                      <MealPlans />
+                    </LoggedIn>
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/meals"
+                element={
+                  <Suspense fallback={"loading Meals list..."}>
+                    {/* <LoggedIn> */}
+                    <Meals />
+                    {/* </LoggedIn> */}
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/meals/:id"
+                element={
+                  <Suspense fallback={"loading inner..."}>
+                    {/* <LoggedIn> */}
+                    <Meal />
+                    {/* </LoggedIn> */}
+                  </Suspense>
+                }
+              />
+              <Route
+                path={`/meals/:slug/favorites`}
+                element={
+                  <Suspense fallback={"loading favorite meals.."}>
+                    <LoggedIn>
+                      <FavoriteMealPage />
+                    </LoggedIn>
+                  </Suspense>
+                }
+              />
+              <Route
+                path={"/terms"}
+                element={
+                  <Suspense fallback={"loading terms.."}>
+                    {/* <LoggedIn> */}
+                      <TermsAndConditions />
+                    {/* </LoggedIn> */}
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/"
+                element={
+                  // <Suspense fallback={"loading Login..."}>
+                    <Login />
+                  // </Suspense>
+                }
+              >
+                {" "}
+              </Route>
             </Route>
-          </Route>
-        </Routes>
+          </Routes>
+        </Suspense>
       </ThemeProvider>
     </RelayEnvironmentProvider>
   );
