@@ -54,7 +54,7 @@ export const Login = () => {
     }
   );
   
-  if (data.currentPerson || data.gqLocalState.currentUser?.personID) {
+  if (data.gqLocalState.currentUser?.personID) {
     return <Navigate to="/mealplans" replace/>;
   }
 
