@@ -34,11 +34,10 @@ export const MealPlan = () => {
 
   return (
     <React.Fragment>
-      <Grid container spacing={2} style={{ padding: "1rem" }}>
+      <Grid container spacing={2} style={{ padding: "1rem" }} sx={{ width: "100%" }}>
         {matches ? (
           <Grid
-            item
-            md={3}
+            size={{ sm: 3 }}
             style={{
               backgroundColor: `${theme.palette.primary.dark}`,
               padding: "1em",
@@ -55,7 +54,7 @@ export const MealPlan = () => {
           ""
         )}
 
-        <Grid item xs={12} md={9}>
+        <Grid size={{ xs: 12, sm: 9 }}>
           <MealPlanHeader mealPlan={data.mealPlan!} />
           <section>
             <Calendar mealPlan={data.mealPlan!} />
