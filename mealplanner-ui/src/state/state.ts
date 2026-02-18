@@ -20,6 +20,10 @@ import {
   state_loginMutation$data,
 } from "./__generated__/state_loginMutation.graphql";
 import {
+  state_googleLoginMutation,
+  state_googleLoginMutation$data
+} from "./__generated__/state_googleLoginMutation.graphql";
+import {
   state_logoutMutation,
   state_logoutMutation$data,
 } from "./__generated__/state_logoutMutation.graphql";
@@ -206,6 +210,7 @@ export const fetchCurrentPerson = async () => {
     {},
     {fetchPolicy: "network-only"}
   ).toPromise();
+  console.log('fetchCurrentPerson', data);
   setCurrentUser(data);
   return data;
 };
@@ -214,13 +219,14 @@ function setCurrentUser(data: state_CurrentUserQuery$data | undefined) {
   if (data?.currentPerson) {
     commitLocalUpdate(environment, (store) => {
       let localState = store.get(STATE_ID);
+	  console.log('setCurrentUser', data,localState);
      // store.delete("client:currentUser");
       let record = store.get("client:currentUser");
 
       if(!record) {
          record = store.create("client:currentUser", "CurrentLoggedInUser");
       }
-
+	   console.log('setCurrentUser', record);
       record.setValue(data?.currentPerson?.rowId, "personID");
       record.setValue(data?.currentPerson?.fullName, "personName");
       record.setValue(data?.currentPerson?.role, "personRole");
@@ -230,6 +236,39 @@ function setCurrentUser(data: state_CurrentUserQuery$data | undefined) {
     });
   }
 }
+
+// New mutation for Google login
+const googleLoginMutation = graphql`
+  mutation state_googleLoginMutation($userEmail: String!) {
+    authenticateGoogle(input: { userEmail: $userEmail }) {
+      jwtToken {
+        role
+        personId
+      }
+    }
+  }
+`;
+
+export const loginWithGoogle = async (userEmail: string) => {
+	return new Promise<state_googleLoginMutation$data>((res, rej) => {
+		commitMutation<state_googleLoginMutation>(environment, {
+			mutation: googleLoginMutation,
+			variables: {
+				userEmail, // same shape as authenticateGoogle input
+			},
+			onCompleted: (resp) => {
+				if (resp.authenticateGoogle != null && resp.authenticateGoogle.jwtToken != null) {
+					console.log("google auth", resp.authenticateGoogle);
+					fetchCurrentPerson();
+					res(resp);
+				} else {
+					console.log("resp:", resp);
+					rej("Please contact GV to get access");
+				}
+			},
+		});
+	});
+};
 
 const loginMutation = graphql`
   mutation state_loginMutation($userEmail: String!, $password: String!) {
@@ -244,6 +283,7 @@ const loginMutation = graphql`
 
 export const login = async (username: string, password: string) => {
   return new Promise<state_loginMutation$data>((res, rej) => {
+    console.log("LOGIN TRY", username, password);
     commitMutation<state_loginMutation>(environment, {
       mutation: loginMutation,
       variables: {
@@ -252,6 +292,7 @@ export const login = async (username: string, password: string) => {
       },
       onCompleted: (resp) => {
         if (resp.authenticate != null && resp.authenticate.jwtToken != null) {
+			console.log('login auth', resp.authenticate)
           fetchCurrentPerson();
           res(resp);
         } else {
@@ -272,12 +313,15 @@ const logoutMutation = graphql`
 `;
 
 export const logout = async () => {
+	console.log('logout called')
   return new Promise<state_logoutMutation$data>((res, rej) => {
     commitMutation<state_logoutMutation>(environment, {
       mutation: logoutMutation,
       variables: {},
       onCompleted: (resp) => {
+		console.log('logout response', resp)
         if (resp.logout != null && resp.logout.status != null) {
+			console.log('logout success', resp.logout.status)
           commitLocalUpdate(environment, (store) => {
             store.delete("client:currentUser");
             res(resp);

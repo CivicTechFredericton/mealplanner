@@ -1,5 +1,7 @@
 // @ts-check
 const express = require("express");
+require("dotenv").config({ path: "../.env" });
+const passport = require("passport");
 const { postgraphile, makePluginHook } = require("postgraphile");
 const { GravatarPlugin } = require("./extensions/current_user");
 const ConnectionFilterPlugin = require("postgraphile-plugin-connection-filter");
@@ -9,17 +11,24 @@ const OperationMessagesPlugin = require("@graphile/operation-hooks/lib/Operation
 const LoginPlugin = require("./hooks/login_plugin");
 const session = require("cookie-session");
 const { LogoutPlugin } = require("./extensions/logout");
+const { setUpGoogleAuth } = require("./auth/google");
 
 const app = express();
 app.set('trust proxy', 1);
 
 app.use(
   session({
-    secret: process.env.JWT_SECRET,
+    secret: process.env.JWT_SECRET, 
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
   })
 );
+
+app.use(passport.initialize()); // <-- Required
+app.use(passport.session());
+
+console.log("[auth] registering Google routes");
+setUpGoogleAuth(app);
 
 const pluginHook = makePluginHook([opHook]);
 
