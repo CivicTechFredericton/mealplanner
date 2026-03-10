@@ -42,16 +42,12 @@ const theme = createTheme({
 });
 
 //Initializing local state from state.ts
-// initState();
+initState();
 
 function App() {
   let [intialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    // fetchCurrentPerson().then(() => {
-    //   setInitialized(true);
-    // });
-    initState();
     fetchCurrentPerson().then(() => {
       setInitialized(true);
     })
@@ -68,7 +64,7 @@ function App() {
   return (
     <RelayEnvironmentProvider environment={environment}>
       <ThemeProvider theme={theme}>
-        <Suspense fallback={<h1>Loading login...</h1>}>
+        <Suspense fallback={null}>
           <Routes>
             <Route element={<Layout />}>
               <Route
