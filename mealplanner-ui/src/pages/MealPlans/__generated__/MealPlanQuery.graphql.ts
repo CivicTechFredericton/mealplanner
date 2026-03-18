@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aae92a77272ba51ac457e2620d46c614>>
+ * @generated SignedSource<<a96ec220b19895aee0d2628e8e2da92c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -236,6 +236,13 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "personUuid",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "Person",
             "kind": "LinkedField",
             "name": "person",
@@ -382,12 +389,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "aa763a63cee3e0c587217220eaa1f5fd",
+    "cacheID": "f706ded1779952b2916547d1e35caa7a",
     "id": null,
     "metadata": {},
     "name": "MealPlanQuery",
     "operationKind": "query",
-    "text": "query MealPlanQuery(\n  $id: BigInt!\n) {\n  ...SearchMeal_data\n  mealPlan(rowId: $id) {\n    ...MealPlanHeader_mealPlan\n    ...Calendar_mealPlan\n    id\n  }\n}\n\nfragment Calendar_mealPlan on MealPlan {\n  rowId\n  id\n  mealPlanEntries(orderBy: [CATEGORY_ASC, DAYS_ASC], first: 1000) {\n    edges {\n      cursor\n      node {\n        id\n        rowId\n        category\n        mealId\n        days\n        meal {\n          id\n          nameEn\n          nameFr\n        }\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MealPlanHeader_mealPlan on MealPlan {\n  rowId\n  nameEn\n  nameFr\n  descriptionEn\n  tags\n  isTemplate\n  startDate\n  person {\n    fullName\n    rowId\n    id\n  }\n}\n\nfragment SearchMeal_data on Query {\n  meals {\n    nodes {\n      id\n      rowId\n      nameEn\n      tags\n    }\n  }\n}\n"
+    "text": "query MealPlanQuery(\n  $id: BigInt!\n) {\n  ...SearchMeal_data\n  mealPlan(rowId: $id) {\n    ...MealPlanHeader_mealPlan\n    ...Calendar_mealPlan\n    id\n  }\n}\n\nfragment Calendar_mealPlan on MealPlan {\n  rowId\n  id\n  mealPlanEntries(orderBy: [CATEGORY_ASC, DAYS_ASC], first: 1000) {\n    edges {\n      cursor\n      node {\n        id\n        rowId\n        category\n        mealId\n        days\n        meal {\n          id\n          nameEn\n          nameFr\n        }\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MealPlanHeader_mealPlan on MealPlan {\n  rowId\n  nameEn\n  nameFr\n  descriptionEn\n  tags\n  isTemplate\n  startDate\n  personUuid\n  person {\n    fullName\n    rowId\n    id\n  }\n}\n\nfragment SearchMeal_data on Query {\n  meals {\n    nodes {\n      id\n      rowId\n      nameEn\n      tags\n    }\n  }\n}\n"
   }
 };
 })();

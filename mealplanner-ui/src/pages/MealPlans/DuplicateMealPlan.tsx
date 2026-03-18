@@ -13,6 +13,7 @@ mutation DuplicateMealPlanMutation($connections: [ID!]!, $mealPlanId: BigInt!, $
               nameEn
               nameFr
               personId
+              personUuid
               descriptionEn
               descriptionFr
               person {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1b94b862ab9c0be81da4ac46af049e3d>>
+ * @generated SignedSource<<b9f56fa96290ba29fca4a90b9af86334>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -28,6 +28,7 @@ export type PersonFavoriteMeals_favorites$data = {
             readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
             readonly videoUrl: string | null | undefined;
           } | null | undefined;
+          readonly personUuid: string | null | undefined;
         }>;
       };
     }>;
@@ -114,6 +115,13 @@ const node: ReaderFragment = {
                   "name": "nodes",
                   "plural": true,
                   "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "personUuid",
+                      "storageKey": null
+                    },
                     {
                       "alias": null,
                       "args": null,
@@ -212,6 +220,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "ce8985b62d5b8404af8ef4f68783f551";
+(node as any).hash = "72534608b76c46bed78d46dcaed433e4";
 
 export default node;

@@ -15,6 +15,7 @@ export const FavoriteMealsFragment = graphql`
       nodes {
         favoriteMeals {
           nodes {
+            personUuid
             meal {
               rowId
               nameEn

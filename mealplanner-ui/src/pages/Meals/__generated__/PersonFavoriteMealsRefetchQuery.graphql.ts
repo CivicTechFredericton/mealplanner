@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<09dcd97ffade128497becbb068a72847>>
+ * @generated SignedSource<<3cf441a42a9846618cd4d38c22ff7e94>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -122,6 +122,13 @@ return {
                       {
                         "alias": null,
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "personUuid",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
                         "concreteType": "Meal",
                         "kind": "LinkedField",
                         "name": "meal",
@@ -218,16 +225,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4ad0855e73dee0fa9a6372280a10dc57",
+    "cacheID": "a34e22f6dd9e50fa38a60ce60247508d",
     "id": null,
     "metadata": {},
     "name": "PersonFavoriteMealsRefetchQuery",
     "operationKind": "query",
-    "text": "query PersonFavoriteMealsRefetchQuery(\n  $slug: String!\n) {\n  ...PersonFavoriteMeals_favorites_20J5Pl\n}\n\nfragment PersonFavoriteMeals_favorites_20J5Pl on Query {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      favoriteMeals {\n        nodes {\n          meal {\n            rowId\n            nameEn\n            nameFr\n            descriptionEn\n            descriptionFr\n            categories\n            tags\n            code\n            photoUrl\n            videoUrl\n            id\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query PersonFavoriteMealsRefetchQuery(\n  $slug: String!\n) {\n  ...PersonFavoriteMeals_favorites_20J5Pl\n}\n\nfragment PersonFavoriteMeals_favorites_20J5Pl on Query {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      favoriteMeals {\n        nodes {\n          personUuid\n          meal {\n            rowId\n            nameEn\n            nameFr\n            descriptionEn\n            descriptionFr\n            categories\n            tags\n            code\n            photoUrl\n            videoUrl\n            id\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ce8985b62d5b8404af8ef4f68783f551";
+(node as any).hash = "72534608b76c46bed78d46dcaed433e4";
 
 export default node;

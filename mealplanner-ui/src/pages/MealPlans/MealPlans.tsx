@@ -30,6 +30,7 @@ const mealPlansQuery = graphql`
           nameEn
           descriptionEn
           isTemplate
+          personUuid
           person {
             fullName
           }
@@ -65,7 +66,7 @@ export const MealPlans = () => {
   );
 
   const [_, refetch] = useRefetchableFragment(MealPlansTagsFragment, data);
-  
+
   const selectedTags = data.gqLocalState.selectedMealPlanTags || [];
 
   return (
@@ -92,7 +93,7 @@ export const MealPlans = () => {
            <FormControlLabel
               value="name"
               control={
-                <Radio 
+                <Radio
                   checked={searchType === 'name'}
                 />
               }
@@ -125,7 +126,7 @@ export const MealPlans = () => {
               control={<Radio />}
               label="Tags"
               checked={searchType === 'tags'}
-            /> 
+            />
           </RadioGroup>
         </FormControl>
         <span>

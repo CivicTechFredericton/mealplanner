@@ -30,6 +30,7 @@ const fragment = graphql`
     tags
     isTemplate
     startDate
+    personUuid
     person {
       fullName
       rowId

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1e50c9e0d95ef2caf1fa25e1811f37ca>>
+ * @generated SignedSource<<558d9ea45bbf10803e7bf3f0992c9f6f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -160,6 +160,13 @@ return {
                       {
                         "alias": null,
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "personUuid",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
                         "concreteType": "Meal",
                         "kind": "LinkedField",
                         "name": "meal",
@@ -255,12 +262,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b242783ec4afe16261b871d0809227cb",
+    "cacheID": "e5a91b7359ad3854586b0ebe69b3073f",
     "id": null,
     "metadata": {},
     "name": "PersonFavoriteMealsPageQuery",
     "operationKind": "query",
-    "text": "query PersonFavoriteMealsPageQuery(\n  $slug: String!\n) {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      fullName\n      id\n    }\n  }\n  ...PersonFavoriteMeals_favorites_20J5Pl\n}\n\nfragment PersonFavoriteMeals_favorites_20J5Pl on Query {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      favoriteMeals {\n        nodes {\n          meal {\n            rowId\n            nameEn\n            nameFr\n            descriptionEn\n            descriptionFr\n            categories\n            tags\n            code\n            photoUrl\n            videoUrl\n            id\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query PersonFavoriteMealsPageQuery(\n  $slug: String!\n) {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      fullName\n      id\n    }\n  }\n  ...PersonFavoriteMeals_favorites_20J5Pl\n}\n\nfragment PersonFavoriteMeals_favorites_20J5Pl on Query {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      favoriteMeals {\n        nodes {\n          personUuid\n          meal {\n            rowId\n            nameEn\n            nameFr\n            descriptionEn\n            descriptionFr\n            categories\n            tags\n            code\n            photoUrl\n            videoUrl\n            id\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

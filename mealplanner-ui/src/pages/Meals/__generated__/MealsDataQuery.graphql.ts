@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fd91aab340fbfbad8d2d9cc81350c878>>
+ * @generated SignedSource<<e35560cbd4197dcbfdd7e59408faa09a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -355,6 +355,13 @@ return {
                       {
                         "alias": null,
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "personUuid",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
                         "concreteType": "Meal",
                         "kind": "LinkedField",
                         "name": "meal",
@@ -379,12 +386,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9c2e5e4ae6a1812702a90da536ae25e8",
+    "cacheID": "d9b012b989669c7e51a6b95432863f07",
     "id": null,
     "metadata": {},
     "name": "MealsDataQuery",
     "operationKind": "query",
-    "text": "query MealsDataQuery(\n  $slug: String!\n) {\n  meals(orderBy: [ID_DESC], first: 1000) {\n    nodes {\n      rowId\n      nameEn\n      nameFr\n      descriptionEn\n      descriptionFr\n      categories\n      tags\n      code\n      photoUrl\n      videoUrl\n      id\n    }\n  }\n  ...MealTags_tags\n  ...PersonFavoriteMeals_favorites_20J5Pl\n}\n\nfragment MealTags_tags on Query {\n  allMealTags(first: 100) {\n    edges {\n      node\n    }\n  }\n}\n\nfragment PersonFavoriteMeals_favorites_20J5Pl on Query {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      favoriteMeals {\n        nodes {\n          meal {\n            rowId\n            nameEn\n            nameFr\n            descriptionEn\n            descriptionFr\n            categories\n            tags\n            code\n            photoUrl\n            videoUrl\n            id\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query MealsDataQuery(\n  $slug: String!\n) {\n  meals(orderBy: [ID_DESC], first: 1000) {\n    nodes {\n      rowId\n      nameEn\n      nameFr\n      descriptionEn\n      descriptionFr\n      categories\n      tags\n      code\n      photoUrl\n      videoUrl\n      id\n    }\n  }\n  ...MealTags_tags\n  ...PersonFavoriteMeals_favorites_20J5Pl\n}\n\nfragment MealTags_tags on Query {\n  allMealTags(first: 100) {\n    edges {\n      node\n    }\n  }\n}\n\nfragment PersonFavoriteMeals_favorites_20J5Pl on Query {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      favoriteMeals {\n        nodes {\n          personUuid\n          meal {\n            rowId\n            nameEn\n            nameFr\n            descriptionEn\n            descriptionFr\n            categories\n            tags\n            code\n            photoUrl\n            videoUrl\n            id\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

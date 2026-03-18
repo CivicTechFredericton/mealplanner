@@ -16,10 +16,6 @@ import {
 } from "./__generated__/state_CurrentUserQuery.graphql";
 import { state_deleteMealPlanEntryMutation } from "./__generated__/state_deleteMealPlanEntryMutation.graphql";
 import {
-  state_loginMutation,
-  state_loginMutation$data,
-} from "./__generated__/state_loginMutation.graphql";
-import {
   state_logoutMutation,
   state_logoutMutation$data,
 } from "./__generated__/state_logoutMutation.graphql";
@@ -29,6 +25,7 @@ import {
 } from "./__generated__/state_updateMealPlanMutation.graphql";
 import { state_peopleQuery } from "./__generated__/state_peopleQuery.graphql";
 import { useLazyLoadQuery } from "react-relay";
+import { signIn, signOut, confirmSignIn, getCurrentUser, fetchUserAttributes, updateUserAttribute, updateUserAttributes } from "aws-amplify/auth";
 const STATE_ID = `client:GQLLocalState:21`;
 
 // This initializes the local state before the app is getting loaded. Need to call in App.ts
@@ -199,18 +196,18 @@ const currentUserQuery = graphql`
   }
 `;
 
-export const fetchCurrentPerson = async () => {
+export const fetchCurrentPerson = async (cognitoUsername?: string) => {
   let data = await fetchQuery<state_CurrentUserQuery>(
     environment,
     currentUserQuery,
     {},
     {fetchPolicy: "network-only"}
   ).toPromise();
-  setCurrentUser(data);
+  setCurrentUser(data, cognitoUsername);
   return data;
 };
 
-function setCurrentUser(data: state_CurrentUserQuery$data | undefined) {
+function setCurrentUser(data: state_CurrentUserQuery$data | undefined, cognitoUsername?: string) {
   if (data?.currentPerson) {
     commitLocalUpdate(environment, (store) => {
       let localState = store.get(STATE_ID);
@@ -226,41 +223,31 @@ function setCurrentUser(data: state_CurrentUserQuery$data | undefined) {
       record.setValue(data?.currentPerson?.role, "personRole");
       record.setValue(data.currentPerson?.slug, "personSlug");
       record.setValue(data.currentPerson?.termsAndConditions, "personTerms");
+      if (cognitoUsername) {
+        record.setValue(cognitoUsername, "personUuid");
+      }
       localState?.setLinkedRecord(record, "currentUser");
     });
   }
 }
 
-const loginMutation = graphql`
-  mutation state_loginMutation($userEmail: String!, $password: String!) {
-    authenticate(input: { userEmail: $userEmail, password: $password }) {
-      jwtToken {
-        role
-        personId
-      }
-    }
-  }
-`;
-
 export const login = async (username: string, password: string) => {
-  return new Promise<state_loginMutation$data>((res, rej) => {
-    commitMutation<state_loginMutation>(environment, {
-      mutation: loginMutation,
-      variables: {
-        userEmail: username,
-        password: password,
-      },
-      onCompleted: (resp) => {
-        if (resp.authenticate != null && resp.authenticate.jwtToken != null) {
-          fetchCurrentPerson();
-          res(resp);
-        } else {
-          console.log("resp:", resp);
-          rej("invalid user credentials");
-        }
-      },
-    });
-  });
+  try {
+    const signInResult = await signIn({ username, password });
+
+    if (signInResult.nextStep?.signInStep === "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED") {
+      await confirmSignIn({ challengeResponse: password });
+    }
+
+    // const cognitoUser = await getCurrentUser();
+    // const cognitoUsername = cognitoUser.username;
+
+    // await fetchCurrentPerson(cognitoUsername);
+    // const data = await fetchUserAttributes();
+  } catch (err: any) {
+    console.error("Cognito sign-in error:", err);
+    throw err.message || "invalid user credentials";
+  }
 };
 
 const logoutMutation = graphql`
@@ -272,6 +259,7 @@ const logoutMutation = graphql`
 `;
 
 export const logout = async () => {
+  await signOut();
   return new Promise<state_logoutMutation$data>((res, rej) => {
     commitMutation<state_logoutMutation>(environment, {
       mutation: logoutMutation,
@@ -296,17 +284,19 @@ export const getCurrentPerson = (): {
   personRole: string;
   personSlug: string;
   personTerms: boolean;
+  personUuid: string;
 } => {
   const store = environment.getStore();
   let record = store.getSource().get("client:currentUser");
   if (record === null || record === undefined) {
-    return { personID: "", personName: "", personRole: "", personSlug: "", personTerms: false };  }
+    return { personID: "", personName: "", personRole: "", personSlug: "", personTerms: false, personUuid: "" };  }
   return {
     personID: record["personID"].toString(),
     personName: record["personName"].toString(),
     personRole: record["personRole"].toString(),
     personSlug: record["personSlug"].toString(),
     personTerms: Boolean(record["personTerms"]),
+    personUuid: record["personUuid"] ? record["personUuid"].toString() : "",
   };
 };
 
@@ -338,6 +328,7 @@ const updateMealPlan = graphql`
     $mealPlanName: String
     $descriptionEn: String
     $personId: BigInt
+    $personUuid: String
     $tags: [String]
     $startDate: Date
   ) {
@@ -347,6 +338,7 @@ const updateMealPlan = graphql`
           nameEn: $mealPlanName
           descriptionEn: $descriptionEn
           personId: $personId
+          personUuid: $personUuid
           tags: $tags
           startDate: $startDate
         }
@@ -391,6 +383,7 @@ const createMealPlanGQL = graphql`
     $descEn: String
     $descFr: String
     $personId: BigInt
+    $personUuid: String
     $tags: [String]
     $startDate: Date
     $connections: [ID!]!
@@ -404,6 +397,7 @@ const createMealPlanGQL = graphql`
           descriptionEn: $descEn
           descriptionFr: $descFr
           personId: $personId
+          personUuid: $personUuid
           tags: $tags
           startDate: $startDate
           isTemplate: $isTemplate
@@ -460,28 +454,41 @@ export const createMealPlan = (input: createMealPlanInput) => {
   });
 };
 
-const termsAndConditionsGQL = graphql`
-  mutation state_UpdatePersonTermsMutation($personTerms: Boolean!) {
-    updatePersonTerms(input: { personTerms: $personTerms }) {
-      preflight
-    }
-  }
-`;
+// const termsAndConditionsGQL = graphql`
+//   mutation state_UpdatePersonTermsMutation($personTerms: Boolean!) {
+//     updatePersonTerms(input: { personTerms: $personTerms }) {
+//       preflight
+//     }
+//   }
+// `;
 
 export const updatePersonTerms = (accepted: boolean) => {
-    return new Promise((res, rej) => {
-      commitMutation(environment, {
-        mutation: termsAndConditionsGQL,
-        variables: {
-          personTerms: accepted,
-        },
-        onCompleted(response, errors) {
-          if (!errors) {
-            res(response);
-            return;
+    return new Promise(async (res, rej) => {
+      // commitMutation(environment, {
+      //   mutation: termsAndConditionsGQL,
+      //   variables: {
+      //     personTerms: accepted,
+      //   },
+      //   onCompleted(response, errors) {
+      //     if (!errors) {
+      //       res(response);
+      //       return;
+      //     }
+      //     rej(errors);
+      //   },
+      // });
+      let terms_and_conditions = accepted ? "1" : "0";
+      try {
+        const result = await updateUserAttributes({
+          userAttributes: {
+            "custom:terms_and_conditions": terms_and_conditions
           }
-          rej(errors);
-        },
-      });
+        });
+
+        console.log("Update result:", result);
+        alert("Terms and conditions accepted.");
+      } catch (error) {
+        console.error("Error updating attribute:", error);
+      }
     });
   };
