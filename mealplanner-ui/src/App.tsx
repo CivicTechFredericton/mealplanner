@@ -13,11 +13,11 @@ import { Meals } from "./pages/Meals/Meals";
 import { FavoriteMealPage } from "./pages/Meals/PersonFavoriteMeals";
 import { ShoppingList } from "./pages/ShoppingList";
 import environment from "./relay/environment";
-import { fetchCurrentPerson, initState } from "./state/state";
+import { initState } from "./state/state";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
 import { Amplify } from "aws-amplify";
 import awsconfig from "../aws-config";
-import { signIn, signOut, confirmSignIn, getCurrentUser, fetchUserAttributes, fetchAuthSession } from "aws-amplify/auth";
+import { getCurrentUser, fetchAuthSession } from "aws-amplify/auth";
 
 Amplify.configure(awsconfig);
 

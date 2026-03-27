@@ -9,6 +9,13 @@ const OperationMessagesPlugin = require("@graphile/operation-hooks/lib/Operation
 const LoginPlugin = require("./hooks/login_plugin");
 const session = require("cookie-session");
 const { LogoutPlugin } = require("./extensions/logout");
+const { CognitoJwtVerifier } = require("aws-jwt-verify");
+
+const cognitoVerifier = CognitoJwtVerifier.create({
+  userPoolId: process.env.COGNITO_USER_POOL_ID,
+  tokenUse: "id",
+  clientId: process.env.COGNITO_CLIENT_ID,
+});
 
 const app = express();
 app.set('trust proxy', 1);
@@ -58,13 +65,34 @@ const postgraphileOptions = {
     if (req.session.role != null) {
       role = req.session.role;
     }
-    return {
+
+    /** @type {Record<string, any>} */
+    const settings = {
       "jwt.claims.person_id": req.session.person_id,
       "jwt.claims.role": req.session.role,
-      // this is required as we cannot use pgDefaultRole anymnore
-      // without the jwt token
       role: role,
     };
+
+    // extract cognito claims from Bearer token if present
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      try {
+        const token = authHeader.substring(7);
+        const payload = await cognitoVerifier.verify(token);
+        settings["jwt.claims.person_uuid"] = payload.sub;
+        const groups = payload["cognito:groups"];
+        if (groups && groups.length > 0) {
+          settings["jwt.claims.role_uuid"] = groups[0];
+          settings.role = groups[0];
+        } else {
+          settings.role = "app_user";
+        }
+      } catch (/** @type {any} */ err) {
+        console.error("Cognito token verification failed:", err.message);
+      }
+    }
+
+    return settings;
   },
   additionalGraphQLContextFromRequest: async (req) => {
     return {

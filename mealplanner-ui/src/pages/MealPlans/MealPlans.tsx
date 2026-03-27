@@ -7,15 +7,14 @@ import {
   RadioGroup
 } from "@mui/material";
 import { graphql } from "relay-runtime";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useLazyLoadQuery, useRefetchableFragment } from "react-relay";
 import { getCurrentPerson } from "../../state/state";
+import { fetchUserAttributes, FetchUserAttributesOutput } from "aws-amplify/auth";
 import { CreateMealPlan } from "./CreateMealPlan";
 import { MealPlanCard } from "./MealPlanCard";
 import { MealPlansTags, MealPlansTagsFragment } from "./MealPlansTags";
 import { MealPlansQuery } from "./__generated__/MealPlansQuery.graphql";
-
-
 
 const mealPlansQuery = graphql`
   query MealPlansQuery {
@@ -58,6 +57,13 @@ const mealPlansQuery = graphql`
 export const MealPlans = () => {
   const [searched, setSearched] = useState<string>("");
   const [searchType, setSearchType] = useState('name');
+  const [userAttributes, setUserAttributes] = useState<FetchUserAttributesOutput | null>(null);
+
+  useEffect(() => {
+    fetchUserAttributes()
+      .then((attrs: FetchUserAttributesOutput) => setUserAttributes(attrs))
+      .catch((err: Error) => console.error("Failed to get user attributes:", err));
+  }, []);
 
   const data = useLazyLoadQuery<MealPlansQuery>(
     mealPlansQuery,
@@ -151,6 +157,7 @@ export const MealPlans = () => {
                   mealplan={node}
                   refetch={refetch}
                   connection={data.mealPlans!.__id}
+                  userAttributes={userAttributes}
                 />
               );
           }
@@ -160,6 +167,7 @@ export const MealPlans = () => {
                 mealplan={node}
                 refetch={refetch}
                 connection={data.mealPlans!.__id}
+                userAttributes={userAttributes}
               />
             );
           }
