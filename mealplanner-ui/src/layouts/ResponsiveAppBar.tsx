@@ -13,19 +13,40 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import { getCurrentPerson, logout } from "../state/state";
+import { logout } from "../state/state";
+import { fetchAuthSession, fetchUserAttributes } from "aws-amplify/auth";
 
 const settings = ["Logout"];
 
 const ResponsiveAppBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const theme = useTheme();
   const buttonStyle = {
     textDecoration: "none",
     color: theme.palette.primary.contrastText,
   };
+
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [userName, setUserName] = React.useState("");
+
+  React.useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const session = await fetchAuthSession();
+        if (session.tokens) {
+          setIsLoggedIn(true);
+          const attrs = await fetchUserAttributes();
+          setUserName(attrs.name || attrs.email || "");
+        }
+      } catch {
+        setIsLoggedIn(false);
+      }
+    };
+    checkAuth();
+  }, [location.pathname]);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -61,7 +82,7 @@ const ResponsiveAppBar = () => {
           >
             <img src="/images/logo.png" alt="MealPlanner" />
           </Typography>
-          {getCurrentPerson().personID !== "" ? (
+          {isLoggedIn ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
@@ -134,13 +155,14 @@ const ResponsiveAppBar = () => {
               </Box>
               <Box sx={{ flexGrow: 0, displayPrint: "none" }}>
                 <Typography sx={{ display: "inline-block", mr: "12px" }}>
-                  {getCurrentPerson().personName}
+                  {userName}
                 </Typography>
                 <Tooltip title="Logout">
                   <IconButton
                     //  onClick={handleOpenUserMenu}
                     onClick={async () => {
                       await logout();
+                      setIsLoggedIn(false);
                       navigate("");
                     }}
                     sx={{ p: 0, color: "#FFFF" }}

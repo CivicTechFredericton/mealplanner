@@ -260,22 +260,22 @@ const logoutMutation = graphql`
 
 export const logout = async () => {
   await signOut();
-  return new Promise<state_logoutMutation$data>((res, rej) => {
-    commitMutation<state_logoutMutation>(environment, {
-      mutation: logoutMutation,
-      variables: {},
-      onCompleted: (resp) => {
-        if (resp.logout != null && resp.logout.status != null) {
-          commitLocalUpdate(environment, (store) => {
-            store.delete("client:currentUser");
-            res(resp);
-          });
-        } else {
-          rej("unable to logout");
-        }
-      },
-    });
-  });
+  // return new Promise<state_logoutMutation$data>((res, rej) => {
+  //   commitMutation<state_logoutMutation>(environment, {
+  //     mutation: logoutMutation,
+  //     variables: {},
+  //     onCompleted: (resp) => {
+  //       if (resp.logout != null && resp.logout.status != null) {
+  //         commitLocalUpdate(environment, (store) => {
+  //           store.delete("client:currentUser");
+  //           res(resp);
+  //         });
+  //       } else {
+  //         rej("unable to logout");
+  //       }
+  //     },
+  //   });
+  // });
 };
 
 export const getCurrentPerson = (): {
