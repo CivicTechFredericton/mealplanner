@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   db:
-    image: postgres
+    image: postgres:15
     restart: always
     ports:
       - "5433:5432"
@@ -9,24 +9,24 @@ services:
       - pgdata:/var/lib/postgresql/data
     env_file:
       - .env
+
   migrator:
     image: migrate/migrate
-    restart: 'no'
+    restart: "no"
     volumes:
       - ./backend/db_migrations:/migrations
-    entrypoint: ["migrate", "-path", "/migrations", "-database", "postgres://postgres:$POSTGRES_PASSWORD@db/postgres?sslmode=disable"]
+    entrypoint: >
+      sh -c "migrate -path=/migrations -database=postgres://postgres:${POSTGRES_PASSWORD}@db/postgres?sslmode=disable up"
     env_file:
       - .env
-    depends_on: ['db']
-    links: ['db']
+    depends_on:
+      - db
+
   graphql:
     build:
       context: backend
     ports:
       - "4000:4000"
-#   volumes:
-#     - ./backend:/app:z
-#     - /app/node_modules
     env_file:
       - .env
     environment:
@@ -36,8 +36,7 @@ services:
       PG_HOST: db
     depends_on:
       - db
-    links:
-      - db
+
   frontend:
     build:
       context: mealplanner-ui
@@ -45,8 +44,7 @@ services:
       - "3000:80"
     depends_on:
       - graphql
-    links:
-      - graphql
+
   admin:
     build:
       context: admin-ui
@@ -54,9 +52,6 @@ services:
       - "2000:80"
     depends_on:
       - graphql
-    links:
-      - graphql
 
 volumes:
   pgdata:
-

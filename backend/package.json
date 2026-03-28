@@ -3,21 +3,29 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node server.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/express-session": "^1.18.2",
     "db-migrate": "^0.11.6",
-    "db-migrate-pg": "^1.0.0"
+    "db-migrate-pg": "^1.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^6.0",
     "@graphile/operation-hooks": "^1.0.0",
     "cookie-session": "^2.0.0",
-    "express": "^4.19.2",
-    "express-session": "^1.17.2",
+    "dotenv": "^17.2.3",
+    "express": "^4.22.1",
+    "express-session": "^1.18.2",
     "md5": "^2.2.1",
+    "openid-client": "^6.8.1",
     "postgraphile": "^4.13",
     "postgraphile-plugin-connection-filter": "^2.3.0"
   }

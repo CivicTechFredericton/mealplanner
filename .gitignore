@@ -6,4 +6,4 @@ node_modules
 recipes-json
 identifyProductKeywords.ts
 site
-
+dist
