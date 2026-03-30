@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b9f56fa96290ba29fca4a90b9af86334>>
+ * @generated SignedSource<<3c16459f4b60b4a21ba1d574154da154>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,25 +12,21 @@ import { ReaderFragment } from 'relay-runtime';
 export type CategoryT = "BREAKFAST" | "DINNER" | "LUNCH" | "SNACK" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type PersonFavoriteMeals_favorites$data = {
-  readonly people: {
+  readonly favoriteMeals: {
     readonly nodes: ReadonlyArray<{
-      readonly favoriteMeals: {
-        readonly nodes: ReadonlyArray<{
-          readonly meal: {
-            readonly categories: ReadonlyArray<CategoryT | null | undefined> | null | undefined;
-            readonly code: any | null | undefined;
-            readonly descriptionEn: string | null | undefined;
-            readonly descriptionFr: string | null | undefined;
-            readonly nameEn: string;
-            readonly nameFr: string | null | undefined;
-            readonly photoUrl: string | null | undefined;
-            readonly rowId: any;
-            readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
-            readonly videoUrl: string | null | undefined;
-          } | null | undefined;
-          readonly personUuid: string | null | undefined;
-        }>;
-      };
+      readonly meal: {
+        readonly categories: ReadonlyArray<CategoryT | null | undefined> | null | undefined;
+        readonly code: any | null | undefined;
+        readonly descriptionEn: string | null | undefined;
+        readonly descriptionFr: string | null | undefined;
+        readonly nameEn: string;
+        readonly nameFr: string | null | undefined;
+        readonly photoUrl: string | null | undefined;
+        readonly rowId: any;
+        readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
+        readonly videoUrl: string | null | undefined;
+      } | null | undefined;
+      readonly personUuid: string | null | undefined;
     }>;
   } | null | undefined;
   readonly " $fragmentType": "PersonFavoriteMeals_favorites";
@@ -43,13 +39,7 @@ export type PersonFavoriteMeals_favorites$key = {
 import PersonFavoriteMealsRefetchQuery_graphql from './PersonFavoriteMealsRefetchQuery.graphql';
 
 const node: ReaderFragment = {
-  "argumentDefinitions": [
-    {
-      "defaultValue": null,
-      "kind": "LocalArgument",
-      "name": "slug"
-    }
-  ],
+  "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": {
     "refetch": {
@@ -62,39 +52,16 @@ const node: ReaderFragment = {
   "selections": [
     {
       "alias": null,
-      "args": [
-        {
-          "fields": [
-            {
-              "fields": [
-                {
-                  "kind": "Variable",
-                  "name": "equalTo",
-                  "variableName": "slug"
-                }
-              ],
-              "kind": "ObjectValue",
-              "name": "slug"
-            }
-          ],
-          "kind": "ObjectValue",
-          "name": "filter"
-        },
-        {
-          "kind": "Literal",
-          "name": "first",
-          "value": 1
-        }
-      ],
-      "concreteType": "PeopleConnection",
+      "args": null,
+      "concreteType": "FavoriteMealsConnection",
       "kind": "LinkedField",
-      "name": "people",
+      "name": "favoriteMeals",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "Person",
+          "concreteType": "FavoriteMeal",
           "kind": "LinkedField",
           "name": "nodes",
           "plural": true,
@@ -102,108 +69,86 @@ const node: ReaderFragment = {
             {
               "alias": null,
               "args": null,
-              "concreteType": "FavoriteMealsConnection",
+              "kind": "ScalarField",
+              "name": "personUuid",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "Meal",
               "kind": "LinkedField",
-              "name": "favoriteMeals",
+              "name": "meal",
               "plural": false,
               "selections": [
                 {
                   "alias": null,
                   "args": null,
-                  "concreteType": "FavoriteMeal",
-                  "kind": "LinkedField",
-                  "name": "nodes",
-                  "plural": true,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "personUuid",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "concreteType": "Meal",
-                      "kind": "LinkedField",
-                      "name": "meal",
-                      "plural": false,
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "rowId",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "nameEn",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "nameFr",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "descriptionEn",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "descriptionFr",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "categories",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "tags",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "code",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "photoUrl",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "videoUrl",
-                          "storageKey": null
-                        }
-                      ],
-                      "storageKey": null
-                    }
-                  ],
+                  "kind": "ScalarField",
+                  "name": "rowId",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "nameEn",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "nameFr",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "descriptionEn",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "descriptionFr",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "categories",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "tags",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "code",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "photoUrl",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "videoUrl",
                   "storageKey": null
                 }
               ],
@@ -220,6 +165,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "72534608b76c46bed78d46dcaed433e4";
+(node as any).hash = "6a415b944129f4ccf45debdd7d6005c5";
 
 export default node;

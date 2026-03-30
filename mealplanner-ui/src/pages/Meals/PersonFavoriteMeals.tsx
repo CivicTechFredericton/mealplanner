@@ -9,26 +9,21 @@ import { PersonFavoriteMeals_favorites$key } from "./__generated__/PersonFavorit
 
 export const FavoriteMealsFragment = graphql`
   fragment PersonFavoriteMeals_favorites on Query
-  @argumentDefinitions(slug: { type: "String!" })
   @refetchable(queryName: "PersonFavoriteMealsRefetchQuery") {
-    people(filter: { slug: { equalTo: $slug } }, first: 1) {
+    favoriteMeals {
       nodes {
-        favoriteMeals {
-          nodes {
-            personUuid
-            meal {
-              rowId
-              nameEn
-              nameFr
-              descriptionEn
-              descriptionFr
-              categories
-              tags
-              code
-              photoUrl
-              videoUrl
-            }
-          }
+        personUuid
+        meal {
+          rowId
+          nameEn
+          nameFr
+          descriptionEn
+          descriptionFr
+          categories
+          tags
+          code
+          photoUrl
+          videoUrl
         }
       }
     }
@@ -42,7 +37,7 @@ const personFavoriteMealsPageQuery = graphql`
         fullName
       }
     }
-    ...PersonFavoriteMeals_favorites @arguments(slug: $slug)
+    ...PersonFavoriteMeals_favorites
   }
 `;
 
@@ -91,7 +86,7 @@ export const FavoriteMeals = ({
 }) => {
   const [meals, refetch] = useRefetchableFragment(FavoriteMealsFragment, favs);
 
-  const favMeals = meals.people?.nodes[0].favoriteMeals.nodes;
+  const favMeals = meals.favoriteMeals?.nodes;
   const selectedFavs: string[] =
     favMeals?.map((favMeal) => favMeal.meal?.rowId) || [];
 

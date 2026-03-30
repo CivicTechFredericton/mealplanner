@@ -19,20 +19,13 @@ import { useMealsData } from "./MealsData";
 import { FavoriteMeals, FavoriteMealsFragment } from "./PersonFavoriteMeals";
 
 type FavoriteMeals = {
-  people: {
+  favoriteMeals: {
     nodes: {
-      favoriteMeals: {
-        nodes: {
-          meal: {
-            rowId: string;
-            name_en: string;
-          };
-        }[];
+      meal: {
+        rowId: string;
+        name_en: string;
       };
     }[];
-  };
-  gqLocalState: {
-    selectedFavoriteMeals: any;
   };
 };
 
@@ -54,9 +47,9 @@ export const Meals = () => {
     FavoriteMealsFragment,
     data
   )[0] as FavoriteMeals;
-  const selectedFavs =
-    PFMeals.people?.nodes[0].favoriteMeals.nodes.map(
-      (favMeal) => favMeal.meal?.rowId
+  const selectedFavs: string[] =
+    PFMeals.favoriteMeals?.nodes.flatMap(
+      (favMeal: { meal?: { rowId: string } }) => favMeal.meal?.rowId ? [favMeal.meal.rowId] : []
     ) || [];
 
   const selectedTags = data.gqLocalState.selectedMealTags || [];

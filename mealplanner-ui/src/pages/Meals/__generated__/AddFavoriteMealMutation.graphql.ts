@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fa67d7f913e2c2772b196550c605dbad>>
+ * @generated SignedSource<<f82690ddcc53c51c9a2407665077b79d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ export type AddFavoriteMealMutation$variables = {
   mealIdParam: any;
 };
 export type AddFavoriteMealMutation$data = {
-  readonly addFavoriteMeal: {
+  readonly addFavoriteMealUuid: {
     readonly preflight: boolean;
   } | null | undefined;
 };
@@ -46,9 +46,9 @@ v1 = [
         "name": "input"
       }
     ],
-    "concreteType": "AddFavoriteMealPayload",
+    "concreteType": "AddFavoriteMealUuidPayload",
     "kind": "LinkedField",
-    "name": "addFavoriteMeal",
+    "name": "addFavoriteMealUuid",
     "plural": false,
     "selections": [
       {
@@ -80,16 +80,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "845394e9674a875624c959e9a121be69",
+    "cacheID": "22e902d1d01c9b7c6ea85f502124d079",
     "id": null,
     "metadata": {},
     "name": "AddFavoriteMealMutation",
     "operationKind": "mutation",
-    "text": "mutation AddFavoriteMealMutation(\n  $mealIdParam: BigInt!\n) {\n  addFavoriteMeal(input: {mealIdParam: $mealIdParam}) {\n    preflight\n  }\n}\n"
+    "text": "mutation AddFavoriteMealMutation(\n  $mealIdParam: BigInt!\n) {\n  addFavoriteMealUuid(input: {mealIdParam: $mealIdParam}) {\n    preflight\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c3f705cff13b312d0afdacd572858ad5";
+(node as any).hash = "227398027e398cd23c4cd480b29ab09d";
 
 export default node;

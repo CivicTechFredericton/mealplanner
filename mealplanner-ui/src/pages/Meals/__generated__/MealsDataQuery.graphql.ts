@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e35560cbd4197dcbfdd7e59408faa09a>>
+ * @generated SignedSource<<6df70be061c5d55cf517499db172885d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,9 +11,7 @@
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CategoryT = "BREAKFAST" | "DINNER" | "LUNCH" | "SNACK" | "%future added value";
-export type MealsDataQuery$variables = {
-  slug: string;
-};
+export type MealsDataQuery$variables = Record<PropertyKey, never>;
 export type MealsDataQuery$data = {
   readonly gqLocalState: {
     readonly selectedMealTags: ReadonlyArray<string> | null | undefined;
@@ -42,13 +40,6 @@ export type MealsDataQuery = {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "slug"
-  }
-],
-v1 = [
-  {
     "kind": "Literal",
     "name": "first",
     "value": 1000
@@ -61,77 +52,77 @@ v1 = [
     ]
   }
 ],
-v2 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "rowId",
   "storageKey": null
 },
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "nameEn",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "nameFr",
   "storageKey": null
 },
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "descriptionEn",
   "storageKey": null
 },
-v6 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "descriptionFr",
   "storageKey": null
 },
-v7 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "categories",
   "storageKey": null
 },
-v8 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "tags",
   "storageKey": null
 },
-v9 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "code",
   "storageKey": null
 },
-v10 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "photoUrl",
   "storageKey": null
 },
-v11 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "videoUrl",
   "storageKey": null
 },
-v12 = {
+v11 = {
   "kind": "ClientExtension",
   "selections": [
     {
@@ -154,14 +145,15 @@ v12 = {
     }
   ]
 },
-v13 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v14 = [
+v13 = [
+  (v1/*: any*/),
   (v2/*: any*/),
   (v3/*: any*/),
   (v4/*: any*/),
@@ -171,19 +163,18 @@ v14 = [
   (v8/*: any*/),
   (v9/*: any*/),
   (v10/*: any*/),
-  (v11/*: any*/),
-  (v13/*: any*/)
+  (v12/*: any*/)
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "MealsDataQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v0/*: any*/),
         "concreteType": "MealsConnection",
         "kind": "LinkedField",
         "name": "meals",
@@ -197,6 +188,7 @@ return {
             "name": "nodes",
             "plural": true,
             "selections": [
+              (v1/*: any*/),
               (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
@@ -205,8 +197,7 @@ return {
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
-              (v10/*: any*/),
-              (v11/*: any*/)
+              (v10/*: any*/)
             ],
             "storageKey": null
           }
@@ -219,30 +210,24 @@ return {
         "name": "MealTags_tags"
       },
       {
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "slug",
-            "variableName": "slug"
-          }
-        ],
+        "args": null,
         "kind": "FragmentSpread",
         "name": "PersonFavoriteMeals_favorites"
       },
-      (v12/*: any*/)
+      (v11/*: any*/)
     ],
     "type": "Query",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "MealsDataQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v0/*: any*/),
         "concreteType": "MealsConnection",
         "kind": "LinkedField",
         "name": "meals",
@@ -255,7 +240,7 @@ return {
             "kind": "LinkedField",
             "name": "nodes",
             "plural": true,
-            "selections": (v14/*: any*/),
+            "selections": (v13/*: any*/),
             "storageKey": null
           }
         ],
@@ -296,42 +281,19 @@ return {
         ],
         "storageKey": "allMealTags(first:100)"
       },
-      (v12/*: any*/),
+      (v11/*: any*/),
       {
         "alias": null,
-        "args": [
-          {
-            "fields": [
-              {
-                "fields": [
-                  {
-                    "kind": "Variable",
-                    "name": "equalTo",
-                    "variableName": "slug"
-                  }
-                ],
-                "kind": "ObjectValue",
-                "name": "slug"
-              }
-            ],
-            "kind": "ObjectValue",
-            "name": "filter"
-          },
-          {
-            "kind": "Literal",
-            "name": "first",
-            "value": 1
-          }
-        ],
-        "concreteType": "PeopleConnection",
+        "args": null,
+        "concreteType": "FavoriteMealsConnection",
         "kind": "LinkedField",
-        "name": "people",
+        "name": "favoriteMeals",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Person",
+            "concreteType": "FavoriteMeal",
             "kind": "LinkedField",
             "name": "nodes",
             "plural": true,
@@ -339,44 +301,21 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "FavoriteMealsConnection",
-                "kind": "LinkedField",
-                "name": "favoriteMeals",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "FavoriteMeal",
-                    "kind": "LinkedField",
-                    "name": "nodes",
-                    "plural": true,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "personUuid",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "Meal",
-                        "kind": "LinkedField",
-                        "name": "meal",
-                        "plural": false,
-                        "selections": (v14/*: any*/),
-                        "storageKey": null
-                      },
-                      (v13/*: any*/)
-                    ],
-                    "storageKey": null
-                  }
-                ],
+                "kind": "ScalarField",
+                "name": "personUuid",
                 "storageKey": null
               },
-              (v13/*: any*/)
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Meal",
+                "kind": "LinkedField",
+                "name": "meal",
+                "plural": false,
+                "selections": (v13/*: any*/),
+                "storageKey": null
+              },
+              (v12/*: any*/)
             ],
             "storageKey": null
           }
@@ -386,16 +325,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d9b012b989669c7e51a6b95432863f07",
+    "cacheID": "ac2b2783e46a719342bf683225e0d168",
     "id": null,
     "metadata": {},
     "name": "MealsDataQuery",
     "operationKind": "query",
-    "text": "query MealsDataQuery(\n  $slug: String!\n) {\n  meals(orderBy: [ID_DESC], first: 1000) {\n    nodes {\n      rowId\n      nameEn\n      nameFr\n      descriptionEn\n      descriptionFr\n      categories\n      tags\n      code\n      photoUrl\n      videoUrl\n      id\n    }\n  }\n  ...MealTags_tags\n  ...PersonFavoriteMeals_favorites_20J5Pl\n}\n\nfragment MealTags_tags on Query {\n  allMealTags(first: 100) {\n    edges {\n      node\n    }\n  }\n}\n\nfragment PersonFavoriteMeals_favorites_20J5Pl on Query {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      favoriteMeals {\n        nodes {\n          personUuid\n          meal {\n            rowId\n            nameEn\n            nameFr\n            descriptionEn\n            descriptionFr\n            categories\n            tags\n            code\n            photoUrl\n            videoUrl\n            id\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query MealsDataQuery {\n  meals(orderBy: [ID_DESC], first: 1000) {\n    nodes {\n      rowId\n      nameEn\n      nameFr\n      descriptionEn\n      descriptionFr\n      categories\n      tags\n      code\n      photoUrl\n      videoUrl\n      id\n    }\n  }\n  ...MealTags_tags\n  ...PersonFavoriteMeals_favorites\n}\n\nfragment MealTags_tags on Query {\n  allMealTags(first: 100) {\n    edges {\n      node\n    }\n  }\n}\n\nfragment PersonFavoriteMeals_favorites on Query {\n  favoriteMeals {\n    nodes {\n      personUuid\n      meal {\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        categories\n        tags\n        code\n        photoUrl\n        videoUrl\n        id\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "56973fe44e993fe41d3be5175d288048";
+(node as any).hash = "db0119b12b337283b3f13d46edc09b5b";
 
 export default node;
