@@ -3,7 +3,6 @@ import { MealPlanNode } from "../../state/types";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, IconButtonProps, ImageList, ImageListItem, Typography, styled, useTheme, useMediaQuery, Chip, Tooltip } from "@mui/material";
 import { ShoppingCart, DeleteTwoTone, ContentCopy, ExpandMore, Favorite } from "@mui/icons-material";
 import { useNavigate } from "react-router";
-import { getCurrentPerson } from "../../state/state";
 import { FetchUserAttributesOutput } from "aws-amplify/auth";
 import { deleteMealPlan } from "./DeleteMealPlan";
 import { duplicateMealPlan } from "./DuplicateMealPlan";
@@ -156,7 +155,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
                   aria-label="duplicate"
                   onClick={(e) => {
                     e.stopPropagation();
-                    duplicateMealPlan(connection, mealplan.rowId,getCurrentPerson().personID);
+                    duplicateMealPlan(connection, mealplan.rowId);
                   }}
                   sx={{ "& :hover": { color: theme.palette.primary.main } }}
                 >
