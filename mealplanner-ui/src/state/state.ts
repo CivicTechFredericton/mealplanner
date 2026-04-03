@@ -1,6 +1,6 @@
 import { graphql } from "relay-runtime";
 import { commitLocalUpdate, commitMutation, fetchQuery } from "relay-runtime";
-import environment from "../relay/environment";
+import environment, { clearRelayStore } from "../relay/environment";
 import { SearchedMeal } from "./types";
 import {
   CategoryT,
@@ -259,6 +259,7 @@ const logoutMutation = graphql`
 `;
 
 export const logout = async () => {
+  clearRelayStore();
   await signOut();
   // return new Promise<state_logoutMutation$data>((res, rej) => {
   //   commitMutation<state_logoutMutation>(environment, {

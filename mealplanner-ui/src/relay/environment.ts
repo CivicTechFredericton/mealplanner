@@ -1,4 +1,4 @@
-import {Environment, Network, RecordSource, RequestParameters, Store, Variables} from 'relay-runtime';
+import {commitLocalUpdate, Environment, Network, RecordSource, RequestParameters, Store, Variables} from 'relay-runtime';
 import { fetchAuthSession } from 'aws-amplify/auth';
 
 //Wraps the fetch call and it calls the graphql server
@@ -40,7 +40,15 @@ async function fetchGraphQL(params : RequestParameters, variables: Variables) {
     }
 }
 
-export default new Environment({
+const relayEnvironment = new Environment({
     network: Network.create(fetchGraphQL),
     store: new Store(new RecordSource()),
-})
+});
+
+export function clearRelayStore() {
+    commitLocalUpdate(relayEnvironment, (store) => {
+        store.invalidateStore();
+    });
+}
+
+export default relayEnvironment;
