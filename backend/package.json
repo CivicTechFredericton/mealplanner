@@ -12,6 +12,7 @@
     "db-migrate-pg": "^1.0.0"
   },
   "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.1023.0",
     "@graphile-contrib/pg-simplify-inflector": "^6.0",
     "@graphile/operation-hooks": "^1.0.0",
     "aws-jwt-verify": "^5.1.1",

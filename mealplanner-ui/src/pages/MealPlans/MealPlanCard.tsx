@@ -3,7 +3,6 @@ import { MealPlanNode } from "../../state/types";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, IconButtonProps, ImageList, ImageListItem, Typography, styled, useTheme, useMediaQuery, Chip, Tooltip } from "@mui/material";
 import { ShoppingCart, DeleteTwoTone, ContentCopy, ExpandMore, Favorite } from "@mui/icons-material";
 import { useNavigate } from "react-router";
-import { FetchUserAttributesOutput } from "aws-amplify/auth";
 import { deleteMealPlan } from "./DeleteMealPlan";
 import { duplicateMealPlan } from "./DuplicateMealPlan";
 import { RefetchFnDynamic } from "react-relay";
@@ -15,7 +14,7 @@ interface MealPlanCardProps {
   mealplan: MealPlanNode;
   connection: string;
   refetch: RefetchFnDynamic<OperationType, MealPlansQuery$data>;
-  userAttributes: FetchUserAttributesOutput | null;
+  uuidToName: Record<string, string>;
 }
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -49,7 +48,11 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const navigate = useNavigate();
   const mealplan = props.mealplan;
-  const userAttributes = props.userAttributes;
+  const uuidToName = props.uuidToName;
+  const assignedName =
+    (mealplan.personUuid ? uuidToName[mealplan.personUuid] : null) ??
+    mealplan.person?.fullName ??
+    null;
   const startDate: Dayjs | null = mealplan.startDate ? dayjs(mealplan.startDate) : null;
   const connection = props.connection;
   const theme = useTheme();
@@ -77,7 +80,6 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
     setOpenDialog(false);
   };
 
-  console.log("userAttributes", userAttributes);
 
   return (
     <Grid item xs="auto">
@@ -96,7 +98,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
           avatar={
             <Tooltip title={mealplan.isTemplate ? "Template" : ""}>
             <Avatar sx={{ bgcolor: mealplan.isTemplate? "grey":"green", width: "fit" }} aria-label="user">
-              {mealplan.isTemplate ? "T" : getInitials(userAttributes?.name || "")}
+              {mealplan.isTemplate ? "T" : getInitials(assignedName || "")}
             </Avatar>
             </Tooltip>
           }
@@ -164,7 +166,7 @@ export const MealPlanCard = (props: MealPlanCardProps) => {
             </div>
           }
           title={mealplan.nameEn}
-          subheader={!mealplan.isTemplate && userAttributes?.name == null? "No User Assigned": userAttributes?.name}
+          subheader={!mealplan.isTemplate && assignedName == null ? "No User Assigned" : assignedName}
         />
         {startDate && (
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

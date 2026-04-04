@@ -10,7 +10,7 @@ import { graphql } from "relay-runtime";
 import { Suspense, useEffect, useState } from "react";
 import { useLazyLoadQuery, useRefetchableFragment } from "react-relay";
 import { getCurrentPerson } from "../../state/state";
-import { fetchUserAttributes, FetchUserAttributesOutput } from "aws-amplify/auth";
+import { fetchCognitoUserNames } from "../../api/cognitoUsers";
 import { CreateMealPlan } from "./CreateMealPlan";
 import { MealPlanCard } from "./MealPlanCard";
 import { MealPlansTags, MealPlansTagsFragment } from "./MealPlansTags";
@@ -57,13 +57,7 @@ const mealPlansQuery = graphql`
 export const MealPlans = () => {
   const [searched, setSearched] = useState<string>("");
   const [searchType, setSearchType] = useState('name');
-  const [userAttributes, setUserAttributes] = useState<FetchUserAttributesOutput | null>(null);
-
-  useEffect(() => {
-    fetchUserAttributes()
-      .then((attrs: FetchUserAttributesOutput) => setUserAttributes(attrs))
-      .catch((err: Error) => console.error("Failed to get user attributes:", err));
-  }, []);
+  const [uuidToName, setUuidToName] = useState<Record<string, string>>({});
 
   const data = useLazyLoadQuery<MealPlansQuery>(
     mealPlansQuery,
@@ -74,6 +68,17 @@ export const MealPlans = () => {
   const [_, refetch] = useRefetchableFragment(MealPlansTagsFragment, data);
 
   const selectedTags = data.gqLocalState.selectedMealPlanTags || [];
+
+  useEffect(() => {
+    const uuids = [
+      ...new Set(
+        (data.mealPlans?.edges ?? [])
+          .map(({ node }) => node.personUuid)
+          .filter((uuid): uuid is string => uuid != null)
+      ),
+    ];
+    fetchCognitoUserNames(uuids).then(setUuidToName);
+  }, [data.mealPlans]);
 
   return (
     <div>
@@ -157,7 +162,7 @@ export const MealPlans = () => {
                   mealplan={node}
                   refetch={refetch}
                   connection={data.mealPlans!.__id}
-                  userAttributes={userAttributes}
+                  uuidToName={uuidToName}
                 />
               );
           }

@@ -14,44 +14,33 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import { graphql } from "relay-runtime";
-import { useState } from "react";
-import { RefetchFnDynamic, useLazyLoadQuery } from "react-relay";
+import { useState, useEffect } from "react";
+import { RefetchFnDynamic } from "react-relay";
 import { createMealPlan, getCurrentPerson } from "../../state/state";
-import { CreateMealPlanAllUsersQuery } from "./__generated__/CreateMealPlanAllUsersQuery.graphql";
 import { OperationType } from "relay-runtime";
 import { MealPlansQuery$data } from "./__generated__/MealPlansQuery.graphql";
+import { fetchAllCognitoUsers } from "../../api/cognitoUsers";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs, { Dayjs } from 'dayjs';
 
-const query = graphql`
-  query CreateMealPlanAllUsersQuery {
-    people {
-      nodes {
-        id
-        rowId
-        fullName
-      }
-    }
-  }
-`;
 type userType = {
   label: string;
-  rowId: number;
-  id: number;
+  uuid: string;
 };
 
 export const CreateMealPlan = ({ connection, refetch }: { connection: string, refetch: RefetchFnDynamic<OperationType, MealPlansQuery$data> }) => {
   const [open, setOpen] = useState(false);
   const [planType, setPlanType] = useState('mealPlan');
 
-  const users = useLazyLoadQuery<CreateMealPlanAllUsersQuery>(query, {});
+  const [cognitoUsers, setCognitoUsers] = useState<userType[]>([]);
 
-  const allUsers = users.people?.nodes.map((user) => {
-    return { label: user.fullName, rowId: user.rowId, id: user.id };
-  });
+  useEffect(() => {
+    fetchAllCognitoUsers().then(users =>
+      setCognitoUsers(users.map(u => ({ label: u.displayName, uuid: u.uuid })))
+    );
+  }, []);
 
   const initState = {
     userId: null,
@@ -150,7 +139,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
 			  					planType === "mealPlan" && (
                 	<Grid item xs={6}>
                   	<Autocomplete
-                    	options={allUsers || []}
+                    	options={cognitoUsers}
                     	renderInput={(params) => (
                       	<TextField
                         	{...params}
@@ -160,7 +149,7 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                       	/>
                     	)}
                     	onChange={(e, value) => {
-                    		setUserId(value?.rowId);
+                    		setUserId(value);
                     	}}
                   	></Autocomplete>
                 	</Grid>
@@ -280,7 +269,8 @@ export const CreateMealPlan = ({ connection, refetch }: { connection: string, re
                     nameFr: nameFr,
                     descEn: descriptionEn,
                     descFr: descriptionFr,
-                    personId: userId || null,
+                    personId: null,
+                    personUuid: userId?.uuid ?? null,
                     tags: tags,
                     startDate: startDate,
                     connections: [connection],
