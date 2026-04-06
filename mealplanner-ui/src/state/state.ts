@@ -25,7 +25,7 @@ import {
 } from "./__generated__/state_updateMealPlanMutation.graphql";
 import { state_peopleQuery } from "./__generated__/state_peopleQuery.graphql";
 import { useLazyLoadQuery } from "react-relay";
-import { signIn, signOut, confirmSignIn, getCurrentUser, fetchUserAttributes, updateUserAttribute, updateUserAttributes } from "aws-amplify/auth";
+import { signIn, signOut, confirmSignIn, getCurrentUser, fetchUserAttributes, updateUserAttribute, updateUserAttributes, fetchAuthSession } from "aws-amplify/auth";
 const STATE_ID = `client:GQLLocalState:21`;
 
 // This initializes the local state before the app is getting loaded. Need to call in App.ts
@@ -197,17 +197,21 @@ const currentUserQuery = graphql`
 `;
 
 export const fetchCurrentPerson = async (cognitoUsername?: string) => {
+  const session = await fetchAuthSession();
+  const groups = session.tokens?.idToken?.payload?.["cognito:groups"] as string[] | undefined;
+  const cognitoRole = groups?.[0];
+
   let data = await fetchQuery<state_CurrentUserQuery>(
     environment,
     currentUserQuery,
     {},
     {fetchPolicy: "network-only"}
   ).toPromise();
-  setCurrentUser(data, cognitoUsername);
+  setCurrentUser(data, cognitoUsername, cognitoRole);
   return data;
 };
 
-function setCurrentUser(data: state_CurrentUserQuery$data | undefined, cognitoUsername?: string) {
+function setCurrentUser(data: state_CurrentUserQuery$data | undefined, cognitoUsername?: string, cognitoRole?: string) {
   if (data?.currentPerson) {
     commitLocalUpdate(environment, (store) => {
       let localState = store.get(STATE_ID);
@@ -220,7 +224,7 @@ function setCurrentUser(data: state_CurrentUserQuery$data | undefined, cognitoUs
 
       record.setValue(data?.currentPerson?.rowId, "personID");
       record.setValue(data?.currentPerson?.fullName, "personName");
-      record.setValue(data?.currentPerson?.role, "personRole");
+      record.setValue(cognitoRole ?? data?.currentPerson?.role, "personRole");
       record.setValue(data.currentPerson?.slug, "personSlug");
       record.setValue(data.currentPerson?.termsAndConditions, "personTerms");
       if (cognitoUsername) {
@@ -261,22 +265,6 @@ const logoutMutation = graphql`
 export const logout = async () => {
   clearRelayStore();
   await signOut();
-  // return new Promise<state_logoutMutation$data>((res, rej) => {
-  //   commitMutation<state_logoutMutation>(environment, {
-  //     mutation: logoutMutation,
-  //     variables: {},
-  //     onCompleted: (resp) => {
-  //       if (resp.logout != null && resp.logout.status != null) {
-  //         commitLocalUpdate(environment, (store) => {
-  //           store.delete("client:currentUser");
-  //           res(resp);
-  //         });
-  //       } else {
-  //         rej("unable to logout");
-  //       }
-  //     },
-  //   });
-  // });
 };
 
 export const getCurrentPerson = (): {
