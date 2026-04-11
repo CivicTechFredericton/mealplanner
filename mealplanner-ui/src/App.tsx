@@ -13,7 +13,7 @@ import { Meals } from "./pages/Meals/Meals";
 import { FavoriteMealPage } from "./pages/Meals/PersonFavoriteMeals";
 import { ShoppingList } from "./pages/ShoppingList";
 import environment from "./relay/environment";
-import { initState } from "./state/state";
+import { initState, fetchCurrentPerson } from "./state/state";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
 import { Amplify } from "aws-amplify";
 import awsconfig from "../aws-config";
@@ -55,8 +55,10 @@ function App() {
   useEffect(() => {
     fetchAuthSession().then((session) => {
       if (session.tokens) {
-        return getCurrentUser().then(() => {
-          setInitialized(true);
+        return getCurrentUser().then((cognitoUser) => {
+          return fetchCurrentPerson(cognitoUser.username).then(() => {
+            setInitialized(true);
+          });
         });
       }
       setInitialized(true);

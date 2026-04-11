@@ -21,6 +21,7 @@ import { FavoriteMeals, FavoriteMealsFragment } from "./PersonFavoriteMeals";
 type FavoriteMeals = {
   favoriteMeals: {
     nodes: {
+      personUuid: string | null | undefined;
       meal: {
         rowId: string;
         name_en: string;
@@ -47,9 +48,15 @@ export const Meals = () => {
     FavoriteMealsFragment,
     data
   )[0] as FavoriteMeals;
+  const currentPersonRole = getCurrentPerson().personRole;
+  const currentPersonUuid = getCurrentPerson().personUuid;
+  const needsUuidFilter = currentPersonRole === "app_meal_designer" || currentPersonRole === "app_admin";
   const selectedFavs: string[] =
     PFMeals.favoriteMeals?.nodes.flatMap(
-      (favMeal: { meal?: { rowId: string } }) => favMeal.meal?.rowId ? [favMeal.meal.rowId] : []
+      (favMeal: { personUuid?: string | null; meal?: { rowId: string } }) => {
+        if (needsUuidFilter && favMeal.personUuid !== currentPersonUuid) return [];
+        return favMeal.meal?.rowId ? [favMeal.meal.rowId] : [];
+      }
     ) || [];
 
   const selectedTags = data.gqLocalState.selectedMealTags || [];

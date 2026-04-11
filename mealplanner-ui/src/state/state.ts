@@ -197,7 +197,7 @@ const currentUserQuery = graphql`
 `;
 
 export const fetchCurrentPerson = async (cognitoUsername?: string) => {
-  const session = await fetchAuthSession();
+  const session = await fetchAuthSession({ forceRefresh: true });
   const groups = session.tokens?.idToken?.payload?.["cognito:groups"] as string[] | undefined;
   const cognitoRole = groups?.[0];
 
@@ -212,27 +212,24 @@ export const fetchCurrentPerson = async (cognitoUsername?: string) => {
 };
 
 function setCurrentUser(data: state_CurrentUserQuery$data | undefined, cognitoUsername?: string, cognitoRole?: string) {
-  if (data?.currentPerson) {
-    commitLocalUpdate(environment, (store) => {
-      let localState = store.get(STATE_ID);
-     // store.delete("client:currentUser");
-      let record = store.get("client:currentUser");
+  commitLocalUpdate(environment, (store) => {
+    let localState = store.get(STATE_ID);
+    let record = store.get("client:currentUser");
 
-      if(!record) {
-         record = store.create("client:currentUser", "CurrentLoggedInUser");
-      }
+    if(!record) {
+       record = store.create("client:currentUser", "CurrentLoggedInUser");
+    }
 
-      record.setValue(data?.currentPerson?.rowId, "personID");
-      record.setValue(data?.currentPerson?.fullName, "personName");
-      record.setValue(cognitoRole ?? data?.currentPerson?.role, "personRole");
-      record.setValue(data.currentPerson?.slug, "personSlug");
-      record.setValue(data.currentPerson?.termsAndConditions, "personTerms");
-      if (cognitoUsername) {
-        record.setValue(cognitoUsername, "personUuid");
-      }
-      localState?.setLinkedRecord(record, "currentUser");
-    });
-  }
+    record.setValue(data?.currentPerson?.rowId ?? "", "personID");
+    record.setValue(data?.currentPerson?.fullName ?? "", "personName");
+    record.setValue(cognitoRole ?? data?.currentPerson?.role ?? "", "personRole");
+    record.setValue(data?.currentPerson?.slug ?? "", "personSlug");
+    record.setValue(data?.currentPerson?.termsAndConditions ?? false, "personTerms");
+    if (cognitoUsername) {
+      record.setValue(cognitoUsername, "personUuid");
+    }
+    localState?.setLinkedRecord(record, "currentUser");
+  });
 }
 
 export const login = async (username: string, password: string) => {
@@ -243,11 +240,8 @@ export const login = async (username: string, password: string) => {
       await confirmSignIn({ challengeResponse: password });
     }
 
-    // const cognitoUser = await getCurrentUser();
-    // const cognitoUsername = cognitoUser.username;
-
-    // await fetchCurrentPerson(cognitoUsername);
-    // const data = await fetchUserAttributes();
+    const cognitoUser = await getCurrentUser();
+    await fetchCurrentPerson(cognitoUser.username);
   } catch (err: any) {
     console.error("Cognito sign-in error:", err);
     throw err.message || "invalid user credentials";
