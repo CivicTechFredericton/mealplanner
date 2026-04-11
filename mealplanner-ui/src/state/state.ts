@@ -445,33 +445,11 @@ export const createMealPlan = (input: createMealPlanInput) => {
 //   }
 // `;
 
-export const updatePersonTerms = (accepted: boolean) => {
-    return new Promise(async (res, rej) => {
-      // commitMutation(environment, {
-      //   mutation: termsAndConditionsGQL,
-      //   variables: {
-      //     personTerms: accepted,
-      //   },
-      //   onCompleted(response, errors) {
-      //     if (!errors) {
-      //       res(response);
-      //       return;
-      //     }
-      //     rej(errors);
-      //   },
-      // });
-      let terms_and_conditions = accepted ? "1" : "0";
-      try {
-        const result = await updateUserAttributes({
-          userAttributes: {
-            "custom:terms_and_conditions": terms_and_conditions
-          }
-        });
-
-        console.log("Update result:", result);
-        alert("Terms and conditions accepted.");
-      } catch (error) {
-        console.error("Error updating attribute:", error);
+export const updatePersonTerms = async (accepted: boolean) => {
+    const terms_and_conditions = accepted ? "1" : "0";
+    await updateUserAttributes({
+      userAttributes: {
+        "custom:terms_and_conditions": terms_and_conditions
       }
     });
   };

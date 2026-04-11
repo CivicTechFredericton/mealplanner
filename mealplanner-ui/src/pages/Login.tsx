@@ -38,7 +38,7 @@ const LoginInner = () => {
   let [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [result, setResult] = useState("");
-  let [hasSession, setHasSession] = useState<boolean | null>(null);
+  let [sessionState, setSessionState] = useState<"loading" | "no-session" | "has-session" | "needs-terms">("loading");
 
   const handleVisibility = () => {
     setShowPassword(!showPassword);
@@ -47,7 +47,12 @@ const LoginInner = () => {
   const handleLogin = async () => {
     try {
       await login(username, password);
-      setHasSession(true);
+      const attributes = await fetchUserAttributes();
+      if (attributes["custom:terms_and_conditions"] === "0") {
+        setSessionState("needs-terms");
+      } else {
+        setSessionState("has-session");
+      }
     } catch (err: any) {
       console.log("login error", err);
       setResult(err);
@@ -59,12 +64,12 @@ const LoginInner = () => {
       const session = await fetchAuthSession();
 
       if (session.tokens) {
-        setHasSession(true);
+        setSessionState("has-session");
       } else {
-        setHasSession(false);
+        setSessionState("no-session");
       }
     } catch (error) {
-      setHasSession(false);
+      setSessionState("no-session");
     }
   };
 
@@ -72,11 +77,15 @@ const LoginInner = () => {
     checkSession();
   }, []);
 
-  if (hasSession === null) {
+  if (sessionState === "loading") {
     return null;
   }
 
-  if (hasSession) {
+  if (sessionState === "needs-terms") {
+    return <Navigate to="/terms" replace />;
+  }
+
+  if (sessionState === "has-session") {
     return <Navigate to="/mealplans" replace />;
   }
 
