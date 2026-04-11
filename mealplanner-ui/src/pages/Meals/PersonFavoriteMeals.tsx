@@ -2,15 +2,18 @@ import { Button, Grid, Stack, Typography } from "@mui/material";
 import { graphql } from "relay-runtime";
 import React from "react";
 import { useLazyLoadQuery, useRefetchableFragment } from "react-relay";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MealCard } from "./MealCard";
 import { PersonFavoriteMealsPageQuery } from "./__generated__/PersonFavoriteMealsPageQuery.graphql";
 import { PersonFavoriteMeals_favorites$key } from "./__generated__/PersonFavoriteMeals_favorites.graphql";
 
 export const FavoriteMealsFragment = graphql`
   fragment PersonFavoriteMeals_favorites on Query
-  @refetchable(queryName: "PersonFavoriteMealsRefetchQuery") {
-    favoriteMeals {
+  @refetchable(queryName: "PersonFavoriteMealsRefetchQuery")
+  @argumentDefinitions(
+    condition: { type: "FavoriteMealCondition", defaultValue: null }
+  ) {
+    favoriteMeals(condition: $condition) {
       nodes {
         personUuid
         meal {
@@ -31,28 +34,22 @@ export const FavoriteMealsFragment = graphql`
 `;
 
 const personFavoriteMealsPageQuery = graphql`
-  query PersonFavoriteMealsPageQuery($slug: String!) {
-    people(filter: { slug: { equalTo: $slug } }, first: 1) {
-      nodes {
-        fullName
-      }
-    }
-    ...PersonFavoriteMeals_favorites
+  query PersonFavoriteMealsPageQuery($condition: FavoriteMealCondition!) {
+    ...PersonFavoriteMeals_favorites @arguments(condition: $condition)
   }
 `;
 
 export const FavoriteMealPage = () => {
-  const params = useParams();
-  const slug = params.slug!;
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as { personName?: string; personUuid?: string } | null;
+  const personName = state?.personName ?? "User";
+  const personUuid = state?.personUuid ?? "";
   const data = useLazyLoadQuery<PersonFavoriteMealsPageQuery>(
     personFavoriteMealsPageQuery,
-    { slug: slug },
+    { condition: { personUuid } },
     { fetchPolicy: "store-or-network" }
   );
-  if (data && data.people?.nodes.length === 0) {
-    return <h3>Person not found</h3>;
-  }
   return (
     <>
       <Stack
@@ -61,7 +58,7 @@ export const FavoriteMealPage = () => {
         justifyContent={"space-between"}
       >
         <Typography variant="h4">
-          Favorite meals of {data.people?.nodes[0].fullName}{" "}
+          Favorite meals of {personName}{" "}
         </Typography>
         <Button
           variant="outlined"

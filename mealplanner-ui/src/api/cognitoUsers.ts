@@ -5,7 +5,7 @@ const getBackendBase = () => {
   return graphqlEndpoint.replace(/\/graphql$/, "");
 };
 
-export async function fetchAllCognitoUsers(): Promise<{ uuid: string; displayName: string }[]> {
+export async function fetchAllCognitoUsers(): Promise<{ uuid: string; displayName: string; slug: string }[]> {
   try {
     const response = await fetch(`${getBackendBase()}/cognito-users`, {
       credentials: "include",

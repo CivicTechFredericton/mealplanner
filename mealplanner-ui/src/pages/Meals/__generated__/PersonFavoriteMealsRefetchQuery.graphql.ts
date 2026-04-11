@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6da59e7c670cc7c44e4f3c6683262a99>>
+ * @generated SignedSource<<26192702ad278a573223d89e109634ff>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,17 @@
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PersonFavoriteMealsRefetchQuery$variables = Record<PropertyKey, never>;
+export type FavoriteMealCondition = {
+  createdAt?: any | null | undefined;
+  mealId?: any | null | undefined;
+  personId?: any | null | undefined;
+  personUuid?: string | null | undefined;
+  rowId?: any | null | undefined;
+  updatedAt?: any | null | undefined;
+};
+export type PersonFavoriteMealsRefetchQuery$variables = {
+  condition?: FavoriteMealCondition | null | undefined;
+};
 export type PersonFavoriteMealsRefetchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"PersonFavoriteMeals_favorites">;
 };
@@ -20,7 +30,21 @@ export type PersonFavoriteMealsRefetchQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "condition"
+  }
+],
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "condition",
+    "variableName": "condition"
+  }
+],
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -29,13 +53,13 @@ var v0 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "PersonFavoriteMealsRefetchQuery",
     "selections": [
       {
-        "args": null,
+        "args": (v1/*: any*/),
         "kind": "FragmentSpread",
         "name": "PersonFavoriteMeals_favorites"
       }
@@ -45,13 +69,13 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "PersonFavoriteMealsRefetchQuery",
     "selections": [
       {
         "alias": null,
-        "args": null,
+        "args": (v1/*: any*/),
         "concreteType": "FavoriteMealsConnection",
         "kind": "LinkedField",
         "name": "favoriteMeals",
@@ -150,11 +174,11 @@ return {
                     "name": "videoUrl",
                     "storageKey": null
                   },
-                  (v0/*: any*/)
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v0/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
           }
@@ -164,16 +188,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e54238939295e681f6d22cc969d7b0fa",
+    "cacheID": "490b7089f456ff692fe6655c1c90ebf5",
     "id": null,
     "metadata": {},
     "name": "PersonFavoriteMealsRefetchQuery",
     "operationKind": "query",
-    "text": "query PersonFavoriteMealsRefetchQuery {\n  ...PersonFavoriteMeals_favorites\n}\n\nfragment PersonFavoriteMeals_favorites on Query {\n  favoriteMeals {\n    nodes {\n      personUuid\n      meal {\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        categories\n        tags\n        code\n        photoUrl\n        videoUrl\n        id\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query PersonFavoriteMealsRefetchQuery(\n  $condition: FavoriteMealCondition = null\n) {\n  ...PersonFavoriteMeals_favorites_3ZFPk6\n}\n\nfragment PersonFavoriteMeals_favorites_3ZFPk6 on Query {\n  favoriteMeals(condition: $condition) {\n    nodes {\n      personUuid\n      meal {\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        categories\n        tags\n        code\n        photoUrl\n        videoUrl\n        id\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "6a415b944129f4ccf45debdd7d6005c5";
+(node as any).hash = "b5a9e73d1fb21ff4573452234cc9d73a";
 
 export default node;

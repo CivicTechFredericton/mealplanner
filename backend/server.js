@@ -112,7 +112,7 @@ const cognitoClient = new CognitoIdentityProviderClient({ region: process.env.CO
 
 app.get("/cognito-users", async (req, res) => {
   try {
-    /** @type {{ uuid: string, displayName: string }[]} */
+    /** @type {{ uuid: string, displayName: string, slug: string }[]} */
     const users = [];
     /** @type {string | undefined} */
     let paginationToken = undefined;
@@ -126,12 +126,13 @@ app.get("/cognito-users", async (req, res) => {
         /** @type {import("@aws-sdk/client-cognito-identity-provider").AttributeType[]} */
         const attrs = user.Attributes || [];
         const sub = attrs.find(a => a.Name === "sub")?.Value;
+        const slug = attrs.find(a => a.Name === "custom:slug")?.Value;
         const displayName =
           attrs.find(a => a.Name === "name")?.Value ||
           attrs.find(a => a.Name === "email")?.Value ||
           user.Username;
         if (sub && displayName) {
-          users.push({ uuid: sub, displayName });
+          users.push({ uuid: sub, displayName, slug: slug || "" });
         }
       }
       if (!result.PaginationToken) break;

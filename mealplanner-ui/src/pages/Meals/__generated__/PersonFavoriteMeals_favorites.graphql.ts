@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3c16459f4b60b4a21ba1d574154da154>>
+ * @generated SignedSource<<8213d6877a6d2260796b99a8ba686320>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -39,7 +39,13 @@ export type PersonFavoriteMeals_favorites$key = {
 import PersonFavoriteMealsRefetchQuery_graphql from './PersonFavoriteMealsRefetchQuery.graphql';
 
 const node: ReaderFragment = {
-  "argumentDefinitions": [],
+  "argumentDefinitions": [
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "condition"
+    }
+  ],
   "kind": "Fragment",
   "metadata": {
     "refetch": {
@@ -52,7 +58,13 @@ const node: ReaderFragment = {
   "selections": [
     {
       "alias": null,
-      "args": null,
+      "args": [
+        {
+          "kind": "Variable",
+          "name": "condition",
+          "variableName": "condition"
+        }
+      ],
       "concreteType": "FavoriteMealsConnection",
       "kind": "LinkedField",
       "name": "favoriteMeals",
@@ -165,6 +177,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "6a415b944129f4ccf45debdd7d6005c5";
+(node as any).hash = "b5a9e73d1fb21ff4573452234cc9d73a";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6d485d1d7ae4562e8a6779f2ab40265b>>
+ * @generated SignedSource<<01542a7081575208a5b0a76c0db94b07>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,15 +10,18 @@
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type FavoriteMealCondition = {
+  createdAt?: any | null | undefined;
+  mealId?: any | null | undefined;
+  personId?: any | null | undefined;
+  personUuid?: string | null | undefined;
+  rowId?: any | null | undefined;
+  updatedAt?: any | null | undefined;
+};
 export type PersonFavoriteMealsPageQuery$variables = {
-  slug: string;
+  condition: FavoriteMealCondition;
 };
 export type PersonFavoriteMealsPageQuery$data = {
-  readonly people: {
-    readonly nodes: ReadonlyArray<{
-      readonly fullName: string;
-    }>;
-  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"PersonFavoriteMeals_favorites">;
 };
 export type PersonFavoriteMealsPageQuery = {
@@ -31,41 +34,17 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "slug"
+    "name": "condition"
   }
 ],
 v1 = [
   {
-    "fields": [
-      {
-        "fields": [
-          {
-            "kind": "Variable",
-            "name": "equalTo",
-            "variableName": "slug"
-          }
-        ],
-        "kind": "ObjectValue",
-        "name": "slug"
-      }
-    ],
-    "kind": "ObjectValue",
-    "name": "filter"
-  },
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 1
+    "kind": "Variable",
+    "name": "condition",
+    "variableName": "condition"
   }
 ],
 v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "fullName",
-  "storageKey": null
-},
-v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -80,30 +59,7 @@ return {
     "name": "PersonFavoriteMealsPageQuery",
     "selections": [
       {
-        "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "PeopleConnection",
-        "kind": "LinkedField",
-        "name": "people",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Person",
-            "kind": "LinkedField",
-            "name": "nodes",
-            "plural": true,
-            "selections": [
-              (v2/*: any*/)
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "args": null,
         "kind": "FragmentSpread",
         "name": "PersonFavoriteMeals_favorites"
       }
@@ -120,30 +76,6 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "PeopleConnection",
-        "kind": "LinkedField",
-        "name": "people",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Person",
-            "kind": "LinkedField",
-            "name": "nodes",
-            "plural": true,
-            "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/)
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
         "concreteType": "FavoriteMealsConnection",
         "kind": "LinkedField",
         "name": "favoriteMeals",
@@ -242,11 +174,11 @@ return {
                     "name": "videoUrl",
                     "storageKey": null
                   },
-                  (v3/*: any*/)
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v3/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
           }
@@ -256,16 +188,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0e7794740b4d3f31f75cfe474970a63a",
+    "cacheID": "0f52d74f32759c347f7ae67cfda0b98e",
     "id": null,
     "metadata": {},
     "name": "PersonFavoriteMealsPageQuery",
     "operationKind": "query",
-    "text": "query PersonFavoriteMealsPageQuery(\n  $slug: String!\n) {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      fullName\n      id\n    }\n  }\n  ...PersonFavoriteMeals_favorites\n}\n\nfragment PersonFavoriteMeals_favorites on Query {\n  favoriteMeals {\n    nodes {\n      personUuid\n      meal {\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        categories\n        tags\n        code\n        photoUrl\n        videoUrl\n        id\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query PersonFavoriteMealsPageQuery(\n  $condition: FavoriteMealCondition!\n) {\n  ...PersonFavoriteMeals_favorites_3ZFPk6\n}\n\nfragment PersonFavoriteMeals_favorites_3ZFPk6 on Query {\n  favoriteMeals(condition: $condition) {\n    nodes {\n      personUuid\n      meal {\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        categories\n        tags\n        code\n        photoUrl\n        videoUrl\n        id\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "b07b0afa557513b4ad224349b6590023";
+(node as any).hash = "7b1eb08623d86dda87f8f4be7de98ccc";
 
 export default node;

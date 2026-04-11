@@ -9,10 +9,11 @@ import {
   RadioGroup,
   Select,
 } from "@mui/material";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRefetchableFragment } from "react-relay";
 import { useNavigate } from "react-router-dom";
-import { GetAllPeopleInfo, getCurrentPerson } from "../../state/state";
+import { getCurrentPerson } from "../../state/state";
+import { fetchAllCognitoUsers } from "../../api/cognitoUsers";
 import { MealCard } from "./MealCard";
 import { MealTags } from "./MealTags";
 import { useMealsData } from "./MealsData";
@@ -34,12 +35,16 @@ export const Meals = () => {
   const [searchMeal, setSearchMeal] = useState<string>("");
   const [searchType, setSearchType] = useState("name");
 
-  let peopleData = GetAllPeopleInfo();
+  const [cognitoUsers, setCognitoUsers] = useState<{ uuid: string; displayName: string; slug: string }[]>([]);
   const navigate = useNavigate();
   const data = useMealsData();
 
-  const handleMenuItemClick = (personSlug: string) => {
-    navigate(`/meals/${personSlug}/favorites`);
+  useEffect(() => {
+    fetchAllCognitoUsers().then(setCognitoUsers);
+  }, []);
+
+  const handleMenuItemClick = (user: { uuid: string; displayName: string; slug: string }) => {
+    navigate(`/meals/${user.slug}/favorites`, { state: { personName: user.displayName, personUuid: user.uuid } });
   };
 
   const [_, refetch] = useRefetchableFragment(FavoriteMealsFragment, data);
@@ -121,13 +126,13 @@ export const Meals = () => {
                 <FormControl style={{ width: "30%" }}>
                   <InputLabel>Select the favorites of another User</InputLabel>
                   <Select label="Select the favorites of another User">
-                    {peopleData?.people?.nodes.map((person) => (
+                    {cognitoUsers.map((user) => (
                       <MenuItem
-                        key={person.rowId}
-                        value={person.role}
-                        onClick={() => handleMenuItemClick(person.slug)}
+                        key={user.uuid}
+                        value={user.uuid}
+                        onClick={() => handleMenuItemClick(user)}
                       >
-                        {person.fullName}
+                        {user.displayName}
                       </MenuItem>
                     ))}
                   </Select>
