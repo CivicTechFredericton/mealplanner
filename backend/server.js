@@ -9,6 +9,8 @@ const OperationMessagesPlugin = require("@graphile/operation-hooks/lib/Operation
 const LoginPlugin = require("./hooks/login_plugin");
 const session = require("cookie-session");
 const { LogoutPlugin } = require("./extensions/logout");
+const { cognitoAuthMiddleware } = require("./auth/cognitoAuth");
+const { resolveCognitoPerson } = require("./auth/resolveCognitoPerson");
 
 const app = express();
 app.set('trust proxy', 1);
@@ -20,6 +22,9 @@ app.use(
     httpOnly: true,
   })
 );
+app.use(cognitoAuthMiddleware);
+app.use(resolveCognitoPerson);
+
 
 const pluginHook = makePluginHook([opHook]);
 
@@ -54,18 +59,26 @@ const postgraphileOptions = {
   classicIds: true,
   enableCors: true,
   pgSettings: async (req) => {
-    let role = "app_anonymous";
-    if (req.session.role != null) {
-      role = req.session.role;
-    }
+  if (req.cognitoAuth?.person_id && req.cognitoAuth?.role) {
     return {
-      "jwt.claims.person_id": req.session.person_id,
-      "jwt.claims.role": req.session.role,
-      // this is required as we cannot use pgDefaultRole anymnore
-      // without the jwt token
-      role: role,
+      "jwt.claims.person_id": String(req.cognitoAuth.person_id),
+      "jwt.claims.role": req.cognitoAuth.role,
+      role: req.cognitoAuth.role,
     };
-  },
+  }
+
+  let role = "app_anonymous";
+  if (req.session.role != null) {
+    role = req.session.role;
+  }
+
+  return {
+    "jwt.claims.person_id": req.session.person_id,
+    "jwt.claims.role": req.session.role,
+    role,
+  };
+},
+
   additionalGraphQLContextFromRequest: async (req) => {
     return {
       setAuthCookie: (personId, role) => {

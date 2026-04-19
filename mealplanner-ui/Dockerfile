@@ -1,31 +1,28 @@
-# Ref: https://medium.com/geekculture/dockerizing-a-react-application-with-multi-stage-docker-build-4a5c6ca68166
-# pull official base image
-FROM node:24-slim AS builder
-
-# set working directory
+# build stage
+FROM node:20-alpine AS build
 WORKDIR /app
-
-
-# copies package.json and package-lock.json to Docker environment
-COPY package.json ./
-COPY package-lock.json ./
-
-# install app dependencies using npm (node packages)
-RUN npm install
-
-# Copies everything over to Docker environment
-COPY . ./
-# Builds the react application as static HTML files
+COPY package*.json ./
+RUN npm ci
+COPY . .
 RUN npm run build
 
-# Pull the official nginx base
-FROM nginx:1.28-trixie
-# Set working directory to nginx resources directory
-WORKDIR /usr/share/nginx/html
-# Remove default nginx static resources
-RUN rm -rf ./*
-# Copies static resources from builder stage
-COPY --from=builder /app/build .
+# runtime stage
+FROM nginx:alpine
+
+# install envsubst (from gettext package)
+RUN apk add --no-cache gettext
+
+# nginx config (includes /graphql proxy to backend service)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Containers run nginx with global directives and daemon off
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+# app static files (Vite outDir is "build")
+COPY --from=build /app/build /usr/share/nginx/html
+
+# runtime env template
+COPY public/env.template.js /usr/share/nginx/html/env.template.js
+
+# startup script: generate env.js then start nginx
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]

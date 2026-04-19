@@ -5,10 +5,7 @@
     <link rel="icon" href="/images/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Good Meal Plan"
-    />
+    <meta name="description" content="Good Meal Plan" />
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
     <title>Good Meal Plan - Meal Planner</title>
@@ -24,16 +21,20 @@
     />
 
     <script>
-      // Check if the URL contains a hash, if not redirect to the hash-based URL
-      if (!window.location.hash) {
+      const p = new URLSearchParams(window.location.search);
+      const hasOauthParams = p.has("code") || p.has("state") || p.has("error");
+
+      // Keep hash-based routing, but do not rewrite OAuth callback URLs
+      if (!window.location.hash && !hasOauthParams) {
         const currentPath = window.location.pathname + window.location.search;
-        window.location.replace(window.location.origin + '/#' + currentPath);
+        window.location.replace(window.location.origin + "/#" + currentPath);
       }
     </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script src="/env.js"></script>
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

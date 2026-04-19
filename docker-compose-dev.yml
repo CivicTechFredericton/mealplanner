@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   db:
-    image: postgres
+    image: postgres:17
     restart: always
     ports:
       - "5433:5432"
@@ -58,6 +58,13 @@ services:
       - graphql
     links:
       - graphql
+    environment:
+      COGNITO_DOMAIN: ${COGNITO_DOMAIN}
+      COGNITO_APP_CLIENT_ID: ${COGNITO_APP_CLIENT_ID}
+      COGNITO_REDIRECT_URI: ${COGNITO_REDIRECT_URI}
+      COGNITO_LOGOUT_URI: ${COGNITO_LOGOUT_URI}
+      GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
+
   admin:
     build:
       context: admin-ui

@@ -17,7 +17,9 @@
     "cookie-session": "^2.0.0",
     "express": "^4.19.2",
     "express-session": "^1.17.2",
+    "jose": "^6.2.2",
     "md5": "^2.2.1",
+    "pg": "^8.20.0",
     "postgraphile": "^4.13",
     "postgraphile-plugin-connection-filter": "^2.3.0"
   }
