@@ -139,14 +139,6 @@ const LoginInner = ({ queryRef }: { queryRef: any }) => {
           Legacy Login
         </Button>
 
-        <Typography fontSize="small" marginTop={"1.5rem"}>
-          Don't have an account? <br />
-          Contact{" "}
-          <label style={{ color: "green" }}>
-            john.doe@greenervillage.com
-          </label>{" "}
-          to get started
-        </Typography>
       </section>
     </main>
   );
