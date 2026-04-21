@@ -4,6 +4,7 @@ import relay from 'vite-plugin-relay'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
+  envDir: '..',
   plugins: [
     react(),
     relay,
