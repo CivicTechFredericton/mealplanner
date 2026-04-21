@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1e50c9e0d95ef2caf1fa25e1811f37ca>>
+ * @generated SignedSource<<01542a7081575208a5b0a76c0db94b07>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,15 +10,18 @@
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type FavoriteMealCondition = {
+  createdAt?: any | null | undefined;
+  mealId?: any | null | undefined;
+  personId?: any | null | undefined;
+  personUuid?: string | null | undefined;
+  rowId?: any | null | undefined;
+  updatedAt?: any | null | undefined;
+};
 export type PersonFavoriteMealsPageQuery$variables = {
-  slug: string;
+  condition: FavoriteMealCondition;
 };
 export type PersonFavoriteMealsPageQuery$data = {
-  readonly people: {
-    readonly nodes: ReadonlyArray<{
-      readonly fullName: string;
-    }>;
-  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"PersonFavoriteMeals_favorites">;
 };
 export type PersonFavoriteMealsPageQuery = {
@@ -31,41 +34,17 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "slug"
+    "name": "condition"
   }
 ],
 v1 = [
   {
-    "fields": [
-      {
-        "fields": [
-          {
-            "kind": "Variable",
-            "name": "equalTo",
-            "variableName": "slug"
-          }
-        ],
-        "kind": "ObjectValue",
-        "name": "slug"
-      }
-    ],
-    "kind": "ObjectValue",
-    "name": "filter"
-  },
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 1
+    "kind": "Variable",
+    "name": "condition",
+    "variableName": "condition"
   }
 ],
 v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "fullName",
-  "storageKey": null
-},
-v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -80,36 +59,7 @@ return {
     "name": "PersonFavoriteMealsPageQuery",
     "selections": [
       {
-        "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "PeopleConnection",
-        "kind": "LinkedField",
-        "name": "people",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Person",
-            "kind": "LinkedField",
-            "name": "nodes",
-            "plural": true,
-            "selections": [
-              (v2/*: any*/)
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "slug",
-            "variableName": "slug"
-          }
-        ],
         "kind": "FragmentSpread",
         "name": "PersonFavoriteMeals_favorites"
       }
@@ -126,126 +76,109 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "PeopleConnection",
+        "concreteType": "FavoriteMealsConnection",
         "kind": "LinkedField",
-        "name": "people",
+        "name": "favoriteMeals",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Person",
+            "concreteType": "FavoriteMeal",
             "kind": "LinkedField",
             "name": "nodes",
             "plural": true,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "FavoriteMealsConnection",
+                "kind": "ScalarField",
+                "name": "personUuid",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Meal",
                 "kind": "LinkedField",
-                "name": "favoriteMeals",
+                "name": "meal",
                 "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "FavoriteMeal",
-                    "kind": "LinkedField",
-                    "name": "nodes",
-                    "plural": true,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "Meal",
-                        "kind": "LinkedField",
-                        "name": "meal",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "rowId",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "nameEn",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "nameFr",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "descriptionEn",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "descriptionFr",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "categories",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "tags",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "code",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "photoUrl",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "videoUrl",
-                            "storageKey": null
-                          },
-                          (v3/*: any*/)
-                        ],
-                        "storageKey": null
-                      },
-                      (v3/*: any*/)
-                    ],
+                    "kind": "ScalarField",
+                    "name": "rowId",
                     "storageKey": null
-                  }
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "nameEn",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "nameFr",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "descriptionEn",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "descriptionFr",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "categories",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "tags",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "code",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "photoUrl",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "videoUrl",
+                    "storageKey": null
+                  },
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
-              }
+              },
+              (v2/*: any*/)
             ],
             "storageKey": null
           }
@@ -255,16 +188,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b242783ec4afe16261b871d0809227cb",
+    "cacheID": "0f52d74f32759c347f7ae67cfda0b98e",
     "id": null,
     "metadata": {},
     "name": "PersonFavoriteMealsPageQuery",
     "operationKind": "query",
-    "text": "query PersonFavoriteMealsPageQuery(\n  $slug: String!\n) {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      fullName\n      id\n    }\n  }\n  ...PersonFavoriteMeals_favorites_20J5Pl\n}\n\nfragment PersonFavoriteMeals_favorites_20J5Pl on Query {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      favoriteMeals {\n        nodes {\n          meal {\n            rowId\n            nameEn\n            nameFr\n            descriptionEn\n            descriptionFr\n            categories\n            tags\n            code\n            photoUrl\n            videoUrl\n            id\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query PersonFavoriteMealsPageQuery(\n  $condition: FavoriteMealCondition!\n) {\n  ...PersonFavoriteMeals_favorites_3ZFPk6\n}\n\nfragment PersonFavoriteMeals_favorites_3ZFPk6 on Query {\n  favoriteMeals(condition: $condition) {\n    nodes {\n      personUuid\n      meal {\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        categories\n        tags\n        code\n        photoUrl\n        videoUrl\n        id\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "380ad607a4a954e5511754a84ebbbf37";
+(node as any).hash = "7b1eb08623d86dda87f8f4be7de98ccc";
 
 export default node;

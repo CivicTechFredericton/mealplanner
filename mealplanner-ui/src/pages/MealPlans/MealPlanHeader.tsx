@@ -30,6 +30,7 @@ const fragment = graphql`
     tags
     isTemplate
     startDate
+    personUuid
     person {
       fullName
       rowId
@@ -67,6 +68,10 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
   const [isEditName, setIsEditName] = useState(false);
   const [isEditUser, setIsEditUser] = useState(false);
   const navigate = useNavigate();
+
+  const assignedUserName = data.person?.fullName
+    ?? (data.personUuid ? allUsers?.find(u => u.id === data.person?.rowId)?.label : null)
+    ?? null;
 
   return (
     <section
@@ -198,8 +203,8 @@ export const MealPlanHeader: React.FC<HeaderProps> = ({ mealPlan }) => {
               >
                 {data.isTemplate
                   ? "Template"
-                  : data.person?.fullName
-                  ? data.person.fullName
+                  : assignedUserName
+                  ? assignedUserName
                   : "No User Assigned"}
               </Typography>
             ): null }

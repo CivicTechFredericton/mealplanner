@@ -1,15 +1,24 @@
 import Button from '@mui/material/Button';
 import { Checkbox, Container, Typography } from '@mui/material';
-import { useState } from 'react';
-import {  fetchCurrentPerson, getCurrentPerson, logout, updatePersonTerms } from "../state/state";
+import { useEffect, useState } from 'react';
+import { logout, updatePersonTerms } from "../state/state";
 import { Navigate, useLocation, useNavigate } from 'react-router';
+import { fetchAuthSession } from "aws-amplify/auth";
 
 export const TermsAndConditions = () => {
   const [isAccepted, setIsAccepted] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const isTermsPage = location.pathname === '/terms';
-  const [currentPerson, setCurrentPerson] = useState(getCurrentPerson());
+  const [hasSession, setHasSession] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetchAuthSession().then(session => {
+      setHasSession(!!session.tokens);
+    }).catch(() => {
+      setHasSession(false);
+    });
+  }, []);
 
   const handleReject = async () => {
     await logout();
@@ -20,18 +29,19 @@ export const TermsAndConditions = () => {
   };
   const handleAccept = async () => {
     try {
-      const accepted = await updatePersonTerms(true);
-      if (accepted) {
-        await fetchCurrentPerson();
-      }
+      await updatePersonTerms(true);
       navigate("/mealplans");
     } catch (error) {
       console.error("Failed to update terms acceptance:", error);
     }
   };
 
-  if (isTermsPage && currentPerson.personID === "") {
-    return <Navigate to="/" replace/>;
+  if (isTermsPage && hasSession === null) {
+    return null;
+  }
+
+  if (isTermsPage && !hasSession) {
+    return <Navigate to="/" replace />;
   }
 
   return (

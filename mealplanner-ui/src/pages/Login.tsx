@@ -12,30 +12,33 @@ import { useQueryLoader, usePreloadedQuery } from "react-relay";
 import { Navigate } from "react-router-dom";
 import { getCurrentPerson, login, updatePersonTerms } from "../state/state";
 import { LoginQuery } from "./__generated__/LoginQuery.graphql";
+import { signIn, signOut, confirmSignIn, getCurrentUser, fetchUserAttributes, fetchAuthSession } from "aws-amplify/auth";
 
-const query = graphql`
-  query LoginQuery {
-    currentPerson {
-      fullName
-      email
-    }
-    gqLocalState {
-      currentUser {
-        personID
-      }
-    }
-  }
-`;
+// const query = graphql`
+//   query LoginQuery {
+//     currentPerson {
+//       fullName
+//       email
+//     }
+//     gqLocalState {
+//       currentUser {
+//         personID
+//       }
+//     }
+//   }
+// `;
 
 //The LoginInner component is the main login page component that displays the login form 
 //and handles the login process.
-const LoginInner = ({ queryRef }: { queryRef: any }) => {
-  const data = usePreloadedQuery<LoginQuery>(query, queryRef);
+const LoginInner = () => {
+  // const data = usePreloadedQuery<LoginQuery>(query, queryRef);
+  // const data = fetchUserAttributes();
 
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [result, setResult] = useState("");
+  let [sessionState, setSessionState] = useState<"loading" | "no-session" | "has-session" | "needs-terms">("loading");
 
   const handleVisibility = () => {
     setShowPassword(!showPassword);
@@ -44,13 +47,45 @@ const LoginInner = ({ queryRef }: { queryRef: any }) => {
   const handleLogin = async () => {
     try {
       await login(username, password);
+      const attributes = await fetchUserAttributes();
+      if (attributes["custom:terms_and_conditions"] === "0") {
+        setSessionState("needs-terms");
+      } else {
+        setSessionState("has-session");
+      }
     } catch (err: any) {
       console.log("login error", err);
       setResult(err);
     }
   };
 
-  if (data.gqLocalState.currentUser?.personID) {
+  const checkSession = async () => {
+    try {
+      const session = await fetchAuthSession();
+
+      if (session.tokens) {
+        setSessionState("has-session");
+      } else {
+        setSessionState("no-session");
+      }
+    } catch (error) {
+      setSessionState("no-session");
+    }
+  };
+
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  if (sessionState === "loading") {
+    return null;
+  }
+
+  if (sessionState === "needs-terms") {
+    return <Navigate to="/terms" replace />;
+  }
+
+  if (sessionState === "has-session") {
     return <Navigate to="/mealplans" replace />;
   }
 
@@ -137,41 +172,41 @@ const LoginInner = ({ queryRef }: { queryRef: any }) => {
 };
 
 export const Login = () => {
-  const [queryRef, loadQuery] = useQueryLoader<LoginQuery>(query);
+  // const [queryRef, loadQuery] = useQueryLoader<LoginQuery>(query);
 
-  useEffect(() => {
-    loadQuery({}, { fetchPolicy: "network-only" });
-  }, [loadQuery]);
+  // useEffect(() => {
+  //   loadQuery({}, { fetchPolicy: "network-only" });
+  // }, [loadQuery]);
 
-  if (!queryRef) {
-    return (
-      <main
-        style={{
-          height: "560px",
-          backgroundImage: `url('/images/veggie-background-log-in.png')`,
-          backgroundSize: "cover",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <section
-          style={{
-            width: "30%",
-            height: "400px",
-            backgroundColor: "white",
-            padding: "2rem",
-            margin: "2rem",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-          }}
-        >
-          <Typography variant="h5">Loading...</Typography>
-        </section>
-      </main>
-    );
-  }
+  // if (!queryRef) {
+  //   return (
+  //     <main
+  //       style={{
+  //         height: "560px",
+  //         backgroundImage: `url('/images/veggie-background-log-in.png')`,
+  //         backgroundSize: "cover",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //       }}
+  //     >
+  //       <section
+  //         style={{
+  //           width: "30%",
+  //           height: "400px",
+  //           backgroundColor: "white",
+  //           padding: "2rem",
+  //           margin: "2rem",
+  //           textAlign: "center",
+  //           display: "flex",
+  //           flexDirection: "column",
+  //           gap: "1rem",
+  //         }}
+  //       >
+  //         <Typography variant="h5">Loading...</Typography>
+  //       </section>
+  //     </main>
+  //   );
+  // }
 
   return (
     <Suspense
@@ -203,7 +238,7 @@ export const Login = () => {
         </main>
       }
     >
-      <LoginInner queryRef={queryRef} />
+      <LoginInner />
     </Suspense>
   );
 };

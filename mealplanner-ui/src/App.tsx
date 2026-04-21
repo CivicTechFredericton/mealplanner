@@ -13,8 +13,13 @@ import { Meals } from "./pages/Meals/Meals";
 import { FavoriteMealPage } from "./pages/Meals/PersonFavoriteMeals";
 import { ShoppingList } from "./pages/ShoppingList";
 import environment from "./relay/environment";
-import { fetchCurrentPerson, initState } from "./state/state";
+import { initState, fetchCurrentPerson } from "./state/state";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
+import { Amplify } from "aws-amplify";
+import awsconfig from "../aws-config";
+import { getCurrentUser, fetchAuthSession } from "aws-amplify/auth";
+
+Amplify.configure(awsconfig);
 
 const theme = createTheme({
   palette: {
@@ -48,15 +53,23 @@ function App() {
   let [intialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    fetchCurrentPerson().then(() => {
+    fetchAuthSession().then((session) => {
+      if (session.tokens) {
+        return getCurrentUser().then((cognitoUser) => {
+          return fetchCurrentPerson(cognitoUser.username).then(() => {
+            setInitialized(true);
+          });
+        });
+      }
       setInitialized(true);
     })
     .catch((error) => {
       console.error("Failed to fetch current person:", error);
-      // Still initialize the app even if fetch fails (user might not be logged in)
       setInitialized(true);
     });
   }, []);
+
+  
   if (!intialized) {
     return <h1>loading...</h1>;
   }

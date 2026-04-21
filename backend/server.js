@@ -9,6 +9,14 @@ const OperationMessagesPlugin = require("@graphile/operation-hooks/lib/Operation
 const LoginPlugin = require("./hooks/login_plugin");
 const session = require("cookie-session");
 const { LogoutPlugin } = require("./extensions/logout");
+const { CognitoJwtVerifier } = require("aws-jwt-verify");
+const { CognitoIdentityProviderClient, ListUsersCommand } = require("@aws-sdk/client-cognito-identity-provider");
+
+const cognitoVerifier = CognitoJwtVerifier.create({
+  userPoolId: process.env.COGNITO_USER_POOL_ID,
+  tokenUse: "id",
+  clientId: process.env.COGNITO_CLIENT_ID,
+});
 
 const app = express();
 app.set('trust proxy', 1);
@@ -58,13 +66,34 @@ const postgraphileOptions = {
     if (req.session.role != null) {
       role = req.session.role;
     }
-    return {
+
+    /** @type {Record<string, any>} */
+    const settings = {
       "jwt.claims.person_id": req.session.person_id,
       "jwt.claims.role": req.session.role,
-      // this is required as we cannot use pgDefaultRole anymnore
-      // without the jwt token
       role: role,
     };
+
+    // extract cognito claims from Bearer token if present
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      try {
+        const token = authHeader.substring(7);
+        const payload = await cognitoVerifier.verify(token);
+        settings["jwt.claims.person_uuid"] = payload.sub;
+        const groups = payload["cognito:groups"];
+        if (groups && groups.length > 0) {
+          settings["jwt.claims.role_uuid"] = groups[0];
+          settings.role = groups[0];
+        } else {
+          settings.role = "app_user";
+        }
+      } catch (/** @type {any} */ err) {
+        console.error("Cognito token verification failed:", err.message);
+      }
+    }
+
+    return settings;
   },
   additionalGraphQLContextFromRequest: async (req) => {
     return {
@@ -78,6 +107,90 @@ const postgraphileOptions = {
     };
   },
 };
+
+const cognitoClient = new CognitoIdentityProviderClient({ region: process.env.COGNITO_REGION || "us-east-2" });
+
+app.get("/cognito-users", async (req, res) => {
+  try {
+    /** @type {{ uuid: string, displayName: string, slug: string }[]} */
+    const users = [];
+    /** @type {string | undefined} */
+    let paginationToken = undefined;
+    while (true) {
+      /** @type {import("@aws-sdk/client-cognito-identity-provider").ListUsersCommandOutput} */
+      const result = await cognitoClient.send(new ListUsersCommand({
+        UserPoolId: process.env.COGNITO_USER_POOL_ID,
+        PaginationToken: paginationToken,
+      }));
+      for (const user of result.Users || []) {
+        /** @type {import("@aws-sdk/client-cognito-identity-provider").AttributeType[]} */
+        const attrs = user.Attributes || [];
+        const sub = attrs.find(a => a.Name === "sub")?.Value;
+        const slug = attrs.find(a => a.Name === "custom:slug")?.Value;
+        const displayName =
+          attrs.find(a => a.Name === "name")?.Value ||
+          attrs.find(a => a.Name === "email")?.Value ||
+          user.Username;
+        if (sub && displayName) {
+          users.push({ uuid: sub, displayName, slug: slug || "" });
+        }
+      }
+      if (!result.PaginationToken) break;
+      paginationToken = result.PaginationToken;
+    }
+    res.json(users);
+  } catch (err) {
+    console.error("[cognito-users] Failed to list all Cognito users:", err);
+    res.status(500).json([]);
+  }
+});
+
+app.post("/cognito-users", express.json(), async (req, res) => {
+  const uuids = req.body.uuids;
+  console.log("[cognito-users] received uuids:", uuids);
+  if (!Array.isArray(uuids) || uuids.length === 0) {
+    return res.json({});
+  }
+
+  try {
+    const results = await Promise.all(
+      uuids.map(uuid =>
+        cognitoClient.send(new ListUsersCommand({
+          UserPoolId: process.env.COGNITO_USER_POOL_ID,
+          Filter: `sub = "${uuid}"`,
+        }))
+      )
+    );
+
+    /** @type {Record<string, string>} */
+    const uuidToName = {};
+    for (const response of results) {
+      for (const user of response.Users || []) {
+        const attrs = user.Attributes || [];
+        const sub = attrs.find(a => a.Name === "sub")?.Value;
+        const givenName = attrs.find(a => a.Name === "given_name")?.Value;
+        const familyName = attrs.find(a => a.Name === "family_name")?.Value;
+        const fullName = attrs.find(a => a.Name === "name")?.Value;
+        const email = attrs.find(a => a.Name === "email")?.Value;
+
+        const displayName =
+          fullName ||
+          (givenName && familyName ? `${givenName} ${familyName}` : givenName || familyName) ||
+          email ||
+          user.Username;
+
+        if (sub && displayName) {
+          uuidToName[sub] = displayName;
+        }
+      }
+    }
+    console.log("[cognito-users] result:", uuidToName);
+    res.json(uuidToName);
+  } catch (err) {
+    console.error("[cognito-users] Failed to list Cognito users:", err);
+    res.json({});
+  }
+});
 
 app.use(
   postgraphile(

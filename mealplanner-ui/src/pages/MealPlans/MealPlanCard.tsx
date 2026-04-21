@@ -3,7 +3,6 @@ import { MealPlanNode } from "../../state/types";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, IconButtonProps, ImageList, ImageListItem, Typography, styled, useTheme, useMediaQuery, Chip, Tooltip } from "@mui/material";
 import { ShoppingCart, DeleteTwoTone, ContentCopy, ExpandMore, Favorite } from "@mui/icons-material";
 import { useNavigate } from "react-router";
-import { getCurrentPerson } from "../../state/state";
 import { deleteMealPlan } from "./DeleteMealPlan";
 import { duplicateMealPlan } from "./DuplicateMealPlan";
 import { RefetchFnDynamic } from "react-relay";
@@ -12,205 +11,212 @@ import { MealPlansQuery$data } from "./__generated__/MealPlansQuery.graphql";
 import dayjs, { Dayjs } from 'dayjs';
 
 interface MealPlanCardProps {
-    mealplan: MealPlanNode;
-    connection: string;
-    refetch: RefetchFnDynamic<OperationType, MealPlansQuery$data>;
-  }
+  mealplan: MealPlanNode;
+  connection: string;
+  refetch: RefetchFnDynamic<OperationType, MealPlansQuery$data>;
+  uuidToName: Record<string, string>;
+}
 
-  interface ExpandMoreProps extends IconButtonProps {
-    expand: boolean;
-  }
-  
-  const ExpandMoreFn = styled((props: ExpandMoreProps) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ theme, expand }) => ({
-    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  }));
+interface ExpandMoreProps extends IconButtonProps {
+  expand: boolean;
+}
+
+const ExpandMoreFn = styled((props: ExpandMoreProps) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
   
 const getInitials = (name: string) => {
-    let initials = "";
+  let initials = "";
 
-    let names: string[] = (name && name.length > 1 && name.split(" ")) || [];
-    names.forEach((n) => {
-      initials += n[0];
-    });
-    return initials;
-  };
+  let names: string[] = (name && name.length > 1 && name.split(" ")) || [];
+  names.forEach((n) => {
+    initials += n[0];
+  });
+  return initials;
+};
 
 
 export const MealPlanCard = (props: MealPlanCardProps) => {
-    const [expanded, setExpanded] = React.useState(false);
-    const [openDialog, setOpenDialog] = React.useState(false);
-    const navigate = useNavigate();
-    const mealplan = props.mealplan;
-    const startDate: Dayjs | null = mealplan.startDate ? dayjs(mealplan.startDate) : null;
-    const connection = props.connection;
-    const theme = useTheme();
-    const fullScreenDialog = useMediaQuery(theme.breakpoints.down('md'));
-    const handleExpandClick = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      setExpanded(!expanded);
-    };
-    const handleClickOpen = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      setOpenDialog(true);
-    };
+  const [expanded, setExpanded] = React.useState(false);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const navigate = useNavigate();
+  const mealplan = props.mealplan;
+  const uuidToName = props.uuidToName;
+  const assignedName =
+    (mealplan.personUuid ? uuidToName[mealplan.personUuid] : null) ??
+    mealplan.person?.fullName ??
+    null;
+  const startDate: Dayjs | null = mealplan.startDate ? dayjs(mealplan.startDate) : null;
+  const connection = props.connection;
+  const theme = useTheme();
+  const fullScreenDialog = useMediaQuery(theme.breakpoints.down('md'));
+  const handleExpandClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpanded(!expanded);
+  };
+  const handleClickOpen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setOpenDialog(true);
+  };
 
-    const handleClose = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      setOpenDialog(false);
-    };
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setOpenDialog(false);
+  };
 
-    const handleDelete =(e: React.MouseEvent) => {
-      e.stopPropagation();
-      deleteMealPlan(connection, mealplan.rowId).then(() => {
-        //refetch here for fetching tags after delete
-        props.refetch({}, {fetchPolicy: "network-only"})
-      })
-      setOpenDialog(false);
-    };
-  
-    return (
-      <Grid item xs="auto">
-        <Card
-          sx={{ maxWidth: 332 }}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            navigate(`/mealplans/${mealplan.rowId}`);
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.cursor = "pointer";
-          }}
-        >
-          <CardHeader
-            avatar={
-              <Tooltip title={mealplan.isTemplate ? "Template" : ""}>
-              <Avatar sx={{ bgcolor: mealplan.isTemplate? "grey":"green", width: "fit" }} aria-label="user">
-                {mealplan.isTemplate ? "T" : getInitials(mealplan.person?.fullName || "")}
-              </Avatar>
-              </Tooltip>
-            }
-            action={
-              <div>
-                <IconButton
-                  aria-label="shopping list"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("stopped propagation");
-                    navigate(`/mealplans/${mealplan.rowId}/shopping-list`);
-                  }}
-                  sx={{ "& :hover": { color: theme.palette.primary.main } }}
-                >
-                  <ShoppingCart />
-                </IconButton>
-                <IconButton
-                  aria-label="delete"
-                  onClick={handleClickOpen}
-                  sx={{ "& :hover": { color: theme.palette.primary.main } }}
-                >
-                  <DeleteTwoTone />
-                </IconButton>
-                <Dialog
-                  fullScreen={fullScreenDialog}
-                  open={openDialog}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                  }}
-                  onClose={handleClose}
-                  aria-labelledby="delete-dialog"
-                >
-                  <DialogTitle id="delete-dialog">{"Delete this meal plan?"}</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText>
-                      Are you sure you want to <b>delete</b> the meal plan <b>{mealplan.nameEn}</b>?
-                    </DialogContentText>
-                  </DialogContent>
+  const handleDelete =(e: React.MouseEvent) => {
+    e.stopPropagation();
+    deleteMealPlan(connection, mealplan.rowId).then(() => {
+      //refetch here for fetching tags after delete
+      props.refetch({}, {fetchPolicy: "network-only"})
+    })
+    setOpenDialog(false);
+  };
 
-                  <DialogActions>
-                    <Button
-                      onClick={handleDelete}
-                      autoFocus
-                      startIcon={<DeleteTwoTone />}
-                      color="error"
-                    >
-                      Delete
-                    </Button>
-                    <Button autoFocus onClick={handleClose}>
-                      Cancel
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-                  <IconButton
-                    aria-label="duplicate"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      duplicateMealPlan(connection, mealplan.rowId,getCurrentPerson().personID);
-                    }}
-                    sx={{ "& :hover": { color: theme.palette.primary.main } }}
+
+  return (
+    <Grid item xs="auto">
+      <Card
+        sx={{ maxWidth: 332 }}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          navigate(`/mealplans/${mealplan.rowId}`);
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.cursor = "pointer";
+        }}
+      >
+        <CardHeader
+          avatar={
+            <Tooltip title={mealplan.isTemplate ? "Template" : ""}>
+            <Avatar sx={{ bgcolor: mealplan.isTemplate? "grey":"green", width: "fit" }} aria-label="user">
+              {mealplan.isTemplate ? "T" : getInitials(assignedName || "")}
+            </Avatar>
+            </Tooltip>
+          }
+          action={
+            <div>
+              <IconButton
+                aria-label="shopping list"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("stopped propagation");
+                  navigate(`/mealplans/${mealplan.rowId}/shopping-list`);
+                }}
+                sx={{ "& :hover": { color: theme.palette.primary.main } }}
+              >
+                <ShoppingCart />
+              </IconButton>
+              <IconButton
+                aria-label="delete"
+                onClick={handleClickOpen}
+                sx={{ "& :hover": { color: theme.palette.primary.main } }}
+              >
+                <DeleteTwoTone />
+              </IconButton>
+              <Dialog
+                fullScreen={fullScreenDialog}
+                open={openDialog}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                onClose={handleClose}
+                aria-labelledby="delete-dialog"
+              >
+                <DialogTitle id="delete-dialog">{"Delete this meal plan?"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Are you sure you want to <b>delete</b> the meal plan <b>{mealplan.nameEn}</b>?
+                  </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                  <Button
+                    onClick={handleDelete}
+                    autoFocus
+                    startIcon={<DeleteTwoTone />}
+                    color="error"
                   >
-                    <ContentCopy />
-                  </IconButton>
-              </div>
-            }
-            title={mealplan.nameEn}
-            subheader={!mealplan.isTemplate && mealplan.person?.fullName == null? "No User Assigned": mealplan.person?.fullName}
-          />
-          {startDate && (
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Tooltip title="Start Date">
-                <Chip label={startDate.format("DD-MMM-YYYY")} />
-              </Tooltip>
+                    Delete
+                  </Button>
+                  <Button autoFocus onClick={handleClose}>
+                    Cancel
+                  </Button>
+                </DialogActions>
+              </Dialog>
+                <IconButton
+                  aria-label="duplicate"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    duplicateMealPlan(connection, mealplan.rowId);
+                  }}
+                  sx={{ "& :hover": { color: theme.palette.primary.main } }}
+                >
+                  <ContentCopy />
+                </IconButton>
             </div>
+          }
+          title={mealplan.nameEn}
+          subheader={!mealplan.isTemplate && assignedName == null ? "No User Assigned" : assignedName}
+        />
+        {startDate && (
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <Tooltip title="Start Date">
+              <Chip label={startDate.format("DD-MMM-YYYY")} />
+            </Tooltip>
+          </div>
+        )}
+        <ImageList sx={{ width: 350, height: 150 }} cols={3} rowHeight={164}>
+          {mealplan.mealPlanEntries.nodes.map((meal: any) =>
+            meal.meal?.photoUrl !== null ? (
+              <ImageListItem key={meal.meal?.id}>
+                <img
+                  src={`${meal.meal?.photoUrl}`}
+                  srcSet={`${meal.meal?.photoUrl}`}
+                  alt={meal.meal?.photoUrl || "no image"}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            ) : (
+              <></>
+            )
           )}
-          <ImageList sx={{ width: 350, height: 150 }} cols={3} rowHeight={164}>
-            {mealplan.mealPlanEntries.nodes.map((meal: any) =>
-              meal.meal?.photoUrl !== null ? (
-                <ImageListItem key={meal.meal?.id}>
-                  <img
-                    src={`${meal.meal?.photoUrl}`}
-                    srcSet={`${meal.meal?.photoUrl}`}
-                    alt={meal.meal?.photoUrl || "no image"}
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              ) : (
-                <></>
-              )
-            )}
-          </ImageList>
+        </ImageList>
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {mealplan.tags?.map((tag: any) => (
+              <span>{tag} &nbsp;</span>
+            ))}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <ExpandMoreFn
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMore />
+          </ExpandMoreFn>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography variant="body2" color="text.secondary">
-              {mealplan.tags?.map((tag: any) => (
-                <span>{tag} &nbsp;</span>
-              ))}
+            <Typography>
+              {" "}
+              <div>{mealplan.descriptionEn}</div>
             </Typography>
           </CardContent>
-          <CardActions disableSpacing>
-            <ExpandMoreFn
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMore />
-            </ExpandMoreFn>
-          </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography>
-                {" "}
-                <div>{mealplan.descriptionEn}</div>
-              </Typography>
-            </CardContent>
-          </Collapse>
-        </Card>
-      </Grid>
-    );
-  };
+        </Collapse>
+      </Card>
+    </Grid>
+  );
+};

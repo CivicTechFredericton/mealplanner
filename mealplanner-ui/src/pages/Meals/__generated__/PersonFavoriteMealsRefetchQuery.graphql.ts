@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<09dcd97ffade128497becbb068a72847>>
+ * @generated SignedSource<<26192702ad278a573223d89e109634ff>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,8 +10,16 @@
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type FavoriteMealCondition = {
+  createdAt?: any | null | undefined;
+  mealId?: any | null | undefined;
+  personId?: any | null | undefined;
+  personUuid?: string | null | undefined;
+  rowId?: any | null | undefined;
+  updatedAt?: any | null | undefined;
+};
 export type PersonFavoriteMealsRefetchQuery$variables = {
-  slug: string;
+  condition?: FavoriteMealCondition | null | undefined;
 };
 export type PersonFavoriteMealsRefetchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"PersonFavoriteMeals_favorites">;
@@ -26,10 +34,17 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "slug"
+    "name": "condition"
   }
 ],
-v1 = {
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "condition",
+    "variableName": "condition"
+  }
+],
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -44,13 +59,7 @@ return {
     "name": "PersonFavoriteMealsRefetchQuery",
     "selections": [
       {
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "slug",
-            "variableName": "slug"
-          }
-        ],
+        "args": (v1/*: any*/),
         "kind": "FragmentSpread",
         "name": "PersonFavoriteMeals_favorites"
       }
@@ -66,39 +75,16 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": [
-          {
-            "fields": [
-              {
-                "fields": [
-                  {
-                    "kind": "Variable",
-                    "name": "equalTo",
-                    "variableName": "slug"
-                  }
-                ],
-                "kind": "ObjectValue",
-                "name": "slug"
-              }
-            ],
-            "kind": "ObjectValue",
-            "name": "filter"
-          },
-          {
-            "kind": "Literal",
-            "name": "first",
-            "value": 1
-          }
-        ],
-        "concreteType": "PeopleConnection",
+        "args": (v1/*: any*/),
+        "concreteType": "FavoriteMealsConnection",
         "kind": "LinkedField",
-        "name": "people",
+        "name": "favoriteMeals",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Person",
+            "concreteType": "FavoriteMeal",
             "kind": "LinkedField",
             "name": "nodes",
             "plural": true,
@@ -106,109 +92,93 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "FavoriteMealsConnection",
+                "kind": "ScalarField",
+                "name": "personUuid",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Meal",
                 "kind": "LinkedField",
-                "name": "favoriteMeals",
+                "name": "meal",
                 "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "FavoriteMeal",
-                    "kind": "LinkedField",
-                    "name": "nodes",
-                    "plural": true,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "Meal",
-                        "kind": "LinkedField",
-                        "name": "meal",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "rowId",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "nameEn",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "nameFr",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "descriptionEn",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "descriptionFr",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "categories",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "tags",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "code",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "photoUrl",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "videoUrl",
-                            "storageKey": null
-                          },
-                          (v1/*: any*/)
-                        ],
-                        "storageKey": null
-                      },
-                      (v1/*: any*/)
-                    ],
+                    "kind": "ScalarField",
+                    "name": "rowId",
                     "storageKey": null
-                  }
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "nameEn",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "nameFr",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "descriptionEn",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "descriptionFr",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "categories",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "tags",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "code",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "photoUrl",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "videoUrl",
+                    "storageKey": null
+                  },
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v1/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
           }
@@ -218,16 +188,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4ad0855e73dee0fa9a6372280a10dc57",
+    "cacheID": "490b7089f456ff692fe6655c1c90ebf5",
     "id": null,
     "metadata": {},
     "name": "PersonFavoriteMealsRefetchQuery",
     "operationKind": "query",
-    "text": "query PersonFavoriteMealsRefetchQuery(\n  $slug: String!\n) {\n  ...PersonFavoriteMeals_favorites_20J5Pl\n}\n\nfragment PersonFavoriteMeals_favorites_20J5Pl on Query {\n  people(filter: {slug: {equalTo: $slug}}, first: 1) {\n    nodes {\n      favoriteMeals {\n        nodes {\n          meal {\n            rowId\n            nameEn\n            nameFr\n            descriptionEn\n            descriptionFr\n            categories\n            tags\n            code\n            photoUrl\n            videoUrl\n            id\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query PersonFavoriteMealsRefetchQuery(\n  $condition: FavoriteMealCondition = null\n) {\n  ...PersonFavoriteMeals_favorites_3ZFPk6\n}\n\nfragment PersonFavoriteMeals_favorites_3ZFPk6 on Query {\n  favoriteMeals(condition: $condition) {\n    nodes {\n      personUuid\n      meal {\n        rowId\n        nameEn\n        nameFr\n        descriptionEn\n        descriptionFr\n        categories\n        tags\n        code\n        photoUrl\n        videoUrl\n        id\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ce8985b62d5b8404af8ef4f68783f551";
+(node as any).hash = "b5a9e73d1fb21ff4573452234cc9d73a";
 
 export default node;

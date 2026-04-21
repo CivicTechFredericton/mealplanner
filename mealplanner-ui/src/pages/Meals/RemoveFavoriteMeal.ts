@@ -4,7 +4,7 @@ import environment from "../../relay/environment";
 
 const removeFavoriteMealGQL = graphql`
   mutation RemoveFavoriteMealMutation($mealIdParam: BigInt!) {
-    removeFavoriteMeal(input: { mealIdParam: $mealIdParam }) {
+    removeFavoriteMealUuid(input: { mealIdParam: $mealIdParam }) {
       preflight
     }
   }

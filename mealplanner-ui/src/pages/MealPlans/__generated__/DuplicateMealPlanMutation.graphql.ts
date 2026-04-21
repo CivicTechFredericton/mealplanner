@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c78689d2983668a96ee7a53104336ed9>>
+ * @generated SignedSource<<10e248f6e187dfc92868805932316254>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,10 +12,9 @@ import { ConcreteRequest } from 'relay-runtime';
 export type DuplicateMealPlanMutation$variables = {
   connections: ReadonlyArray<string>;
   mealPlanId: any;
-  personId: any;
 };
 export type DuplicateMealPlanMutation$data = {
-  readonly duplicateMealPlan: {
+  readonly duplicateMealPlanUuid: {
     readonly mealPlanEdge: {
       readonly cursor: any | null | undefined;
       readonly node: {
@@ -36,6 +35,7 @@ export type DuplicateMealPlanMutation$data = {
           readonly fullName: string;
         } | null | undefined;
         readonly personId: any | null | undefined;
+        readonly personUuid: string | null | undefined;
         readonly rowId: any;
         readonly tags: ReadonlyArray<string | null | undefined> | null | undefined;
       };
@@ -58,11 +58,6 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "mealPlanId"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "personId"
   }
 ],
 v1 = [
@@ -72,11 +67,6 @@ v1 = [
         "kind": "Variable",
         "name": "mealplanId",
         "variableName": "mealPlanId"
-      },
-      {
-        "kind": "Variable",
-        "name": "pId",
-        "variableName": "personId"
       }
     ],
     "kind": "ObjectValue",
@@ -129,31 +119,38 @@ v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "descriptionEn",
+  "name": "personUuid",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "descriptionFr",
+  "name": "descriptionEn",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "fullName",
+  "name": "descriptionFr",
   "storageKey": null
 },
 v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "tags",
+  "name": "fullName",
   "storageKey": null
 },
 v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "tags",
+  "storageKey": null
+},
+v13 = {
   "alias": null,
   "args": null,
   "concreteType": "Meal",
@@ -182,9 +179,9 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "DuplicateMealPlanPayload",
+        "concreteType": "DuplicateMealPlanUuidPayload",
         "kind": "LinkedField",
-        "name": "duplicateMealPlan",
+        "name": "duplicateMealPlanUuid",
         "plural": false,
         "selections": [
           {
@@ -211,6 +208,7 @@ return {
                   (v7/*: any*/),
                   (v8/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -219,11 +217,11 @@ return {
                     "name": "person",
                     "plural": false,
                     "selections": [
-                      (v10/*: any*/)
+                      (v11/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v11/*: any*/),
+                  (v12/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -240,7 +238,7 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v12/*: any*/)
+                          (v13/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -269,9 +267,9 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "DuplicateMealPlanPayload",
+        "concreteType": "DuplicateMealPlanUuidPayload",
         "kind": "LinkedField",
-        "name": "duplicateMealPlan",
+        "name": "duplicateMealPlanUuid",
         "plural": false,
         "selections": [
           {
@@ -298,6 +296,7 @@ return {
                   (v7/*: any*/),
                   (v8/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -306,12 +305,12 @@ return {
                     "name": "person",
                     "plural": false,
                     "selections": [
-                      (v10/*: any*/),
+                      (v11/*: any*/),
                       (v3/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v11/*: any*/),
+                  (v12/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -328,7 +327,7 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v12/*: any*/),
+                          (v13/*: any*/),
                           (v3/*: any*/)
                         ],
                         "storageKey": null
@@ -364,16 +363,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "58909a18ca00b8ea3e61d30136792fa5",
+    "cacheID": "d96c172699b09b6268bb506a4cd0dc5d",
     "id": null,
     "metadata": {},
     "name": "DuplicateMealPlanMutation",
     "operationKind": "mutation",
-    "text": "mutation DuplicateMealPlanMutation(\n  $mealPlanId: BigInt!\n  $personId: BigInt!\n) {\n  duplicateMealPlan(input: {mealplanId: $mealPlanId, pId: $personId}) {\n    mealPlanEdge {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        nameFr\n        personId\n        descriptionEn\n        descriptionFr\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation DuplicateMealPlanMutation(\n  $mealPlanId: BigInt!\n) {\n  duplicateMealPlanUuid(input: {mealplanId: $mealPlanId}) {\n    mealPlanEdge {\n      cursor\n      node {\n        id\n        rowId\n        nameEn\n        nameFr\n        personId\n        personUuid\n        descriptionEn\n        descriptionFr\n        person {\n          fullName\n          id\n        }\n        tags\n        mealPlanEntries {\n          nodes {\n            meal {\n              id\n              photoUrl\n            }\n            id\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0c4ee5ca2031d18762a501e14d717192";
+(node as any).hash = "c9d4b524426c6fa7cd28c60162b4a865";
 
 export default node;

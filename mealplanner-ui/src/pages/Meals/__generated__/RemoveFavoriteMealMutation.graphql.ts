@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c71fb4c2054a825b269721ae027765c1>>
+ * @generated SignedSource<<885c2d23cb8f7d534f6085e2de0e4c42>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ export type RemoveFavoriteMealMutation$variables = {
   mealIdParam: any;
 };
 export type RemoveFavoriteMealMutation$data = {
-  readonly removeFavoriteMeal: {
+  readonly removeFavoriteMealUuid: {
     readonly preflight: boolean;
   } | null | undefined;
 };
@@ -46,9 +46,9 @@ v1 = [
         "name": "input"
       }
     ],
-    "concreteType": "RemoveFavoriteMealPayload",
+    "concreteType": "RemoveFavoriteMealUuidPayload",
     "kind": "LinkedField",
-    "name": "removeFavoriteMeal",
+    "name": "removeFavoriteMealUuid",
     "plural": false,
     "selections": [
       {
@@ -80,16 +80,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "6e9c39a37f6f50401e3b62a541bc38e1",
+    "cacheID": "57e67f0cf280878dad27064262ab9231",
     "id": null,
     "metadata": {},
     "name": "RemoveFavoriteMealMutation",
     "operationKind": "mutation",
-    "text": "mutation RemoveFavoriteMealMutation(\n  $mealIdParam: BigInt!\n) {\n  removeFavoriteMeal(input: {mealIdParam: $mealIdParam}) {\n    preflight\n  }\n}\n"
+    "text": "mutation RemoveFavoriteMealMutation(\n  $mealIdParam: BigInt!\n) {\n  removeFavoriteMealUuid(input: {mealIdParam: $mealIdParam}) {\n    preflight\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d8d887b661436fd5071536c0b48b61ba";
+(node as any).hash = "4dd2bbe556a2e8895a05a5803dd02462";
 
 export default node;
