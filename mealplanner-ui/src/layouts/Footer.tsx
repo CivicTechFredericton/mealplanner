@@ -42,7 +42,7 @@ export function Footer() {
     >
       <Container maxWidth="xl" id='hide'>
         <Typography variant="body1" align="center">
-          For Greener Village. By Civic Tech Fredericton.
+          Greener Village Meal Planner
         </Typography>
         <Typography variant="body2" align="center">
           If you run into issues or have any suggestions or questions, please
@@ -56,8 +56,8 @@ export function Footer() {
             feedback
           </a>
         </Typography>
-        <Box display= "flex" alignItems= "center" justifyContent="center">
-          <img src="/images/CivicTechLogo.png" alt="CivicTechLogo" style={{ width: '12%', height: 'auto', marginTop: '10px' }}/>
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <img src="/images/GreenerVillageLogo.png" alt="Greener Village Logo" style={{ width: '12%', height: 'auto', marginTop: '10px' }}/>
         </Box>
       </Container>
       <div id="bottomelement" style={{position:'fixed',
@@ -68,7 +68,7 @@ export function Footer() {
                                     display:'none'}}> 
             
             <Typography variant="body1" align="center">
-            For Greener Village. By Civic Tech Fredericton.
+            Greener Village Meal Planner
             </Typography>
             <Typography variant="body2" align="center">
             If you run into issues or have any suggestions or questions, please
@@ -82,8 +82,8 @@ export function Footer() {
             feedback
             </a>
             </Typography>
-            <Box display= "flex" alignItems= "center" justifyContent="center">
-            <img src="/images/CivicTechLogo.png" alt="CivicTechLogo" style={{ width: '12%', height: 'auto', marginTop: '10px' }}/>
+            <Box display="flex" alignItems="center" justifyContent="center">
+            <img src="/images/GreenerVillageLogo.png" alt="Greener Village Logo" style={{ width: '12%', height: 'auto', marginTop: '10px' }}/>
             </Box>
             </div>
     </Box>

@@ -7,7 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 import { graphql } from "relay-runtime";
-import { Suspense, useEffect, useState } from "react";
+import { Component, Suspense, useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import { useQueryLoader, usePreloadedQuery } from "react-relay";
 import { Navigate } from "react-router-dom";
 import { getCurrentPerson, login, updatePersonTerms } from "../state/state";
@@ -27,13 +28,68 @@ const query = graphql`
   }
 `;
 
-//The LoginInner component is the main login page component that displays the login form 
-//and handles the login process.
+// ─── Shared login form shell ──────────────────────────────────────────────────
+const LoginShell = ({ children }: { children: ReactNode }) => (
+  <main
+    style={{
+      height: "560px",
+      backgroundImage: `url('/images/veggie-background-log-in.png')`,
+      backgroundSize: "cover",
+      display: "flex",
+      justifyContent: "center",
+    }}
+  >
+    <section
+      style={{
+        width: "30%",
+        height: "400px",
+        backgroundColor: "white",
+        padding: "2rem",
+        margin: "2rem",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+      }}
+    >
+      {children}
+    </section>
+  </main>
+);
+
+// ─── Error Boundary — shows a friendly message if GraphQL is unreachable ──────
+class LoginErrorBoundary extends Component<
+  { children: ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <LoginShell>
+          <Typography variant="h5">Looking for a healthier meal?</Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+            The server is temporarily unavailable. Please try again in a moment.
+          </Typography>
+        </LoginShell>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+// ─── Inner component — reads Relay query, handles login form ─────────────────
 const LoginInner = ({ queryRef }: { queryRef: any }) => {
   const data = usePreloadedQuery<LoginQuery>(query, queryRef);
 
-  let [username, setUsername] = useState("");
-  let [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [result, setResult] = useState("");
 
@@ -55,87 +111,55 @@ const LoginInner = ({ queryRef }: { queryRef: any }) => {
   }
 
   return (
-    <main
-      style={{
-        height: "560px",
-        backgroundImage: `url('/images/veggie-background-log-in.png')`,
-        backgroundSize: "cover",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <section
-        onKeyPress={(ev) => {
-          if (ev.key === "Enter") {
-            handleLogin();
-            ev.preventDefault();
-          }
-        }}
-        style={{
-          width: "30%",
-          height: "400px",
-          backgroundColor: "white",
-          padding: "2rem",
-          margin: "2rem",
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-        }}
-      >
-        <Typography variant="h5">Looking for a healthier meal?</Typography>
+    <LoginShell>
+      <Typography variant="h5">Looking for a healthier meal?</Typography>
 
-        <TextField
-          variant="filled"
-          placeholder="user name"
-          onChange={(e) => setUsername(e.target.value)}
-        ></TextField>
+      <TextField
+        variant="filled"
+        placeholder="user name"
+        onChange={(e) => setUsername(e.target.value)}
+      />
 
-        <TextField
-          type={showPassword ? "text" : "password"}
-          placeholder="password"
-          variant="filled"
-          onChange={(e) => setPassword(e.target.value)}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleVisibility}
-                >
-                  {showPassword ? (
-                    <VisibilityOff></VisibilityOff>
-                  ) : (
-                    <Visibility></Visibility>
-                  )}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        ></TextField>
-        {result ? (
-          <Typography variant="body2" color={"red"}>
-            {result}
-          </Typography>
-        ) : (
-          <></>
-        )}
-        <Button variant="contained" onClick={handleLogin}>
-          Login
-        </Button>
-        <Typography fontSize="small" marginTop={"3rem"}>
-          Don't have an account? <br />
-          Contact{" "}
-          <label style={{ color: "green" }}>
-            john.doe@greenervillage.com
-          </label>{" "}
-          to get started
+      <TextField
+        type={showPassword ? "text" : "password"}
+        placeholder="password"
+        variant="filled"
+        onChange={(e) => setPassword(e.target.value)}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleVisibility}
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+
+      {result && (
+        <Typography variant="body2" color="error">
+          {result}
         </Typography>
-      </section>
-    </main>
+      )}
+
+      <Button variant="contained" onClick={handleLogin}>
+        Login
+      </Button>
+
+      <Typography fontSize="small" marginTop="3rem">
+        Don't have an account? <br />
+        Contact{" "}
+        <label style={{ color: "green" }}>john.doe@greenervillage.com</label>{" "}
+        to get started
+      </Typography>
+    </LoginShell>
   );
 };
 
+// ─── Exported component ───────────────────────────────────────────────────────
 export const Login = () => {
   const [queryRef, loadQuery] = useQueryLoader<LoginQuery>(query);
 
@@ -145,65 +169,23 @@ export const Login = () => {
 
   if (!queryRef) {
     return (
-      <main
-        style={{
-          height: "560px",
-          backgroundImage: `url('/images/veggie-background-log-in.png')`,
-          backgroundSize: "cover",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <section
-          style={{
-            width: "30%",
-            height: "400px",
-            backgroundColor: "white",
-            padding: "2rem",
-            margin: "2rem",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-          }}
-        >
-          <Typography variant="h5">Loading...</Typography>
-        </section>
-      </main>
+      <LoginShell>
+        <Typography variant="h5">Loading...</Typography>
+      </LoginShell>
     );
   }
 
   return (
-    <Suspense
-      fallback={
-        <main
-          style={{
-            height: "560px",
-            backgroundImage: `url('/images/veggie-background-log-in.png')`,
-            backgroundSize: "cover",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <section
-            style={{
-              width: "30%",
-              height: "400px",
-              backgroundColor: "white",
-              padding: "2rem",
-              margin: "2rem",
-              textAlign: "center",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-            }}
-          >
+    <LoginErrorBoundary>
+      <Suspense
+        fallback={
+          <LoginShell>
             <Typography variant="h5">Loading...</Typography>
-          </section>
-        </main>
-      }
-    >
-      <LoginInner queryRef={queryRef} />
-    </Suspense>
+          </LoginShell>
+        }
+      >
+        <LoginInner queryRef={queryRef} />
+      </Suspense>
+    </LoginErrorBoundary>
   );
 };
