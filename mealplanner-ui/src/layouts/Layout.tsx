@@ -7,6 +7,7 @@ import ResponsiveAppBar from "./ResponsiveAppBar";
 export const Layout = () => {
   const location = useLocation();
   const isTermsPage = location.pathname === '/terms';
+  const isLandingPage = location.pathname === '/';
   
   return (
     <React.Fragment>
@@ -18,9 +19,9 @@ export const Layout = () => {
         }}
       >
         <CssBaseline />
-        {!isTermsPage && <ResponsiveAppBar />}
+        {!isTermsPage && !isLandingPage && <ResponsiveAppBar />}
         <Outlet />
-        <Footer />
+        {!isLandingPage && <Footer />}
       </Box>
     </React.Fragment>
   );

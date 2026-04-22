@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Layout } from "./layouts/Layout";
 import { LoggedIn } from "./LoggedIn";
+import { LandingPage } from "./pages/LandingPage";
 import { Login } from "./pages/Login";
 import { MealPlan } from "./pages/MealPlans/MealPlan";
 import { MealPlans } from "./pages/MealPlans/MealPlans";
@@ -51,11 +52,11 @@ function App() {
     fetchCurrentPerson().then(() => {
       setInitialized(true);
     })
-    .catch((error) => {
-      console.error("Failed to fetch current person:", error);
-      // Still initialize the app even if fetch fails (user might not be logged in)
-      setInitialized(true);
-    });
+      .catch((error) => {
+        console.error("Failed to fetch current person:", error);
+        // Still initialize the app even if fetch fails (user might not be logged in)
+        setInitialized(true);
+      });
   }, []);
   if (!intialized) {
     return <h1>loading...</h1>;
@@ -67,6 +68,14 @@ function App() {
         <Suspense fallback={null}>
           <Routes>
             <Route element={<Layout />}>
+              <Route
+                path="/login"
+                element={<Login />}
+              />
+              <Route
+                path="/"
+                element={<LandingPage />}
+              />
               <Route
                 path="/mealplans/:id"
                 element={
@@ -132,21 +141,11 @@ function App() {
                 element={
                   <Suspense fallback={"loading terms.."}>
                     {/* <LoggedIn> */}
-                      <TermsAndConditions />
+                    <TermsAndConditions />
                     {/* </LoggedIn> */}
                   </Suspense>
                 }
               />
-              <Route
-                path="/"
-                element={
-                  // <Suspense fallback={"loading Login..."}>
-                    <Login />
-                  // </Suspense>
-                }
-              >
-                {" "}
-              </Route>
             </Route>
           </Routes>
         </Suspense>
