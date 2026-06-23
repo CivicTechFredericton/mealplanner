@@ -9,7 +9,7 @@ import {
   Resource,
 } from "react-admin";
 import { Route } from "react-router-dom";
-import { useAuth } from "./Auth";
+import { useAuth, AdminLoginPage } from "./Auth";
 import { IngredientCreate } from "./Ingredients/IngredientCreate";
 import { IngredientEdit } from "./Ingredients/IngredientEdit";
 import { IngredientList } from "./Ingredients/IngredientList";
@@ -62,6 +62,7 @@ function App() {
             authProvider={auth.raAuthProvider}
             dataProvider={dataProvider}
             layout={Layout}
+            loginPage={AdminLoginPage}
             requireAuth
           >
             

@@ -6,11 +6,12 @@ import {
   Store,
   Variables,
 } from "relay-runtime";
-import { getIdToken } from "../auth/cognito";
+import { getIdToken, isExpiringSoon, refreshIdToken } from "../auth/cognito";
 
 function handleUnauthorized() {
   // Clear Cognito session artifacts
   sessionStorage.removeItem("cognito_id_token");
+  sessionStorage.removeItem("cognito_refresh_token");
   sessionStorage.removeItem("cognito_pkce_verifier");
   sessionStorage.removeItem("cognito_oauth_state");
 
@@ -22,7 +23,10 @@ function handleUnauthorized() {
 async function fetchGraphQL(params: RequestParameters, variables: Variables) {
   const cfg = (window as any).__APP_CONFIG__ || {};
   const URL = cfg.GRAPHQL_ENDPOINT || "/graphql";
-  const token = getIdToken();
+  let token = getIdToken();
+  if (token && isExpiringSoon(token)) {
+    token = (await refreshIdToken()) ?? token;
+  }
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",

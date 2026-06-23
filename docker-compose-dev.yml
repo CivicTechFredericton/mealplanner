@@ -74,6 +74,11 @@ services:
       - graphql
     links:
       - graphql
+    environment:
+      COGNITO_DOMAIN: ${COGNITO_DOMAIN}
+      COGNITO_APP_CLIENT_ID: ${COGNITO_APP_CLIENT_ID}
+      COGNITO_ADMIN_REDIRECT_URI: ${COGNITO_ADMIN_REDIRECT_URI}
+      COGNITO_ADMIN_LOGOUT_URI: ${COGNITO_ADMIN_LOGOUT_URI}
 
 volumes:
   pgdata:

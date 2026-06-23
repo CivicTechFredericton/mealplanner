@@ -24,8 +24,13 @@ FROM nginx:1.22-alpine
 WORKDIR /usr/share/nginx/html
 # Remove default nginx static resources
 RUN rm -rf ./*
+# Install envsubst (needed for runtime env injection)
+RUN apk add --no-cache gettext
 # Copies static resources from builder stage
 COPY --from=builder /app/dist .
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Containers run nginx with global directives and daemon off
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# Runtime env template and startup script
+COPY public/env.template.js /usr/share/nginx/html/env.template.js
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT ["/docker-entrypoint.sh"]

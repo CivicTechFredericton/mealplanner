@@ -1,10 +1,8 @@
-//This is to implement login and logout
-
 import { ApolloClient, gql, useApolloClient } from "@apollo/client";
 import React, { useContext, useEffect, useState } from "react";
-
-//We need to get CurrentPerson to check whether it is logged in
-//construct the graphql query for CurrentPerson
+import { useLogin, useNotify } from "react-admin";
+import { Button, TextField, Typography, Box, Divider } from "@mui/material";
+import { startCognitoLogin, cognitoLogout, getIdToken } from "./auth/cognito";
 
 const currentPersonQuery = gql`
   query currentPerson {
@@ -17,7 +15,6 @@ const currentPersonQuery = gql`
   }
 `;
 
-//providing the variables in the graphql query
 interface CurrentPerson {
   rowId: string;
   fullName: string;
@@ -25,35 +22,24 @@ interface CurrentPerson {
   role: string;
 }
 
-//Define the interface with currentPerson, login and logout functions
 interface AuthInfo {
   currentPerson: CurrentPerson | null;
   raAuthProvider: RAAuthProvider | null;
 }
 
-//For creating a react component AuthProvider
-//First Define the type context (type interface) to be used for return value
 const AuthContext = React.createContext<AuthInfo>({
   currentPerson: null,
   raAuthProvider: null,
 });
-//Next Define the type of the props using interface
+
 interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-// Then write the react component
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const client = useApolloClient();
-  const [currentPerson, setCurrentPerson] = useState<CurrentPerson | null>(
-    null
-  );
-  // useEffect can't call an async function. So we need to create a async function expression
-  // and call it immediately inside the useEffect. To call an anonymous async function,
-  // enclose it within parenthesis.
-  //if we give the function alone it will run in an infinite loop. So we need to define
-  // what the function depends on to define the criteria.
-  //If we pass in an empty array [], it will run only once.
+  const [currentPerson, setCurrentPerson] = useState<CurrentPerson | null>(null);
+
   useEffect(() => {
     (async () => {
       const currentUser = await getCurrentPerson(client);
@@ -62,26 +48,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     })();
   }, []);
+
   const authObject = new RAAuthProvider(client);
 
   return (
-    <AuthContext.Provider
-      value={{
-        currentPerson: currentPerson,
-        raAuthProvider: authObject,
-      }}
-    >
+    <AuthContext.Provider value={{ currentPerson, raAuthProvider: authObject }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-//Export the AuthContext via hook to abstract the context.
 export const useAuth = (): AuthInfo => {
   return useContext(AuthContext);
 };
 
-//Get Current Person
 const getCurrentPerson = async (
   client: ApolloClient<object>
 ): Promise<CurrentPerson | null> => {
@@ -89,15 +69,11 @@ const getCurrentPerson = async (
     query: currentPersonQuery,
     fetchPolicy: "network-only",
   });
-  console.log("current person", result.data);
   if (result.data["currentPerson"]) {
     return result.data["currentPerson"];
   }
   return null;
 };
-
-//Implementing Login
-//First write a mutation
 
 const loginMutation = gql`
   mutation LoginMutation($userEmail: String, $password: String) {
@@ -115,7 +91,7 @@ const loginFn = async (
   userEmail: string,
   password: string
 ): Promise<CurrentPerson | null> => {
-  let result = await client.mutate({
+  const result = await client.mutate({
     mutation: loginMutation,
     variables: { userEmail, password },
   });
@@ -134,7 +110,7 @@ const logoutMutation = gql`
 `;
 
 const logoutFn = async (client: ApolloClient<object>) => {
-  let result = await client.mutate({ mutation: logoutMutation });
+  const result = await client.mutate({ mutation: logoutMutation });
   if (result.data["logout"] !== null) {
     return result.data["logout"];
   }
@@ -145,36 +121,124 @@ class RAAuthProvider {
   constructor(client: ApolloClient<object>) {
     this._client = client;
   }
-  login({ username, password }: { username: string; password: string }) {
-    return loginFn(this._client, username, password);
+
+  login(params: any) {
+    const { username, password } = params || {};
+    if (username && password) {
+      return loginFn(this._client, username, password);
+    }
+    startCognitoLogin();
+    return new Promise(() => {});
   }
+
   async logout() {
+    if (getIdToken()) {
+      cognitoLogout();
+      return Promise.resolve();
+    }
     await logoutFn(this._client);
     return Promise.resolve();
   }
+
   async getIdentity() {
-    let cp = await getCurrentPerson(this._client);
+    const cp = await getCurrentPerson(this._client);
     if (cp !== null) {
       return { id: cp.rowId, fullName: cp.fullName, role: cp.role };
     }
     throw "invalid user";
   }
+
   async checkAuth() {
-    let identity = await this.getIdentity();
-    if (
-      identity &&
-      (identity.role === "app_admin" || identity.role === "app_meal_designer")
-    )
-      return Promise.resolve();
-    return Promise.reject("User does not exist or does not have permissions");
+    try {
+      const token = getIdToken();
+      const identity = await this.getIdentity();
+
+      if (!identity) return Promise.reject();
+
+      if (identity.role === "app_admin" || identity.role === "app_meal_designer") {
+        return Promise.resolve();
+      }
+
+      if (token) {
+        sessionStorage.removeItem("cognito_id_token");
+        sessionStorage.removeItem("cognito_refresh_token");
+        return Promise.reject({
+          message:
+            "Unauthorized: insufficient privileges. Please contact an admin to grant you access.",
+        });
+      }
+      return Promise.reject("User does not have permissions");
+    } catch (_) {
+      return Promise.reject();
+    }
   }
-  checkError(e: Error) {
-    console.log("check Error", e);
+
+  checkError(e: any) {
+    const status = e?.status || e?.networkError?.statusCode;
+    if (status === 401 || status === 403) {
+      sessionStorage.removeItem("cognito_id_token");
+      sessionStorage.removeItem("cognito_refresh_token");
+      return Promise.reject();
+    }
     return Promise.resolve();
   }
-  getPermissions() {
-    //noop - Doesn't do anything. Just implementing to satisfy the interface.
 
+  getPermissions() {
     return Promise.resolve();
   }
 }
+
+export const AdminLoginPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const login = useLogin();
+  const notify = useNotify();
+
+  const handleLegacyLogin = async () => {
+    try {
+      await login({ username, password });
+    } catch (e) {
+      notify("Invalid credentials", { type: "error" });
+    }
+  };
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        gap: 2,
+      }}
+    >
+      <Typography variant="h5">MealPlanner Admin</Typography>
+      <Button
+        variant="contained"
+        sx={{ width: 300 }}
+        onClick={() => startCognitoLogin()}
+      >
+        Login with Cognito
+      </Button>
+      <Divider sx={{ width: 300 }}>or</Divider>
+      <TextField
+        label="Email"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        sx={{ width: 300 }}
+      />
+      <TextField
+        label="Password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        sx={{ width: 300 }}
+        onKeyDown={(e) => e.key === "Enter" && handleLegacyLogin()}
+      />
+      <Button variant="outlined" onClick={handleLegacyLogin} sx={{ width: 300 }}>
+        Legacy Login
+      </Button>
+    </Box>
+  );
+};

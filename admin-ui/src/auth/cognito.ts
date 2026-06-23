@@ -9,7 +9,6 @@ const KEY_VERIFIER = "cognito_pkce_verifier";
 const KEY_STATE = "cognito_oauth_state";
 const KEY_ID_TOKEN = "cognito_id_token";
 const KEY_REFRESH = "cognito_refresh_token";
-const KEY_INTENT = "cognito_auth_intent";
 
 function b64url(buffer: ArrayBuffer) {
   const bytes = new Uint8Array(buffer);
@@ -38,7 +37,7 @@ function ensureConfig() {
   }
 }
 
-export async function startCognitoLogin(signup = false) {
+export async function startCognitoLogin() {
   ensureConfig();
 
   const verifier = randomString(64);
@@ -47,12 +46,8 @@ export async function startCognitoLogin(signup = false) {
 
   sessionStorage.setItem(KEY_VERIFIER, verifier);
   sessionStorage.setItem(KEY_STATE, state);
-  sessionStorage.setItem(KEY_INTENT, signup ? "signup" : "login");
 
-  // Use /signup to force signup page; /login for login page
-  const path = signup ? "/signup" : "/login";
-  const url = new URL(`${domain}${path}`);
-
+  const url = new URL(`${domain}/login`);
   url.searchParams.set("response_type", "code");
   url.searchParams.set("client_id", clientId);
   url.searchParams.set("redirect_uri", redirectUri);
@@ -60,10 +55,7 @@ export async function startCognitoLogin(signup = false) {
   url.searchParams.set("code_challenge_method", "S256");
   url.searchParams.set("code_challenge", challenge);
   url.searchParams.set("state", state);
-
-  if (!signup) {
-    url.searchParams.set("prompt", "login");
-  }
+  url.searchParams.set("prompt", "login");
 
   window.location.assign(url.toString());
 }
@@ -160,11 +152,7 @@ export async function handleCognitoCallbackIfPresent() {
   sessionStorage.removeItem(KEY_VERIFIER);
   sessionStorage.removeItem(KEY_STATE);
 
-  const intent = sessionStorage.getItem(KEY_INTENT);
-  sessionStorage.removeItem(KEY_INTENT);
-
-  const target = intent === "signup" ? "/#/onboarding" : "/#/mealplans";
-  window.history.replaceState({}, "", target);
+  window.history.replaceState({}, "", "/");
   return true;
 }
 
@@ -175,7 +163,6 @@ export function cognitoLogout() {
   sessionStorage.removeItem(KEY_REFRESH);
   sessionStorage.removeItem(KEY_VERIFIER);
   sessionStorage.removeItem(KEY_STATE);
-  sessionStorage.removeItem(KEY_INTENT);
 
   const url = new URL(`${domain}/logout`);
   url.searchParams.set("client_id", clientId);
