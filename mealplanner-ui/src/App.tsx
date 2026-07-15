@@ -15,6 +15,8 @@ import { ShoppingList } from "./pages/ShoppingList";
 import environment from "./relay/environment";
 import { fetchCurrentPerson, initState } from "./state/state";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
+import { handleCognitoCallbackIfPresent } from "./auth/cognito";
+
 
 const theme = createTheme({
   palette: {
@@ -48,15 +50,19 @@ function App() {
   let [intialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    fetchCurrentPerson().then(() => {
+  (async () => {
+    try {
+      await handleCognitoCallbackIfPresent();
+      await fetchCurrentPerson();
+    } catch (error) {
+      console.error("Auth init failed:", error);
+    } finally {
       setInitialized(true);
-    })
-    .catch((error) => {
-      console.error("Failed to fetch current person:", error);
-      // Still initialize the app even if fetch fails (user might not be logged in)
-      setInitialized(true);
-    });
-  }, []);
+    }
+  })();
+}, []);
+
+  
   if (!intialized) {
     return <h1>loading...</h1>;
   }

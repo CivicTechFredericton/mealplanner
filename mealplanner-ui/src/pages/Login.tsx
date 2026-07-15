@@ -10,8 +10,9 @@ import { graphql } from "relay-runtime";
 import { Suspense, useEffect, useState } from "react";
 import { useQueryLoader, usePreloadedQuery } from "react-relay";
 import { Navigate } from "react-router-dom";
-import { getCurrentPerson, login, updatePersonTerms } from "../state/state";
+import { getCurrentPerson, login } from "../state/state";
 import { LoginQuery } from "./__generated__/LoginQuery.graphql";
+import { startCognitoLogin } from "../auth/cognito";
 
 const query = graphql`
   query LoginQuery {
@@ -27,7 +28,7 @@ const query = graphql`
   }
 `;
 
-//The LoginInner component is the main login page component that displays the login form 
+//The LoginInner component is the main login page component that displays the login form
 //and handles the login process.
 const LoginInner = ({ queryRef }: { queryRef: any }) => {
   const data = usePreloadedQuery<LoginQuery>(query, queryRef);
@@ -73,7 +74,7 @@ const LoginInner = ({ queryRef }: { queryRef: any }) => {
         }}
         style={{
           width: "30%",
-          height: "400px",
+          height: "460px",
           backgroundColor: "white",
           padding: "2rem",
           margin: "2rem",
@@ -84,6 +85,18 @@ const LoginInner = ({ queryRef }: { queryRef: any }) => {
         }}
       >
         <Typography variant="h5">Looking for a healthier meal?</Typography>
+
+        <Button variant="contained" onClick={() => startCognitoLogin(false)}>
+          Login with Cognito
+        </Button>
+
+        <Button variant="outlined" onClick={() => startCognitoLogin(true)}>
+          Sign up with Cognito
+        </Button>
+
+        <Typography variant="body2" color="text.secondary">
+          Or use legacy login
+        </Typography>
 
         <TextField
           variant="filled"
@@ -113,6 +126,7 @@ const LoginInner = ({ queryRef }: { queryRef: any }) => {
             ),
           }}
         ></TextField>
+
         {result ? (
           <Typography variant="body2" color={"red"}>
             {result}
@@ -120,17 +134,11 @@ const LoginInner = ({ queryRef }: { queryRef: any }) => {
         ) : (
           <></>
         )}
-        <Button variant="contained" onClick={handleLogin}>
-          Login
+
+        <Button variant="text" onClick={handleLogin}>
+          Legacy Login
         </Button>
-        <Typography fontSize="small" marginTop={"3rem"}>
-          Don't have an account? <br />
-          Contact{" "}
-          <label style={{ color: "green" }}>
-            john.doe@greenervillage.com
-          </label>{" "}
-          to get started
-        </Typography>
+
       </section>
     </main>
   );

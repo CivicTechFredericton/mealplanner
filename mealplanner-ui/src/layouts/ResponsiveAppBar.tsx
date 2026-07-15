@@ -16,6 +16,7 @@ import * as React from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { getCurrentPerson, logout } from "../state/state";
+import { cognitoLogout, getIdToken } from "../auth/cognito";
 
 const settings = ["Logout"];
 
@@ -49,8 +50,23 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (e) {
+      console.error("Legacy logout failed:", e);
+    }
+
+    if (getIdToken()) {
+      cognitoLogout();
+      return;
+    }
+
+    navigate("/");
+  };
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#212121", width: '100%' }}>
+    <AppBar position="static" sx={{ backgroundColor: "#212121", width: "100%" }}>
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           <Typography
@@ -138,15 +154,10 @@ const ResponsiveAppBar = () => {
                 </Typography>
                 <Tooltip title="Logout">
                   <IconButton
-                    //  onClick={handleOpenUserMenu}
-                    onClick={async () => {
-                      await logout();
-                      navigate("");
-                    }}
+                    onClick={handleLogout}
                     sx={{ p: 0, color: "#FFFF" }}
                   >
                     <LogoutIcon />
-                    {/* <Avatar alt="MealPlan Designer" src="/static/images/avatar/2.jpg" /> */}
                   </IconButton>
                 </Tooltip>
                 <Menu
