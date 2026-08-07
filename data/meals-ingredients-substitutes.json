@@ -2,7 +2,7 @@
   {
     "name_en": "Tuna Noodle Casserole",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Halal", "Egg-free", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -131,7 +131,7 @@
   {
     "name_en": "Chicken Curry",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free", "Meal Accompanied"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -260,7 +260,7 @@
   {
     "name_en": "Tuna Salad Sandwich",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Halal", "Egg-free", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -317,7 +317,7 @@
   {
     "name_en": "Beef Mix for Tacos",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free", "Meal Accompanied"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -430,7 +430,7 @@
   {
     "name_en": "Chicken Fricot",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free", "Meal Accompanied", "Soup"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -543,7 +543,7 @@
   {
     "name_en": "Herbed Yogurt Dip",
     "name_fr": null,
-    "tags": ["Snack"],
+    "tags": ["Egg-free", "Nut-free", "Vegetarian", "Halal"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -635,7 +635,7 @@
   {
     "name_en": "Chicken Noodle Soup",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free", "Soup"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -755,7 +755,7 @@
   {
     "name_en": "Sloppy Joes",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free", "Meal Accompanied"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -869,7 +869,7 @@
   {
     "name_en": "Tourtiere",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free", "Meal Accompanied"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -968,7 +968,7 @@
   {
     "name_en": "Chicken Baked in Mushroom Sauce",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free", "Meal Accompanied"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1060,7 +1060,7 @@
   {
     "name_en": "Baked Fish Fillets",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Halal", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1146,7 +1146,7 @@
   {
     "name_en": "Risotto",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1255,7 +1255,7 @@
   {
     "name_en": "Breakfast Burrito",
     "name_fr": null,
-    "tags": ["Breakfast", "Burrito"],
+    "tags": ["Breakfast", "Meal Accompanied", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1362,7 +1362,7 @@
   {
     "name_en": "Sweet and Sour Sauce",
     "name_fr": null,
-    "tags": ["Sweet and Sour Sauce"],
+    "tags": ["Vegetarian", "Vegan", "Halal", "Nut-free", "Egg-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1440,7 +1440,7 @@
   {
     "name_en": "Ratatouille",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegan", "Vegetarian", "Halal", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1568,7 +1568,7 @@
   {
     "name_en": "Classic Meatloaf",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Meal Accompanied", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1688,7 +1688,7 @@
   {
     "name_en": "Green Lentils with Garlic and Onions",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegan", "Vegetarian", "Halal", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1766,7 +1766,7 @@
   {
     "name_en": "Oven Baked French Onion Pork Chops",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Meal Accompanied", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1844,7 +1844,7 @@
   {
     "name_en": "Fruit Salsa",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Vegan", "Vegetarian", "Halal", "Nut-free", "Gluten-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1930,7 +1930,7 @@
   {
     "name_en": "Fresh Pasta",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -1988,7 +1988,7 @@
   {
     "name_en": "Potato and Onion Soup",
     "name_fr": null,
-    "tags": ["Main Meals", "Soup"],
+    "tags": ["Main Meals", "Soup", "Vegetarian", "Halal", "Nut-free", "Egg-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2123,7 +2123,7 @@
   {
     "name_en": "Balsamic Vinaigrette Dressing",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Vegan", "Halal", "Nut-free", "Egg-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2194,7 +2194,7 @@
   {
     "name_en": "Vegetable Meatballs",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free", "Egg-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2295,7 +2295,7 @@
   {
     "name_en": "Onion Fritters",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2373,7 +2373,7 @@
   {
     "name_en": "Gnocchi (Potato Pasta)",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2416,7 +2416,7 @@
   {
     "name_en": "Couscous with Green Peas and Mint",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2524,7 +2524,7 @@
   {
     "name_en": "Cheddar Corn Muffins",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Dessert", "Vegetarian", "Halal", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2616,7 +2616,7 @@
   {
     "name_en": "Vegan Mushroom Cassoulet",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Main Meals", "Vegan", "Vegetarian", "Halal", "Nut-free", "Egg-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2757,7 +2757,7 @@
   {
     "name_en": "O'Brien Potatoes",
     "name_fr": null,
-    "tags": ["Breakfast"],
+    "tags": ["Breakfast", "Vegetarian", "Halal", "Nut-free", "Egg-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2828,7 +2828,7 @@
   {
     "name_en": "Fresh Green Pea Soup with Mint",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Soup", "Vegetarian", "Halal", "Nut-free", "Egg-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2934,7 +2934,7 @@
   {
     "name_en": "Colcannon",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free", "Egg-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -2998,7 +2998,7 @@
   {
     "name_en": "Red Beans and Rice",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free", "Egg-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3097,7 +3097,7 @@
   {
     "name_en": "Smoky White Bean Shakshuka",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3226,7 +3226,7 @@
   {
     "name_en": "Banana Fritters",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Dessert", "Vegetarian", "Nut-free", "Halal"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3311,7 +3311,7 @@
   {
     "name_en": "Honey Roasted Root Vegetables",
     "name_fr": null,
-    "tags": ["Main Meals", "Vegetable"],
+    "tags": ["Main Meals", "Vegetarian", "Vegan", "Nut-free", "Halal", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3410,7 +3410,7 @@
   {
     "name_en": "Trail Mix Bars",
     "name_fr": null,
-    "tags": ["Trail Mix Bars"],
+    "tags": ["Dessert", "Vegetarian", "Halal"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3504,7 +3504,7 @@
   {
     "name_en": "Savoury Vegan Succotash",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Vegan", "Nut-free", "Halal", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3617,7 +3617,7 @@
   {
     "name_en": "Spanish Rice",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3626,7 +3626,7 @@
     "method": "<ol>\n<li>In a heavy saucepan or Dutch oven, heat the oil. Add the rice and stir to coat with the oil. Cook until the rice is translucent.</li>\n<li>Add the remaining ingredients and mix well.</li>\n<li>Bring to the boil. Lower heat to low. Cover the pot and cook for about 20 minutes. Remove from the heat and let rest covered for an additional 5 -- 8 minutes.</li>\n<li>Remove the lid and fluff the rice with a fork. Taste for seasoning and add a little salt and pepper if required.</li>\n</ol>\n",
     "total_cost": null,
     "serving_cost": null,
-    "tips": "An excellent accompaniment to Tex-Mex wraps or tacos. Add some buttered sweet corn kernels for a complete meal. For Tex - Mex wraps, place some of the rice in the centre of a 12\" tortilla wrap. Add some grilled chicken and green or red pepper pieces (leftover chicken works well) and some sweet corn. Roll the tortilla, folding in the edges and heat for a few minutes in the oven or in a lightly greased frying pan.",
+    "tips": "An excellent Accompanied to Tex-Mex wraps or tacos. Add some buttered sweet corn kernels for a complete meal. For Tex - Mex wraps, place some of the rice in the centre of a 12\" tortilla wrap. Add some grilled chicken and green or red pepper pieces (leftover chicken works well) and some sweet corn. Roll the tortilla, folding in the edges and heat for a few minutes in the oven or in a lightly greased frying pan.",
     "servings_size": null,
     "servings_size_unit": null,
     "nutrition_rating": 10,
@@ -3695,7 +3695,7 @@
   {
     "name_en": "Stuffed Peppers",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Halal", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3794,7 +3794,7 @@
   {
     "name_en": "Chicken Salad Sandwich",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Halal", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3858,7 +3858,7 @@
   {
     "name_en": "Roasted Potatoes",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Meal Accompanied", "Vegetarian", "Vegan", "Nut-free", "Halal", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3915,7 +3915,7 @@
   {
     "name_en": "Pickled Red Onions",
     "name_fr": null,
-    "tags": ["Pickled Red Onions"],
+    "tags": ["Meal Accompanied", "Vegetarian", "Vegan", "Nut-free", "Halal", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -3986,7 +3986,7 @@
   {
     "name_en": "Strawberry Salsa",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Meal Accompanied", "Vegetarian", "Vegan", "Nut-free", "Halal", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4050,7 +4050,7 @@
   {
     "name_en": "Simple Spring Mix Salad Vinaigrette",
     "name_fr": null,
-    "tags": ["Main Meals", "Salad"],
+    "tags": ["Salad", "Vegetarian", "Vegan", "Nut-free", "Halal", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4121,7 +4121,7 @@
   {
     "name_en": "Jambalaya",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Main Meals", "Halal", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4241,7 +4241,7 @@
   {
     "name_en": "Cucumber Dill Salad",
     "name_fr": null,
-    "tags": ["Meal Accompaniment"],
+    "tags": ["Main Meals", "Salad", "Egg-free", "Vegan", "Nut-free", "Halal", "Gluten-free", "Vegetarian"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4319,7 +4319,7 @@
   {
     "name_en": "Gnocchi (Potato pasta)",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4369,7 +4369,7 @@
   {
     "name_en": "Quick and Easy Fish Stew",
     "name_fr": null,
-    "tags": ["Main Meals", "Fish Stew"],
+    "tags": ["Main Meals", "Halal", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4511,7 +4511,7 @@
   {
     "name_en": "Egg Salad sandwich",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Nut-free", "Halal"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4568,7 +4568,7 @@
   {
     "name_en": "Chili",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4653,7 +4653,7 @@
   {
     "name_en": "Marinara Sauce",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegan", "Halal", "Vegetarian", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4745,7 +4745,7 @@
   {
     "name_en": "White Bean and Roasted Mushroom Soup",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Soup", "Vegan", "Halal", "Vegetarian", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4853,7 +4853,7 @@
   {
     "name_en": "Stir Fried Cabbage",
     "name_fr": null,
-    "tags": ["Stir Fried", "Chinese"],
+    "tags": ["Main Meals", "Vegan", "Halal", "Vegetarian", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4862,7 +4862,7 @@
     "method": "<ol>\n<li>Cut the core from the cabbage and shred the leaves finely.</li>\n<li>Heat the oil in a wok or frying pan until hot and stir fry the cabbage for 2 -- 3 minutes. Add the soy sauce, lemon juice, if using, caraway seeds and pepper. Stir and toss together for 1 -- 2 minutes. Serve immediately.</li>\n</ol>\n",
     "total_cost": null,
     "serving_cost": null,
-    "tips": "An excellent accompaniment to roasted meats or a Chinese style main dish.",
+    "tips": "An excellent Accompanied to roasted meats or a Chinese style main dish.",
     "servings_size": null,
     "servings_size_unit": null,
     "nutrition_rating": 10,
@@ -4917,7 +4917,7 @@
   {
     "name_en": "Easy 6 Ingredient Chili",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -4995,7 +4995,7 @@
   {
     "name_en": "Cauliflower Breadsticks",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5093,9 +5093,9 @@
     ]
   },
   {
-    "name_en": "Gluten Free Lemon Bread",
+    "name_en": "Gluten-free Lemon Bread",
     "name_fr": null,
-    "tags": ["Easy", "Gluten Free", "Lemon", "Bread"],
+    "tags": ["Dessert", "Gluten-free", "Egg-free", "Nut-free", "Halal", "Vegetarian"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5187,7 +5187,7 @@
   {
     "name_en": "Banana bread",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Dessert", "Vegetarian", "Nut-free", "Halal", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5266,7 +5266,7 @@
   {
     "name_en": "Green Bean Casserole",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5316,7 +5316,7 @@
   {
     "name_en": "Thai Style Sweet Potato Soup",
     "name_fr": null,
-    "tags": ["Main Meals", "Soup"],
+    "tags": ["Main Meals", "Soup", "Vegan", "Halal", "Vegetarian", "Nut-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5423,7 +5423,7 @@
   {
     "name_en": "Skillet Cornbread",
     "name_fr": null,
-    "tags": ["Skillet Cornbread"],
+    "tags": ["Main Meals", "Meal Accompanied"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5432,7 +5432,7 @@
     "method": "<ol>\n<li>In a frying pan, fry bacon pieces until crisp. Remove the bacon from the pan and set aside. Drain the fat reserving 1 Tbsp / 15ml. <em>(this dish is best prepared and cooked in a 10&quot; cast iron skillet but can be made in an ovenproof frying pan or baking dish)</em> 2. In a bowl, stir together the cornmeal, sifted flour, baking powder and soda and salt. Mix together. Add the buttermilk or milk, the eggs and mix lightly. Add the corn, reserved bacon pieces and the melted butter or margarine. 3. Pour batter into the warm skillet, frying pan or baking dish and bake at 400f for about 20 minutes until the edges and top are lightly browned.  Serve warm</li>\n</ol>\n",
     "total_cost": null,
     "serving_cost": null,
-    "tips": "For a little added \"zip\" add a seeded chopped jalapeno pepper to the mix and bake as above. This cornbread is a great accompaniment to summer barbequed ribs, chicken or steak. Cook in a closed barbeque over medium to high heat.",
+    "tips": "For a little added \"zip\" add a seeded chopped jalapeno pepper to the mix and bake as above. This cornbread is a great Accompanied to summer barbequed ribs, chicken or steak. Cook in a closed barbeque over medium to high heat.",
     "servings_size": null,
     "servings_size_unit": null,
     "nutrition_rating": 10,
@@ -5522,7 +5522,7 @@
   {
     "name_en": "Mixed Bean Salad",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Salad", "Vegetarian", "Vegan", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5628,7 +5628,7 @@
   {
     "name_en": "Chicken Parmesan",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Meal Accompanied"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5783,7 +5783,7 @@
   {
     "name_en": "Roasted Vegetable Frittata",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Gluten-free", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5890,7 +5890,7 @@
   {
     "name_en": "Baked Beans",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -5989,7 +5989,7 @@
   {
     "name_en": "Glazed Carrots",
     "name_fr": null,
-    "tags": ["Side Dish", "Vegetables"],
+    "tags": ["Meal Accompanied", "Vegetarian", "Vegan", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -6047,7 +6047,7 @@
   {
     "name_en": "White Turkey Chili",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Gluten-free", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -6160,7 +6160,7 @@
   {
     "name_en": "Coffee Cake Muffins",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Dessert", "Vegetarian", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -6259,7 +6259,7 @@
   {
     "name_en": "Macaroni and Cheese",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -6473,7 +6473,7 @@
   {
     "name_en": "Croutons",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Meal Accompanied", "Vegetarian", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -6517,7 +6517,7 @@
   {
     "name_en": "Calypso Pork Loin",
     "name_fr": null,
-    "tags": null,
+    "tags": ["Main Meals"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -6766,7 +6766,7 @@
   {
     "name_en": "Pork and Cabbage Soup",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Soup"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -6865,7 +6865,7 @@
   {
     "name_en": "No-Churn Vanilla Ice Cream",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Dessert", "Egg-free", "Vegetarian", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -6915,7 +6915,7 @@
   {
     "name_en": "Garlic Mashed Potatoes",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Meal Accompanied"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -7158,7 +7158,7 @@
   {
     "name_en": "Peanut Butter Cookies",
     "name_fr": null,
-    "tags": ["Sweet", "Cookie"],
+    "tags": ["Dessert"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -7243,7 +7243,7 @@
   {
     "name_en": "Channa -- spicy chickpeas",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegan", "Vegetarian", "Nut-free", "Halal", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -7252,7 +7252,7 @@
     "method": "<ol>\n<li><p>Heat the oil or ghee in a saucepan or skillet and fry the onions\nover medium heat until lightly golden brown</p>\n</li>\n<li><p>Add the remainder of the ingredients, except the fresh coriander,\nsliced onions and diced tomato and stir over medium heat until all\nthe flavours have blended and the liquid has taken on a rich brown\ncolour. Add some water if necessary.</p>\n</li>\n<li><p>Place mixture in a serving dish and sprinkle with the coriander,\ndiced tomato and onion rings. Serve warm or cold.</p>\n</li>\n</ol>\n",
     "total_cost": null,
     "serving_cost": null,
-    "tips": "A wonderful, easy to prepare dish, that can be eaten as a snack, a side dish with a meal or as an accompaniment to rice. In many parts of the world it is served by street vendors in paper cones.",
+    "tips": "A wonderful, easy to prepare dish, that can be eaten as a snack, a side dish with a meal or as an Accompanied to rice. In many parts of the world it is served by street vendors in paper cones.",
     "servings_size": null,
     "servings_size_unit": null,
     "nutrition_rating": 10,
@@ -7363,7 +7363,7 @@
   {
     "name_en": "Bread and Butter Pudding",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Dessert", "Vegetarian"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -7587,7 +7587,7 @@
   {
     "name_en": "Mediterranean Bean Salad",
     "name_fr": null,
-    "tags": ["Salad"],
+    "tags": ["Salad", "Vegetarian", "Vegan", "Nut-free", "Halal", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -7737,7 +7737,7 @@
   {
     "name_en": "15 Bean Soup",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegan", "Vegetarian", "Nut-free", "Halal", "Soup", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -7871,7 +7871,7 @@
   {
     "name_en": "Lemon Sauce",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Gluten-free", "Egg-free", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -7949,7 +7949,7 @@
   {
     "name_en": "Cheesy Breakfast or Brunch Egg Burritos",
     "name_fr": null,
-    "tags": ["Breakfast", "Brunch"],
+    "tags": ["Main Meals", "Breakfast", "Vegetarian", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8074,7 +8074,7 @@
   {
     "name_en": "Roasted Herbed Pork Loin",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Halal", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8110,7 +8110,7 @@
   {
     "name_en": "Tijuana Black Bean Soup",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Soup", "Main Meals", "Vegetarian", "Vegan", "Nut-free", "Halal", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8223,7 +8223,7 @@
   {
     "name_en": "Hamburger Soup",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Soup", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8343,7 +8343,7 @@
   {
     "name_en": "Beefaroni (Macaroni, Beef and Tomato Casserole)",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8457,7 +8457,7 @@
   {
     "name_en": "Baked Potatoes",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Vegan", "Nut-free", "Egg-free", "Gluten-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8493,7 +8493,7 @@
   {
     "name_en": "Sweet and Spicy Glazed Chicken Thighs",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8571,7 +8571,7 @@
   {
     "name_en": "Middle Eastern Meatballs -- Kofta Kebabs",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Main Meals", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8693,7 +8693,7 @@
   {
     "name_en": "Salsa",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Meal Accompanied", "Vegan", "Vegetarian", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8722,7 +8722,7 @@
   {
     "name_en": "Battered Fish",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8822,7 +8822,7 @@
   {
     "name_en": "Sweet Potato Salad",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Salad", "Vegan", "Vegetarian", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -8935,7 +8935,7 @@
   {
     "name_en": "Breakfast Sandwich",
     "name_fr": null,
-    "tags": ["Breakfast"],
+    "tags": ["Breakfast", "Main Meals", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9006,7 +9006,7 @@
   {
     "name_en": "Apple Fritters",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Dessert", "Vegetarian", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9098,7 +9098,7 @@
   {
     "name_en": "Fish Cakes",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9204,7 +9204,7 @@
   {
     "name_en": "Pea Soup",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Soup", "Halal", "Vegetarian", "Gluten-free", "Egg-free", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9312,7 +9312,7 @@
   {
     "name_en": "Cheese and Garlic Penne",
     "name_fr": null,
-    "tags": ["Main Meals", "Pasta"],
+    "tags": ["Main Meals", "Egg-free", "Vegetarian"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9411,7 +9411,7 @@
   {
     "name_en": "Coleslaw",
     "name_fr": null,
-    "tags": ["Coleslaw"],
+    "tags": ["Salad", "Vegetarian", "Vegan", "Gluten-free", "Egg-free", "Nut-free", "Halal"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9510,7 +9510,7 @@
   {
     "name_en": "Beef Stew",
     "name_fr": null,
-    "tags": ["Beef Stew"],
+    "tags": ["Main Meals", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9652,7 +9652,7 @@
   {
     "name_en": "Brown Lentils with Garlic and Onions",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegan", "Vegetarian", "Halal", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9730,7 +9730,7 @@
   {
     "name_en": "Pasta Primavera Salad",
     "name_fr": null,
-    "tags": ["Main Meals", "Pasta"],
+    "tags": ["Main Meals", "Salad", "Vegetarian", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9837,7 +9837,7 @@
   {
     "name_en": "Polenta",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Gluten-free", "Egg-free", "Nut-free", "Halal"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -9901,7 +9901,7 @@
   {
     "name_en": "Falafels",
     "name_fr": null,
-    "tags": ["Middle Eastern"],
+    "tags": ["Main Meals", "Vegan", "Vegetarian", "Halal", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -10000,7 +10000,7 @@
   {
     "name_en": "Apple Crumble",
     "name_fr": null,
-    "tags": ["Dessert"],
+    "tags": ["Dessert", "Vegetarian", "Egg-free", "Nut-free", "Halal"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -10113,7 +10113,7 @@
   {
     "name_en": "Amish Oatmeal Pie",
     "name_fr": null,
-    "tags": [],
+    "tags": ["Dessert", "Vegetarian"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -10191,7 +10191,7 @@
   {
     "name_en": "Bulgur Wheat Salad",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Salad", "Vegan", "Vegetarian", "Halal", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -10283,7 +10283,7 @@
   {
     "name_en": "Stir Fried Vegetables",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegan", "Vegetarian", "Halal", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -10340,7 +10340,7 @@
   {
     "name_en": "Rice Pilaf",
     "name_fr": null,
-    "tags": ["Main Meals", "Rice"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Gluten-free", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -10433,7 +10433,7 @@
   {
     "name_en": "Cheddar, Apple Muffins",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -10518,7 +10518,7 @@
   {
     "name_en": "Corn Fritters",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
@@ -10603,7 +10603,7 @@
   {
     "name_en": "Tartare Sauce",
     "name_fr": null,
-    "tags": ["Main Meals"],
+    "tags": ["Main Meals", "Vegetarian", "Halal", "Nut-free", "Egg-free"],
     "description_en": null,
     "description_fr": null,
     "categories": null,
