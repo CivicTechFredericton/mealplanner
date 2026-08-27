@@ -74,6 +74,13 @@ const PersonActions = () => {
         label="Register"
       />
 
+      <Button
+        onClick={() => {
+          navigate("/people/import");
+        }}
+        label="Import CSV"
+      />
+
       <ExportButton />
     </TopToolbar>
   );

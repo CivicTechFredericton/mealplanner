@@ -21,6 +21,7 @@ import { MealShow } from "./Meals/MealShow";
 import { NutritionCreate } from "./Nutrition/NutritionCreate";
 import { NutritionEdit } from "./Nutrition/NutritionEdit";
 import { NutritionList } from "./Nutrition/NutritionList";
+import { ImportUsers } from "./People/ImportUsers";
 import { PersonEdit } from "./People/PersonEdit";
 import { PersonList } from "./People/PersonList";
 import { Register } from "./People/Register";
@@ -113,6 +114,7 @@ function App() {
 
                 <CustomRoutes>
                   <Route path="people/register" element={<Register />} />
+                  <Route path="people/import" element={<ImportUsers />} />
                   <Route
                     path="people/:rowId/reset"
                     element={<ResetPassword />}
