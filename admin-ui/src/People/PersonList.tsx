@@ -12,6 +12,7 @@ import {
   useRecordContext,
 } from "react-admin";
 import { useNavigate } from "react-router-dom";
+import { SendInvitations } from "./SendInvitations";
 
 type Person = {
   role: string;
@@ -80,6 +81,8 @@ const PersonActions = () => {
         }}
         label="Import CSV"
       />
+
+      <SendInvitations />
 
       <ExportButton />
     </TopToolbar>

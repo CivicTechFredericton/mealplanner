@@ -71,6 +71,37 @@ export const importPerson = async (
   return result.data.importPerson.person;
 };
 
+const provisionCognitoAccountsMutation = gql`
+  mutation ProvisionCognitoAccounts {
+    provisionCognitoAccounts {
+      created
+      alreadyExisted
+      failures {
+        email
+        reason
+      }
+    }
+  }
+`;
+
+export type ProvisionResult = {
+  created: number;
+  alreadyExisted: number;
+  failures: { email: string; reason: string }[];
+};
+
+// Creates Cognito logins for everyone who has been imported but does not have
+// an account yet, which is what sends them their temporary password. Safe to
+// run again, anyone who already has an account is counted and skipped.
+export const provisionCognitoAccounts = async (
+  client: ApolloClient<object>
+): Promise<ProvisionResult> => {
+  const result = await client.mutate({
+    mutation: provisionCognitoAccountsMutation,
+  });
+  return result.data.provisionCognitoAccounts;
+};
+
 const resetPasswordMutation = gql`
 mutation ResetPassword($personId:BigInt, $passwd:String){
   resetPassword(input:{
