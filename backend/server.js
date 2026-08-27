@@ -9,6 +9,7 @@ const OperationMessagesPlugin = require("@graphile/operation-hooks/lib/Operation
 const LoginPlugin = require("./hooks/login_plugin");
 const session = require("cookie-session");
 const { LogoutPlugin } = require("./extensions/logout");
+const { ProvisionCognitoPlugin } = require("./extensions/provision_cognito");
 const { cognitoAuthMiddleware } = require("./auth/cognitoAuth");
 const { resolveCognitoPerson } = require("./auth/resolveCognitoPerson");
 
@@ -45,6 +46,7 @@ const postgraphileOptions = {
     OperationMessagesPlugin,
     LoginPlugin,
     LogoutPlugin,
+    ProvisionCognitoPlugin,
     PgSimplifyInflector,
     ConnectionFilterPlugin,
     GravatarPlugin,
