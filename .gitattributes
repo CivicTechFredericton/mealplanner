@@ -1,0 +1,6 @@
+# Shell scripts are executed inside the Linux containers, so they must keep
+# LF line endings no matter which platform they were checked out on. Without
+# this, a Windows checkout with core.autocrlf=true rewrites them to CRLF and
+# the container entrypoints fail with errors like "$'\r': command not found"
+# and "Cannot find module '/app/server.js'".
+*.sh text eol=lf

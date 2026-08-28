@@ -12,10 +12,12 @@ import {
   useRecordContext,
 } from "react-admin";
 import { useNavigate } from "react-router-dom";
+import { SendInvitations } from "./SendInvitations";
 
 type Person = {
   role: string;
   rowId: string;
+  cognitoSub: string | null;
 };
 
 const UserRole = (props: FieldProps) => {
@@ -31,11 +33,19 @@ const UserRole = (props: FieldProps) => {
     return <span>loading person</span>;
   }
   const userRole = roles[record.role] || "Anonymous";
-  console.log(record.role);
-  {
-    console.log("userRole", userRole);
-  }
   return <span>{userRole}</span>;
+};
+
+// A person imported from a CSV has a record but no Cognito login attached
+// until they sign in for the first time. This tells the two apart, so an
+// admin can see who has actually arrived after an upload.
+const SignedIn = (props: FieldProps) => {
+  const record = useRecordContext<Person>();
+
+  if (!record) {
+    return <span>loading person</span>;
+  }
+  return <span>{record.cognitoSub ? "Yes" : "No"}</span>;
 };
 
 const ResetPassword = (props: FieldProps) => {
@@ -65,6 +75,15 @@ const PersonActions = () => {
         label="Register"
       />
 
+      <Button
+        onClick={() => {
+          navigate("/people/import");
+        }}
+        label="Import CSV"
+      />
+
+      <SendInvitations />
+
       <ExportButton />
     </TopToolbar>
   );
@@ -78,6 +97,8 @@ export const PersonList = (props: ListProps) => {
           <TextField source="fullName" />
           <UserRole label="Role" />
           <TextField source="email" />
+          <TextField source="clientId" label="CLIENT_ID" />
+          <SignedIn label="Signed in" />
           <EditButton />
           <ResetPassword />
         </Datagrid>

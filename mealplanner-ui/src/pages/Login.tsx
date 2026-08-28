@@ -90,9 +90,22 @@ const LoginInner = ({ queryRef }: { queryRef: any }) => {
           Login with Cognito
         </Button>
 
-        <Button variant="outlined" onClick={() => startCognitoLogin(true)}>
-          Sign up with Cognito
-        </Button>
+        {/*
+          Sign up is disabled. Accounts are created by an admin uploading a
+          CSV of approved emails, and Cognito sends each person a temporary
+          password, so there is nothing for a stranger to sign up to.
+
+          Left in place rather than deleted, so it can be turned back on if
+          Greener Village ever wants open sign up again. Two things have to
+          change together: uncomment this button, and re-enable
+          self-registration on the Cognito user pool by setting
+          AllowAdminCreateUserOnly back to false. Uncommenting this alone
+          sends people to a Cognito page that rejects them.
+
+          <Button variant="outlined" onClick={() => startCognitoLogin(true)}>
+            Sign up with Cognito
+          </Button>
+        */}
 
         <Typography variant="body2" color="text.secondary">
           Or use legacy login
