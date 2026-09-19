@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  BulkDeleteButton,
   Button,
   Datagrid,
   EditButton,
@@ -12,12 +13,16 @@ import {
   useRecordContext,
 } from "react-admin";
 import { useNavigate } from "react-router-dom";
-import { SendInvitations } from "./SendInvitations";
+import {
+  SendInvitations,
+  SendInvitationsBulkAction,
+} from "./SendInvitations";
 
 type Person = {
   role: string;
   rowId: string;
   cognitoSub: string | null;
+  invitedAt: string | null;
 };
 
 const UserRole = (props: FieldProps) => {
@@ -36,16 +41,24 @@ const UserRole = (props: FieldProps) => {
   return <span>{userRole}</span>;
 };
 
-// A person imported from a CSV has a record but no Cognito login attached
-// until they sign in for the first time. This tells the two apart, so an
-// admin can see who has actually arrived after an upload.
-const SignedIn = (props: FieldProps) => {
+// Where someone is in onboarding. A person imported from a CSV has a record
+// but no Cognito login attached until they sign in for the first time, and
+// invitedAt records whether they have been emailed a temporary password yet.
+const Status = (props: FieldProps) => {
   const record = useRecordContext<Person>();
 
   if (!record) {
     return <span>loading person</span>;
   }
-  return <span>{record.cognitoSub ? "Yes" : "No"}</span>;
+  if (record.cognitoSub) {
+    return <span>Signed in</span>;
+  }
+  if (record.invitedAt) {
+    return (
+      <span>Invited {new Date(record.invitedAt).toLocaleDateString()}</span>
+    );
+  }
+  return <span>Not invited</span>;
 };
 
 const ResetPassword = (props: FieldProps) => {
@@ -82,7 +95,7 @@ const PersonActions = () => {
         label="Import CSV"
       />
 
-      <SendInvitations />
+      <SendInvitations label="Invite everyone" />
 
       <ExportButton />
     </TopToolbar>
@@ -92,13 +105,20 @@ export const PersonList = (props: ListProps) => {
   return (
     <React.Fragment>
       <List {...props} title="List People" actions={<PersonActions />}>
-        <Datagrid>
+        <Datagrid
+          bulkActionButtons={
+            <>
+              <SendInvitationsBulkAction />
+              <BulkDeleteButton />
+            </>
+          }
+        >
           <TextField source="id" />
           <TextField source="fullName" />
           <UserRole label="Role" />
           <TextField source="email" />
           <TextField source="clientId" label="CLIENT_ID" />
-          <SignedIn label="Signed in" />
+          <Status label="Status" />
           <EditButton />
           <ResetPassword />
         </Datagrid>

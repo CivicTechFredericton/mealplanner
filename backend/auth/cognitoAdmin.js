@@ -81,4 +81,28 @@ async function createCognitoUser({ email, fullName, suppressEmail }) {
   }
 }
 
-module.exports = { parseIssuer, getCognitoAdmin, createCognitoUser };
+// Sends a fresh temporary password to someone who already has an account but
+// has not set their own password yet. Forgot password does not work in that
+// state, so this is the only way back in for someone who lost the first email.
+async function resendInvitation({ email }) {
+  const admin = getCognitoAdmin();
+  if (!admin) {
+    throw new Error("Cognito admin is not configured");
+  }
+
+  await admin.client.send(
+    new AdminCreateUserCommand({
+      UserPoolId: admin.userPoolId,
+      Username: email,
+      MessageAction: "RESEND",
+      DesiredDeliveryMediums: ["EMAIL"],
+    })
+  );
+}
+
+module.exports = {
+  parseIssuer,
+  getCognitoAdmin,
+  createCognitoUser,
+  resendInvitation,
+};

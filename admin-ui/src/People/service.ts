@@ -72,9 +72,10 @@ export const importPerson = async (
 };
 
 const provisionCognitoAccountsMutation = gql`
-  mutation ProvisionCognitoAccounts {
-    provisionCognitoAccounts {
+  mutation ProvisionCognitoAccounts($personIds: [BigInt!]) {
+    provisionCognitoAccounts(personIds: $personIds) {
       created
+      resent
       alreadyExisted
       failures {
         email
@@ -86,18 +87,22 @@ const provisionCognitoAccountsMutation = gql`
 
 export type ProvisionResult = {
   created: number;
+  resent: number;
   alreadyExisted: number;
   failures: { email: string; reason: string }[];
 };
 
-// Creates Cognito logins for everyone who has been imported but does not have
-// an account yet, which is what sends them their temporary password. Safe to
-// run again, anyone who already has an account is counted and skipped.
+// Sends Cognito invitations, which is what emails people their temporary
+// password. Without personIds, invites everyone never invited before. With
+// personIds, invites those people and resends to any already invited who have
+// not signed in yet.
 export const provisionCognitoAccounts = async (
-  client: ApolloClient<object>
+  client: ApolloClient<object>,
+  personIds?: (string | number)[]
 ): Promise<ProvisionResult> => {
   const result = await client.mutate({
     mutation: provisionCognitoAccountsMutation,
+    variables: { personIds: personIds ? personIds.map(String) : null },
   });
   return result.data.provisionCognitoAccounts;
 };

@@ -8,12 +8,25 @@ import {
   Button as MuiButton,
 } from "@mui/material";
 import { useState } from "react";
-import { Button, useNotify, useRefresh } from "react-admin";
+import {
+  Button,
+  useListContext,
+  useNotify,
+  useRefresh,
+  useUnselectAll,
+} from "react-admin";
 import { provisionCognitoAccounts } from "./service";
+
+type Props = {
+  // Omitted means everyone still waiting for an account.
+  personIds?: (string | number)[];
+  label: string;
+  onDone?: () => void;
+};
 
 // Creating the Cognito accounts is what emails people their temporary
 // password, and an email cannot be unsent, so this always asks first.
-export const SendInvitations = () => {
+export const SendInvitations = ({ personIds, label, onDone }: Props) => {
   const client = useApolloClient();
   const notify = useNotify();
   const refresh = useRefresh();
@@ -23,8 +36,11 @@ export const SendInvitations = () => {
   const run = async () => {
     setRunning(true);
     try {
-      const result = await provisionCognitoAccounts(client);
+      const result = await provisionCognitoAccounts(client, personIds);
       const parts = [`Invited ${result.created}`];
+      if (result.resent > 0) {
+        parts.push(`resent to ${result.resent}`);
+      }
       if (result.alreadyExisted > 0) {
         parts.push(`${result.alreadyExisted} already had an account`);
       }
@@ -43,6 +59,9 @@ export const SendInvitations = () => {
       }
       refresh();
       setOpen(false);
+      if (onDone) {
+        onDone();
+      }
     } catch (e) {
       notify(e instanceof Error ? e.message : "Could not send invitations", {
         type: "error",
@@ -52,17 +71,21 @@ export const SendInvitations = () => {
     }
   };
 
+  const explanation = personIds
+    ? `This emails a temporary password to the ${personIds.length} selected ${
+        personIds.length === 1 ? "person" : "people"
+      }. Anyone already invited who has not signed in gets a fresh one, which is how to help someone whose first email went to spam. Anyone who has signed in is skipped.`
+    : "This emails a temporary password to everyone who has never been invited. Nobody who was already invited is emailed again, and anyone who has signed in is skipped.";
+
   return (
     <>
-      <Button onClick={() => setOpen(true)} label="Send invitations" />
+      <Button onClick={() => setOpen(true)} label={label} />
 
       <Dialog open={open} onClose={() => !running && setOpen(false)}>
-        <DialogTitle>Send invitations?</DialogTitle>
+        <DialogTitle>{label}?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            This creates a login for everyone who has been imported but has
-            not signed in yet, and emails each of them a temporary password.
-            Anyone who already has a login is skipped.
+            {explanation}
             <br />
             <br />
             Emails cannot be unsent, so check the list first.
@@ -78,5 +101,19 @@ export const SendInvitations = () => {
         </DialogActions>
       </Dialog>
     </>
+  );
+};
+
+// Shown in the bar that appears once rows are ticked, beside Delete.
+export const SendInvitationsBulkAction = () => {
+  const { selectedIds } = useListContext();
+  const unselectAll = useUnselectAll("people");
+
+  return (
+    <SendInvitations
+      personIds={selectedIds}
+      label="Send invitations"
+      onDone={unselectAll}
+    />
   );
 };
