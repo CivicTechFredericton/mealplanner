@@ -148,29 +148,50 @@ class RAAuthProvider {
     throw "invalid user";
   }
 
+  // React Admin shows whatever is in the rejection's `message`, falling back
+  // to "Please login to continue". That fallback is wrong for everything
+  // except genuinely not being signed in, because it tells someone to do the
+  // thing they just did. So every branch below says what actually happened.
   async checkAuth() {
-    try {
-      const token = getIdToken();
-      const identity = await this.getIdentity();
+    const token = getIdToken();
 
-      if (!identity) return Promise.reject();
-
-      if (identity.role === "app_admin" || identity.role === "app_meal_designer") {
-        return Promise.resolve();
-      }
-
-      if (token) {
-        sessionStorage.removeItem("cognito_id_token");
-        sessionStorage.removeItem("cognito_refresh_token");
-        return Promise.reject({
-          message:
-            "Unauthorized: insufficient privileges. Please contact an admin to grant you access.",
-        });
-      }
-      return Promise.reject("User does not have permissions");
-    } catch (_) {
-      return Promise.reject();
+    // Not signed in. The login page speaks for itself, so no toast.
+    if (!token) {
+      return Promise.reject({ message: false });
     }
+
+    let identity;
+    try {
+      identity = await this.getIdentity();
+    } catch (_) {
+      // Signed in with Cognito, but the backend would not resolve them to a
+      // person. Since sign-in is restricted to the approved list, this
+      // usually means their email was never imported.
+      this._clearTokens();
+      return Promise.reject({
+        message:
+          "That account is not set up for the meal planner. Ask an admin to add your email, then sign in again.",
+      });
+    }
+
+    if (
+      identity.role === "app_admin" ||
+      identity.role === "app_meal_designer"
+    ) {
+      return Promise.resolve();
+    }
+
+    // A real user, just not one with access to this dashboard.
+    this._clearTokens();
+    return Promise.reject({
+      message:
+        "Your account does not have access to the admin dashboard. Ask an admin to give you the admin or meal designer role.",
+    });
+  }
+
+  _clearTokens() {
+    sessionStorage.removeItem("cognito_id_token");
+    sessionStorage.removeItem("cognito_refresh_token");
   }
 
   checkError(e: any) {
