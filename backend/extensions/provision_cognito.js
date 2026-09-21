@@ -1,9 +1,36 @@
+const { Pool } = require("pg");
 const { makeExtendSchemaPlugin, gql } = require("graphile-utils");
 const {
   getCognitoAdmin,
   createCognitoUser,
   resendInvitation,
 } = require("../auth/cognitoAdmin");
+
+// Invitations are recorded on a connection of our own rather than on
+// context.pgClient.
+//
+// PostGraphile runs the whole mutation inside one transaction, because
+// pgSettings makes it use SET LOCAL. Sending an email is not something that
+// transaction can undo. Recording invited_at on context.pgClient would mean
+// that a timed out or disconnected request rolls the record back while the
+// emails are already gone, and the next "Invite everyone" would email all of
+// those people a second time. That is the one thing the invited_at column
+// exists to prevent, and Cognito's built in sender only allows 50 emails a
+// day.
+//
+// It also keeps one bad row from taking the rest of the batch with it. A
+// failed statement leaves its transaction aborted, so on context.pgClient
+// every person after the failure would still be emailed and then fail to be
+// recorded. Each query here is its own implicit transaction, so a failure
+// stops at the row that caused it.
+//
+// The same owner connection that auth/resolveCognitoPerson.js uses. The
+// caller has already been checked to be app_admin, and app_admin has full
+// access to app.person under the all_person_admin policy, so this grants
+// nothing the request did not already have.
+const pool = new Pool({
+  connectionString: process.env.OWNER_DATABASE_URL || process.env.DATABASE_URL,
+});
 
 // Exported on its own as well as through the plugin, so it can be exercised
 // against a real database session without a Cognito login.
@@ -46,6 +73,8 @@ async function provisionCognitoAccounts(_query, args, context) {
   const failures = [];
 
   for (const row of rows) {
+    let emailed = false;
+
     try {
       const outcome = await createCognitoUser({
         email: row.email,
@@ -55,6 +84,7 @@ async function provisionCognitoAccounts(_query, args, context) {
 
       if (outcome === "created") {
         created += 1;
+        emailed = !args.suppressEmail;
       } else if (!args.suppressEmail) {
         // The account exists but our records have no invitation, or this
         // person was selected for a resend. Either way send one. An account
@@ -63,25 +93,39 @@ async function provisionCognitoAccounts(_query, args, context) {
         // them. A duplicate email is the lesser problem.
         await resendInvitation({ email: row.email });
         resent += 1;
+        emailed = true;
       } else {
         alreadyExisted += 1;
       }
-
-      await context.pgClient.query(
-        "update app.person set invited_at = now() where id = $1",
-        [row.id]
-      );
     } catch (err) {
       failures.push({
         email: row.email,
         reason: err.name || err.message || "unknown error",
+      });
+      continue;
+    }
+
+    try {
+      await pool.query("update app.person set invited_at = now() where id = $1", [
+        row.id,
+      ]);
+    } catch (err) {
+      // The email went out but we could not record it. Say so plainly, since
+      // it reads as a failure while the person has in fact been invited, and
+      // the next run would email them again.
+      failures.push({
+        email: row.email,
+        reason: emailed
+          ? `invitation sent but not recorded, do not resend: ${
+              err.message || err.name
+            }`
+          : `could not record invitation: ${err.message || err.name}`,
       });
     }
   }
 
   return { created, resent, alreadyExisted, failures };
 }
-
 // Creates Cognito logins for people who were imported from a CSV, which is
 // what emails them a temporary password. Kept separate from the import itself
 // so an admin can check the list, and set roles, before anybody is emailed.
