@@ -16,8 +16,13 @@ async function resolveCognitoPerson(req, res, next) {
       [sub, email, name]
     );
 
-    if (!rows[0]) {
-      return res.status(401).json({ error: "Unable to resolve app user" });
+    // A person who is not on the approved list makes the function return
+    // null, which arrives here as a single row of nulls rather than as no
+    // rows at all, so the id has to be checked and not just the row.
+    if (!rows[0] || rows[0].id === null) {
+      return res.status(401).json({
+        error: "This account is not authorized to use the meal planner",
+      });
     }
 
     req.cognitoAuth = {
